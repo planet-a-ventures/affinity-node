@@ -17,7 +17,7 @@
         overlay = final: prev: { };
 
         devShell = pkgs.mkShell {
-          buildInputs = with pkgs; [ deno nodejs_20 esbuild nixfmt ];
+          buildInputs = with pkgs; [ deno nodejs-slim_20 esbuild nixfmt ];
         };
       });
 
