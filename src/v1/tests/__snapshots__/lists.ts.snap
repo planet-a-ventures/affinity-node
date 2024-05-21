@@ -1,6 +1,6 @@
 export const snapshot = {};
 
-snapshot[`Affinity > lists > can be called 1`] = `
+snapshot[`Affinity > lists > can get all 1`] = `
 [
   {
     id: 450,
@@ -27,4 +27,38 @@ snapshot[`Affinity > lists > can be called 1`] = `
     type: 8,
   },
 ]
+`;
+
+snapshot[`Affinity > lists > can get one 1`] = `
+{
+  fields: [
+    {
+      allows_multiple: false,
+      dropdown_options: [
+        {
+          color: 0,
+          id: 886,
+          rank: 1,
+          text: "Interested",
+        },
+      ],
+      id: 1625,
+      name: "Status",
+      value_type: 7,
+    },
+    {
+      allows_multiple: true,
+      dropdown_options: [],
+      id: 1626,
+      name: "Owners",
+      value_type: 0,
+    },
+  ],
+  id: 450,
+  list_size: 67,
+  name: "My List of People",
+  owner_id: 38706,
+  public: true,
+  type: 0,
+}
 `;

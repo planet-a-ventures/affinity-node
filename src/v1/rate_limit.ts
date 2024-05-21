@@ -2,39 +2,39 @@ import { errorTransformer } from './error_transformer.ts'
 import type Affinity from './index.ts'
 
 type RateLimitRaw = {
-    'limit': number | 'unlimited'
-    'remaining': number | 'unlimited'
-    'reset': number
-    'used': number
+    limit: number | 'unlimited'
+    remaining: number | 'unlimited'
+    reset: number
+    used: number
 }
 
 type RateLimitResponseRaw = {
-    'rate': {
-        'org_monthly': RateLimitRaw
-        'api_key_per_minute': RateLimitRaw
+    rate: {
+        org_monthly: RateLimitRaw
+        api_key_per_minute: RateLimitRaw
     }
 }
 
 export type RateLimit = {
     /** The maximum number of calls for each period. Please note, this can be Infinity. */
-    'limit': number | typeof Infinity
+    limit: number | typeof Infinity
     /** The number of calls remaining before reset. Please note, this can be Infinity. */
-    'remaining': number | typeof Infinity
+    remaining: number | typeof Infinity
     /** Time in seconds until call count resets. */
-    'reset': number
+    reset: number
     /** The number of calls that have been used. */
-    'used': number
+    used: number
 }
 
 export type RateLimitResponse = {
     /**
      * Type of rate limit.
      */
-    'rate': {
+    rate: {
         /** Monthly rate limit per organization. */
-        'org_monthly': RateLimit
+        org_monthly: RateLimit
         /** Per minute rate limit per API key. */
-        'api_key_per_minute': RateLimit
+        api_key_per_minute: RateLimit
     }
 }
 

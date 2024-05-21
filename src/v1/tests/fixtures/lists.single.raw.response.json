@@ -1,0 +1,31 @@
+{
+    "id": 450,
+    "type": 0,
+    "name": "My List of People",
+    "public": true,
+    "owner_id": 38706,
+    "list_size": 67,
+    "fields": [
+        {
+            "id": 1625,
+            "name": "Status",
+            "value_type": 7,
+            "allows_multiple": false,
+            "dropdown_options": [
+                {
+                    "id": 886,
+                    "text": "Interested",
+                    "rank": 1,
+                    "color": 0
+                }
+            ]
+        },
+        {
+            "id": 1626,
+            "name": "Owners",
+            "value_type": 0,
+            "allows_multiple": true,
+            "dropdown_options": []
+        }
+    ]
+}

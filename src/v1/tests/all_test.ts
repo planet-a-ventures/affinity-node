@@ -58,12 +58,23 @@ describe('Affinity', () => {
     })
 
     describe('lists', () => {
-        it('can be called', async (t) => {
+        it('can get all', async (t) => {
             mock?.onGet('/lists').reply(
                 200,
-                await getRawFixture('lists.raw.response.json'),
+                await getRawFixture('lists.all.raw.response.json'),
             )
-            const res = await affinity.lists()
+            const res = await affinity.lists.all()
+            await assertSnapshot(t, res, {
+                path: '__snapshots__/lists.ts.snap',
+            })
+        })
+
+        it('can get one', async (t) => {
+            mock?.onGet('/lists/123').reply(
+                200,
+                await getRawFixture('lists.single.raw.response.json'),
+            )
+            const res = await affinity.lists.get(123)
             await assertSnapshot(t, res, {
                 path: '__snapshots__/lists.ts.snap',
             })
