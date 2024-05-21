@@ -1,0 +1,15 @@
+{
+    "name": "@planet-a/affinity-node",
+    "version": "1.0.0",
+    "description": "API wrapper for the affinity.co API",
+    "main": "src/index.ts",
+    "exports": {
+        ".": "./dist/src/index.js",
+        "./v1/*": "./dist/src/v1/*"
+    },
+    "repository": "git@github.com:planet-a-ventures/affinity-node.git",
+    "author": "Planet A Ventures <dev@planet-a.com>",
+    "license": "MIT",
+    "private": true,
+    "type": "module"
+}

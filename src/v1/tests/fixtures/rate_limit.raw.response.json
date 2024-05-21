@@ -1,0 +1,16 @@
+{
+    "rate": {
+        "org_monthly": {
+            "limit": "unlimited",
+            "remaining": "unlimited",
+            "reset": 2124845,
+            "used": 7
+        },
+        "api_key_per_minute": {
+            "limit": 900,
+            "remaining": 878,
+            "reset": 10,
+            "used": 22
+        }
+    }
+}

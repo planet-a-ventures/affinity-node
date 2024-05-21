@@ -1,0 +1,48 @@
+{
+    "imports": {
+        "@std/": "https://deno.land/std@0.224.0/",
+        "axios-mock-adapter": "https://esm.sh/axios-mock-adapter@1.22.0",
+        "axios": "https://esm.sh/axios@^1.7.1"
+    },
+    "tasks": {
+        "build": "rm -rf dist ; esbuild --bundle src/index.ts --outdir=dist --sourcemap --format=esm --platform=node --packages=external ; tsc --emitDeclarationOnly --outDir dist",
+        "test": "deno test --allow-env=API_KEY --allow-net=api.affinity.co --doc --allow-read=./src/v1/tests/ src/**/*_test.ts src/**/tests/",
+        "test:coverage": "deno task test --coverage=coverage",
+        "watch": "deno task test --no-clear-screen --watch",
+        "snapshot-update": "deno task test --allow-write=./src/v1/tests/__snapshots__ -- --update",
+        "format": "deno fmt ; nixfmt *.nix",
+        "lint": "deno lint --check"
+    },
+    "lint": {
+        "include": [
+            "src/"
+        ],
+        "exclude": [
+            "src/**/fixtures/**/*.ts"
+        ],
+        "rules": {
+            "tags": [
+                "recommended"
+            ],
+            "include": [
+                "ban-untagged-todo"
+            ],
+            "exclude": [
+                "no-unused-vars"
+            ]
+        }
+    },
+    "fmt": {
+        "useTabs": false,
+        "lineWidth": 80,
+        "indentWidth": 4,
+        "semiColons": false,
+        "singleQuote": true,
+        "proseWrap": "always",
+        "exclude": [
+            "coverage/",
+            "dist/",
+            "src/**/tests/__snapshots__/**"
+        ]
+    }
+}

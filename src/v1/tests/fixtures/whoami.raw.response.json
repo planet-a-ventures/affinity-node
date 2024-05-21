@@ -1,0 +1,18 @@
+{
+    "grant": {
+        "createdAt": "2000-01-01T00:00:00.000Z",
+        "scope": "external_api",
+        "type": "api_key"
+    },
+    "tenant": {
+        "id": 12345,
+        "name": "Workspace Name",
+        "subdomain": "workspace"
+    },
+    "user": {
+        "email": "first@last.com",
+        "firstName": "First",
+        "id": 123456789,
+        "lastName": "Last"
+    }
+}
