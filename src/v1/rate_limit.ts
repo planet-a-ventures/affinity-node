@@ -1,14 +1,14 @@
 import { errorTransformer } from './error_transformer.ts'
 import type Affinity from './index.ts'
 
-export type RateLimitRaw = {
+type RateLimitRaw = {
     'limit': number | 'unlimited'
     'remaining': number | 'unlimited'
     'reset': number
     'used': number
 }
 
-export type RateLimitResponseRaw = {
+type RateLimitResponseRaw = {
     'rate': {
         'org_monthly': RateLimitRaw
         'api_key_per_minute': RateLimitRaw

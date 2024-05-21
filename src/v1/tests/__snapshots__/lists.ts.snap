@@ -1,0 +1,30 @@
+export const snapshot = {};
+
+snapshot[`Affinity > lists > can be called 1`] = `
+[
+  {
+    id: 450,
+    list_size: 67,
+    name: "My List of People",
+    owner_id: 38706,
+    public: true,
+    type: 0,
+  },
+  {
+    id: 383,
+    list_size: 50,
+    name: "My List of Organizations",
+    owner_id: 38706,
+    public: true,
+    type: 1,
+  },
+  {
+    id: 384,
+    list_size: 23,
+    name: "My List of Opportunities",
+    owner_id: 38706,
+    public: true,
+    type: 8,
+  },
+]
+`;

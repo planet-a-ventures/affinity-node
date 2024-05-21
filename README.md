@@ -25,4 +25,7 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 1. Run `nix develop`
 1. Run any deno task, e.g. `deno task test`
 
-> Hint: you can do a live run via `API_KEY=<your-api-key> deno task snapshot-update` to update snapshots from your actual Affinity instance during development. ⚠️ Make sure you do not commit any unsanitized data.
+> Hint: you can do a live run via
+> `API_KEY=<your-api-key> deno task snapshot-update` to update snapshots from
+> your actual Affinity instance during development. ⚠️ Make sure you do not
+> commit any unsanitized data.

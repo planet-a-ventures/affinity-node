@@ -38,7 +38,9 @@ describe('Affinity', () => {
             const res = await affinity.whoAmI()
 
             assertInstanceOf(res.grant.createdAt, Date)
-            await assertSnapshot(t, res)
+            await assertSnapshot(t, res, {
+                path: '__snapshots__/whoami.ts.snap',
+            })
         })
     })
 
@@ -49,7 +51,22 @@ describe('Affinity', () => {
                 await getRawFixture('rate_limit.raw.response.json'),
             )
             const res = await affinity.rateLimit()
-            await assertSnapshot(t, res)
+            await assertSnapshot(t, res, {
+                path: '__snapshots__/rate_limit.ts.snap',
+            })
+        })
+    })
+
+    describe('lists', () => {
+        it('can be called', async (t) => {
+            mock?.onGet('/lists').reply(
+                200,
+                await getRawFixture('lists.raw.response.json'),
+            )
+            const res = await affinity.lists()
+            await assertSnapshot(t, res, {
+                path: '__snapshots__/lists.ts.snap',
+            })
         })
     })
 })

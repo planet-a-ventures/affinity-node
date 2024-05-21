@@ -1,0 +1,26 @@
+[
+    {
+        "id": 450,
+        "type": 0,
+        "name": "My List of People",
+        "public": true,
+        "owner_id": 38706,
+        "list_size": 67
+    },
+    {
+        "id": 383,
+        "type": 1,
+        "name": "My List of Organizations",
+        "public": true,
+        "owner_id": 38706,
+        "list_size": 50
+    },
+    {
+        "id": 384,
+        "type": 8,
+        "name": "My List of Opportunities",
+        "public": true,
+        "owner_id": 38706,
+        "list_size": 23
+    }
+]

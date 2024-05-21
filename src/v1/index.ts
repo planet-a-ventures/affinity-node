@@ -1,6 +1,7 @@
 import axios, { type AxiosInstance } from 'axios'
 import { whoAmI } from './whoami.ts'
 import { rateLimit } from './rate_limit.ts'
+import { lists } from './lists.ts'
 export type { GrantType, Scope, WhoAmIResponse } from './whoami.ts'
 export { HttpError } from './error_transformer.ts'
 
@@ -27,4 +28,6 @@ export default class Affinity {
     public whoAmI = whoAmI
 
     public rateLimit = rateLimit
+
+    public lists = lists
 }

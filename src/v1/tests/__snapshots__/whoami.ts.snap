@@ -20,22 +20,3 @@ snapshot[`Affinity > whoami > can be called 1`] = `
   },
 }
 `;
-
-snapshot[`Affinity > rate_limit > can be called 1`] = `
-{
-  rate: {
-    api_key_per_minute: {
-      limit: 900,
-      remaining: 878,
-      reset: 10,
-      used: 22,
-    },
-    org_monthly: {
-      limit: Infinity,
-      remaining: Infinity,
-      reset: 2124845,
-      used: 7,
-    },
-  },
-}
-`;
