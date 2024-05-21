@@ -6,7 +6,6 @@ import * as path from '@std/path/mod.ts'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import Affinity from '../index.ts'
-import _ from 'https://esm.sh/v135/axios@1.7.1/denonext/unsafe/helpers/toFormData.js'
 
 const __dirname = path.dirname(path.fromFileUrl(import.meta.url))
 const apiKey = Deno.env.get('API_KEY')
