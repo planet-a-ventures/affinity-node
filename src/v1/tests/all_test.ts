@@ -7,8 +7,9 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import Affinity, { ListType } from '../index.ts'
 import { readKeypressSync } from 'https://deno.land/x/keypress@0.0.11/mod.ts'
+import { getRawFixture } from './get_raw_fixture.ts'
 
-const __dirname = path.dirname(path.fromFileUrl(import.meta.url))
+export const __dirname = path.dirname(path.fromFileUrl(import.meta.url))
 const apiKey = Deno.env.get('API_KEY')
 const isLiveRun = typeof apiKey !== 'undefined'
 
@@ -26,10 +27,6 @@ if (isLiveRun) {
             Deno.exit(0)
         }
     }
-}
-
-async function getRawFixture(filePath: string) {
-    return await Deno.readTextFile(path.join(__dirname, 'fixtures', filePath))
 }
 
 describe('Affinity', () => {
@@ -50,7 +47,7 @@ describe('Affinity', () => {
         it('can be called', async (t) => {
             mock?.onGet('/auth/whoami').reply(
                 200,
-                await getRawFixture('whoami.raw.response.json'),
+                await getRawFixture('whoami/whoami.raw.response.json'),
             )
             const res = await affinity.whoAmI()
             assertInstanceOf(res.grant.createdAt, Date)
@@ -64,7 +61,7 @@ describe('Affinity', () => {
         it('can be called', async (t) => {
             mock?.onGet('/rate-limit').reply(
                 200,
-                await getRawFixture('rate_limit.raw.response.json'),
+                await getRawFixture('rate_limit/rate_limit.raw.response.json'),
             )
             const res = await affinity.rateLimit()
             await assertSnapshot(t, res, {
@@ -77,7 +74,7 @@ describe('Affinity', () => {
         it('can get all', async (t) => {
             mock?.onGet('/lists').reply(
                 200,
-                await getRawFixture('lists.all.raw.response.json'),
+                await getRawFixture('lists/all.raw.response.json'),
             )
             const res = await affinity.lists.all()
             await assertSnapshot(t, res, {
@@ -88,7 +85,7 @@ describe('Affinity', () => {
         it('can get one', async (t) => {
             mock?.onGet('/lists/123').reply(
                 200,
-                await getRawFixture('lists.single.raw.response.json'),
+                await getRawFixture('lists/single.raw.response.json'),
             )
             const res = await affinity.lists.get({ listId: 123 })
             await assertSnapshot(t, res, {
@@ -99,7 +96,7 @@ describe('Affinity', () => {
         it('can create', async (t) => {
             mock?.onPost('/lists').reply(
                 201,
-                await getRawFixture('lists.create.raw.response.json'),
+                await getRawFixture('lists/create.raw.response.json'),
             )
             const res = await affinity.lists.create({
                 name: 'My List of Organizations',
