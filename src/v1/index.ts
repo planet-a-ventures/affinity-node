@@ -9,6 +9,7 @@ export type {
     CreateQuery,
     Field,
     GetQuery,
+    ListPermission,
     ListResponse,
     SingleListResponse,
 } from './lists.ts'

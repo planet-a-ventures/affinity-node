@@ -53,7 +53,6 @@ describe('Affinity', () => {
                 await getRawFixture('whoami.raw.response.json'),
             )
             const res = await affinity.whoAmI()
-
             assertInstanceOf(res.grant.createdAt, Date)
             await assertSnapshot(t, res, {
                 path: '__snapshots__/whoami.ts.snap',
@@ -98,9 +97,8 @@ describe('Affinity', () => {
         })
 
         it('can create', async (t) => {
-            ;``
             mock?.onPost('/lists').reply(
-                200,
+                201,
                 await getRawFixture('lists.create.raw.response.json'),
             )
             const res = await affinity.lists.create({

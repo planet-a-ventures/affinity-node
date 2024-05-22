@@ -57,22 +57,22 @@ type BaseListResponse = {
     list_size: number
 }
 
-type ListPermissions = {
-    /**
-     * A list of additional internal persons and the permissions they have on the list.
-     */
-    additional_permissions: {
-        internal_person_id: number
-        role_id: RoleId
-    }[]
+export type ListPermission = {
+    internal_person_id: number
+    role_id: RoleId
 }
 
-export type ListResponse = BaseListResponse & ListPermissions & {
+export type ListResponse = BaseListResponse & {
     /**
      * The unique ID of the internal person who created the list.
      * If the list was created via API, this is the internal person corresponding to the API key that was used.
      */
     creator_id: number
+
+    /**
+     * A list of additional internal persons and the permissions they have on the list.
+     */
+    additional_permissions: ListPermission[]
 }
 
 // The raw response from the API and the one we expose are compatible.
@@ -120,7 +120,7 @@ export type CreateQuery = {
     /**
      * A list of additional internal persons and the permissions they should have on the list.
      */
-    additional_permissions?: ListPermissions['additional_permissions']
+    additional_permissions?: ListPermission[]
 }
 
 export async function create(
