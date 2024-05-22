@@ -5,7 +5,7 @@ import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import Affinity, { ListType } from '../index.ts'
 import { getRawFixture } from './get_raw_fixture.ts'
-import { isLiveRun, apiKey } from './env.ts'
+import { apiKey, isLiveRun } from './env.ts'
 
 describe('lists', () => {
     let mock: MockAdapter

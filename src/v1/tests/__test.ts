@@ -3,7 +3,7 @@ import { isLiveRun } from './env.ts'
 
 if (isLiveRun()) {
     console.warn(
-        'Running live tests, with an actual API key. Your Affinity instance may be mutated. Press Enter to continue. Ctrl+C to abort.'
+        'Running live tests, with an actual API key. Your Affinity instance may be mutated. Press Enter to continue. Ctrl+C to abort.',
     )
 
     for (const keypress of readKeypressSync()) {
