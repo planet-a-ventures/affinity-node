@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
-import Affinity from '../index.ts'
+import { Affinity } from '../index.ts'
 import { assertRejects } from '@std/assert/mod.ts'
 import MockAdapter from 'axios-mock-adapter'
 import axios from 'axios'
@@ -19,6 +19,10 @@ describe('error handling', () => {
 
     it('can handle 401', async () => {
         mock.onGet('/auth/whoami').reply(401)
-        await assertRejects(() => affinity.whoAmI(), HttpError, 'status 401')
+        await assertRejects(
+            () => affinity.whoAmI.get(),
+            HttpError,
+            'status 401',
+        )
     })
 })

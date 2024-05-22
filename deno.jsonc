@@ -11,14 +11,16 @@
         "watch": "deno task test --no-clear-screen --watch --shuffle --parallel",
         "snapshot-update": "deno task test --allow-write=./src/v1/tests/__snapshots__ -- --update",
         "format": "deno fmt ; nixfmt *.nix",
-        "lint": "deno lint --check"
+        "lint": "deno lint --check",
+        "docs": "deno run --allow-read --allow-env --allow-run --allow-write=./docs/ npm:typedoc@0.25.13"
     },
     "lint": {
         "include": [
             "src/"
         ],
         "exclude": [
-            "src/**/fixtures/**/*.ts"
+            "src/**/fixtures/**/*.ts",
+            "docs/"
         ],
         "rules": {
             "tags": [
@@ -42,6 +44,7 @@
         "exclude": [
             "coverage/",
             "dist/",
+            "docs/",
             "src/**/tests/__snapshots__/**"
         ]
     }

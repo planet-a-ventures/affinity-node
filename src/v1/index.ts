@@ -1,30 +1,23 @@
 import axios, { type AxiosInstance } from 'axios'
-import { whoAmI } from './whoami.ts'
-import { rateLimit } from './rate_limit.ts'
-import * as lists from './lists.ts'
-export type { GrantType, Scope, WhoAmIResponse } from './whoami.ts'
-export type { RateLimit, RateLimitResponse } from './rate_limit.ts'
+import { WhoAmI } from './whoami.ts'
+import { RateLimit } from './rate_limit.ts'
+import { Lists } from './lists.ts'
+export type * as Lists from './lists.ts'
+export type * as RateLimit from './rate_limit.ts'
+export type * as WhoAmI from './whoami.ts'
 export { FieldValueType, ListType, RoleId } from './lists.ts'
-export type {
-    CreateQuery,
-    Field,
-    GetQuery,
-    ListPermission,
-    ListResponse,
-    SingleListResponse,
-} from './lists.ts'
 export { HttpError } from './error_transformer.ts'
 
-export default class Affinity {
+export class Affinity {
     protected readonly api: AxiosInstance
 
     /**
-     * @param axios An axios instance. You can use the default axios instance or create a new one.
-     * @param apiKey https://support.affinity.co/hc/en-us/articles/360032633992-How-to-obtain-your-API-Key
+     * @param apiKey The Affinity API key. [How to get yours](https://support.affinity.co/hc/en-us/articles/360032633992-How-to-obtain-your-API-Key).
+     * @param axiosInstance An axios instance. You can use the default axios instance or bring your own. If you bring your own, it won't be reconfigured.
      */
     constructor(
-        readonly apiKey: string,
-        readonly axiosInstance?: AxiosInstance,
+        apiKey: string,
+        axiosInstance?: AxiosInstance,
     ) {
         this.api = axiosInstance || axios.create({
             baseURL: 'https://api.affinity.co',
@@ -36,15 +29,15 @@ export default class Affinity {
                 password: apiKey,
             },
         })
+        // TODO(@joscha): add error interceptor here, instead of using it in each request
+        this.lists = new Lists(this.api)
+        this.rateLimit = new RateLimit(this.api)
+        this.whoAmI = new WhoAmI(this.api)
     }
 
-    public readonly whoAmI = whoAmI
+    public readonly whoAmI: WhoAmI
 
-    public readonly rateLimit = rateLimit
+    public readonly rateLimit: RateLimit
 
-    public readonly lists = {
-        all: lists.all.bind(this),
-        get: lists.get.bind(this),
-        create: lists.create.bind(this),
-    }
+    public readonly lists: Lists
 }

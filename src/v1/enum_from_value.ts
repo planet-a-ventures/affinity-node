@@ -1,4 +1,6 @@
 /**
+ * @internal
+ *
  * Converts a value to the corresponding enum value (only works for string enums)
  * Borrowed from https://stackoverflow.com/questions/17380845
  * @param val The value to convert

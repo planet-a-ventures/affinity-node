@@ -2,8 +2,9 @@
 
 Node module for [Affinity](https://www.affinity.co/).
 
-> This module is incomplete; not all API endpoints are implemented.
-> Contributions welcome.
+> This module is incomplete; not all API endpoints are implemented. It is in
+> active development and the API might change without notice. Contributions
+> welcome.
 
 _Note_: Currently only supporting
 [V1](https://api-docs.affinity.co/#introduction). Contributions for V2 are
@@ -14,7 +15,7 @@ welcome, too!
 ```js
 import { v1: Affinity } from '@planet-a/affinity-node'
 
-const { user } = await new Affinity(YOUR_API_KEY).whoAmI()
+const { user } = await new Affinity(YOUR_API_KEY).whoAmI.get()
 
 console.log(`Hello ${user.firstName} ${user.lastName}`)
 ```

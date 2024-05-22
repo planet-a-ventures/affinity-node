@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import Affinity from '../index.ts'
+import { Affinity } from '../index.ts'
 import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
 
@@ -26,7 +26,7 @@ describe('rate_limit', () => {
             200,
             await getRawFixture('rate_limit/rate_limit.raw.response.json'),
         )
-        const res = await affinity.rateLimit()
+        const res = await affinity.rateLimit.get()
         await assertSnapshot(t, res)
     })
 })

@@ -1,5 +1,8 @@
+import type { AxiosInstance } from 'axios'
 import { errorTransformer } from './error_transformer.ts'
-import type Affinity from './index.ts'
+//import type {Affinity} from './index.ts'
+//import {Affinity} from './index.ts'
+import type { Affinity } from './index.ts'
 
 export enum ListType {
     /** Type specifying a list of people. */
@@ -14,15 +17,15 @@ export enum ListType {
  * See [here](https://support.affinity.co/hc/en-us/articles/360029432951-List-Level-Permissions) for details on the permissions held by these roles.
  */
 export enum RoleId {
-    /** List-level "Admin" role */
+    /** List-level `Admin` role */
     ADMIN = 0,
-    /** List-level "Basic" role */
+    /** List-level `Basic` role */
     BASIC = 1,
-    /** List-level "Standard" role */
+    /** List-level `Standard` role */
     STANDARD = 2,
 }
 
-type BaseListResponse = {
+export type BaseListResponse = {
     /**
      * The unique identifier of the list object.
      */
@@ -78,20 +81,6 @@ export type ListResponse = BaseListResponse & {
 // The raw response from the API and the one we expose are compatible.
 type ListResponseRaw = ListResponse
 
-/**
- * Returns a collection of all the lists visible to you.
- *
- * @returns An array of all the list resources for lists visible to you. Each list resource in the array includes the id, name, and type (refer to the list resource above for further help).
- */
-export async function all(this: Affinity): Promise<ListResponse[]> {
-    return (await this.api.get<ListResponse[]>('/lists', {
-        transformResponse: [
-            errorTransformer,
-            (json: ListResponseRaw[]) => json,
-        ],
-    })).data
-}
-
 export type CreateQuery = {
     /**
      * The title of the list that is displayed in Affinity.
@@ -121,18 +110,6 @@ export type CreateQuery = {
      * A list of additional internal persons and the permissions they should have on the list.
      */
     additional_permissions?: ListPermission[]
-}
-
-export async function create(
-    this: Affinity,
-    query: CreateQuery,
-): Promise<SingleListResponse> {
-    return (await this.api.post<SingleListResponse>(`/lists`, query, {
-        transformResponse: [
-            errorTransformer,
-            (json: SingleListResponse) => json,
-        ],
-    })).data
 }
 
 export enum FieldValueType {
@@ -215,21 +192,62 @@ export type GetQuery = {
     listId: number
 }
 
-/**
- * Gets the details for a specific list given the existing list id.
- *
- * @returns The details of the list resource corresponding to the list ID specified in the path parameter.
- * These details include an array of the fields that are specific to this list.
- * An appropriate error is returned if an invalid list is supplied.
- */
-export async function get(
-    this: Affinity,
-    query: GetQuery,
-): Promise<SingleListResponse> {
-    return (await this.api.get<SingleListResponse>(`/lists/${query.listId}`, {
-        transformResponse: [
-            errorTransformer,
-            (json: SingleListResponse) => json,
-        ],
-    })).data
+export class Lists {
+    /** @hidden */
+    constructor(protected readonly api: AxiosInstance) {
+    }
+
+    /**
+     * Returns a collection of all the lists visible to you.
+     *
+     * @returns An array of all the list resources for lists visible to you. Each list resource in the array includes the id, name, and type (refer to the list resource above for further help).
+     */
+    async all(
+        /** @ignore */
+        this: Lists,
+    ): Promise<ListResponse[]> {
+        return (await this.api.get<ListResponse[]>('/lists', {
+            transformResponse: [
+                errorTransformer,
+                (json: ListResponseRaw[]) => json,
+            ],
+        })).data
+    }
+
+    /**
+     * Creates a new list with the specified properties.
+     *
+     * @returns The newly created list resource.
+     */
+    async create(
+        /** @ignore */
+        this: Lists,
+        query: CreateQuery,
+    ): Promise<SingleListResponse> {
+        return (await this.api.post<SingleListResponse>(`/lists`, query, {
+            transformResponse: [
+                errorTransformer,
+                (json: SingleListResponse) => json,
+            ],
+        })).data
+    }
+
+    /**
+     * Gets the details for a specific list given the existing list id.
+     *
+     * @returns The details of the list resource corresponding to the list ID specified in the path parameter.
+     * These details include an array of the fields that are specific to this list.
+     * An appropriate error is returned if an invalid list is supplied.
+     */
+    async get(query: GetQuery): Promise<SingleListResponse> {
+        return (await this.api.get<SingleListResponse>(
+            `/lists/${query.listId}`,
+            {
+                transformResponse: [
+                    errorTransformer,
+                    (json: SingleListResponse) => json,
+                ],
+            },
+        )).data
+    }
 }
