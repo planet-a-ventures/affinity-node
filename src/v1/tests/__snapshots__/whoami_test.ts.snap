@@ -1,6 +1,6 @@
 export const snapshot = {};
 
-snapshot[`Affinity > whoami > can be called 1`] = `
+snapshot[`whoami > can be called 1`] = `
 {
   grant: {
     createdAt: 2000-01-01T00:00:00.000Z,

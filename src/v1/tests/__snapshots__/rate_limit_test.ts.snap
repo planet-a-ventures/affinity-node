@@ -1,6 +1,6 @@
 export const snapshot = {};
 
-snapshot[`Affinity > rate_limit > can be called 1`] = `
+snapshot[`rate_limit > can be called 1`] = `
 {
   rate: {
     api_key_per_minute: {

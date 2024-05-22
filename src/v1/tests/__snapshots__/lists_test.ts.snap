@@ -1,6 +1,6 @@
 export const snapshot = {};
 
-snapshot[`Affinity > lists > can get all 1`] = `
+snapshot[`lists > can get all 1`] = `
 [
   {
     id: 450,
@@ -29,7 +29,7 @@ snapshot[`Affinity > lists > can get all 1`] = `
 ]
 `;
 
-snapshot[`Affinity > lists > can get one 1`] = `
+snapshot[`lists > can get one 1`] = `
 {
   fields: [
     {
@@ -63,7 +63,7 @@ snapshot[`Affinity > lists > can get one 1`] = `
 }
 `;
 
-snapshot[`Affinity > lists > can create 1`] = `
+snapshot[`lists > can create 1`] = `
 {
   additional_permissions: [
     {
