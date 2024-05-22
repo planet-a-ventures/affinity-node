@@ -1,8 +1,4 @@
 import type { AxiosInstance } from 'axios'
-import { errorTransformer } from './error_transformer.ts'
-//import type {Affinity} from './index.ts'
-//import {Affinity} from './index.ts'
-import type { Affinity } from './index.ts'
 
 export enum ListType {
     /** Type specifying a list of people. */
@@ -202,16 +198,8 @@ export class Lists {
      *
      * @returns An array of all the list resources for lists visible to you. Each list resource in the array includes the id, name, and type (refer to the list resource above for further help).
      */
-    async all(
-        /** @ignore */
-        this: Lists,
-    ): Promise<ListResponse[]> {
-        return (await this.api.get<ListResponse[]>('/lists', {
-            transformResponse: [
-                errorTransformer,
-                (json: ListResponseRaw[]) => json,
-            ],
-        })).data
+    async all(): Promise<ListResponse[]> {
+        return (await this.api.get<ListResponse[]>('/lists')).data
     }
 
     /**
@@ -219,17 +207,8 @@ export class Lists {
      *
      * @returns The newly created list resource.
      */
-    async create(
-        /** @ignore */
-        this: Lists,
-        query: CreateQuery,
-    ): Promise<SingleListResponse> {
-        return (await this.api.post<SingleListResponse>(`/lists`, query, {
-            transformResponse: [
-                errorTransformer,
-                (json: SingleListResponse) => json,
-            ],
-        })).data
+    async create(query: CreateQuery): Promise<SingleListResponse> {
+        return (await this.api.post<SingleListResponse>(`/lists`, query)).data
     }
 
     /**
@@ -242,12 +221,6 @@ export class Lists {
     async get(query: GetQuery): Promise<SingleListResponse> {
         return (await this.api.get<SingleListResponse>(
             `/lists/${query.listId}`,
-            {
-                transformResponse: [
-                    errorTransformer,
-                    (json: SingleListResponse) => json,
-                ],
-            },
         )).data
     }
 }

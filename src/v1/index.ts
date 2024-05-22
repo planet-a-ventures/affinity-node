@@ -2,11 +2,12 @@ import axios, { type AxiosInstance } from 'axios'
 import { WhoAmI } from './whoami.ts'
 import { RateLimit } from './rate_limit.ts'
 import { Lists } from './lists.ts'
+import { AffinityApiError } from './errors.ts'
 export type * as Lists from './lists.ts'
 export type * as RateLimit from './rate_limit.ts'
 export type * as WhoAmI from './whoami.ts'
 export { FieldValueType, ListType, RoleId } from './lists.ts'
-export { HttpError } from './error_transformer.ts'
+export { AffinityApiError } from './errors.ts'
 
 export class Affinity {
     protected readonly api: AxiosInstance
@@ -29,7 +30,12 @@ export class Affinity {
                 password: apiKey,
             },
         })
-        // TODO(@joscha): add error interceptor here, instead of using it in each request
+        this.api.interceptors.response.use(
+            (response) => response,
+            (error) => {
+                return Promise.reject(new AffinityApiError(error))
+            },
+        )
         this.lists = new Lists(this.api)
         this.rateLimit = new RateLimit(this.api)
         this.whoAmI = new WhoAmI(this.api)

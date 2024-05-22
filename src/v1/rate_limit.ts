@@ -1,5 +1,5 @@
 import type { AxiosInstance } from 'axios'
-import { errorTransformer } from './error_transformer.ts'
+import { defaultTransformers } from './axios_default_transformers.ts'
 
 type RateLimitRaw = {
     limit: number | 'unlimited'
@@ -52,7 +52,7 @@ export class RateLimit {
     async get(): Promise<RateLimitResponse> {
         return (await this.api.get<RateLimitResponse>('/rate-limit', {
             transformResponse: [
-                errorTransformer,
+                ...defaultTransformers(),
                 (json: RateLimitResponseRaw) => {
                     return {
                         rate: {
