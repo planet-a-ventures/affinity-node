@@ -74,7 +74,7 @@ describe('Affinity', () => {
                 200,
                 await getRawFixture('lists.single.raw.response.json'),
             )
-            const res = await affinity.lists.get(123)
+            const res = await affinity.lists.get({ listId: 123 })
             await assertSnapshot(t, res, {
                 path: '__snapshots__/lists.ts.snap',
             })

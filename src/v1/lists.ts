@@ -94,34 +94,41 @@ export async function create(this: Affinity): Promise<void> {
     throw new Error('Not implemented')
 }
 
-enum FieldValueType {
+export enum FieldValueType {
     /**
-     * This type enables you to add person objects as a value. Eg: External Source, Owner, Friends
+     * This type enables you to add person objects as a value.
+     * Eg: External Source, Owner, Friends
      */
     PERSON = 0,
 
     /**
-     * This type enables you to add organization objects as a value. Eg: Place of work, Co-Investors
+     * This type enables you to add organization objects as a value.
+     * Eg: Place of work, Co-Investors
      */
     ORGANIZATION = 1,
 
     /**
-     * This type allows you to add text values into a single cell. This is best used when you want to store information that is unique to a person or organization. Eg: Interests, Stage, Industry
+     * This type allows you to add text values into a single cell.
+     * This is best used when you want to store information that is unique to a person or organization.
+     * Eg: Interests, Stage, Industry
      */
     DROPDOWN = 2,
 
     /**
-     * This type enables you to add number as a value. Eg: Deal Size, Check Size, Revenue
+     * This type enables you to add number as a value.
+     * Eg: Deal Size, Check Size, Revenue
      */
     NUMBER = 3,
 
     /**
-     * This type enables you to add date as a value. Eg: Date of Event, Birthday
+     * This type enables you to add date as a value.
+     * Eg: Date of Event, Birthday
      */
     DATE = 4,
 
     /**
-     * This type enables you to add a smart Google Maps location as a value. Eg: Address
+     * This type enables you to add a smart Google Maps location as a value.
+     * Eg: Address
      */
     LOCATION = 5,
 
@@ -131,12 +138,14 @@ enum FieldValueType {
     TEXT = 6,
 
     /**
-     * This type allows you to add values in a particular order as well as assign colors to them. This is the equivalent of a pick list. Eg: Status, Priority, Ranking
+     * This type allows you to add values in a particular order as well as assign colors to them.
+     * This is the equivalent of a pick list.
+     * Eg: Status, Priority, Ranking
      */
     RANKED_DROPDOWN = 7,
 }
 
-type Field =
+export type Field =
     & {
         id: number
         name: string
@@ -156,21 +165,27 @@ type Field =
         dropdown_options: []
     })
 
-type SingleListResponse = BaseListResponse & {
+export type SingleListResponse = BaseListResponse & {
     fields: Field[]
+}
+
+export type Query = {
+    /** The unique ID of the list object to be retrieved. */
+    listId: number
 }
 
 /**
  * Gets the details for a specific list given the existing list id.
  *
- * @param listId The unique ID of the list object to be retrieved.
- * @returns The details of the list resource corresponding to the list ID specified in the path parameter. These details include an array of the fields that are specific to this list. An appropriate error is returned if an invalid list is supplied.
+ * @returns The details of the list resource corresponding to the list ID specified in the path parameter.
+ * These details include an array of the fields that are specific to this list.
+ * An appropriate error is returned if an invalid list is supplied.
  */
 export async function get(
     this: Affinity,
-    listId: number,
+    query: Query,
 ): Promise<SingleListResponse> {
-    return (await this.api.get<SingleListResponse>(`/lists/${listId}`, {
+    return (await this.api.get<SingleListResponse>(`/lists/${query.listId}`, {
         transformResponse: [
             errorTransformer,
             (json: SingleListResponse) => json,
