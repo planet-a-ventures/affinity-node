@@ -3,6 +3,15 @@ import { whoAmI } from './whoami.ts'
 import { rateLimit } from './rate_limit.ts'
 import * as lists from './lists.ts'
 export type { GrantType, Scope, WhoAmIResponse } from './whoami.ts'
+export type { RateLimit, RateLimitResponse } from './rate_limit.ts'
+export { FieldValueType, ListType, RoleId } from './lists.ts'
+export type {
+    CreateQuery,
+    Field,
+    GetQuery,
+    ListResponse,
+    SingleListResponse,
+} from './lists.ts'
 export { HttpError } from './error_transformer.ts'
 
 export default class Affinity {

@@ -5,11 +5,28 @@ import * as path from '@std/path/mod.ts'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import Affinity from '../index.ts'
+import Affinity, { ListType } from '../index.ts'
+import { readKeypressSync } from 'https://deno.land/x/keypress@0.0.11/mod.ts'
 
 const __dirname = path.dirname(path.fromFileUrl(import.meta.url))
 const apiKey = Deno.env.get('API_KEY')
 const isLiveRun = typeof apiKey !== 'undefined'
+
+if (isLiveRun) {
+    console.warn(
+        'Running live tests, with an actual API key. Your Affinity instance may be mutated. Press Enter to continue. Ctrl+C to abort.',
+    )
+
+    for (const keypress of readKeypressSync()) {
+        if (keypress.key === 'enter') {
+            continue
+        }
+
+        if (keypress.ctrlKey && keypress.key === 'c') {
+            Deno.exit(0)
+        }
+    }
+}
 
 async function getRawFixture(filePath: string) {
     return await Deno.readTextFile(path.join(__dirname, 'fixtures', filePath))
@@ -75,6 +92,22 @@ describe('Affinity', () => {
                 await getRawFixture('lists.single.raw.response.json'),
             )
             const res = await affinity.lists.get({ listId: 123 })
+            await assertSnapshot(t, res, {
+                path: '__snapshots__/lists.ts.snap',
+            })
+        })
+
+        it('can create', async (t) => {
+            ;``
+            mock?.onPost('/lists').reply(
+                200,
+                await getRawFixture('lists.create.raw.response.json'),
+            )
+            const res = await affinity.lists.create({
+                name: 'My List of Organizations',
+                type: ListType.ORGANIZATION,
+                is_public: true,
+            })
             await assertSnapshot(t, res, {
                 path: '__snapshots__/lists.ts.snap',
             })

@@ -167,6 +167,7 @@
     "https://deno.land/x/explicitly@0.5.0/src/float.ts": "0c62bf33cf31fdd1bf442373eb70bbb5f2eb8bfebcee4871c392bdb23c43944d",
     "https://deno.land/x/explicitly@0.5.0/src/message.ts": "52dbbdb6af7928ab0fc9d2850bb0f843307e818d4fb672a595ea24769cd70137",
     "https://deno.land/x/explicitly@0.5.0/src/throws.ts": "240b8f09d51097fe553b494261c4d29f6d3eab290fc4c2eb45ce073f47075a4f",
+    "https://deno.land/x/keypress@0.0.11/mod.ts": "22fe0ea62136f3015149c639f891076a5b2312c0b8974c4a2bd8acaaded61c61",
     "https://deno.land/x/resulty@0.3.1/mod.ts": "8f5474c5a273def6647b012ca85fa2830173430cedaa9c53769621672d23968a",
     "https://deno.land/x/resulty@0.3.1/src/option.ts": "9f0e6c951bd24ad1f975c94611dcc2e86790d4be623e6a037b08300c88b87818",
     "https://deno.land/x/resulty@0.3.1/src/panic.ts": "09c8b1e21107ec5bc1fa1551bfc850e701b26ec5d24251e74903640af81a9735",

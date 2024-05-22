@@ -62,3 +62,29 @@ snapshot[`Affinity > lists > can get one 1`] = `
   type: 0,
 }
 `;
+
+snapshot[`Affinity > lists > can create 1`] = `
+{
+  additional_permissions: [
+    {
+      internal_person_id: 38701,
+      role_id: 0,
+    },
+    {
+      internal_person_id: 38703,
+      role_id: 1,
+    },
+    {
+      internal_person_id: 38900,
+      role_id: 0,
+    },
+  ],
+  creator_id: 38701,
+  id: 383,
+  list_size: 0,
+  name: "My List of Organizations",
+  owner_id: 38706,
+  public: true,
+  type: 1,
+}
+`;

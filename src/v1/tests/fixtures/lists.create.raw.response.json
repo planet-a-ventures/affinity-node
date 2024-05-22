@@ -1,0 +1,23 @@
+{
+    "id": 383,
+    "type": 1,
+    "name": "My List of Organizations",
+    "public": true,
+    "owner_id": 38706,
+    "creator_id": 38701,
+    "list_size": 0,
+    "additional_permissions": [
+        {
+            "internal_person_id": 38701,
+            "role_id": 0
+        },
+        {
+            "internal_person_id": 38703,
+            "role_id": 1
+        },
+        {
+            "internal_person_id": 38900,
+            "role_id": 0
+        }
+    ]
+}

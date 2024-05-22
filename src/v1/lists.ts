@@ -57,20 +57,22 @@ type BaseListResponse = {
     list_size: number
 }
 
-export type ListResponse = BaseListResponse & {
+type ListPermissions = {
     /**
-     * The unique ID of the internal person who created the list.
-     * If the list was created via API, this is the internal person corresponding to the API key that was used.
-     */
-    creator_id: number
-
-    /**
-     * The list of additional internal persons with permissions on the list.
+     * A list of additional internal persons and the permissions they have on the list.
      */
     additional_permissions: {
         internal_person_id: number
         role_id: RoleId
     }[]
+}
+
+export type ListResponse = BaseListResponse & ListPermissions & {
+    /**
+     * The unique ID of the internal person who created the list.
+     * If the list was created via API, this is the internal person corresponding to the API key that was used.
+     */
+    creator_id: number
 }
 
 // The raw response from the API and the one we expose are compatible.
@@ -90,8 +92,47 @@ export async function all(this: Affinity): Promise<ListResponse[]> {
     })).data
 }
 
-export async function create(this: Affinity): Promise<void> {
-    throw new Error('Not implemented')
+export type CreateQuery = {
+    /**
+     * The title of the list that is displayed in Affinity.
+     */
+    name: string
+
+    /**
+     * The type of the entities (people, organizations, or opportunities) contained within the list.
+     * Each list only supports one entity type.
+     */
+    type: ListType
+
+    /**
+     * Set to true to make the list publicly accessible to all users in your Affinity account.
+     * Set to false to make the list private to the list's owner and additional users.
+     */
+    is_public: boolean
+
+    /**
+     * The unique ID of the internal person who should own the list.
+     * Defaults to the owner of the API key being used.
+     * See [here](https://support.affinity.co/hc/en-us/articles/360029432951-List-Level-Permissions) for permissions held by a list's owner.
+     */
+    owner_id?: number
+
+    /**
+     * A list of additional internal persons and the permissions they should have on the list.
+     */
+    additional_permissions?: ListPermissions['additional_permissions']
+}
+
+export async function create(
+    this: Affinity,
+    query: CreateQuery,
+): Promise<SingleListResponse> {
+    return (await this.api.post<SingleListResponse>(`/lists`, query, {
+        transformResponse: [
+            errorTransformer,
+            (json: SingleListResponse) => json,
+        ],
+    })).data
 }
 
 export enum FieldValueType {
@@ -169,7 +210,7 @@ export type SingleListResponse = BaseListResponse & {
     fields: Field[]
 }
 
-export type Query = {
+export type GetQuery = {
     /** The unique ID of the list object to be retrieved. */
     listId: number
 }
@@ -183,7 +224,7 @@ export type Query = {
  */
 export async function get(
     this: Affinity,
-    query: Query,
+    query: GetQuery,
 ): Promise<SingleListResponse> {
     return (await this.api.get<SingleListResponse>(`/lists/${query.listId}`, {
         transformResponse: [
