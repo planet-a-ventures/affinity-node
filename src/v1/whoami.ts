@@ -31,6 +31,7 @@ export type User = {
     id: number
     firstName: string
     lastName: string
+    /** The primary email of the user */
     email: string
 }
 
