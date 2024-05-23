@@ -144,7 +144,7 @@ export class ListEntries {
      * Use this method if you want to process the list entries in a streaming fashion.
      *
      * *Please note:* the yielded list entries array may be empty on the last page.
-     * 
+     *
      * Example:
      * ```typescript
      * let page = 0

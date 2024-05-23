@@ -35,7 +35,10 @@ describe('list_entries', () => {
             200,
             await getRawFixture('list_entries/paginated.raw.response.json'),
         )
-        const res = await affinity.lists.entries.all({ listId: 247888, page_size: 1})
+        const res = await affinity.lists.entries.all({
+            listId: 247888,
+            page_size: 1,
+        })
         await assertSnapshot(t, res)
     })
 
@@ -44,30 +47,44 @@ describe('list_entries', () => {
             200,
             await getRawFixture('list_entries/paginated.raw.response.json'),
         )
-        const res = await affinity.lists.entries.all({ listId: 247888, page_size: 1, page_token: 'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6Mn0' })
+        const res = await affinity.lists.entries.all({
+            listId: 247888,
+            page_size: 1,
+            page_token:
+                'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6Mn0',
+        })
         await assertSnapshot(t, res)
-    })    
+    })
 
     it('can deal with a last empty page', async (t) => {
         mock?.onGet('/lists').reply(
             200,
             await getRawFixture('list_entries/paginated.raw.response.json'),
         )
-        const res = await affinity.lists.entries.all({ listId: 247888, page_size: 1, page_token: 'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6M30' })
+        const res = await affinity.lists.entries.all({
+            listId: 247888,
+            page_size: 1,
+            page_token:
+                'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6M30',
+        })
         await assertSnapshot(t, res)
-    })        
+    })
 
     it('iterates over all entries', async (t) => {
         mock?.onGet('/lists').reply(
             200,
             await getRawFixture('list_entries/paginated.raw.response.json'),
         )
-        let page = 0;
-        for await (const entries of affinity.lists.entries.pagedIterator({ listId: 247888, page_size: 1 })) {
+        let page = 0
+        for await (
+            const entries of affinity.lists.entries.pagedIterator({
+                listId: 247888,
+                page_size: 1,
+            })
+        ) {
             await assertSnapshot(t, entries, {
-                name: `page ${++page} of entries`
+                name: `page ${++page} of entries`,
             })
         }
-    });
-    
+    })
 })

@@ -8,7 +8,7 @@ Deno.test({
         console.warn(
             'Running live tests, with an actual API key. Your Affinity instance may be mutated. Press Enter to continue. Ctrl+C to abort. If you have --parallel enabled, it might need multiple attempts',
         )
-    
+
         for (const keypress of readKeypressSync()) {
             if (keypress.key === 'return') {
                 return
@@ -17,5 +17,5 @@ Deno.test({
                 Deno.exit(0)
             }
         }
-}
-});
+    },
+})
