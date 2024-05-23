@@ -1,20 +1,20 @@
 {
-  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
-  "spaces": 2,
-  "generator-cli": {
-    "version": "7.6.0",
-    "generators": {
-      "v2": {
-        "generatorName": "typescript",
-        "output": "src/v2",
-        "glob": "openapi/*.json",
-        "additionalProperties": {
-          "npmName": "@planet-a/affinity-node-v2",
-          "supportsES6": true,
-          "platform": "deno",
-          "useObjectParameters": true
+    "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+    "spaces": 2,
+    "generator-cli": {
+        "version": "7.6.0",
+        "generators": {
+            "v2": {
+                "generatorName": "typescript",
+                "output": "src/v2",
+                "glob": "openapi/*.json",
+                "additionalProperties": {
+                    "npmName": "@planet-a/affinity-node-v2",
+                    "supportsES6": true,
+                    "platform": "deno",
+                    "useObjectParameters": true
+                }
+            }
         }
-      }
     }
-  }
 }

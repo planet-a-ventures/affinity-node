@@ -46,6 +46,7 @@
             "coverage/",
             "dist/",
             "docs/",
+            "openapi/",
             "src/**/tests/__snapshots__/**"
         ]
     }

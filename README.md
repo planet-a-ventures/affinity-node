@@ -6,8 +6,9 @@ Node module for [Affinity](https://www.affinity.co/).
 > active development and the API might change without notice. Contributions
 > welcome.
 
-_Note_: Currently only supporting [V1](https://api-docs.affinity.co/#introduction). See section on [V2](#v2) below.
-
+_Note_: Currently only supporting
+[V1](https://api-docs.affinity.co/#introduction). See section on [V2](#v2)
+below.
 
 ## Usage
 
@@ -57,13 +58,19 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 2. `open ./docs/index.html`
 
 ## V2
-A preliminary generator for [V2(https://developer.affinity.co/docs/v2/)] can be executed via
+
+A preliminary generator for [V2](https://developer.affinity.co/docs/v2/) can be
+executed via
 
 ```sh
 nix develop --command deno task generate-v2-client
 ```
+
 which will generate an OpenAPI client for Node in Typescript.
 
 > If you have V2 API access, give it a try and report back here, please 🙏.
 
-An up-to-date OpenAPI spec can be downloaded [https://developer.affinity.co/docs/v2/#section/Introduction](here). Drop it into `./openapi` before you run the command above.
+An up-to-date OpenAPI spec can be downloaded from
+[here](https://developer.affinity.co/docs/v2/#section/Introduction). Drop it
+into `./openapi` before you run the command above (remove the old version
+beforehand).
