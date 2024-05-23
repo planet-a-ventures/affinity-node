@@ -1,8 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import { ListEntries } from './list_entries.ts'
 import { listsUrl } from './urls.ts'
-import { ListEntries } from './list_entries.ts'
-import { listsUrl } from './urls.ts'
 
 export enum ListType {
     /** Type specifying a list of people. */
