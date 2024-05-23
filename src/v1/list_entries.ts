@@ -91,6 +91,14 @@ export class ListEntries {
      * Fetches all list entries in the list with the supplied list id.
      *
      * *Please note:* the returned response has a different shape than when using a paginated request (see below)
+     *
+     * @returns An array of all list entries in the list with the supplied list id.
+     *
+     * @example
+     * ```typescript
+     * const entries = await affinity.lists.entries.all({ listId: 123 })
+     * console.log(`The first of ${entries.length} entries is for`, entries?.[0].entity)
+     * ```
      */
     async all(query: GetQuery): Promise<ListEntryResponse[]>
 
@@ -98,6 +106,15 @@ export class ListEntries {
      * Fetches up to the number specified in {@link PagingParameters.page_size} of list entries in the list with the supplied list id.
      *
      * *Please note*: the returned response has a different shape than when using a non-paginated request (see above).
+     *
+     * @returns A chunk of list entries with the maximum size specified in the query.
+     *
+     * @example
+     * ```typescript
+     * const { list_entries, next_page_token } = await affinity.lists.entries.all({ listId: 123, page_size: 10 })
+     * console.log(`The first of ${list_entries.length} entries in this page is for`, list_entries?.[0].entity)
+     * console.log(next_page_token ? `The next page token is '${next_page_token}'` : 'No more pages to fetch')
+     * ```
      */
     async all(
         query: GetQuery & PagingParameters,

@@ -197,6 +197,12 @@ export class Lists {
      * Returns a collection of all the lists visible to you.
      *
      * @returns An array of all the list resources for lists visible to you. Each list resource in the array includes the id, name, and type (refer to the list resource above for further help).
+     *
+     * @example
+     * ```typescript
+     * const lists = await affinity.lists.all()
+     * console.log(`The first of ${lists.length} list is named`, lists?.[0].name)
+     * ```
      */
     async all(): Promise<ListResponse[]> {
         return (await this.api.get<ListResponse[]>(listsUrl())).data
@@ -206,6 +212,16 @@ export class Lists {
      * Creates a new list with the specified properties.
      *
      * @returns The newly created list resource.
+     *
+     * @example
+     * ```typescript
+     * const list = await affinity.lists.create({
+     *     name: 'My List of Organizations',
+     *     type: ListType.ORGANIZATION,
+     *     is_public: true,
+     * })
+     * console.log('The ID of the newly created list is', list.id)
+     * ```
      */
     async create(query: CreateQuery): Promise<SingleListResponse> {
         return (await this.api.post<SingleListResponse>(listsUrl(), query)).data
@@ -217,6 +233,12 @@ export class Lists {
      * @returns The details of the list resource corresponding to the list ID specified in the path parameter.
      * These details include an array of the fields that are specific to this list.
      * An appropriate error is returned if an invalid list is supplied.
+     *
+     * @example
+     * ```typescript
+     * const list = await affinity.lists.get({ listId: 123 })
+     * console.log('The name of the list is', list.name)
+     * ```
      */
     async get(query: GetQuery): Promise<SingleListResponse> {
         return (await this.api.get<SingleListResponse>(listsUrl(query.listId)))
