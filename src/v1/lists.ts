@@ -196,7 +196,7 @@ export class Lists {
     /**
      * Returns a collection of all the lists visible to you.
      *
-     * @returns An array of all the list resources for lists visible to you. Each list resource in the array includes the id, name, and type (refer to the list resource above for further help).
+     * @returns An array of all the list resources for lists visible to you. Each list resource in the array includes the id, name, and type.
      *
      * @example
      * ```typescript

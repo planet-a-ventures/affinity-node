@@ -45,10 +45,18 @@ export class RateLimit {
     }
 
     /**
-     * Gets information about the user sending the request, and their affiliate company.
-     * There are no query or path parameters for this method. The information needed is contained within the API key.
+     * The rate limit endpoint allows you to see your monthly account-level and per minute user-level API limits and usage.
+     * The monthly account-level call limit resets at the end of each calendar month.
      *
-     * See https://api-docs.affinity.co/#the-whoami-resource
+     * More details [here](https://api-docs.affinity.co/#rate-limits).
+     *
+     * @returns The rate limit resource, a JSON body of data including limits, calls remaining, seconds until reset and call count.
+     *
+     * @example
+     * ```typescript
+     * const rateLimit = await affinity.rateLimit.get()
+     * console.log(`You have ${rateLimit.rate.org_monthly.remaining} calls left this month.`)
+     * ```
      */
     async get(): Promise<RateLimitResponse> {
         return (await this.api.get<RateLimitResponse>(rateLimitUrl(), {
