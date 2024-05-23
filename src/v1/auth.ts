@@ -1,6 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { enumFromValue } from './enum_from_value.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
+import { whoAmIUrl } from './urls.ts'
 
 /**
  * TODO(@joscha): Enum is most likely incomplete
@@ -64,7 +65,7 @@ export type WhoAmIResponse = {
     }
 }
 
-export class WhoAmI {
+export class Auth {
     /** @hidden */
     constructor(protected readonly api: AxiosInstance) {
     }
@@ -75,8 +76,8 @@ export class WhoAmI {
      *
      * [More information](https://api-docs.affinity.co/#the-whoami-resource)
      */
-    async get(): Promise<WhoAmIResponse> {
-        return (await this.api.get<WhoAmIResponse>('/auth/whoami', {
+    async whoAmI(): Promise<WhoAmIResponse> {
+        return (await this.api.get<WhoAmIResponse>(whoAmIUrl(), {
             transformResponse: [
                 ...defaultTransformers(),
                 (json: WhoAmIResponseRaw) => {

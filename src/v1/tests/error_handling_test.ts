@@ -20,7 +20,7 @@ describe('error handling', () => {
     it('can handle 401', async () => {
         mock.onGet('/auth/whoami').reply(401)
         await assertRejects(
-            () => affinity.whoAmI.get(),
+            () => affinity.auth.whoAmI(),
             AffinityApiError,
         )
     })

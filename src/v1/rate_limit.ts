@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import { defaultTransformers } from './axios_default_transformers.ts'
+import { rateLimitUrl } from './urls.ts'
 
 type RateLimitRaw = {
     limit: number | 'unlimited'
@@ -50,7 +51,7 @@ export class RateLimit {
      * See https://api-docs.affinity.co/#the-whoami-resource
      */
     async get(): Promise<RateLimitResponse> {
-        return (await this.api.get<RateLimitResponse>('/rate-limit', {
+        return (await this.api.get<RateLimitResponse>(rateLimitUrl(), {
             transformResponse: [
                 ...defaultTransformers(),
                 (json: RateLimitResponseRaw) => {

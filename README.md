@@ -15,7 +15,7 @@ welcome, too!
 ```js
 import { v1: Affinity } from '@planet-a/affinity-node'
 
-const { user } = await new Affinity(YOUR_API_KEY).whoAmI.get()
+const { user } = await new Affinity(YOUR_API_KEY).auth.whoAmI()
 
 console.log(`Hello ${user.firstName} ${user.lastName}`)
 ```
