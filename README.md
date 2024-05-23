@@ -33,8 +33,9 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 
 > Hint: you can do a live run via
 > `API_KEY=<your-api-key> deno task snapshot-update` to update snapshots from
-> your actual Affinity instance during development. ⚠️ Make sure you do not
-> commit any unsanitized data.
+> your actual Affinity instance during development.
+>
+> ⚠️ Make sure you do not commit any unsanitized data.
 
 ### Build the library
 
