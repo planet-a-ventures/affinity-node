@@ -184,7 +184,7 @@ export type SingleListResponse = BaseListResponse & {
 
 export type GetQuery = {
     /** The unique ID of the list object to be retrieved. */
-    listId: number
+    list_id: number
 }
 
 export class Lists {
@@ -236,12 +236,12 @@ export class Lists {
      *
      * @example
      * ```typescript
-     * const list = await affinity.lists.get({ listId: 123 })
+     * const list = await affinity.lists.get({ list_id: 123 })
      * console.log('The name of the list is', list.name)
      * ```
      */
     async get(query: GetQuery): Promise<SingleListResponse> {
-        return (await this.api.get<SingleListResponse>(listsUrl(query.listId)))
+        return (await this.api.get<SingleListResponse>(listsUrl(query.list_id)))
             .data
     }
 

@@ -96,7 +96,7 @@ export class ListEntries {
      *
      * @example
      * ```typescript
-     * const entries = await affinity.lists.entries.all({ listId: 123 })
+     * const entries = await affinity.lists.entries.all({ list_id: 123 })
      * console.log(`The first of ${entries.length} entries is for`, entries?.[0].entity)
      * ```
      */
@@ -111,7 +111,7 @@ export class ListEntries {
      *
      * @example
      * ```typescript
-     * const { list_entries, next_page_token } = await affinity.lists.entries.all({ listId: 123, page_size: 10 })
+     * const { list_entries, next_page_token } = await affinity.lists.entries.all({ list_id: 123, page_size: 10 })
      * console.log(`The first of ${list_entries.length} entries in this page is for`, list_entries?.[0].entity)
      * console.log(next_page_token ? `The next page token is '${next_page_token}'` : 'No more pages to fetch')
      * ```
@@ -127,9 +127,9 @@ export class ListEntries {
     async all(
         query: GetQuery | GetQuery & PagingParameters,
     ): Promise<ListEntryResponse[] | PagedListEntryResponse> {
-        const { listId, ...params } = query
+        const { list_id, ...params } = query
         return (await this.api.get<ListEntryResponse[]>(
-            listEntriesUrl(listId),
+            listEntriesUrl(list_id),
             {
                 params,
                 transformResponse: [
@@ -166,7 +166,7 @@ export class ListEntries {
      * ```typescript
      * let page = 0
      * for await (const entries of affinity.lists.entries.pagedIterator({
-     *     listId: 123,
+     *     list_id: 123,
      *     page_size: 10
      * })) {
      *     console.log(`Page ${++page} of entries:`, entries)

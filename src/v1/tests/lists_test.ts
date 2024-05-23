@@ -32,12 +32,12 @@ describe('lists', () => {
     })
 
     it('can get one', async (t) => {
-        const listId = 123
-        mock?.onGet(listsUrl(listId)).reply(
+        const list_id = 123
+        mock?.onGet(listsUrl(list_id)).reply(
             200,
             await getRawFixture('lists/single.raw.response.json'),
         )
-        const res = await affinity.lists.get({ listId })
+        const res = await affinity.lists.get({ list_id })
         await assertSnapshot(t, res)
     })
 

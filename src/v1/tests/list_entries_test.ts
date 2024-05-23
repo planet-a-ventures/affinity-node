@@ -28,7 +28,7 @@ describe('list_entries', () => {
             200,
             await getRawFixture('list_entries/all.raw.response.json'),
         )
-        const res = await affinity.lists.entries.all({ listId: 247888 })
+        const res = await affinity.lists.entries.all({ list_id: 247888 })
         await assertSnapshot(t, res)
     })
 
@@ -36,15 +36,15 @@ describe('list_entries', () => {
         const params = {
             page_size: 1,
         }
-        const listId = 247888
-        mock?.onGet(listEntriesUrl(listId), {
+        const list_id = 247888
+        mock?.onGet(listEntriesUrl(list_id), {
             params,
         }).reply(
             200,
             await getRawFixture('list_entries/paginated.raw.response.json'),
         )
         const res = await affinity.lists.entries.all({
-            listId,
+            list_id,
             ...params,
         })
         await assertSnapshot(t, res)
@@ -56,15 +56,15 @@ describe('list_entries', () => {
             page_token:
                 'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6Mn0',
         }
-        const listId = 247888
-        mock?.onGet(listEntriesUrl(listId)).reply(
+        const list_id = 247888
+        mock?.onGet(listEntriesUrl(list_id)).reply(
             200,
             await getRawFixture(
                 `list_entries/paginated.${params.page_token}.raw.response.json`,
             ),
         )
         const res = await affinity.lists.entries.all({
-            listId,
+            list_id,
             ...params,
         })
         await assertSnapshot(t, res)
@@ -76,22 +76,22 @@ describe('list_entries', () => {
             page_token:
                 'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6M30',
         }
-        const listId = 247888
-        mock?.onGet(listEntriesUrl(listId)).reply(
+        const list_id = 247888
+        mock?.onGet(listEntriesUrl(list_id)).reply(
             200,
             await getRawFixture(
                 `list_entries/paginated.${params.page_token}.raw.response.json`,
             ),
         )
         const res = await affinity.lists.entries.all({
-            listId,
+            list_id,
             ...params,
         })
         await assertSnapshot(t, res)
     })
 
     it('iterates over all entries', async (t) => {
-        const listId = 247888
+        const list_id = 247888
         const page_size = 1
         {
             // set up pages sequentially, each referencing the one after
@@ -114,7 +114,7 @@ describe('list_entries', () => {
                     params.page_token = previous_page_token
                 }
                 // console.log('Setting up page', params, page.list_entries)
-                mock?.onGet(listEntriesUrl(listId), {
+                mock?.onGet(listEntriesUrl(list_id), {
                     params,
                 }).reply(
                     200,
@@ -126,7 +126,7 @@ describe('list_entries', () => {
         let page = 0
         for await (
             const entries of affinity.lists.entries.pagedIterator({
-                listId,
+                list_id,
                 page_size,
             })
         ) {
