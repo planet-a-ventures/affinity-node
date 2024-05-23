@@ -178,10 +178,10 @@ export class ListEntries {
     ): AsyncGenerator<ListEntryResponse[]> {
         let page_token: string | undefined = undefined
         while (true) {
-            const response: PagedListEntryResponse = await this.all({
-                ...query,
-                page_token,
-            })
+            // console.log('Fetching page', page_token, query)
+            const response: PagedListEntryResponse = await this.all(
+                page_token ? { ...query, page_token } : query,
+            )
 
             yield response.list_entries
 

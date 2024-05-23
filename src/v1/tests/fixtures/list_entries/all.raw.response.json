@@ -1,0 +1,62 @@
+[
+    {
+        "created_at": "2024-05-23T12:27:41.625Z",
+        "creator_id": 54576635,
+        "entity": {
+            "emails": [
+                "t@f.io",
+                "f@f.io"
+            ],
+            "first_name": "Fridel",
+            "id": 170614434,
+            "last_name": "Test",
+            "primary_email": "t@f.io",
+            "type": 0
+        },
+        "entity_id": 170614434,
+        "entity_type": 0,
+        "id": 158330673,
+        "list_id": 247888
+    },
+    {
+        "created_at": "2024-05-23T12:27:19.526Z",
+        "creator_id": 54576635,
+        "entity": {
+            "emails": [
+                "t@f.io",
+                "f@f.io"
+            ],
+            "first_name": "Fridel",
+            "id": 170614434,
+            "last_name": "Test",
+            "primary_email": "t@f.io",
+            "type": 0
+        },
+        "entity_id": 170614434,
+        "entity_type": 0,
+        "id": 158330668,
+        "list_id": 247888
+    },
+    {
+        "created_at": "2024-05-23T12:27:09.733Z",
+        "creator_id": 54576635,
+        "entity": {
+            "emails": [
+                "j@p-a.com",
+                "j@f.com",
+                "jf@j.com",
+                "j@c.com",
+                "jf@a.com"
+            ],
+            "first_name": "Joscha",
+            "id": 54576635,
+            "last_name": "Feth",
+            "primary_email": "j@p-a.com",
+            "type": 1
+        },
+        "entity_id": 54576635,
+        "entity_type": 0,
+        "id": 158330666,
+        "list_id": 247888
+    }
+]

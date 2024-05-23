@@ -34,6 +34,7 @@ export class Affinity {
         this.api.interceptors.response.use(
             (response) => response,
             (error) => {
+                // TODO(@joscha): this needs to be refined more, it currently also masks TypeErrors, etc.
                 return Promise.reject(new AffinityApiError(error))
             },
         )

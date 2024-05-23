@@ -4,6 +4,7 @@ import { assertRejects } from '@std/assert/mod.ts'
 import MockAdapter from 'axios-mock-adapter'
 import axios from 'axios'
 import { AffinityApiError } from '../errors.ts'
+import { whoAmIUrl } from '../urls.ts'
 
 describe('error handling', () => {
     let mock: MockAdapter
@@ -18,7 +19,7 @@ describe('error handling', () => {
     })
 
     it('can handle 401', async () => {
-        mock.onGet('/auth/whoami').reply(401)
+        mock.onGet(whoAmIUrl()).reply(401, { valid: 'json' })
         await assertRejects(
             () => affinity.auth.whoAmI(),
             AffinityApiError,
