@@ -1,4 +1,6 @@
 import type { AxiosInstance } from 'axios'
+import { ListEntries } from './list_entries.ts'
+import { listsUrl } from './urls.ts'
 
 export enum ListType {
     /** Type specifying a list of people. */
@@ -73,9 +75,6 @@ export type ListResponse = BaseListResponse & {
      */
     additional_permissions: ListPermission[]
 }
-
-// The raw response from the API and the one we expose are compatible.
-type ListResponseRaw = ListResponse
 
 export type CreateQuery = {
     /**
@@ -191,6 +190,7 @@ export type GetQuery = {
 export class Lists {
     /** @hidden */
     constructor(protected readonly api: AxiosInstance) {
+        this.entries = new ListEntries(this.api)
     }
 
     /**
@@ -199,7 +199,7 @@ export class Lists {
      * @returns An array of all the list resources for lists visible to you. Each list resource in the array includes the id, name, and type (refer to the list resource above for further help).
      */
     async all(): Promise<ListResponse[]> {
-        return (await this.api.get<ListResponse[]>('/lists')).data
+        return (await this.api.get<ListResponse[]>(listsUrl())).data
     }
 
     /**
@@ -208,7 +208,7 @@ export class Lists {
      * @returns The newly created list resource.
      */
     async create(query: CreateQuery): Promise<SingleListResponse> {
-        return (await this.api.post<SingleListResponse>(`/lists`, query)).data
+        return (await this.api.post<SingleListResponse>(listsUrl(), query)).data
     }
 
     /**
@@ -219,8 +219,9 @@ export class Lists {
      * An appropriate error is returned if an invalid list is supplied.
      */
     async get(query: GetQuery): Promise<SingleListResponse> {
-        return (await this.api.get<SingleListResponse>(
-            `/lists/${query.listId}`,
-        )).data
+        return (await this.api.get<SingleListResponse>(listsUrl(query.listId)))
+            .data
     }
+
+    public readonly entries: ListEntries
 }

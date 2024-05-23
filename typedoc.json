@@ -6,7 +6,7 @@
     "excludeInternal": true,
     "excludePrivate": true,
     "excludeProtected": true,
-    "excludeReferences": true,
+    "excludeReferences": false,
     "excludeExternals": true,
     "out": "docs"
 }

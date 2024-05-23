@@ -7,6 +7,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { Affinity } from '../index.ts'
 import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
+import { whoAmIUrl } from '../urls.ts'
 
 describe('whoami', () => {
     let mock: MockAdapter
@@ -23,11 +24,11 @@ describe('whoami', () => {
     })
 
     it('can be called', async (t) => {
-        mock?.onGet('/auth/whoami').reply(
+        mock?.onGet(whoAmIUrl()).reply(
             200,
-            await getRawFixture('whoami/whoami.raw.response.json'),
+            await getRawFixture('auth/whoami/whoami.raw.response.json'),
         )
-        const res = await affinity.whoAmI.get()
+        const res = await affinity.auth.whoAmI()
         assertInstanceOf(res.grant.createdAt, Date)
         await assertSnapshot(t, res)
     })

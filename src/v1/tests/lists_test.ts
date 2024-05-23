@@ -6,6 +6,7 @@ import MockAdapter from 'axios-mock-adapter'
 import { Affinity, ListType } from '../index.ts'
 import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
+import { listsUrl } from '../urls.ts'
 
 describe('lists', () => {
     let mock: MockAdapter
@@ -22,7 +23,7 @@ describe('lists', () => {
     })
 
     it('can get all', async (t) => {
-        mock?.onGet('/lists').reply(
+        mock?.onGet(listsUrl()).reply(
             200,
             await getRawFixture('lists/all.raw.response.json'),
         )
@@ -31,16 +32,17 @@ describe('lists', () => {
     })
 
     it('can get one', async (t) => {
-        mock?.onGet('/lists/123').reply(
+        const listId = 123
+        mock?.onGet(listsUrl(listId)).reply(
             200,
             await getRawFixture('lists/single.raw.response.json'),
         )
-        const res = await affinity.lists.get({ listId: 123 })
+        const res = await affinity.lists.get({ listId })
         await assertSnapshot(t, res)
     })
 
     it('can create', async (t) => {
-        mock?.onPost('/lists').reply(
+        mock?.onPost(listsUrl()).reply(
             201,
             await getRawFixture('lists/create.raw.response.json'),
         )

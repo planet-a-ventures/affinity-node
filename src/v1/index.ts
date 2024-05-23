@@ -1,11 +1,12 @@
 import axios, { type AxiosInstance } from 'axios'
-import { WhoAmI } from './whoami.ts'
+import { Auth } from './auth.ts'
 import { RateLimit } from './rate_limit.ts'
 import { Lists } from './lists.ts'
 import { AffinityApiError } from './errors.ts'
+export type * as ListEntries from './list_entries.ts'
 export type * as Lists from './lists.ts'
 export type * as RateLimit from './rate_limit.ts'
-export type * as WhoAmI from './whoami.ts'
+export type * as WhoAmI from './auth.ts'
 export { FieldValueType, ListType, RoleId } from './lists.ts'
 export { AffinityApiError } from './errors.ts'
 
@@ -38,10 +39,10 @@ export class Affinity {
         )
         this.lists = new Lists(this.api)
         this.rateLimit = new RateLimit(this.api)
-        this.whoAmI = new WhoAmI(this.api)
+        this.auth = new Auth(this.api)
     }
 
-    public readonly whoAmI: WhoAmI
+    public readonly auth: Auth
 
     public readonly rateLimit: RateLimit
 
