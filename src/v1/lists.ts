@@ -202,7 +202,6 @@ export class Lists {
      */
     async all(): Promise<ListResponse[]> {
         return (await this.api.get<ListResponse[]>(listsUrl())).data
-        return (await this.api.get<ListResponse[]>(listsUrl())).data
     }
 
     /**
@@ -211,7 +210,6 @@ export class Lists {
      * @returns The newly created list resource.
      */
     async create(query: CreateQuery): Promise<SingleListResponse> {
-        return (await this.api.post<SingleListResponse>(listsUrl(), query)).data
         return (await this.api.post<SingleListResponse>(listsUrl(), query)).data
     }
 
@@ -223,8 +221,6 @@ export class Lists {
      * An appropriate error is returned if an invalid list is supplied.
      */
     async get(query: GetQuery): Promise<SingleListResponse> {
-        return (await this.api.get<SingleListResponse>(listsUrl(query.listId)))
-            .data
         return (await this.api.get<SingleListResponse>(listsUrl(query.listId)))
             .data
     }
