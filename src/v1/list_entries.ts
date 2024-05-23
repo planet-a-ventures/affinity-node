@@ -42,7 +42,7 @@ export type PagedListEntryResponseRaw = {
     list_entries: ListEntryResponseRaw[]
     /**
      * The absence of a `next_page_token` indicates that all the records have been fetched, though its presence does not necessarily indicate that there are more resources to be fetched.
-     * The next page may be empty (but then `next_page_token` would be null to confirm that there are no more resources).
+     * The next page may be empty (but then `next_page_token` would be `null` to confirm that there are no more resources).
      */
     next_page_token: string | null
 }
@@ -63,7 +63,8 @@ export type PagedListEntryResponse =
 export type PagingParameters = {
     /**
      * How many results to return per page. (Default is to return all results.)
-     * *Note:* This is required in the paging parameters, as a page_token without a page_size will be ignored and the endpoint just returns all results.
+     *
+     * *Note:* This is required in the paging parameters, as a `page_token` without a `page_size` will be ignored and the endpoint just returns all results.
      */
     page_size: number
 
@@ -116,7 +117,10 @@ export class ListEntries {
      *     page_size: 10
      * })
      * console.log(`The first of ${list_entries.length} entries in this page is for`, list_entries?.[0].entity)
-     * console.log(next_page_token ? `The next page token is '${next_page_token}'` : 'No more pages to fetch')
+     * console.log(next_page_token
+     *     ? `The next page token is '${next_page_token}'`
+     *     : 'No more pages to fetch'
+     * )
      * ```
      */
     async all(
