@@ -37,26 +37,35 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 >
 > ⚠️ Make sure you do not commit any unsanitized data.
 
-### Build the library
+### Commands
+
+#### Build the library
 
 1. `nix develop --command deno task build`
 
-### Run tests with coverage
+#### Run tests with coverage
 
 1. `nix develop --command deno task test:coverage`
 
-### Format code
+#### Format code
 
 1. `nix develop --command deno task format`
 
-### Lint code
+#### Lint code
 
 1. `nix develop --command deno task lint`
 
-### Generate documentation
+#### Generate documentation
 
 1. `nix develop --command deno task docs`
 2. `open ./docs/index.html`
+
+### Style
+
+- File names are snake case
+- Symbols are camel case
+- Symbols inherited from the Affinity API documentation, such as path and query
+  parameters adopt the API documentation style, snake case
 
 ## V2
 

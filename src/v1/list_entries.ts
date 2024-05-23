@@ -111,7 +111,10 @@ export class ListEntries {
      *
      * @example
      * ```typescript
-     * const { list_entries, next_page_token } = await affinity.lists.entries.all({ list_id: 123, page_size: 10 })
+     * const { list_entries, next_page_token } = await affinity.lists.entries.all({
+     *     list_id: 123,
+     *     page_size: 10
+     * })
      * console.log(`The first of ${list_entries.length} entries in this page is for`, list_entries?.[0].entity)
      * console.log(next_page_token ? `The next page token is '${next_page_token}'` : 'No more pages to fetch')
      * ```
