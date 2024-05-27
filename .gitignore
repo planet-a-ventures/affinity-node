@@ -137,3 +137,7 @@ docs/
 
 # pre commit hook
 /.pre-commit-config.yaml
+
+
+# Direnv
+.direnv

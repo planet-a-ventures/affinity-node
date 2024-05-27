@@ -29,6 +29,7 @@
           pre-commit.settings.hooks.commitizen.enable = true;
           pre-commit.settings.hooks.denofmt.enable = true;
           pre-commit.settings.hooks.denolint.enable = true;
+          pre-commit.settings.hooks.typos.enable = true;
 
           # NOTE: You can also use `config.pre-commit.devShell`
           devShells.default = pkgs.mkShell {
@@ -41,7 +42,6 @@
               deno
               nodejs-slim_20
               esbuild
-              nixfmt-rfc-style
               # For openapi-generator
               # If more dependencies are needed, investigate whether to load https://github.com/OpenAPITools/openapi-generator/blob/master/flake.nix
               jdk11
