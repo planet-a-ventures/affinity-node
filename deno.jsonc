@@ -6,7 +6,7 @@
     },
     "tasks": {
         "build": "rm -rf dist ; esbuild --bundle src/index.ts --outdir=dist --sourcemap --format=esm --platform=node --packages=external ; tsc --emitDeclarationOnly --outDir dist",
-        "hook": "deno run --no-check=remote --allow-run=deno,git,chmod --allow-read --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts install",
+        "install-hooks": "deno run --no-check=remote --allow-run=deno,git,chmod --allow-read --allow-write=.git-hooks https://deno.land/x/githooked/mod.ts install",
         "test": "deno test --allow-env=API_KEY --allow-net=api.affinity.co --doc --allow-read=./src/v1/tests/ src/**/tests/",
         "test:coverage": "deno task test --coverage=coverage",
         "watch": "deno task test --no-clear-screen --watch --shuffle --parallel",
