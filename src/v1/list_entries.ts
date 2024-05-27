@@ -3,13 +3,50 @@ import type { GetQuery, ListType } from './lists.ts'
 import { listEntriesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 
-export type Entity = {
-    type: ListType
+/**
+ * The type of person.
+ */
+enum PersonType {
+    /**
+     * Default value. All people that your team has spoken with externally have this type.
+     */
+    EXTERNAL = 0,
+    /**
+     * All people on your team that have Affinity accounts will have this type.
+     */
+    INTERNAL = 1,
+}
+
+export type Person = {
+    type: PersonType
     first_name: string
     last_name: string
     primary_email: string
     emails: string[]
 }
+
+export type Organization = {
+    name: string
+    domain: string
+    domains: string[]
+    crunchbase_uuid: null | string
+    global: boolean
+}
+
+export type Opportunity = {
+    name: string
+}
+
+/**
+ * The entity object contains details about the person, organization or opportunity corresponding to the list entry.
+ */
+export type Entity =
+    & { id: number }
+    & (
+        | Person
+        | Organization
+        | Opportunity
+    )
 
 export type ListEntryResponseRaw = {
     /**
@@ -28,6 +65,10 @@ export type ListEntryResponseRaw = {
      * The unique identifier of the entity corresponding to the list entry.
      */
     entity_id: number
+    /**
+     * The type of the entity corresponding to the list entry.
+     */
+    entity_type: ListType
     /**
      * Object containing entity-specific details like name, email address, domain etc. for the entity corresponding to entity_id.
      */
