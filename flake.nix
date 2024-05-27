@@ -37,6 +37,7 @@
               echo 1>&2 "Welcome to the development shell!"
             '';
             buildInputs = with pkgs; [
+              commitizen
               deno
               nodejs-slim_20
               esbuild
