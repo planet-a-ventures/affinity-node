@@ -25,69 +25,67 @@ describe('list_entries', () => {
     })
 
     it('can get all', async (t) => {
-        mock?.onGet(listEntriesUrl(247888)).reply(
-            200,
-            await getRawFixture('list_entries/all.raw.response.json'),
+        const params = { list_id: 247888 }
+        const fixture = await getRawFixture(
+            'list_entries/all.raw.response.json',
         )
-        const res = await affinity.lists.entries.all({ list_id: 247888 })
+        mock?.onGet(listEntriesUrl(params.list_id)).reply(200, fixture)
+        const res = await affinity.lists.entries.all(params)
         await assertSnapshot(t, res)
     })
 
     it('can get a page', async (t) => {
         const params = {
             page_size: 1,
+            list_id: 247888,
         }
-        const list_id = 247888
-        mock?.onGet(listEntriesUrl(list_id), {
-            params,
-        }).reply(
-            200,
-            await getRawFixture('list_entries/paginated.raw.response.json'),
+        const fixture = await getRawFixture(
+            'list_entries/paginated.raw.response.json',
         )
-        const res = await affinity.lists.entries.all({
-            list_id,
-            ...params,
-        })
+        const { list_id, ...rest } = params
+        mock?.onGet(listEntriesUrl(list_id), rest).reply(
+            200,
+            fixture,
+        )
+        const res = await affinity.lists.entries.all(params)
         await assertSnapshot(t, res)
     })
 
     it('can get a following page', async (t) => {
         const params = {
+            list_id: 247888,
             page_size: 1,
             page_token:
                 'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6Mn0',
         }
-        const list_id = 247888
-        mock?.onGet(listEntriesUrl(list_id)).reply(
-            200,
-            await getRawFixture(
-                `list_entries/paginated.${params.page_token}.raw.response.json`,
-            ),
+        const fixture = await getRawFixture(
+            `list_entries/paginated.${params.page_token}.raw.response.json`,
         )
-        const res = await affinity.lists.entries.all({
-            list_id,
-            ...params,
-        })
+        const { list_id, ...rest } = params
+        mock?.onGet(listEntriesUrl(list_id), rest).reply(
+            200,
+            fixture,
+        )
+        const res = await affinity.lists.entries.all(params)
         await assertSnapshot(t, res)
     })
 
     it('can deal with a last empty page', async (t) => {
         const params = {
+            list_id: 247888,
             page_size: 1,
             page_token:
                 'eyJwYXJhbXMiOnsibGlzdF9pZCI6IjI0Nzg4OCJ9LCJwYWdlX3NpemUiOjEsIm9mZnNldCI6M30',
         }
-        const list_id = 247888
-        mock?.onGet(listEntriesUrl(list_id)).reply(
-            200,
-            await getRawFixture(
-                `list_entries/paginated.${params.page_token}.raw.response.json`,
-            ),
+        const fixture = await getRawFixture(
+            `list_entries/paginated.${params.page_token}.raw.response.json`,
         )
-        const res = await affinity.lists.entries.all({
-            list_id,
-            ...params,
-        })
+        const { list_id, ...rest } = params
+        mock?.onGet(listEntriesUrl(list_id), rest).reply(
+            200,
+            fixture,
+        )
+        const res = await affinity.lists.entries.all(params)
         await assertSnapshot(t, res)
     })
 
@@ -140,11 +138,14 @@ describe('list_entries', () => {
     describe('get', () => {
         it('fetches a list entry by id', async (t) => {
             const params = { list_id: 450, list_entry_id: 16367 }
+            const fixture = await getRawFixture(
+                'list_entries/get.raw.response.json',
+            )
 
             mock.onGet(listEntriesUrl(params.list_id, params.list_entry_id))
                 .reply(
                     200,
-                    await getRawFixture('list_entries/get.raw.response.json'),
+                    fixture,
                 )
 
             const res = await affinity.lists.entries.get(params)
@@ -155,12 +156,28 @@ describe('list_entries', () => {
     describe('delete', () => {
         it('deletes a list entry by id', async (t) => {
             const params = { list_id: 450, list_entry_id: 16367 }
+            const fixture = JSON.stringify({ success: true })
 
             mock.onDelete(listEntriesUrl(params.list_id, params.list_entry_id))
-                .reply(204, { 'success': true })
+                .reply(204, fixture)
 
             const success = await affinity.lists.entries.delete(params)
             assertEquals(success, true)
+        })
+    })
+
+    describe('create', () => {
+        it('creates a new list entry', async (t) => {
+            const params = { list_id: 450, entity_id: 38706, creator_id: 123 }
+            const fixture = await getRawFixture(
+                'list_entries/create.raw.response.json',
+            )
+
+            mock.onPost(listEntriesUrl(params.list_id))
+                .reply(201, fixture)
+
+            const res = await affinity.lists.entries.create(params)
+            await assertSnapshot(t, res)
         })
     })
 })

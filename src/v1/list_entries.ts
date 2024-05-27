@@ -75,8 +75,34 @@ export type PagingParameters = {
 }
 
 type ListEntryReference = {
+    /**
+     * The unique ID of the list that contains the specified {@link ListEntryReference.list_entry_id}.
+     */
     list_id: number
+    /**
+     * The unique ID of the list entry object to be retrieved.
+     */
     list_entry_id: number
+}
+
+/**
+ * Request payload for creating a new list entry.
+ */
+type CreateListEntryRequest = {
+    /**
+     * The unique ID of the list whose list entries are to be retrieved.
+     */
+    list_id: number
+    /**
+     * The unique ID of the person or organization to add to this list. Opportunities cannot be created using this endpoint.
+     */
+    entity_id: number
+    /**
+     * The ID of a Person resource who should be recorded as adding the entry to the list.
+     * Must be a person who can access Affinity.
+     * If not provided the creator defaults to the owner of the API key.
+     */
+    creator_id?: number
 }
 
 export class ListEntries {
@@ -259,5 +285,39 @@ export class ListEntries {
             listEntriesUrl(list_id, list_entry_id),
         )
         return response.data.success === true
+    }
+
+    /**
+     * Creates a new list entry in the list with the supplied list_id.
+     *
+     * *Notes*:
+     * - Opportunities cannot be created using this endpoint. Instead use the POST /opportunities endpoint.
+     * - Person and company lists can contain the same entity multiple times. Depending on your use case, before you add an entry, you may want to verify whether or not it exists in the list already.
+     *
+     * @returns The created list entry object.
+     *
+     * @example
+     * ```typescript
+     * const newListEntry = await affinity.lists.entries.create({ list_id: 450, entity_id: 38706 })
+     * console.log(newListEntry)
+     * ```
+     */
+    async create(
+        data: CreateListEntryRequest,
+    ): Promise<ListEntryResponse> {
+        const { list_id, ...rest } = data
+        const response = await this.api.post<ListEntryResponse>(
+            listEntriesUrl(list_id),
+            rest,
+            {
+                transformResponse: [
+                    ...defaultTransformers(),
+                    (json: ListEntryResponseRaw) => {
+                        return ListEntries.transformEntry(json)
+                    },
+                ],
+            },
+        )
+        return response.data
     }
 }
