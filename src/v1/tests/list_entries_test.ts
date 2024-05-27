@@ -8,6 +8,7 @@ import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { listEntriesUrl } from '../urls.ts'
 import { PagingParameters } from '../list_entries.ts'
+import { assertEquals } from '@std/assert/mod.ts'
 
 describe('list_entries', () => {
     let mock: MockAdapter
@@ -148,6 +149,18 @@ describe('list_entries', () => {
 
             const res = await affinity.lists.entries.get(params)
             await assertSnapshot(t, res)
+        })
+    })
+
+    describe('delete', () => {
+        it('deletes a list entry by id', async (t) => {
+            const params = { list_id: 450, list_entry_id: 16367 }
+
+            mock.onDelete(listEntriesUrl(params.list_id, params.list_entry_id))
+                .reply(204, { 'success': true })
+
+            const success = await affinity.lists.entries.delete(params)
+            assertEquals(success, true)
         })
     })
 })

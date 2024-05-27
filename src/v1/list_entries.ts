@@ -74,6 +74,11 @@ export type PagingParameters = {
     page_token?: string
 }
 
+type ListEntryReference = {
+    list_id: number
+    list_entry_id: number
+}
+
 export class ListEntries {
     /** @hidden */
     constructor(protected readonly api: AxiosInstance) {
@@ -172,11 +177,13 @@ export class ListEntries {
      * @returns The list entry object corresponding to the list_entry_id.
      *
      * @example
+     * ```typescript
      * const listEntry = await affinity.lists.entries.get({ list_id: 450, list_entry_id: 16367 })
      * console.log(listEntry)
+     * ```
      */
     async get(
-        { list_id, list_entry_id }: { list_id: number; list_entry_id: number },
+        { list_id, list_entry_id }: ListEntryReference,
     ): Promise<ListEntryResponse> {
         const response = await this.api.get<ListEntryResponse>(
             listEntriesUrl(list_id, list_entry_id),
@@ -199,7 +206,7 @@ export class ListEntries {
      *
      * *Please note:* the yielded list entries array may be empty on the last page.
      *
-     * Example:
+     * @example
      * ```typescript
      * let page = 0
      * for await (const entries of affinity.lists.entries.pagedIterator({
@@ -229,5 +236,28 @@ export class ListEntries {
                 page_token = response.next_page_token
             }
         }
+    }
+
+    /**
+     * Deletes a specific list entry.
+     *
+     * @param params - Object containing the parameters for the request
+     * @param params.list_id - The unique ID of the list that contains the specified list_entry_id.
+     * @param params.list_entry_id - The unique ID of the list entry object to be deleted.
+     * @returns boolean indicating whether the list entry was successfully deleted.
+     *
+     * @example
+     * ```typescript
+     * await affinity.lists.entries.delete({ list_id: 450, list_entry_id: 16367 })
+     * console.log('List entry deleted')
+     * ```
+     */
+    async delete(
+        { list_id, list_entry_id }: ListEntryReference,
+    ): Promise<boolean> {
+        const response = await this.api.delete(
+            listEntriesUrl(list_id, list_entry_id),
+        )
+        return response.data.success === true
     }
 }
