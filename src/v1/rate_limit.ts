@@ -41,7 +41,7 @@ export type RateLimitResponse = {
 
 export class RateLimit {
     /** @hidden */
-    constructor(protected readonly api: AxiosInstance) {
+    constructor(protected readonly axios: AxiosInstance) {
     }
 
     /**
@@ -59,7 +59,7 @@ export class RateLimit {
      * ```
      */
     async get(): Promise<RateLimitResponse> {
-        return (await this.api.get<RateLimitResponse>(rateLimitUrl(), {
+        return (await this.axios.get<RateLimitResponse>(rateLimitUrl(), {
             transformResponse: [
                 ...defaultTransformers(),
                 (json: RateLimitResponseRaw) => {

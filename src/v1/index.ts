@@ -11,7 +11,7 @@ export { FieldValueType, ListType, RoleId } from './lists.ts'
 export { AffinityApiError } from './errors.ts'
 
 export class Affinity {
-    protected readonly api: AxiosInstance
+    protected readonly axios: AxiosInstance
 
     /**
      * @param apiKey The Affinity API key. [How to get yours](https://support.affinity.co/hc/en-us/articles/360032633992-How-to-obtain-your-API-Key).
@@ -21,7 +21,7 @@ export class Affinity {
         apiKey: string,
         axiosInstance?: AxiosInstance,
     ) {
-        this.api = axiosInstance || axios.create({
+        this.axios = axiosInstance || axios.create({
             baseURL: 'https://api.affinity.co',
             headers: {
                 'X-Requested-With': '@planet-a/affinity-node',
@@ -31,16 +31,16 @@ export class Affinity {
                 password: apiKey,
             },
         })
-        this.api.interceptors.response.use(
+        this.axios.interceptors.response.use(
             (response) => response,
             (error) => {
                 // TODO(@joscha): this needs to be refined more, it currently also masks TypeErrors, etc.
                 return Promise.reject(new AffinityApiError(error))
             },
         )
-        this.lists = new Lists(this.api)
-        this.rateLimit = new RateLimit(this.api)
-        this.auth = new Auth(this.api)
+        this.lists = new Lists(this.axios)
+        this.rateLimit = new RateLimit(this.axios)
+        this.auth = new Auth(this.axios)
     }
 
     public readonly auth: Auth

@@ -189,8 +189,8 @@ export type GetQuery = {
 
 export class Lists {
     /** @hidden */
-    constructor(protected readonly api: AxiosInstance) {
-        this.entries = new ListEntries(this.api)
+    constructor(protected readonly axios: AxiosInstance) {
+        this.entries = new ListEntries(this.axios)
     }
 
     /**
@@ -205,7 +205,7 @@ export class Lists {
      * ```
      */
     async all(): Promise<ListResponse[]> {
-        return (await this.api.get<ListResponse[]>(listsUrl())).data
+        return (await this.axios.get<ListResponse[]>(listsUrl())).data
     }
 
     /**
@@ -224,7 +224,7 @@ export class Lists {
      * ```
      */
     async create(query: CreateQuery): Promise<SingleListResponse> {
-        return (await this.api.post<SingleListResponse>(listsUrl(), query)).data
+        return (await this.axios.post<SingleListResponse>(listsUrl(), query)).data
     }
 
     /**
@@ -241,7 +241,7 @@ export class Lists {
      * ```
      */
     async get(query: GetQuery): Promise<SingleListResponse> {
-        return (await this.api.get<SingleListResponse>(listsUrl(query.list_id)))
+        return (await this.axios.get<SingleListResponse>(listsUrl(query.list_id)))
             .data
     }
 

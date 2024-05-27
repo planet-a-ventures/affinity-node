@@ -67,7 +67,7 @@ export type WhoAmIResponse = {
 
 export class Auth {
     /** @hidden */
-    constructor(protected readonly api: AxiosInstance) {
+    constructor(protected readonly axios: AxiosInstance) {
     }
 
     /**
@@ -77,7 +77,7 @@ export class Auth {
      * [More information](https://api-docs.affinity.co/#the-whoami-resource)
      */
     async whoAmI(): Promise<WhoAmIResponse> {
-        return (await this.api.get<WhoAmIResponse>(whoAmIUrl(), {
+        return (await this.axios.get<WhoAmIResponse>(whoAmIUrl(), {
             transformResponse: [
                 ...defaultTransformers(),
                 (json: WhoAmIResponseRaw) => {

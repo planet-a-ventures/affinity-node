@@ -154,7 +154,7 @@ type CreateListEntryRequest = {
  */
 export class ListEntries {
     /** @hidden */
-    constructor(protected readonly api: AxiosInstance) {
+    constructor(protected readonly axios: AxiosInstance) {
     }
 
     private static transformEntry = (
@@ -213,7 +213,7 @@ export class ListEntries {
         query: GetQuery | GetQuery & PagingParameters,
     ): Promise<ListEntryResponse[] | PagedListEntryResponse> {
         const { list_id, ...params } = query
-        const response = await this.api.get<ListEntryResponse[]>(
+        const response = await this.axios.get<ListEntryResponse[]>(
             listEntriesUrl(list_id),
             {
                 params,
@@ -255,7 +255,7 @@ export class ListEntries {
     async get(
         { list_id, list_entry_id }: ListEntryReference,
     ): Promise<ListEntryResponse> {
-        const response = await this.api.get<ListEntryResponse>(
+        const response = await this.axios.get<ListEntryResponse>(
             listEntriesUrl(list_id, list_entry_id),
             {
                 transformResponse: [
@@ -322,7 +322,7 @@ export class ListEntries {
     async delete(
         { list_id, list_entry_id }: ListEntryReference,
     ): Promise<boolean> {
-        const response = await this.api.delete(
+        const response = await this.axios.delete(
             listEntriesUrl(list_id, list_entry_id),
         )
         return response.data.success === true
@@ -347,7 +347,7 @@ export class ListEntries {
         data: CreateListEntryRequest,
     ): Promise<ListEntryResponse> {
         const { list_id, ...rest } = data
-        const response = await this.api.post<ListEntryResponse>(
+        const response = await this.axios.post<ListEntryResponse>(
             listEntriesUrl(list_id),
             rest,
             {
