@@ -244,9 +244,6 @@ export class ListEntries {
     /**
      * Fetches a list entry with a specified id.
      *
-     * @param params - Object containing the parameters for the request
-     * @param params.list_id - The unique ID of the list that contains the specified list_entry_id.
-     * @param params.list_entry_id - The unique ID of the list entry object to be retrieved.
      * @returns The list entry object corresponding to the list_entry_id.
      *
      * @example
@@ -314,9 +311,6 @@ export class ListEntries {
     /**
      * Deletes a specific list entry.
      *
-     * @param params - Object containing the parameters for the request
-     * @param params.list_id - The unique ID of the list that contains the specified list_entry_id.
-     * @param params.list_entry_id - The unique ID of the list entry object to be deleted.
      * @returns boolean indicating whether the list entry was successfully deleted.
      *
      * @example
