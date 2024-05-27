@@ -9,10 +9,10 @@ export const listsUrl = (list_id?: number) =>
  * @hidden
  * See [here](https://api-docs.affinity.co/#get-a-specific-list-entry) for more info.
  */
-export const listEntriesUrl = (list_id: number, listEntryId?: number) =>
+export const listEntriesUrl = (list_id: number, list_entry_id?: number) =>
     listsUrl(list_id) + (
-        listEntryId
-            ? `/list-entries/${encodeURIComponent(listEntryId)}`
+        list_entry_id
+            ? `/list-entries/${encodeURIComponent(list_entry_id)}`
             : '/list-entries'
     )
 

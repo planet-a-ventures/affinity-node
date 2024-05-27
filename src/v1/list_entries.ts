@@ -135,7 +135,7 @@ export class ListEntries {
         query: GetQuery | GetQuery & PagingParameters,
     ): Promise<ListEntryResponse[] | PagedListEntryResponse> {
         const { list_id, ...params } = query
-        return (await this.api.get<ListEntryResponse[]>(
+        const response = await this.api.get<ListEntryResponse[]>(
             listEntriesUrl(list_id),
             {
                 params,
@@ -159,7 +159,35 @@ export class ListEntries {
                     },
                 ],
             },
-        )).data
+        )
+        return response.data
+    }
+
+    /**
+     * Fetches a list entry with a specified id.
+     * 
+     * @param params - Object containing the parameters for the request
+     * @param params.list_id - The unique ID of the list that contains the specified list_entry_id.
+     * @param params.list_entry_id - The unique ID of the list entry object to be retrieved.
+     * @returns The list entry object corresponding to the list_entry_id.
+     *
+     * @example
+     * const listEntry = await affinity.lists.entries.get({ list_id: 450, list_entry_id: 16367 })
+     * console.log(listEntry)
+     */
+    async get({list_id, list_entry_id}: { list_id: number, list_entry_id: number }): Promise<ListEntryResponse> {
+        const response = await this.api.get<ListEntryResponse>(
+            listEntriesUrl(list_id, list_entry_id),
+            {
+                transformResponse: [
+                    ...defaultTransformers(),
+                    (json: ListEntryResponseRaw) => {
+                        return ListEntries.transformEntry(json)
+                    },
+                ],
+            }
+        )
+        return response.data
     }
 
     /**
