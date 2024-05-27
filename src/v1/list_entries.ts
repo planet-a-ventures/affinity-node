@@ -146,6 +146,12 @@ type CreateListEntryRequest = {
     creator_id?: number
 }
 
+/**
+ * *Notes*: Although list entries correspond to rows in an Affinity spreadsheet, the values associated with the entity are not stored inside the list entry resource.
+ * If you are trying to update, create, or delete a value in one of the custom columns for this list entry, please refer to the [Field Values](https://api-docs.affinity.co/#field-values) section.
+ * The list entry API is only used for getting, adding, or removing entities from a list.
+ * It does not handle updating individual cells in columns.
+ */
 export class ListEntries {
     /** @hidden */
     constructor(protected readonly api: AxiosInstance) {
