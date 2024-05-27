@@ -67,6 +67,24 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 - Symbols inherited from the Affinity API documentation, such as path and query
   parameters adopt the API documentation style, snake case
 
+### Commits
+
+This repo follows the
+[conventional commits](https://www.conventionalcommits.org/) format. Run
+`nix develop --command cz commit` after staging some changes to be guided
+through the process if you're unfamiliar with it.
+
+### Pre commit hooks
+
+Pre-commit hooks are managed by Nix. Once you run your commit, it will analyze
+the changes and run required hooks.
+
+### Direnv
+
+This repo is [direnv](https://direnv.net/)-enabled. If you have Nix and direnv
+on your system, you can ignore any `nix develop --command` prefixes and just
+work in the folder as if you were inside the nix flake environment.
+
 ## V2
 
 A preliminary generator for [V2](https://developer.affinity.co/docs/v2/) can be
