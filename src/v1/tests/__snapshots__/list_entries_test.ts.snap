@@ -205,3 +205,23 @@ snapshot[`page 3 of entries 1`] = `
 `;
 
 snapshot[`page 4 of entries 1`] = `[]`;
+
+snapshot[`list_entries > get > fetches a list entry by id 1`] = `
+{
+  created_at: 2017-02-22T23:22:21.125Z,
+  creator_id: 123,
+  entity: {
+    emails: [
+      "john.doe@example.com",
+      "jdoe@stanford.edu",
+    ],
+    first_name: "John",
+    last_name: "Doe",
+    primary_email: "john.doe@example.com",
+    type: 0,
+  },
+  entity_id: 987,
+  id: 16367,
+  list_id: 450,
+}
+`;

@@ -136,15 +136,15 @@ describe('list_entries', () => {
         }
     })
 
-    
     describe('get', () => {
         it('fetches a list entry by id', async (t) => {
             const params = { list_id: 450, list_entry_id: 16367 }
 
-            mock.onGet(listEntriesUrl(params.list_id, params.list_entry_id)).reply(200, 
-                await getRawFixture('list_entries/get.raw.response.json'),
-
-            )
+            mock.onGet(listEntriesUrl(params.list_id, params.list_entry_id))
+                .reply(
+                    200,
+                    await getRawFixture('list_entries/get.raw.response.json'),
+                )
 
             const res = await affinity.lists.entries.get(params)
             await assertSnapshot(t, res)

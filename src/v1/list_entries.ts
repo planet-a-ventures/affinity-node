@@ -165,7 +165,7 @@ export class ListEntries {
 
     /**
      * Fetches a list entry with a specified id.
-     * 
+     *
      * @param params - Object containing the parameters for the request
      * @param params.list_id - The unique ID of the list that contains the specified list_entry_id.
      * @param params.list_entry_id - The unique ID of the list entry object to be retrieved.
@@ -175,7 +175,9 @@ export class ListEntries {
      * const listEntry = await affinity.lists.entries.get({ list_id: 450, list_entry_id: 16367 })
      * console.log(listEntry)
      */
-    async get({list_id, list_entry_id}: { list_id: number, list_entry_id: number }): Promise<ListEntryResponse> {
+    async get(
+        { list_id, list_entry_id }: { list_id: number; list_entry_id: number },
+    ): Promise<ListEntryResponse> {
         const response = await this.api.get<ListEntryResponse>(
             listEntriesUrl(list_id, list_entry_id),
             {
@@ -185,7 +187,7 @@ export class ListEntries {
                         return ListEntries.transformEntry(json)
                     },
                 ],
-            }
+            },
         )
         return response.data
     }
