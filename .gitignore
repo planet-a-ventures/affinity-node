@@ -134,3 +134,6 @@ dist
 
 # typedoc
 docs/
+
+# pre commit hook
+/.pre-commit-config.yaml
