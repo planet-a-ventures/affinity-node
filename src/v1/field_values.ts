@@ -157,6 +157,21 @@ export class FieldValues {
         return date.toISOString() === dateString
     }
 
+    private static transformValue(value: ValueRaw): Value
+    private static transformValue(value: Value): ValueRaw
+    private static transformValue(value: Value | ValueRaw): Value | ValueRaw {
+        if (value instanceof Date) {
+            return value.toISOString() as DateTime
+        } else if (
+            typeof value === 'string' && FieldValues.isValidISO8601(value)
+        ) {
+            return new Date(value)
+        } else {
+            return value
+        }
+    }
+
+    // TODO(@joscha): use FieldValues.transformValue(data.value) from above
     private static transformFieldValue(fieldValue: FieldValue): FieldValueRaw
     private static transformFieldValue(fieldValue: FieldValueRaw): FieldValue
     private static transformFieldValue(
@@ -247,7 +262,10 @@ export class FieldValues {
     async create(data: CreateFieldValueRequest): Promise<FieldValue> {
         const response = await this.axios.post<FieldValue>(
             fieldValuesUrl(),
-            data,
+            {
+                ...data,
+                value: FieldValues.transformValue(data.value),
+            },
             {
                 transformResponse: [
                     ...defaultTransformers(),
@@ -280,7 +298,7 @@ export class FieldValues {
     async update(data: UpdateFieldValueRequest): Promise<FieldValue> {
         const response = await this.axios.put<FieldValue>(
             fieldValuesUrl(data.field_value_id),
-            { value: data.value },
+            { value: FieldValues.transformValue(data.value) },
             {
                 transformResponse: [
                     ...defaultTransformers(),
