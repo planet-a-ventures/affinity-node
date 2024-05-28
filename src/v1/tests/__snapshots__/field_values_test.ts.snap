@@ -1,0 +1,56 @@
+export const snapshot = {};
+
+snapshot[`field_values > can get all 1`] = `
+[
+  {
+    created_at: 2021-10-04T12:54:24.694Z,
+    entity_id: 38706,
+    field_id: 337,
+    id: 250616,
+    list_entry_id: null,
+    updated_at: 2022-03-04T12:54:24.694Z,
+    value: {
+      city: "San Francisco",
+      continent: null,
+      country: "United States",
+      state: "California",
+      street_address: null,
+    },
+  },
+  {
+    created_at: 2022-10-04T12:54:24.694Z,
+    entity_id: 65680071,
+    entity_type: 0,
+    field_id: 768101,
+    id: 2634897436,
+    list_entry_id: null,
+    updated_at: null,
+    value: "Software Engineer",
+    value_type: 2,
+  },
+]
+`;
+
+snapshot[`field_values > can create a new field value 1`] = `
+{
+  created_at: 2022-10-04T14:37:19.418Z,
+  entity_id: 38706,
+  field_id: 1284,
+  id: 20406836,
+  list_entry_id: null,
+  updated_at: null,
+  value: "Architecture",
+}
+`;
+
+snapshot[`field_values > can update a field value 1`] = `
+{
+  created_at: 2022-10-04T14:37:19.418Z,
+  entity_id: 38706,
+  field_id: 1284,
+  id: 20406836,
+  list_entry_id: null,
+  updated_at: 2023-02-06T16:53:08.914Z,
+  value: "Healthcare",
+}
+`;

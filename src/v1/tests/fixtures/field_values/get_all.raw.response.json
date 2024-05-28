@@ -1,0 +1,28 @@
+[
+    {
+        "id": 250616,
+        "field_id": 337,
+        "list_entry_id": null,
+        "entity_id": 38706,
+        "created_at": "2021-10-04T08:54:24.694-04:00",
+        "updated_at": "2022-03-04T08:54:24.694-04:00",
+        "value": {
+            "city": "San Francisco",
+            "state": "California",
+            "country": "United States",
+            "continent": null,
+            "street_address": null
+        }
+    },
+    {
+        "id": 2634897436,
+        "field_id": 768101,
+        "list_entry_id": null,
+        "entity_type": 0,
+        "value_type": 2,
+        "entity_id": 65680071,
+        "created_at": "2022-10-04T08:54:24.694-04:00",
+        "updated_at": null,
+        "value": "Software Engineer"
+    }
+]

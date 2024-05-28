@@ -4,11 +4,13 @@ import { RateLimit } from './rate_limit.ts'
 import { Lists } from './lists.ts'
 import { AffinityApiError } from './errors.ts'
 import { Fields } from './fields.ts'
+import { FieldValues } from './field_values.ts'
 export type * as ListEntries from './list_entries.ts'
 export type * as Lists from './lists.ts'
 export type * as Fields from './fields.ts'
 export type * as RateLimit from './rate_limit.ts'
 export type * as WhoAmI from './auth.ts'
+export type * as FieldValues from './field_values.ts'
 export { EntityType, FieldValueType, RoleId } from './lists.ts'
 export { AffinityApiError } from './errors.ts'
 
@@ -45,6 +47,7 @@ export class Affinity {
         this.rateLimit = new RateLimit(this.axios)
         this.auth = new Auth(this.axios)
         this.fields = new Fields(this.axios)
+        this.fieldValues = new FieldValues(this.axios)
     }
 
     public readonly auth: Auth
@@ -54,4 +57,6 @@ export class Affinity {
     public readonly lists: Lists
 
     public readonly fields: Fields
+
+    public readonly fieldValues: FieldValues
 }

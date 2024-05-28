@@ -34,3 +34,13 @@ export const whoAmIUrl = () => '/auth/whoami'
  */
 export const fieldsUrl = (field_id?: number) =>
     field_id ? `/fields/${encodeURIComponent(field_id)}` : '/fields'
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#field-values) for more info.
+ */
+export const fieldValuesUrl = (field_value_id?: number) => {
+    return field_value_id
+        ? `/field-values/${encodeURIComponent(field_value_id)}`
+        : '/field-values'
+}
