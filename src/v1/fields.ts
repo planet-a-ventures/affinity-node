@@ -49,10 +49,10 @@ export type FieldsQueryParameters = {
  * By default, Affinity provides all teams with a few default global fields: For people, the global fields include Location, Job Titles, and Industries. For organizations, the global fields include Stage, Industry, Location, and more.
  *
  * *Notes*:
- * - The Field endpoint does not return any Crunchbase fields.
- * - Global field IDs for persons are returned from GET /persons/fields
- * - Global field IDs for organizations are returned from GET /organizations/fields
- * - List-specific field IDs are also returned from GET /lists/{list_id}
+ * - The Field endpoint does not return any [Crunchbase](https://www.crunchbase.com/) fields.
+ * - Global field IDs for persons are returned from `GET /persons/fields`
+ * - Global field IDs for organizations are returned from `GET /organizations/fields`
+ * - List-specific field IDs are also returned from `GET /lists/{list_id}`
  */
 export class Fields {
     /** @hidden */
