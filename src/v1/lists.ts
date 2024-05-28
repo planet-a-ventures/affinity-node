@@ -2,7 +2,7 @@ import type { AxiosInstance } from 'axios'
 import { ListEntries } from './list_entries.ts'
 import { listsUrl } from './urls.ts'
 
-export enum ListType {
+export enum EntityType {
     /** Type specifying a list of people. */
     PERSON = 0,
     /** Type specifying a list of organizations. */
@@ -33,7 +33,7 @@ export type BaseListResponse = {
      * The type of the entities (people, organizations, or opportunities) contained within the list.
      * Each list only supports one entity type.
      */
-    type: ListType
+    type: EntityType
 
     /**
      * The title of the list that is displayed in Affinity.
@@ -86,7 +86,7 @@ export type ListCreateParameters = {
      * The type of the entities (people, organizations, or opportunities) contained within the list.
      * Each list only supports one entity type.
      */
-    type: ListType
+    type: EntityType
 
     /**
      * Set to true to make the list publicly accessible to all users in your Affinity account.

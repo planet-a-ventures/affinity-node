@@ -9,7 +9,7 @@ export type * as Lists from './lists.ts'
 export type * as Fields from './fields.ts'
 export type * as RateLimit from './rate_limit.ts'
 export type * as WhoAmI from './auth.ts'
-export { FieldValueType, ListType, RoleId } from './lists.ts'
+export { EntityType, FieldValueType, RoleId } from './lists.ts'
 export { AffinityApiError } from './errors.ts'
 
 export class Affinity {

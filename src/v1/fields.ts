@@ -1,7 +1,7 @@
 import type { AxiosInstance } from 'axios'
 import { fieldsUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
-import { Field, FieldValueType, ListType } from './lists.ts'
+import { EntityType, Field, FieldValueType } from './lists.ts'
 
 export type FieldResponse = Field[]
 
@@ -23,7 +23,7 @@ export type FieldsQueryParameters = {
      *
      * Pass the `entity_type` to fetch fields of specific entity types. Otherwise, any fields of any entity type will be returned.
      */
-    entity_type?: ListType
+    entity_type?: EntityType
     /**
      * When `true`, field names will return in the format `[List Name] Field Name`.
      *

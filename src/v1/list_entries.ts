@@ -1,5 +1,5 @@
 import type { AxiosInstance } from 'axios'
-import type { GetQuery, ListType } from './lists.ts'
+import type { EntityType, GetQuery } from './lists.ts'
 import { listEntriesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 
@@ -68,7 +68,7 @@ export type ListEntryResponseRaw = {
     /**
      * The type of the entity corresponding to the list entry.
      */
-    entity_type: ListType
+    entity_type: EntityType
     /**
      * Object containing entity-specific details like name, email address, domain etc. for the entity corresponding to entity_id.
      */

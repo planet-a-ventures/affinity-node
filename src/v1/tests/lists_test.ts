@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { Affinity, ListType } from '../index.ts'
+import { Affinity, EntityType } from '../index.ts'
 import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { listsUrl } from '../urls.ts'
@@ -48,7 +48,7 @@ describe('lists', () => {
         )
         const res = await affinity.lists.create({
             name: 'My List of Organizations',
-            type: ListType.ORGANIZATION,
+            type: EntityType.ORGANIZATION,
             is_public: true,
         })
         await assertSnapshot(t, res)
