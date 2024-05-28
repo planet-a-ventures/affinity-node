@@ -34,3 +34,16 @@ snapshot[`fields > all > fetches all fields 1`] = `
   },
 ]
 `;
+
+snapshot[`fields > create > creates a new field 1`] = `
+{
+  allows_multiple: false,
+  dropdown_options: [],
+  enrichment_source: "none",
+  id: 59,
+  list_id: 11,
+  name: "[Deals] Amount",
+  track_changes: false,
+  value_type: 3,
+}
+`;

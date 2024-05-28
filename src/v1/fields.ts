@@ -38,6 +38,50 @@ export type FieldsQueryParameters = {
     exclude_dropdown_options?: boolean
 }
 
+export type FieldCreateParameters =
+    & {
+        /**
+         * The name of the field.
+         */
+        name: string
+        /**
+         * This describes what type of list this field will be associated with.
+         */
+        entity_type: EntityType
+        /**
+         * This describes what values can be associated with the field.
+         */
+        value_type: number
+
+        /**
+         * This determines whether multiple values can be added to a single cell for the field.
+         */
+        allows_multiple?: boolean
+
+        /**
+         * This determines whether the field object is required.
+         */
+        is_required?: boolean
+
+        /**
+         * This determines whether the field object belongs to a specific list.  If set to true, you must pass in the appropriate list_id.
+         */
+        is_list_specific?: boolean
+
+        /**
+         * The unique identifier of the list that the field object belongs to if it is specific to a list.
+         * This is `null` if the field is global.
+         */
+        list_id?: number | null
+    }
+    & ({
+        list_id: null
+        is_list_specific: false
+    } | {
+        list_id: number
+        is_list_specific: true
+    })
+
 /**
  * Fields as a data model represent the "columns" in a spreadsheet. A field can be specific to a given list, or it can be global. List-specific fields appear as a column whenever that list is being viewed while global fields are displayed on all lists.
  *
@@ -81,6 +125,40 @@ export class Fields {
             fieldsUrl(),
             {
                 params,
+            },
+        )
+        return response.data
+    }
+
+    /**
+     * Creates a new field.
+     *
+     * @param data - Object containing the data for creating a new field
+     * @returns The created field object.
+     *
+     * @example
+     * ```typescript
+     * const newField = await affinity.fields.create({
+     *     name: '[Deals] Amount',
+     *     entity_type: 1,
+     *     value_type: 3,
+     *     list_id: 11,
+     *     allows_multiple: false,
+     *     is_list_specific: true,
+     *     is_required: false
+     * })
+     * console.log(newField)
+     * ```
+     */
+    async create(params: FieldCreateParameters): Promise<FieldResponse> {
+        const response = await this.axios.post<FieldResponse>(
+            fieldsUrl(),
+            params,
+            {
+                transformResponse: [
+                    ...defaultTransformers(),
+                    (json: FieldResponse) => json,
+                ],
             },
         )
         return response.data

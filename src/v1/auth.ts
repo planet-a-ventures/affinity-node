@@ -52,11 +52,11 @@ export type WhoAmIResponse = {
      */
     tenant: Tenant
     /**
-     * Data about the user whose api key was used for the endpoint.
+     * Data about the user whose API key was used for the endpoint.
      */
     user: User
     /**
-     * Data about the type of authentication and metadata about the api key.
+     * Data about the type of authentication and metadata about the API key.
      */
     grant: {
         type: GrantType

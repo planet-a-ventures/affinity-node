@@ -212,6 +212,27 @@ export type Field =
          */
         enrichment_source: string | 'none' | 'dealroom' | 'affinity-data'
 
+        /**
+         * Whether this field supports historical tracking.
+         * Not all fields can track historical changes.
+         * Fields that are automatically created and "enriched" by Affinity do not support change tracking.
+         *
+         * Among fields that are not enriched, only the ones with the following data types support change tracking:
+         *
+         * Multi-valued fields:
+         * - {@link FieldValueType.PERSON}
+         * - {@link FieldValueType.ORGANIZATION}
+         * - {@link FieldValueType.NUMBER}
+         * - {@link FieldValueType.LOCATION}
+         *
+         * Single-valued fields:
+         * - {@link FieldValueType.PERSON}
+         * - {@link FieldValueType.ORGANIZATION}
+         * - {@link FieldValueType.NUMBER}
+         * - {@link FieldValueType.DATE}
+         * - {@link FieldValueType.LOCATION}
+         * - {@link FieldValueType.RANKED_DROPDOWN}
+         */
         track_changes: boolean
     }
     & ({
