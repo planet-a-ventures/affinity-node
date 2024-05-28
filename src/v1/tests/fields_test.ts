@@ -24,6 +24,8 @@ describe('fields', () => {
         mock?.reset()
     })
 
+    // TODO(@joscha): Add tests for dates
+
     describe('all', () => {
         it('fetches all fields', async (t) => {
             const fixture = await getRawFixture('fields/all.raw.response.json')
