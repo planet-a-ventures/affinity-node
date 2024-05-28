@@ -76,7 +76,7 @@ export type ListResponse = BaseListResponse & {
     additional_permissions: ListPermission[]
 }
 
-export type CreateQuery = {
+export type ListCreateParameters = {
     /**
      * The title of the list that is displayed in Affinity.
      */
@@ -280,7 +280,7 @@ export class Lists {
      * console.log('The ID of the newly created list is', list.id)
      * ```
      */
-    async create(query: CreateQuery): Promise<SingleListResponse> {
+    async create(query: ListCreateParameters): Promise<SingleListResponse> {
         const response = await this.axios.post<SingleListResponse>(
             listsUrl(),
             query,

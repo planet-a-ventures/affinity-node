@@ -129,7 +129,7 @@ export type ListEntryReference = {
 /**
  * Request payload for creating a new list entry.
  */
-export type CreateListEntryRequest = {
+export type CreateListEntryParameters = {
     /**
      * The unique ID of the list whose list entries are to be retrieved.
      */
@@ -349,7 +349,7 @@ export class ListEntries {
      * ```
      */
     async create(
-        request: CreateListEntryRequest,
+        request: CreateListEntryParameters,
     ): Promise<ListEntryResponse> {
         const { list_id, ...rest } = request
         const response = await this.axios.post<ListEntryResponse>(
