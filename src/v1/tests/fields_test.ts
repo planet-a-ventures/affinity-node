@@ -1,5 +1,6 @@
 import { assertSnapshot } from '@std/testing/snapshot.ts'
 import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
+import { assertEquals } from '@std/assert/mod.ts'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
@@ -49,10 +50,22 @@ describe('fields', () => {
                 'fields/create.raw.response.json',
             )
 
-            mock.onPost(fieldsUrl()).reply(201, fixture)
+            mock.onPost(fieldsUrl(), data).reply(201, fixture)
 
             const res = await affinity.fields.create(data)
             await assertSnapshot(t, res)
+        })
+    })
+
+    describe('delete', () => {
+        it('deletes a field by id', async (t) => {
+            const params = { field_id: 1234 }
+            const fixture = { success: true }
+
+            mock.onDelete(fieldsUrl(params.field_id)).reply(200, fixture)
+
+            const success = await affinity.fields.delete(params)
+            assertEquals(success, true)
         })
     })
 })

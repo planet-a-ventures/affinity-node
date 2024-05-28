@@ -316,15 +316,18 @@ export class ListEntries {
      *
      * @example
      * ```typescript
-     * await affinity.lists.entries.delete({ list_id: 450, list_entry_id: 16367 })
-     * console.log('List entry deleted')
+     * const success = await affinity.lists.entries.delete({
+     *     list_id: 450,
+     *     list_entry_id: 16367
+     * })
+     * console.log(success ? 'List entry deleted': 'List entry not deleted')
      * ```
      */
     async delete(
         reference: ListEntryReference,
     ): Promise<boolean> {
         const { list_id, list_entry_id } = reference
-        const response = await this.axios.delete(
+        const response = await this.axios.delete<{ success: boolean }>(
             listEntriesUrl(list_id, list_entry_id),
         )
         return response.data.success === true

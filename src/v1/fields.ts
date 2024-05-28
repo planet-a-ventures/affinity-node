@@ -82,6 +82,10 @@ export type FieldCreateParameters =
         is_list_specific: true
     })
 
+type FieldReference = {
+    field_id: number
+}
+
 /**
  * Fields as a data model represent the "columns" in a spreadsheet. A field can be specific to a given list, or it can be global. List-specific fields appear as a column whenever that list is being viewed while global fields are displayed on all lists.
  *
@@ -162,5 +166,24 @@ export class Fields {
             },
         )
         return response.data
+    }
+
+    /**
+     * Deletes a specific field.
+     *
+     * @returns boolean indicating whether the field was successfully deleted.
+     *
+     * @example
+     * ```typescript
+     * const success = await affinity.fields.delete({ field_id: 1234 })
+     * console.log(success ? 'Field deleted': 'Field not deleted')
+     * ```
+     */
+    async delete(reference: FieldReference): Promise<boolean> {
+        const { field_id } = reference
+        const response = await this.axios.delete<{ success: boolean }>(
+            fieldsUrl(field_id),
+        )
+        return response.data.success === true
     }
 }

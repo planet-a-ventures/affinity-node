@@ -1,14 +1,14 @@
 import { assertSnapshot } from '@std/testing/snapshot.ts'
 import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
+import { assertEquals } from '@std/assert/mod.ts'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { Affinity, EntityType } from '../index.ts'
+import { Affinity } from '../index.ts'
 import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { listEntriesUrl } from '../urls.ts'
 import { PagingParameters } from '../list_entries.ts'
-import { assertEquals } from '@std/assert/mod.ts'
 
 describe('list_entries', () => {
     let mock: MockAdapter
