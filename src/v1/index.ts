@@ -1,10 +1,12 @@
-import axios, { type AxiosInstance } from 'axios'
+import axios, { type AxiosInstance, AxiosResponse } from 'axios'
 import { Auth } from './auth.ts'
 import { RateLimit } from './rate_limit.ts'
 import { Lists } from './lists.ts'
 import { AffinityApiError } from './errors.ts'
+import { Fields } from './fields.ts'
 export type * as ListEntries from './list_entries.ts'
 export type * as Lists from './lists.ts'
+export type * as Fields from './fields.ts'
 export type * as RateLimit from './rate_limit.ts'
 export type * as WhoAmI from './auth.ts'
 export { FieldValueType, ListType, RoleId } from './lists.ts'
@@ -32,8 +34,9 @@ export class Affinity {
             },
         })
         this.axios.interceptors.response.use(
-            (response) => response,
-            (error) => {
+            (response: AxiosResponse) => response,
+            // deno-lint-ignore no-explicit-any
+            (error: any) => {
                 // TODO(@joscha): this needs to be refined more, it currently also masks TypeErrors, etc.
                 return Promise.reject(new AffinityApiError(error))
             },
@@ -41,6 +44,7 @@ export class Affinity {
         this.lists = new Lists(this.axios)
         this.rateLimit = new RateLimit(this.axios)
         this.auth = new Auth(this.axios)
+        this.fields = new Fields(this.axios)
     }
 
     public readonly auth: Auth
@@ -48,4 +52,6 @@ export class Affinity {
     public readonly rateLimit: RateLimit
 
     public readonly lists: Lists
+
+    public readonly fields: Fields
 }

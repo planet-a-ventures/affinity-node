@@ -6,7 +6,7 @@ import { defaultTransformers } from './axios_default_transformers.ts'
 /**
  * The type of person.
  */
-enum PersonType {
+export enum PersonType {
     /**
      * Default value. All people that your team has spoken with externally have this type.
      */
@@ -115,9 +115,9 @@ export type PagingParameters = {
     page_token?: string
 }
 
-type ListEntryReference = {
+export type ListEntryReference = {
     /**
-     * The unique ID of the list that contains the specified {@link ListEntryReference.list_entry_id}.
+     * The unique ID of the list that contains the specified `list_entry_id`.
      */
     list_id: number
     /**
@@ -129,7 +129,7 @@ type ListEntryReference = {
 /**
  * Request payload for creating a new list entry.
  */
-type CreateListEntryRequest = {
+export type CreateListEntryRequest = {
     /**
      * The unique ID of the list whose list entries are to be retrieved.
      */
@@ -253,8 +253,9 @@ export class ListEntries {
      * ```
      */
     async get(
-        { list_id, list_entry_id }: ListEntryReference,
+        reference: ListEntryReference,
     ): Promise<ListEntryResponse> {
+        const { list_id, list_entry_id } = reference
         const response = await this.axios.get<ListEntryResponse>(
             listEntriesUrl(list_id, list_entry_id),
             {
@@ -320,8 +321,9 @@ export class ListEntries {
      * ```
      */
     async delete(
-        { list_id, list_entry_id }: ListEntryReference,
+        reference: ListEntryReference,
     ): Promise<boolean> {
+        const { list_id, list_entry_id } = reference
         const response = await this.axios.delete(
             listEntriesUrl(list_id, list_entry_id),
         )
@@ -339,14 +341,17 @@ export class ListEntries {
      *
      * @example
      * ```typescript
-     * const newListEntry = await affinity.lists.entries.create({ list_id: 450, entity_id: 38706 })
+     * const newListEntry = await affinity.lists.entries.create({
+     *     list_id: 450,
+     *     entity_id: 38706
+     * })
      * console.log(newListEntry)
      * ```
      */
     async create(
-        data: CreateListEntryRequest,
+        request: CreateListEntryRequest,
     ): Promise<ListEntryResponse> {
-        const { list_id, ...rest } = data
+        const { list_id, ...rest } = request
         const response = await this.axios.post<ListEntryResponse>(
             listEntriesUrl(list_id),
             rest,

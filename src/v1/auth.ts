@@ -27,7 +27,7 @@ export type Tenant = {
 
 export type User = {
     /** User ID; This is also the ID of the person in the current Affinity instance.
-     * E.g. you can use it to get the person via https://<subdomain>.affinity.co/persons/<id>
+     * E.g. you can use it to get the person via `https://<subdomain>.affinity.co/persons/<id>`
      */
     id: number
     firstName: string
@@ -77,7 +77,7 @@ export class Auth {
      * [More information](https://api-docs.affinity.co/#the-whoami-resource)
      */
     async whoAmI(): Promise<WhoAmIResponse> {
-        return (await this.axios.get<WhoAmIResponse>(whoAmIUrl(), {
+        const response = await this.axios.get<WhoAmIResponse>(whoAmIUrl(), {
             transformResponse: [
                 ...defaultTransformers(),
                 (json: WhoAmIResponseRaw) => {
@@ -93,6 +93,7 @@ export class Auth {
                     }
                 },
             ],
-        })).data
+        })
+        return response.data
     }
 }

@@ -107,6 +107,11 @@ export type CreateQuery = {
     additional_permissions?: ListPermission[]
 }
 
+/**
+ * All the Types listed below can be referred through looking at the Affinity web app as well.
+ *
+ * *Notes*: The API currently does not support updating and modifying fields. This must be done through the web product.
+ */
 export enum FieldValueType {
     /**
      * This type enables you to add person objects as a value.
@@ -158,24 +163,75 @@ export enum FieldValueType {
     RANKED_DROPDOWN = 7,
 }
 
+export type DropdownOption = {
+    id: number
+    text: string
+    rank: number
+    color: number
+}
+
+/**
+ * Each field object has a unique `id`. It also has a `name`, which determines the name of the field, and `allows_multiple`, which determines whether multiple values can be added to a single cell for that field.
+ *
+ * Affinity is extremely flexible and customizable, and a lot of that power comes from our ability to support many different value types for fields. Numbers, dates, and locations are all examples of value types, and you can search, sort, or filter all of them.
+ */
+/**
+ * Represents a field in a list.
+ */
 export type Field =
     & {
+        /**
+         * The unique identifier of the field object.
+         */
         id: number
+
+        /**
+         * The name of the field.
+         */
         name: string
-        value_type: FieldValueType
+
+        /**
+         * The unique identifier of the list that the field object belongs to if it is specific to a list. This is null if the field is global.
+         */
+        list_id: number | null
+
+        /**
+         * This determines whether multiple values can be added to a single cell for the field.
+         */
         allows_multiple: boolean
+
+        /**
+         * This field describes what values can be associated with the field. This can be one of many values, as described in the table below.
+         */
+        value_type: FieldValueType
+
+        /**
+         * The data source for the enriched field. Will appear as none for custom fields and certain list-specific fields (e.g. Status). Fields auto-created for certain integrations will also be called out here (e.g. Mailchimp).
+         */
+        enrichment_source: string | 'none' | 'dealroom' | 'affinity-data'
+
+        track_changes: boolean
     }
     & ({
+        /**
+         * Represents a field of type "Ranked Dropdown".
+         */
         value_type: FieldValueType.RANKED_DROPDOWN
-        dropdown_options: {
-            id: number
-            text: string
-            rank: number
-            color: number
-        }[]
+
+        /**
+         * Affinity supports pre-entered dropdown options for fields of the "Ranked Dropdown" value_type. The array is empty unless there are valid dropdown options for the field of the "Ranked Dropdown" value type.
+         */
+        dropdown_options: DropdownOption[]
     } | {
+        /**
+         * Represents a field of type other than "Ranked Dropdown".
+         */
         value_type: Exclude<FieldValueType, FieldValueType.RANKED_DROPDOWN>
-        dropdown_options: []
+
+        /**
+         * The array of dropdown options is empty for fields of type other than "Ranked Dropdown".
+         */
+        dropdown_options: never[]
     })
 
 export type SingleListResponse = BaseListResponse & {
@@ -205,7 +261,8 @@ export class Lists {
      * ```
      */
     async all(): Promise<ListResponse[]> {
-        return (await this.axios.get<ListResponse[]>(listsUrl())).data
+        const response = await this.axios.get<ListResponse[]>(listsUrl())
+        return response.data
     }
 
     /**
@@ -224,7 +281,11 @@ export class Lists {
      * ```
      */
     async create(query: CreateQuery): Promise<SingleListResponse> {
-        return (await this.axios.post<SingleListResponse>(listsUrl(), query)).data
+        const response = await this.axios.post<SingleListResponse>(
+            listsUrl(),
+            query,
+        )
+        return response.data
     }
 
     /**
@@ -241,8 +302,10 @@ export class Lists {
      * ```
      */
     async get(query: GetQuery): Promise<SingleListResponse> {
-        return (await this.axios.get<SingleListResponse>(listsUrl(query.list_id)))
-            .data
+        const response = await this.axios.get<SingleListResponse>(
+            listsUrl(query.list_id),
+        )
+        return response.data
     }
 
     public readonly entries: ListEntries

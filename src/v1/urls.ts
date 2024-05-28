@@ -27,3 +27,10 @@ export const rateLimitUrl = () => '/rate-limit'
  * See [here](https://api-docs.affinity.co/#whoami) for more info.
  */
 export const whoAmIUrl = () => '/auth/whoami'
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#fields) for more info.
+ */
+export const fieldsUrl = (field_id?: number) =>
+    field_id ? `/fields/${encodeURIComponent(field_id)}` : '/fields'

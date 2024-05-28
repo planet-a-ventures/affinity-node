@@ -1,0 +1,36 @@
+export const snapshot = {};
+
+snapshot[`fields > all > fetches all fields 1`] = `
+[
+  {
+    allows_multiple: false,
+    dropdown_options: [],
+    enrichment_source: "none",
+    id: 1234,
+    list_id: 11,
+    name: "[Deals] Amount",
+    track_changes: true,
+    value_type: 3,
+  },
+  {
+    allows_multiple: false,
+    dropdown_options: [],
+    enrichment_source: "none",
+    id: 5678,
+    list_id: 16,
+    name: "[Events] Amount",
+    track_changes: true,
+    value_type: 3,
+  },
+  {
+    allows_multiple: false,
+    dropdown_options: [],
+    enrichment_source: "dealroom",
+    id: 4321,
+    list_id: 18,
+    name: "[Companies] Description",
+    track_changes: false,
+    value_type: 6,
+  },
+]
+`;

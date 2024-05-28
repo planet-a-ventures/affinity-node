@@ -17,9 +17,9 @@ type RateLimitResponseRaw = {
 }
 
 export type RateLimitBoundary = {
-    /** The maximum number of calls for each period. Please note, this can be Infinity. */
+    /** The maximum number of calls for each period. Please note, this can be `Infinity`. */
     limit: number | typeof Infinity
-    /** The number of calls remaining before reset. Please note, this can be Infinity. */
+    /** The number of calls remaining before reset. Please note, this can be `Infinity`. */
     remaining: number | typeof Infinity
     /** Time in seconds until call count resets. */
     reset: number
@@ -59,35 +59,39 @@ export class RateLimit {
      * ```
      */
     async get(): Promise<RateLimitResponse> {
-        return (await this.axios.get<RateLimitResponse>(rateLimitUrl(), {
-            transformResponse: [
-                ...defaultTransformers(),
-                (json: RateLimitResponseRaw) => {
-                    return {
-                        rate: {
-                            org_monthly: {
-                                ...json.rate.org_monthly,
-                                limit: unlimitedToNumber(
-                                    json.rate.org_monthly.limit,
-                                ),
-                                remaining: unlimitedToNumber(
-                                    json.rate.org_monthly.remaining,
-                                ),
+        const response = await this.axios.get<RateLimitResponse>(
+            rateLimitUrl(),
+            {
+                transformResponse: [
+                    ...defaultTransformers(),
+                    (json: RateLimitResponseRaw) => {
+                        return {
+                            rate: {
+                                org_monthly: {
+                                    ...json.rate.org_monthly,
+                                    limit: unlimitedToNumber(
+                                        json.rate.org_monthly.limit,
+                                    ),
+                                    remaining: unlimitedToNumber(
+                                        json.rate.org_monthly.remaining,
+                                    ),
+                                },
+                                api_key_per_minute: {
+                                    ...json.rate.api_key_per_minute,
+                                    limit: unlimitedToNumber(
+                                        json.rate.api_key_per_minute.limit,
+                                    ),
+                                    remaining: unlimitedToNumber(
+                                        json.rate.api_key_per_minute.remaining,
+                                    ),
+                                },
                             },
-                            api_key_per_minute: {
-                                ...json.rate.api_key_per_minute,
-                                limit: unlimitedToNumber(
-                                    json.rate.api_key_per_minute.limit,
-                                ),
-                                remaining: unlimitedToNumber(
-                                    json.rate.api_key_per_minute.remaining,
-                                ),
-                            },
-                        },
-                    }
-                },
-            ],
-        })).data
+                        }
+                    },
+                ],
+            },
+        )
+        return response.data
     }
 }
 
