@@ -100,7 +100,7 @@ export type FieldCreateParameters =
  */
 export class Fields {
     /** @hidden */
-    constructor(protected readonly axios: AxiosInstance) {
+    constructor(private readonly axios: AxiosInstance) {
     }
 
     /**

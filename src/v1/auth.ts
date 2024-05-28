@@ -67,7 +67,7 @@ export type WhoAmIResponse = {
 
 export class Auth {
     /** @hidden */
-    constructor(protected readonly axios: AxiosInstance) {
+    constructor(private readonly axios: AxiosInstance) {
     }
 
     /**

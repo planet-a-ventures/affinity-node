@@ -154,7 +154,7 @@ export type CreateListEntryParameters = {
  */
 export class ListEntries {
     /** @hidden */
-    constructor(protected readonly axios: AxiosInstance) {
+    constructor(private readonly axios: AxiosInstance) {
     }
 
     private static transformEntry = (

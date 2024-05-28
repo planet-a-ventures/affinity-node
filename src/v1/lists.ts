@@ -268,7 +268,7 @@ export type GetQuery = {
 
 export class Lists {
     /** @hidden */
-    constructor(protected readonly axios: AxiosInstance) {
+    constructor(private readonly axios: AxiosInstance) {
         this.entries = new ListEntries(this.axios)
     }
 
