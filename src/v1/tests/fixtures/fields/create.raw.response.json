@@ -1,0 +1,10 @@
+{
+    "id": 59,
+    "name": "[Deals] Amount",
+    "list_id": 11,
+    "enrichment_source": "none",
+    "value_type": 3,
+    "allows_multiple": false,
+    "track_changes": false,
+    "dropdown_options": []
+}
