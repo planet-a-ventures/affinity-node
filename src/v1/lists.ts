@@ -207,6 +207,8 @@ export type Field =
 
         /**
          * The data source for the enriched field. Will appear as none for custom fields and certain list-specific fields (e.g. Status). Fields auto-created for certain integrations will also be called out here (e.g. Mailchimp).
+         *
+         * TODO(@joscha): This is currently modeled as a string, but should probably be an enum. Going by [this](https://www.affinity.co/product/data-enrichment#pitchbook-data) there should also be a "crunchbase" and a "pitchbook" value.
          */
         enrichment_source: string | 'none' | 'dealroom' | 'affinity-data'
 
