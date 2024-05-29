@@ -6,6 +6,14 @@ import { fieldValueChangesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import type { Field } from './lists.ts'
 
+type RequireOnlyOne<T, Keys extends keyof T = keyof T> =
+    & Pick<T, Exclude<keyof T, Keys>>
+    & {
+        [K in Keys]-?:
+            & Required<Pick<T, K>>
+            & Partial<Record<Exclude<Keys, K>, never>>
+    }[Keys]
+
 /**
  * Enum for Action Type.
  */
@@ -103,38 +111,48 @@ export type FieldValueChange = Omit<FieldValueChangeRaw, 'changed_at'> & {
 
 export type FieldValueChangeResponse = FieldValueChange[]
 
+/**
+ * Only one of these properties can be present at a time
+ */
+export interface GetFieldValueChangesRequestFilter {
+    /**
+     * A unique ID that represents a person object whose field value changes are to be retrieved.
+     */
+    person_id: number
+    /**
+     * A unique ID that represents an organization object whose field value changes are to be retrieved.
+     */
+    organization_id: number
+    /**
+     * A unique ID that represents an opportunity object whose field value changes are to be retrieved.
+     */
+    opportunity_id: number
+    /**
+     * A unique ID that represents a list entry object whose field value changes are to be retrieved.
+     */
+    list_entry_id: number
+}
+
+export type GetFieldValueChangesRequestBase = {
+    /**
+     * A unique ID that represents a field object whose field values changes are to be retrieved.
+     */
+    field_id: number
+    /**
+     * An integer that filters field value changes that were created with this specific action type.
+     */
+    action_type?: ActionType
+}
+
 export type GetFieldValueChangesRequest =
-    & {
-        /**
-         * A unique ID that represents a field object whose field values changes are to be retrieved.
-         */
-        field_id: number
-        /**
-         * An integer that filters field value changes that were created with this specific action type.
-         */
-        action_type?: ActionType
-    }
-    & ({
-        /**
-         * A unique ID that represents a person object whose field value changes are to be retrieved.
-         */
-        person_id: number
-    } | {
-        /**
-         * A unique ID that represents an organization object whose field value changes are to be retrieved.
-         */
-        organization_id: number
-    } | {
-        /**
-         * A unique ID that represents an opportunity object whose field value changes are to be retrieved.
-         */
-        opportunity_id: number
-    } | {
-        /**
-         * A unique ID that represents a list entry object whose field value changes are to be retrieved.
-         */
-        list_entry_id: number
-    })
+    | GetFieldValueChangesRequestBase
+    | (
+        & GetFieldValueChangesRequestBase
+        & RequireOnlyOne<
+            GetFieldValueChangesRequestFilter,
+            keyof GetFieldValueChangesRequestFilter
+        >
+    )
 
 /**
  * Field value changes allow you to see historical changes to the values of fields in Affinity.
