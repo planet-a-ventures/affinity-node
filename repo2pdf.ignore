@@ -1,0 +1,4 @@
+{
+  "ignoredFiles": ["docs", "node_modules", ".direnv", "openapi", ".DS_Store", "deno.lock", "flake.lock", ".pre-commit-config.yaml", "LICENSE", ".envrc"],
+  "ignoredExtensions": [".raw"]
+}
