@@ -1,6 +1,7 @@
 import type { AxiosInstance } from 'axios'
 import { ListEntries } from './list_entries.ts'
 import { listsUrl } from './urls.ts'
+import { Branded } from './brand.ts'
 
 export enum EntityType {
     /** Type specifying a list of people. */
@@ -210,7 +211,11 @@ export type Field =
          *
          * TODO(@joscha): This is currently modeled as a string, but should probably be an enum. Going by [this](https://www.affinity.co/product/data-enrichment#pitchbook-data) there should also be a "crunchbase" and a "pitchbook" value.
          */
-        enrichment_source: string | 'none' | 'dealroom' | 'affinity-data'
+        enrichment_source:
+            | string
+            | Branded<string, 'none'>
+            | Branded<string, 'dealroom'>
+            | Branded<string, 'affinity-data'>
 
         /**
          * Whether this field supports historical tracking.

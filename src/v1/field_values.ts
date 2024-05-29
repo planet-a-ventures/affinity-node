@@ -171,7 +171,6 @@ export class FieldValues {
         }
     }
 
-    // TODO(@joscha): use FieldValues.transformValue(data.value) from above
     private static transformFieldValue(fieldValue: FieldValue): FieldValueRaw
     private static transformFieldValue(fieldValue: FieldValueRaw): FieldValue
     private static transformFieldValue(
@@ -181,9 +180,7 @@ export class FieldValues {
             // we have a non-raw object, convert dates to strings
             const temp: FieldValueRaw = {
                 ...fieldValue,
-                value: fieldValue.value instanceof Date
-                    ? fieldValue.value.toISOString() as DateTime
-                    : fieldValue.value as ValueRaw,
+                value: FieldValues.transformValue(fieldValue.value),
                 updated_at: fieldValue.updated_at === null
                     ? null
                     : fieldValue.updated_at instanceof Date
@@ -199,10 +196,7 @@ export class FieldValues {
                 // to be a valid ISO date string into a Date object. This is a limitation of the current design.
                 // A way around this can be to fetch the field definition and use that to determine the value type.
                 // The attached cost is an additional API request for each field value in string shape, which is not ideal.
-                value: typeof fieldValue.value === 'string' &&
-                        FieldValues.isValidISO8601(fieldValue.value)
-                    ? new Date(fieldValue.value)
-                    : fieldValue.value,
+                value: FieldValues.transformValue(fieldValue.value),
                 updated_at: fieldValue.updated_at === null
                     ? null
                     : new Date(fieldValue.updated_at),
