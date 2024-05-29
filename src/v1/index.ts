@@ -5,14 +5,18 @@ import { Lists } from './lists.ts'
 import { AffinityApiError } from './errors.ts'
 import { Fields } from './fields.ts'
 import { FieldValues } from './field_values.ts'
+import { FieldValueChanges } from './field_value_changes.ts'
 export type * as ListEntries from './list_entries.ts'
 export type * as Lists from './lists.ts'
 export type * as Fields from './fields.ts'
 export type * as RateLimit from './rate_limit.ts'
 export type * as WhoAmI from './auth.ts'
 export type * as FieldValues from './field_values.ts'
+export type * as FieldValueChanges from './field_value_changes.ts'
 export { EntityType, FieldValueType, RoleId } from './lists.ts'
 export { AffinityApiError } from './errors.ts'
+export { ActionType } from './field_value_changes.ts'
+export type { Brand, Branded } from './brand.ts'
 
 export class Affinity {
     protected readonly axios: AxiosInstance
@@ -48,6 +52,7 @@ export class Affinity {
         this.auth = new Auth(this.axios)
         this.fields = new Fields(this.axios)
         this.fieldValues = new FieldValues(this.axios)
+        this.fieldValueChanges = new FieldValueChanges(this.axios)
     }
 
     public readonly auth: Auth
@@ -59,4 +64,6 @@ export class Affinity {
     public readonly fields: Fields
 
     public readonly fieldValues: FieldValues
+
+    public readonly fieldValueChanges: FieldValueChanges
 }

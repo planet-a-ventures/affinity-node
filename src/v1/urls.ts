@@ -44,3 +44,9 @@ export const fieldValuesUrl = (field_value_id?: number) => {
         ? `/field-values/${encodeURIComponent(field_value_id)}`
         : '/field-values'
 }
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#get-field-values-changes) for more info.
+ */
+export const fieldValueChangesUrl = () => '/field-value-changes'

@@ -82,7 +82,7 @@ export type FieldCreateParameters =
         is_list_specific: true
     })
 
-type FieldReference = {
+export type FieldReference = {
     field_id: number
 }
 
@@ -137,7 +137,7 @@ export class Fields {
     /**
      * Creates a new field.
      *
-     * @param data - Object containing the data for creating a new field
+     * @param params - Object containing the data for creating a new field
      * @returns The created field object.
      *
      * @example

@@ -1,0 +1,30 @@
+export const snapshot = {};
+
+snapshot[`field_value_changes > can get all field value changes 1`] = `
+[
+  {
+    action_type: 0,
+    changed_at: 2020-04-11T22:46:50.963Z,
+    changer: {
+      emails: [
+        "jane@gmail.com",
+      ],
+      first_name: "Jane",
+      id: 38706,
+      last_name: "Doe",
+      primary_email: "jane@gmail.com",
+      type: 0,
+    },
+    entity_id: 261131046,
+    field_id: 236333,
+    id: 50822718,
+    list_entry_id: 15709964,
+    value: {
+      color: 0,
+      id: 1607859,
+      rank: 1,
+      text: "New",
+    },
+  },
+]
+`;

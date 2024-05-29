@@ -2,6 +2,7 @@ import type { AxiosInstance } from 'axios'
 import type { EntityType, GetQuery } from './lists.ts'
 import { listEntriesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
+import type { DateTime } from './types.ts'
 
 /**
  * The type of person.
@@ -76,7 +77,7 @@ export type ListEntryResponseRaw = {
     /**
      * The time when the list entry was created.
      */
-    created_at: string
+    created_at: DateTime
 }
 
 export type PagedListEntryResponseRaw = {

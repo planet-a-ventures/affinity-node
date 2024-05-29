@@ -1,0 +1,24 @@
+[
+    {
+        "id": 50822718,
+        "field_id": 236333,
+        "entity_id": 261131046,
+        "list_entry_id": 15709964,
+        "action_type": 0,
+        "changer": {
+            "id": 38706,
+            "type": 0,
+            "first_name": "Jane",
+            "last_name": "Doe",
+            "primary_email": "jane@gmail.com",
+            "emails": ["jane@gmail.com"]
+        },
+        "changed_at": "2020-04-11T15:46:50.963-07:00",
+        "value": {
+            "id": 1607859,
+            "text": "New",
+            "rank": 1,
+            "color": 0
+        }
+    }
+]

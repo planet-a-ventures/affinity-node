@@ -3,6 +3,8 @@ import { fieldValuesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import { FieldValueType } from './lists.ts'
 import { Field } from './lists.ts'
+import type { DateTime } from './types.ts'
+export type { DateTime } from './types.ts'
 
 export type Dropdown = string
 export type Number = number
@@ -14,10 +16,7 @@ export type Location = {
     country: string | null
     street_address: string | null
 }
-/**
- * This is a date string in the format ISO 8601
- */
-export type DateTime = string & { _datetimeBrand: never }
+
 export type Text = string
 
 export type ValueRaw =
@@ -237,10 +236,6 @@ export class FieldValues {
      * Creates a new field value.
      *
      * @param data - Object containing the data for creating a new field value
-     * @param data.field_id - The unique identifier of the field (column) that the field value is associated with.
-     * @param data.entity_id - The unique identifier of the entity (person, organization, or opportunity) that the field value is associated with.
-     * @param data.value - The value to be associated with the field.
-     * @param data.list_entry_id - (Optional) The unique identifier of the list entry (list row) that the field value is associated with.
      * @returns The created field value object.
      *
      * @example
@@ -276,8 +271,6 @@ export class FieldValues {
      * Updates an existing field value.
      *
      * @param data - Object containing the data for updating a field value
-     * @param data.field_value_id - The unique ID of the field value that needs to be updated.
-     * @param data.value - The new value to be associated with the field value.
      * @returns The updated field value object.
      *
      * @example
