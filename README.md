@@ -2,9 +2,9 @@
 
 Node module for [Affinity](https://www.affinity.co/).
 
-> This module is incomplete; not all API endpoints are implemented. It is in
-> active development and the API might change without notice. Contributions
-> welcome.
+> This module is [incomplete](#api-completeness); not all API endpoints are
+> implemented. It is in active development and the API might change without
+> notice. Contributions welcome.
 
 _Note_: Currently only supporting
 [V1](https://api-docs.affinity.co/#introduction). See section on [V2](#v2)
@@ -19,6 +19,45 @@ const { user } = await new Affinity(YOUR_API_KEY).auth.whoAmI()
 
 console.log(`Hello ${user.firstName} ${user.lastName}`)
 ```
+
+## API completeness
+
+### V1
+
+- ✅ [Lists](src/v1/lists.ts)
+- ✅ [List Entries](src/v1/list_entries.ts)
+- ✅ [Fields](src/v1/fields.ts)
+- ✅ [Field Values](src/v1/field_values.ts)
+- ✅ [Field Value Changes](src/v1/field_value_changes.ts)
+- ❌ Persons
+- ❌ Organizations
+- ❌ Opportunities
+- ❌ Interactions
+- ❌ Relationship Strengths
+- ❌ Notes
+- ❌ Entity Files
+- ❌ Reminders
+- ❌ Webhooks
+- ✅ [Whoami](src/v1/auth.ts)
+- ✅ [Rate Limit](src/v1/rate_limit.ts)
+
+### V2
+
+A preliminary generator for [V2](https://developer.affinity.co/docs/v2/) can be
+executed via
+
+```sh
+nix develop --command deno task generate-v2-client
+```
+
+which will generate an OpenAPI client for Node in Typescript.
+
+> If you have V2 API access, give it a try and report back here, please 🙏.
+
+An up-to-date OpenAPI spec can be downloaded from
+[here](https://developer.affinity.co/docs/v2/#section/Introduction). Drop it
+into `./openapi` before you run the command above (remove the old version
+beforehand).
 
 ## Development
 
@@ -62,10 +101,11 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 
 ### Style
 
-- File names are snake case
-- Symbols are camel case
+- File names are `snake_case`
+- Symbols are `camelCase`
 - Symbols inherited from the Affinity API documentation, such as path and query
-  parameters adopt the API documentation style, snake case
+  parameters adopt the API documentation style, `snake_case`
+- Enum values are `SNAKE_UPPERCASE`
 
 ### Commits
 
@@ -83,22 +123,6 @@ the changes and run required hooks.
 
 This repo is [direnv](https://direnv.net/)-enabled. If you have Nix and direnv
 on your system, you can ignore any `nix develop --command` prefixes and just
-work in the folder as if you were inside the nix flake environment.
-
-## V2
-
-A preliminary generator for [V2](https://developer.affinity.co/docs/v2/) can be
-executed via
-
-```sh
-nix develop --command deno task generate-v2-client
-```
-
-which will generate an OpenAPI client for Node in Typescript.
-
-> If you have V2 API access, give it a try and report back here, please 🙏.
-
-An up-to-date OpenAPI spec can be downloaded from
-[here](https://developer.affinity.co/docs/v2/#section/Introduction). Drop it
-into `./openapi` before you run the command above (remove the old version
-beforehand).
+work in the folder as if you were inside the nix flake environment. This is the
+recommended way, as it greatly simplifies the handling of dev tasks and
+pre-commit checks.
