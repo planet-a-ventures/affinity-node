@@ -114,6 +114,32 @@ snapshot[`organizations > can search for organizations 1`] = `
 }
 `;
 
+snapshot[`organizations > can search for organizations with the appropriate dates 1`] = `
+{
+  next_page_token: "eyJwYXJhbXMiOnsidGVybSI6IiJ9LCJwYWdlX3NpemUiOjUsIm9mZnNldCI6MTB9",
+  organizations: [
+    {
+      domain: "affinity.co",
+      domains: [
+        "affinity.co",
+      ],
+      global: false,
+      id: 64779194,
+      name: "Affinity",
+    },
+    {
+      domain: "brandaffinity.net",
+      domains: [
+        "brandaffinity.net",
+      ],
+      global: true,
+      id: 1513682,
+      name: "Brand Affinity Technologies",
+    },
+  ],
+}
+`;
+
 snapshot[`organizations > can create a new organization 1`] = `
 {
   domain: "acme.co",

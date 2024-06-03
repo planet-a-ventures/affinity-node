@@ -3,10 +3,11 @@ import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { Affinity, Organizations } from '../index.ts'
+import { Affinity } from '../index.ts'
 import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { organizationFieldsUrl, organizationsUrl } from '../urls.ts'
+import type { SearchOrganizationsRequest } from '../organizations.ts'
 
 describe('organizations', () => {
     let mock: MockAdapter
@@ -35,6 +36,25 @@ describe('organizations', () => {
     it('can search for organizations', async (t) => {
         const request = { term: 'affinity' }
         mock?.onGet(organizationsUrl(), { data: request }).reply(
+            200,
+            await getRawFixture('organizations/search.raw.response.json'),
+        )
+        const res = await affinity.organizations.search(request)
+        await assertSnapshot(t, res)
+    })
+
+    it('can search for organizations with the appropriate dates', async (t) => {
+        const myDate = new Date(1717428411010)
+        const request: SearchOrganizationsRequest = {
+            min_first_email_date: myDate,
+            term: 'affinity',
+        }
+        mock?.onGet(organizationsUrl(), {
+            data: {
+                term: request.term,
+                min_first_email_date: myDate.toISOString(),
+            },
+        }).reply(
             200,
             await getRawFixture('organizations/search.raw.response.json'),
         )
@@ -89,6 +109,4 @@ describe('organizations', () => {
     })
 
     //TODO(@joscha): test for iterator
-
-    //TODO(@joscha): test for date handling in search
 })
