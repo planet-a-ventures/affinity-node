@@ -192,18 +192,6 @@ export type OptionalMaxQueryParams = {
     [key in InteractionTypeWithoutChat & string as `max_${key}_date`]?: Date
 }
 
-type DateKey = keyof (OptionalMaxQueryParams & OptionalMinQueryParams)
-
-/**
- * TODO(@joscha): Theoretically we'd need to compare the given key middle part also
- * As long as this function is not exported and used only in conjunction with keys that have its origin in
- * a {@link SearchOrganizationsRequest} object, we should be fine.
- */
-const isDateKey = (key: string): key is DateKey => {
-    return (key.startsWith('min_') || key.startsWith('max_')) &&
-        key.endsWith('_date')
-}
-
 export type InteractionDatesQueryParams = {
     /** When true, interaction dates will be present on the returned resources. */
     with_interaction_dates?: boolean
@@ -347,32 +335,14 @@ export class Organizations {
                 data: request,
                 transformRequest: [
                     (data: SearchOrganizationsRequest) => {
-                        const transformedRequest:
-                            & Omit<SearchOrganizationsRequest, DateKey>
-                            & {
-                                [k in DateKey]?: string
-                            } = {}
-
-                        for (
-                            const key of Object.keys(
-                                data,
-                            ) as (keyof SearchOrganizationsRequest)[]
-                        ) {
-                            if (
-                                isDateKey(key) &&
-                                typeof data[key] !== 'undefined' &&
-                                data[key] instanceof Date
-                            ) {
-                                transformedRequest[key] = data[key]!
-                                    .toISOString()
-                            } else {
-                                transformedRequest[key] =
-                                    // TODO(@joscha): clean this type cast up
-                                    // deno-lint-ignore no-explicit-any
-                                    data[key] as unknown as any
-                            }
-                        }
-                        return transformedRequest
+                        return Object.fromEntries(
+                            Object.entries(data).map(([key, value]) => [
+                                key,
+                                value instanceof Date
+                                    ? value.toISOString()
+                                    : value,
+                            ]),
+                        )
                     },
                 ],
                 transformResponse: [
