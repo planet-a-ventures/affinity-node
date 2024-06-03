@@ -1,0 +1,8 @@
+{
+    "id": 120611418,
+    "name": "Acme Corporation",
+    "domain": "acme.co",
+    "domains": ["acme.co"],
+    "global": false,
+    "person_ids": [38706]
+}

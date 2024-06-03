@@ -1,0 +1,19 @@
+{
+    "organizations": [
+        {
+            "id": 64779194,
+            "name": "Affinity",
+            "domain": "affinity.co",
+            "domains": ["affinity.co"],
+            "global": false
+        },
+        {
+            "id": 1513682,
+            "name": "Brand Affinity Technologies",
+            "domain": "brandaffinity.net",
+            "domains": ["brandaffinity.net"],
+            "global": true
+        }
+    ],
+    "next_page_token": "eyJwYXJhbXMiOnsidGVybSI6IiJ9LCJwYWdlX3NpemUiOjUsIm9mZnNldCI6MTB9"
+}

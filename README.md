@@ -30,7 +30,7 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 - ✅ [Field Values](src/v1/field_values.ts)
 - ✅ [Field Value Changes](src/v1/field_value_changes.ts)
 - ❌ Persons
-- ❌ Organizations
+- ✅ Organizations
 - ❌ Opportunities
 - ❌ Interactions
 - ❌ Relationship Strengths

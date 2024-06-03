@@ -1,0 +1,174 @@
+export const snapshot = {};
+
+snapshot[`organizations > can get a specific organization 1`] = `
+{
+  domain: "affinity.co",
+  domains: [
+    "affinity.co",
+  ],
+  global: false,
+  id: 64779194,
+  interaction_dates: {
+    first_email_date: 2011-11-23T16:12:45.328Z,
+    first_event_date: 2012-01-01T16:18:00.329Z,
+    last_chat_message_date: 2011-11-01T10:26:56.537Z,
+    last_email_date: 2012-03-04T13:06:07.890Z,
+    last_event_date: 2011-12-11T10:26:56.537Z,
+    last_interaction_date: 2012-03-04T13:06:07.890Z,
+    next_event_date: 2019-03-04T13:06:07.890Z,
+  },
+  interactions: {
+    first_email: {
+      date: 2011-11-23T16:12:45.328Z,
+      person_ids: [
+        123,
+      ],
+    },
+    first_event: {
+      date: 2012-01-01T16:18:00.329Z,
+      person_ids: [
+        123,
+      ],
+    },
+    last_chat_message: {
+      date: 2011-11-01T10:26:56.537Z,
+      person_ids: [
+        123,
+      ],
+    },
+    last_email: {
+      date: 2012-03-04T13:06:07.890Z,
+      person_ids: [
+        123,
+      ],
+    },
+    last_event: {
+      date: 2011-12-11T10:26:56.537Z,
+      person_ids: [
+        123,
+      ],
+    },
+    last_interaction: {
+      date: 2012-03-04T13:06:07.890Z,
+      person_ids: [
+        123,
+        111,
+      ],
+    },
+    next_event: {
+      date: 2019-03-04T13:06:07.890Z,
+      person_ids: [
+        123,
+        124,
+        125,
+      ],
+    },
+  },
+  list_entries: [
+    {
+      created_at: 2015-12-11T10:26:56.537Z,
+      creator_id: 38603,
+      entity_id: 64779194,
+      id: 389,
+      list_id: 26,
+    },
+  ],
+  name: "Affinity",
+  opportunity_ids: [
+    4,
+    11,
+  ],
+  person_ids: [
+    89734,
+    117270,
+    138123,
+    274492,
+    304848,
+  ],
+}
+`;
+
+snapshot[`organizations > can search for organizations 1`] = `
+{
+  next_page_token: "eyJwYXJhbXMiOnsidGVybSI6IiJ9LCJwYWdlX3NpemUiOjUsIm9mZnNldCI6MTB9",
+  organizations: [
+    {
+      domain: "affinity.co",
+      domains: [
+        "affinity.co",
+      ],
+      global: false,
+      id: 64779194,
+      name: "Affinity",
+    },
+    {
+      domain: "brandaffinity.net",
+      domains: [
+        "brandaffinity.net",
+      ],
+      global: true,
+      id: 1513682,
+      name: "Brand Affinity Technologies",
+    },
+  ],
+}
+`;
+
+snapshot[`organizations > can create a new organization 1`] = `
+{
+  domain: "acme.co",
+  domains: [
+    "acme.co",
+  ],
+  global: false,
+  id: 120611418,
+  name: "Acme Corporation",
+  person_ids: [
+    38706,
+  ],
+}
+`;
+
+snapshot[`organizations > can update an organization 1`] = `
+{
+  domain: "acme.co",
+  domains: [
+    "acme.co",
+  ],
+  global: false,
+  id: 120611418,
+  name: "Acme Corp.",
+  person_ids: [
+    38706,
+    89734,
+  ],
+}
+`;
+
+snapshot[`organizations > can delete an organization 1`] = `true`;
+
+snapshot[`organizations > can get global organization fields 1`] = `
+[
+  {
+    allows_multiple: false,
+    dropdown_options: [],
+    id: 662,
+    name: "Potential Users",
+    value_type: 3,
+  },
+  {
+    allows_multiple: true,
+    dropdown_options: [],
+    id: 700,
+    name: "Leads",
+    value_type: 0,
+  },
+  {
+    allows_multiple: false,
+    dropdown_options: [],
+    id: 2988,
+    name: "Last Funding Date",
+    value_type: 4,
+  },
+]
+`;

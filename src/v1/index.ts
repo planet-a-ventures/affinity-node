@@ -6,6 +6,7 @@ import { AffinityApiError } from './errors.ts'
 import { Fields } from './fields.ts'
 import { FieldValues } from './field_values.ts'
 import { FieldValueChanges } from './field_value_changes.ts'
+import { Organizations } from './organizations.ts'
 export type * as ListEntries from './list_entries.ts'
 export type * as Lists from './lists.ts'
 export type * as Fields from './fields.ts'
@@ -13,10 +14,13 @@ export type * as RateLimit from './rate_limit.ts'
 export type * as WhoAmI from './auth.ts'
 export type * as FieldValues from './field_values.ts'
 export type * as FieldValueChanges from './field_value_changes.ts'
+export type * as Organizations from './organizations.ts'
+export type * as Persons from './persons.ts'
 export { EntityType, FieldValueType, RoleId } from './lists.ts'
 export { AffinityApiError } from './errors.ts'
 export { ActionType } from './field_value_changes.ts'
 export type { Brand, Branded } from './brand.ts'
+export { PersonType } from './persons.ts'
 
 export class Affinity {
     protected readonly axios: AxiosInstance
@@ -53,6 +57,7 @@ export class Affinity {
         this.fields = new Fields(this.axios)
         this.fieldValues = new FieldValues(this.axios)
         this.fieldValueChanges = new FieldValueChanges(this.axios)
+        this.organizations = new Organizations(this.axios)
     }
 
     public readonly auth: Auth
@@ -66,4 +71,6 @@ export class Affinity {
     public readonly fieldValues: FieldValues
 
     public readonly fieldValueChanges: FieldValueChanges
+
+    public readonly organizations: Organizations
 }

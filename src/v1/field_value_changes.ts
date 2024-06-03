@@ -6,7 +6,10 @@ import { fieldValueChangesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import type { Field } from './lists.ts'
 
-type RequireOnlyOne<T, Keys extends keyof T = keyof T> =
+/**
+ * Via https://stackoverflow.com/questions/40510611
+ */
+export type RequireOnlyOne<T, Keys extends keyof T = keyof T> =
     & Pick<T, Exclude<keyof T, Keys>>
     & {
         [K in Keys]-?:

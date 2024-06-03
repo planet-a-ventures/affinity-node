@@ -1,0 +1,23 @@
+[
+    {
+        "id": 662,
+        "name": "Potential Users",
+        "value_type": 3,
+        "allows_multiple": false,
+        "dropdown_options": []
+    },
+    {
+        "id": 700,
+        "name": "Leads",
+        "value_type": 0,
+        "allows_multiple": true,
+        "dropdown_options": []
+    },
+    {
+        "id": 2988,
+        "name": "Last Funding Date",
+        "value_type": 4,
+        "allows_multiple": false,
+        "dropdown_options": []
+    }
+]

@@ -3,20 +3,7 @@ import type { EntityType, GetQuery } from './lists.ts'
 import { listEntriesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import type { DateTime } from './types.ts'
-
-/**
- * The type of person.
- */
-export enum PersonType {
-    /**
-     * Default value. All people that your team has spoken with externally have this type.
-     */
-    EXTERNAL = 0,
-    /**
-     * All people on your team that have Affinity accounts will have this type.
-     */
-    INTERNAL = 1,
-}
+import { PersonType } from './persons.ts'
 
 export type Person = {
     type: PersonType
@@ -31,6 +18,7 @@ export type Organization = {
     domain: string
     domains: string[]
     crunchbase_uuid: null | string
+    /** Whether this is a global organization or not */
     global: boolean
 }
 
@@ -49,7 +37,7 @@ export type Entity =
         | Opportunity
     )
 
-export type ListEntryResponseRaw = {
+export type ListEntryReferenceRaw = {
     /**
      * The unique identifier of the list entry object.
      */
@@ -67,6 +55,13 @@ export type ListEntryResponseRaw = {
      */
     entity_id: number
     /**
+     * The time when the list entry was created.
+     */
+    created_at: DateTime
+}
+
+export type ListEntryResponseRaw = ListEntryReferenceRaw & {
+    /**
      * The type of the entity corresponding to the list entry.
      */
     entity_type: EntityType
@@ -74,10 +69,6 @@ export type ListEntryResponseRaw = {
      * Object containing entity-specific details like name, email address, domain etc. for the entity corresponding to entity_id.
      */
     entity: Entity
-    /**
-     * The time when the list entry was created.
-     */
-    created_at: DateTime
 }
 
 export type PagedListEntryResponseRaw = {
@@ -294,7 +285,6 @@ export class ListEntries {
     ): AsyncGenerator<ListEntryResponse[]> {
         let page_token: string | undefined = undefined
         while (true) {
-            // console.log('Fetching page', page_token, query)
             const response: PagedListEntryResponse = await this.all(
                 page_token ? { ...query, page_token } : query,
             )

@@ -50,3 +50,19 @@ export const fieldValuesUrl = (field_value_id?: number) => {
  * See [here](https://api-docs.affinity.co/#get-field-values-changes) for more info.
  */
 export const fieldValueChangesUrl = () => '/field-value-changes'
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#organizations) for more info.
+ */
+export const organizationsUrl = (organization_id?: number | 'fields') => {
+    return organization_id
+        ? `/organizations/${encodeURIComponent(organization_id)}`
+        : '/organizations'
+}
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#get-global-organizations-fields) for more info.
+ */
+export const organizationFieldsUrl = () => organizationsUrl('fields')
