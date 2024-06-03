@@ -62,6 +62,21 @@ describe('field_values', () => {
         await assertSnapshot(t, res)
     })
 
+    it('can update a field value with a date ', async (t) => {
+        const data = {
+            field_value_id: 123456,
+            value: new Date(500000000000),
+        }
+        mock?.onPut(fieldValuesUrl(data.field_value_id), {
+            value: data.value.toISOString(),
+        }).reply(
+            200,
+            await getRawFixture('field_values/update2.raw.response.json'),
+        )
+        const res = await affinity.fieldValues.update(data)
+        await assertSnapshot(t, res)
+    })
+
     it('can delete a field value', async (t) => {
         const field_value_id = 20406836
         mock?.onDelete(fieldValuesUrl(field_value_id)).reply(200, {

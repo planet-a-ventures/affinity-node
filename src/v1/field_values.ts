@@ -170,38 +170,20 @@ export class FieldValues {
         }
     }
 
-    private static transformFieldValue(fieldValue: FieldValue): FieldValueRaw
-    private static transformFieldValue(fieldValue: FieldValueRaw): FieldValue
     private static transformFieldValue(
-        fieldValue: FieldValueRaw | FieldValue,
-    ): FieldValue | FieldValueRaw {
-        if (fieldValue.created_at instanceof Date) {
-            // we have a non-raw object, convert dates to strings
-            const temp: FieldValueRaw = {
-                ...fieldValue,
-                value: FieldValues.transformValue(fieldValue.value),
-                updated_at: fieldValue.updated_at === null
-                    ? null
-                    : fieldValue.updated_at instanceof Date
-                    ? fieldValue.updated_at.toISOString() as DateTime
-                    : fieldValue.updated_at,
-                created_at: fieldValue.created_at.toISOString() as DateTime,
-            }
-            return temp
-        } else {
-            const temp: FieldValue = {
-                ...fieldValue,
-                // TODO(@joscha): introspection of the value shape is not ideal, as it will transform a text value that happens
-                // to be a valid ISO date string into a Date object. This is a limitation of the current design.
-                // A way around this can be to fetch the field definition and use that to determine the value type.
-                // The attached cost is an additional API request for each field value in string shape, which is not ideal.
-                value: FieldValues.transformValue(fieldValue.value),
-                updated_at: fieldValue.updated_at === null
-                    ? null
-                    : new Date(fieldValue.updated_at),
-                created_at: new Date(fieldValue.created_at),
-            }
-            return temp
+        fieldValue: FieldValueRaw,
+    ): FieldValue {
+        return {
+            ...fieldValue,
+            // TODO(@joscha): introspection of the value shape is not ideal, as it will transform a text value that happens
+            // to be a valid ISO date string into a Date object. This is a limitation of the current design.
+            // A way around this can be to fetch the field definition and use that to determine the value type.
+            // The attached cost is an additional API request for each field value in string shape, which is not ideal.
+            value: FieldValues.transformValue(fieldValue.value),
+            updated_at: fieldValue.updated_at === null
+                ? null
+                : new Date(fieldValue.updated_at),
+            created_at: new Date(fieldValue.created_at),
         }
     }
 
