@@ -33,12 +33,12 @@ describe('organizations', () => {
     })
 
     it('can search for organizations', async (t) => {
-        const params = { term: 'affinity' }
-        mock?.onGet(organizationsUrl(), { params }).reply(
+        const request = { term: 'affinity' }
+        mock?.onGet(organizationsUrl(), { data: request }).reply(
             200,
             await getRawFixture('organizations/search.raw.response.json'),
         )
-        const res = await affinity.organizations.search(params)
+        const res = await affinity.organizations.search(request)
         await assertSnapshot(t, res)
     })
 
@@ -87,4 +87,8 @@ describe('organizations', () => {
         const res = await affinity.organizations.getFields()
         await assertSnapshot(t, res)
     })
+
+    //TODO(@joscha): test for iterator
+
+    //TODO(@joscha): test for date handling in search
 })

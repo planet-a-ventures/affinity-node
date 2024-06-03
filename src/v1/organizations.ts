@@ -192,6 +192,18 @@ export type OptionalMaxQueryParams = {
     [key in InteractionTypeWithoutChat & string as `max_${key}_date`]?: Date
 }
 
+type DateKey = keyof (OptionalMaxQueryParams & OptionalMinQueryParams)
+
+/**
+ * TODO(@joscha): Theoretically we'd need to compare the given key middle part also
+ * As long as this function is not exported and used only in conjunction with keys that have its origin in
+ * a {@link SearchOrganizationsRequest} object, we should be fine.
+ */
+const isDateKey = (key: string): key is DateKey => {
+    return (key.startsWith('min_') || key.startsWith('max_')) &&
+        key.endsWith('_date')
+}
+
 export type InteractionDatesQueryParams = {
     /** When true, interaction dates will be present on the returned resources. */
     with_interaction_dates?: boolean
@@ -327,23 +339,41 @@ export class Organizations {
      * ```
      */
     async search(
-        params: SearchOrganizationsRequest,
+        request: SearchOrganizationsRequest,
     ): Promise<PagedOrganizationResponse> {
         const response = await this.axios.get<PagedOrganizationResponse>(
             organizationsUrl(),
             {
-                params,
-                paramsSerializer: {
-                    encode: (
-                        value: unknown,
-                        defaultEncoder: (value: unknown) => string,
-                    ) => {
-                        if (value instanceof Date) {
-                            return value.toISOString()
+                data: request,
+                transformRequest: [
+                    (data: SearchOrganizationsRequest) => {
+                        const transformedRequest:
+                            & Omit<SearchOrganizationsRequest, DateKey>
+                            & {
+                                [k in DateKey]?: string
+                            } = {}
+
+                        for (
+                            const key of Object.keys(
+                                data,
+                            ) as (keyof SearchOrganizationsRequest)[]
+                        ) {
+                            if (isDateKey(key)) {
+                                const date = data[key]
+                                if (date instanceof Date) {
+                                    transformedRequest[key] = date.toISOString()
+                                }
+                            } else {
+                                // TODO(@joscha): clean this type cast up
+
+                                transformedRequest[key] =
+                                    // deno-lint-ignore no-explicit-any
+                                    data[key] as unknown as any
+                            }
                         }
-                        return defaultEncoder(value)
+                        return transformedRequest
                     },
-                },
+                ],
                 transformResponse: [
                     ...defaultTransformers(),
                     (
