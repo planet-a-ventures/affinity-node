@@ -43,7 +43,7 @@
         "singleQuote": true,
         "proseWrap": "always",
         "exclude": [
-            "coverage/",
+            "cov_profile/",
             "dist/",
             "docs/",
             "openapi/",
