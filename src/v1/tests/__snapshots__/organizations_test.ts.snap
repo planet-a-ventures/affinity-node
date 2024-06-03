@@ -198,3 +198,33 @@ snapshot[`organizations > can get global organization fields 1`] = `
   },
 ]
 `;
+
+snapshot[`page 1 of organizations 1`] = `
+[
+  {
+    domain: "affinity.co",
+    domains: [
+      "affinity.co",
+    ],
+    global: false,
+    id: 64779194,
+    name: "Affinity",
+  },
+]
+`;
+
+snapshot[`page 2 of organizations 1`] = `
+[
+  {
+    domain: "brandaffinity.net",
+    domains: [
+      "brandaffinity.net",
+    ],
+    global: true,
+    id: 1513682,
+    name: "Brand Affinity Technologies",
+  },
+]
+`;
+
+snapshot[`page 3 of organizations 1`] = `[]`;

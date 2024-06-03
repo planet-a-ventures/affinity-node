@@ -108,5 +108,49 @@ describe('organizations', () => {
         await assertSnapshot(t, res)
     })
 
-    //TODO(@joscha): test for iterator
+    it('iterates over all organizations', async (t) => {
+        const params: SearchOrganizationsRequest = {
+            term: 'affinity',
+            page_size: 1,
+        }
+
+        {
+            // set up pages sequentially, each referencing the one after
+            const { default: pages } = await import(
+                './fixtures/organizations/paginated.iterator.combined.response.json',
+                {
+                    with: {
+                        type: 'json',
+                    },
+                }
+            )
+
+            pages.forEach((page, i) => {
+                const { next_page_token: previous_page_token } = pages[i - 1] ||
+                    {}
+                const data: SearchOrganizationsRequest = {
+                    ...params,
+                }
+                if (previous_page_token) {
+                    data.page_token = previous_page_token
+                }
+                // console.log('Setting up page', params, page.list_entries)
+                mock?.onGet(organizationsUrl(), {
+                    data,
+                }).reply(
+                    200,
+                    page,
+                )
+            })
+        }
+
+        let page = 0
+        for await (
+            const entries of affinity.organizations.searchIterator(params)
+        ) {
+            await assertSnapshot(t, entries, {
+                name: `page ${++page} of organizations`,
+            })
+        }
+    })
 })
