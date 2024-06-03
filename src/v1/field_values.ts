@@ -164,6 +164,10 @@ export class FieldValues {
         } else if (
             typeof value === 'string' && FieldValues.isValidISO8601(value)
         ) {
+            // TODO(@joscha): introspection of the value shape is not ideal, as it will transform a text value that happens
+            // to be a valid ISO date string into a Date object. This is a limitation of the current design.
+            // A way around this can be to fetch the field definition and use that to determine the value type.
+            // The attached cost is an additional API request for each field value in string shape, which is not ideal.
             return new Date(value)
         } else {
             return value
@@ -175,10 +179,6 @@ export class FieldValues {
     ): FieldValue {
         return {
             ...fieldValue,
-            // TODO(@joscha): introspection of the value shape is not ideal, as it will transform a text value that happens
-            // to be a valid ISO date string into a Date object. This is a limitation of the current design.
-            // A way around this can be to fetch the field definition and use that to determine the value type.
-            // The attached cost is an additional API request for each field value in string shape, which is not ideal.
             value: FieldValues.transformValue(fieldValue.value),
             updated_at: fieldValue.updated_at === null
                 ? null

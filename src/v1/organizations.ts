@@ -358,15 +358,16 @@ export class Organizations {
                                 data,
                             ) as (keyof SearchOrganizationsRequest)[]
                         ) {
-                            if (isDateKey(key)) {
-                                const date = data[key]
-                                if (date instanceof Date) {
-                                    transformedRequest[key] = date.toISOString()
-                                }
+                            if (
+                                isDateKey(key) &&
+                                typeof data[key] !== 'undefined' &&
+                                data[key] instanceof Date
+                            ) {
+                                transformedRequest[key] = data[key]!
+                                    .toISOString()
                             } else {
-                                // TODO(@joscha): clean this type cast up
-
                                 transformedRequest[key] =
+                                    // TODO(@joscha): clean this type cast up
                                     // deno-lint-ignore no-explicit-any
                                     data[key] as unknown as any
                             }
