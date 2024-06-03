@@ -7,7 +7,7 @@
     "tasks": {
         "build": "rm -rf dist ; esbuild --bundle src/index.ts --outdir=dist --sourcemap --format=esm --platform=node --packages=external ; tsc --emitDeclarationOnly --outDir dist",
         "test": "deno test --allow-env=API_KEY --allow-net=api.affinity.co --doc --allow-read=./src/v1/tests/ src/**/tests/",
-        "test:coverage": "deno task test --coverage=coverage",
+        "test:coverage": "deno task test --coverage=cov_profile && deno coverage cov_profile --html && open cov_profile/html/index.html",
         "watch": "deno task test --no-clear-screen --watch --shuffle --parallel",
         "snapshot-update": "deno task test --allow-write=./src/v1/tests/__snapshots__ -- --update",
         "format": "deno fmt ; nixfmt *.nix",
