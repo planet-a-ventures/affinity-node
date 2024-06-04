@@ -22,6 +22,7 @@
 
         # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
         # packages.hello = pkgs.hello;
+        # Via https://github.com/cachix/git-hooks.nix
         pre-commit.settings.hooks.nixpkgs-fmt.enable = true;
         pre-commit.settings.hooks.commitizen.enable = true;
         pre-commit.settings.hooks.denofmt.enable = true;
@@ -37,6 +38,7 @@
           buildInputs = with pkgs; [
             commitizen
             deno
+            nixpkgs-fmt
             nodejs-slim_20
             esbuild
             # For openapi-generator
