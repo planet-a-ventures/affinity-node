@@ -1,0 +1,78 @@
+name: "Test, Lint & Deploy"
+on: [push, pull_request]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v26
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake check
+      - name: Install direnv with Nix
+        uses: aldoborrero/direnv-nix-action@v2
+        with:
+          use_nix_profile: true
+      - name: Lint
+        run: deno task lint
+      - name: Format
+        run: deno task format
+      - name: Test
+        run: deno task test:coverage
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage-report
+          path: cov_profile/html/
+      - name: Generate docs
+        run: deno task docs
+      - name: Archive docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: docs/
+  deploy-npm:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v26
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get tag version
+        if: startsWith(github.ref, 'refs/tags/')
+        id: get_tag_version
+        run: echo TAG_VERSION=${GITHUB_REF/refs\/tags\//} >> $GITHUB_OUTPUT
+      - name: Install direnv with Nix
+        uses: aldoborrero/direnv-nix-action@v2
+        with:
+          use_nix_profile: true
+      - name: Build
+        run: deno task build ${{steps.get_tag_version.outputs.TAG_VERSION}}
+      - name: Publish
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./npm
+        run: npm publish
+  deploy-docs:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    steps:
+      # https://github.com/actions/upload-pages-artifact
+      - uses: actions/upload-pages-artifact@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          path: ./docs
+      - name: Deploy to GitHub Pages
+        if: startsWith(github.ref, 'refs/tags/')
+        id: deployment
+        # https://github.com/actions/deploy-pages
+        uses: actions/deploy-pages@v2

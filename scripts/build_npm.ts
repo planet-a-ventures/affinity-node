@@ -7,7 +7,7 @@ await emptyDir('./npm')
 import packageJson from '../package.json' with { type: 'json' }
 import ts from 'typescript'
 
-const { name, description, license, repository, version } = packageJson
+const { name, description, license, repository } = packageJson
 
 await copy('src/v1/tests/__snapshots__', 'npm/esm/v1/tests/__snapshots__', {
     overwrite: true,
@@ -42,7 +42,7 @@ await build({
     },
     package: {
         name,
-        version,
+        version: Deno.args[0],
         description,
         license,
         repository,

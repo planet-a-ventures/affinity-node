@@ -28,6 +28,7 @@
         pre-commit.settings.hooks.denofmt.enable = true;
         pre-commit.settings.hooks.denolint.enable = true;
         pre-commit.settings.hooks.typos.enable = true;
+        pre-commit.settings.hooks.yamllint.enable = true;
 
         # NOTE: You can also use `config.pre-commit.devShell`
         devShells.default = pkgs.mkShell {
@@ -44,6 +45,7 @@
             # For openapi-generator
             # If more dependencies are needed, investigate whether to load https://github.com/OpenAPITools/openapi-generator/blob/master/flake.nix
             jdk11
+            yamllint
           ];
         };
       };
