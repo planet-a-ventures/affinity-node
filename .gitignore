@@ -141,3 +141,5 @@ docs/
 
 # Direnv
 .direnv
+
+/npm
