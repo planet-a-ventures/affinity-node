@@ -1,6 +1,6 @@
-import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
+import { afterEach, beforeEach, describe, it } from '@std/testing/bdd'
 import { Affinity } from '../index.ts'
-import { assertRejects } from '@std/assert/mod.ts'
+import { assertRejects } from '@std/assert'
 import MockAdapter from 'axios-mock-adapter'
 import axios from 'axios'
 import { AffinityApiError } from '../errors.ts'

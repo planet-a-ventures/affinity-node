@@ -1,5 +1,5 @@
-import { assertSnapshot } from '@std/testing/snapshot.ts'
-import { afterEach, beforeEach, describe, it } from '@std/testing/bdd.ts'
+import { assertSnapshot } from '@std/testing/snapshot'
+import { afterEach, beforeEach, describe, it } from '@std/testing/bdd'
 
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
