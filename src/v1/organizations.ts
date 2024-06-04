@@ -316,7 +316,7 @@ export class Organizations {
     /**
      * Searches your team's data and fetches all the organizations that meet the search criteria.
      *
-     * @param params - Object containing the query parameters for the request
+     * @param request - Object containing the data for the request
      *
      * @example
      * ```typescript

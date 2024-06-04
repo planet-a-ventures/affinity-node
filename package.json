@@ -1,6 +1,6 @@
 {
     "name": "@planet-a/affinity-node",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "API wrapper for the affinity.co API",
     "main": "src/index.ts",
     "exports": {
