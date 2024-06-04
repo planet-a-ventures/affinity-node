@@ -22,6 +22,9 @@ export { ActionType } from './field_value_changes.ts'
 export type { Brand, Branded } from './brand.ts'
 export { PersonType } from './persons.ts'
 
+/**
+ * @module
+ */
 export class Affinity {
     protected readonly axios: AxiosInstance
 

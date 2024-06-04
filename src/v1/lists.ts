@@ -172,12 +172,11 @@ export type DropdownOption = {
 }
 
 /**
+ * Represents a field in a list.
+ *
  * Each field object has a unique `id`. It also has a `name`, which determines the name of the field, and `allows_multiple`, which determines whether multiple values can be added to a single cell for that field.
  *
  * Affinity is extremely flexible and customizable, and a lot of that power comes from our ability to support many different value types for fields. Numbers, dates, and locations are all examples of value types, and you can search, sort, or filter all of them.
- */
-/**
- * Represents a field in a list.
  */
 export type Field =
     & {
@@ -255,6 +254,9 @@ export type GetQuery = {
     list_id: number
 }
 
+/**
+ * @module
+ */
 export class Lists {
     /** @hidden */
     constructor(private readonly axios: AxiosInstance) {

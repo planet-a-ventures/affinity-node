@@ -87,6 +87,7 @@ export type FieldReference = {
 }
 
 /**
+ * @module
  * Fields as a data model represent the "columns" in a spreadsheet. A field can be specific to a given list, or it can be global. List-specific fields appear as a column whenever that list is being viewed while global fields are displayed on all lists.
  *
  * Let us consider two examples:

@@ -123,6 +123,7 @@ export type AllQueryParameters = {
 }
 
 /**
+ * @module
  * Field values are displayed in Affinity as the data in the cells of an Affinity spreadsheet.
  *
  * As an example for how a field value is created:

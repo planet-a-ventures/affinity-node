@@ -39,6 +39,9 @@ export type RateLimitResponse = {
     }
 }
 
+/**
+ * @module
+ */
 export class RateLimit {
     /** @hidden */
     constructor(private readonly axios: AxiosInstance) {

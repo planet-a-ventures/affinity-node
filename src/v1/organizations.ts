@@ -251,6 +251,7 @@ export type OrganizationField = Pick<
 >
 
 /**
+ * @module
  * An organization in Affinity represents an external company that your team is in touch with- this could be an organization you're trying to invest in, sell to, or establish a relationship with.
  *
  * An organization has many people associated with it - these are your team's points of contacts at that organization. Just like people, organizations can be added to multiple lists and can be assigned field values.
