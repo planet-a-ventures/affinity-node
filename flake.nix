@@ -40,7 +40,9 @@
             commitizen
             deno
             nixpkgs-fmt
-            nodejs-slim_20
+            # can't use slim here as long as we still publish with npm.
+            # TODO(@joscha) change this once we only publish to jsr
+            nodejs_20
             esbuild
             # For openapi-generator
             # If more dependencies are needed, investigate whether to load https://github.com/OpenAPITools/openapi-generator/blob/master/flake.nix

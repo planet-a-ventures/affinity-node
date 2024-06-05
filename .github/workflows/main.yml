@@ -55,8 +55,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./npm
-        run: nix develop --ignore-environment --keep NODE_AUTH_TOKEN --command npm publish
+        run: nix develop --ignore-environment --keep NODE_AUTH_TOKEN --command bash -c 'pushd npm ; npm publish ; popd'
   docs:
     runs-on: ubuntu-latest
     environment:
