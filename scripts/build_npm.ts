@@ -9,13 +9,6 @@ import ts from 'typescript'
 
 const { name, description, license, repository } = packageJson
 
-await copy('src/v1/tests/__snapshots__', 'npm/esm/v1/tests/__snapshots__', {
-    overwrite: true,
-})
-await copy('src/v1/tests/fixtures', 'npm/esm/v1/tests/fixtures', {
-    overwrite: true,
-})
-
 await build({
     entryPoints: ['./src/index.ts'],
     outDir: './npm',
