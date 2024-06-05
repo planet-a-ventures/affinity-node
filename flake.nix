@@ -46,6 +46,7 @@
             # If more dependencies are needed, investigate whether to load https://github.com/OpenAPITools/openapi-generator/blob/master/flake.nix
             jdk11
             yamllint
+            yamlfmt
           ];
         };
       };

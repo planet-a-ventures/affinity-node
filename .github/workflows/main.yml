@@ -21,6 +21,8 @@ jobs:
           use_nix_profile: true
       - name: Lint
         run: deno task lint
+      - name: Yaml lint
+        run: yamlfmt -lint .
       - name: Format
         run: deno task format
       - name: Test
