@@ -29,9 +29,9 @@ console.log(`Hello ${user.firstName} ${user.lastName}`)
 - ✅ [Fields](src/v1/fields.ts)
 - ✅ [Field Values](src/v1/field_values.ts)
 - ✅ [Field Value Changes](src/v1/field_value_changes.ts)
-- ❌ Persons
-- ✅ Organizations
-- ❌ Opportunities
+- ❌ [Persons](src/v1/persons.ts)
+- ✅ [Organizations](src/v1/organizations.ts)
+- ❌ [Opportunities](src/v1/opportunities.ts)
 - ❌ Interactions
 - ❌ Relationship Strengths
 - ❌ Notes
@@ -76,6 +76,14 @@ beforehand).
 >
 > ⚠️ Make sure you do not commit any unsanitized data.
 
+### Direnv
+
+This repo is [direnv](https://direnv.net/)-enabled. If you have Nix and direnv
+on your system, you can ignore any `nix develop --command` prefixes and just
+work in the folder as if you were inside the nix flake environment. This is the
+recommended way, as it greatly simplifies the handling of dev tasks and
+pre-commit checks.
+
 ### Commands
 
 #### Build the library
@@ -118,11 +126,3 @@ through the process if you're unfamiliar with it.
 
 Pre-commit hooks are managed by Nix. Once you run your commit, it will analyze
 the changes and run required hooks.
-
-### Direnv
-
-This repo is [direnv](https://direnv.net/)-enabled. If you have Nix and direnv
-on your system, you can ignore any `nix develop --command` prefixes and just
-work in the folder as if you were inside the nix flake environment. This is the
-recommended way, as it greatly simplifies the handling of dev tasks and
-pre-commit checks.
