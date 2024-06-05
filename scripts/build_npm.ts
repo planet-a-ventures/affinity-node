@@ -56,3 +56,9 @@ await build({
         Deno.copyFileSync('README.md', 'npm/README.md')
     },
 })
+
+await Deno.writeTextFile(
+    'npm/.npmignore',
+    '**/tests/**',
+    { append: true },
+)
