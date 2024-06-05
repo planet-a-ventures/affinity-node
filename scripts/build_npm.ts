@@ -32,6 +32,7 @@ await build({
             // see https://github.com/denoland/deno_std/pull/4957
             return false // ignore all diagnostics in this file
         }
+        return true
     },
     package: {
         name,
