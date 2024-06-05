@@ -48,6 +48,7 @@ await build({
         publishConfig: {
             access: 'public',
         },
+        keywords: ['affinity', 'crm', 'node', 'api', 'sdk'],
     },
     postBuild() {
         // steps to run after building and before running the tests
