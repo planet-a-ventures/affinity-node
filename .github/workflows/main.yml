@@ -1,5 +1,7 @@
 name: "Test, Lint & Deploy"
 on: [push, pull_request]
+env:
+  DIRENV_WARN_TIMEOUT: 5m
 permissions:
   contents: read
   pages: write
@@ -35,7 +37,7 @@ jobs:
         with:
           name: docs
           path: docs/
-  deploy-npm:
+  npm:
     runs-on: ubuntu-latest
     needs: build
     steps:
@@ -59,13 +61,28 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ./npm
         run: npm publish
-  deploy-docs:
+  docs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v26
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install direnv with Nix
+        uses: aldoborrero/direnv-nix-action@v2
+        with:
+          use_nix_profile: true
+      - name: Generate docs
+        run: deno task docs
+      - name: Archive docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: docs/
       # https://github.com/actions/upload-pages-artifact
       - uses: actions/upload-pages-artifact@v2
         if: startsWith(github.ref, 'refs/tags/')
