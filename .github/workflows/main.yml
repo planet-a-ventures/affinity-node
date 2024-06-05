@@ -51,16 +51,13 @@ jobs:
         with:
           name: npm-package
           path: npm/
-      - name: Publish
+      - name: Publish to npm
         if: startsWith(github.ref, 'refs/tags/')
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: nix develop --ignore-environment --keep NODE_AUTH_TOKEN --command bash -c 'pushd npm ; npm publish ; popd'
   docs:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     steps:
       - uses: actions/checkout@v4
@@ -81,7 +78,14 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           path: ./docs
+  docs-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: docs
+    if: github.ref == 'refs/heads/main'
+    steps:
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main'
         id: deployment
         uses: actions/deploy-pages@v2

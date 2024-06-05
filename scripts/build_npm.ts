@@ -9,13 +9,6 @@ import ts from 'typescript'
 
 const { name, description, license, repository } = packageJson
 
-await copy('src/v1/tests/__snapshots__', 'npm/esm/v1/tests/__snapshots__', {
-    overwrite: true,
-})
-await copy('src/v1/tests/fixtures', 'npm/esm/v1/tests/fixtures', {
-    overwrite: true,
-})
-
 await build({
     entryPoints: ['./src/index.ts'],
     outDir: './npm',
@@ -39,6 +32,7 @@ await build({
             // see https://github.com/denoland/deno_std/pull/4957
             return false // ignore all diagnostics in this file
         }
+        return true
     },
     package: {
         name,
@@ -50,6 +44,10 @@ await build({
             url: 'https://github.com/planet-a-ventures/affinity-node/issues',
         },
         scripts: {},
+        private: false,
+        publishConfig: {
+            access: 'public',
+        },
     },
     postBuild() {
         // steps to run after building and before running the tests
@@ -62,4 +60,12 @@ await Deno.writeTextFile(
     'npm/.npmignore',
     '**/tests/**',
     { append: true },
+)
+
+await Deno.writeTextFile(
+    'npm/.npmrc',
+    `
+//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}
+registry=https://registry.npmjs.org/
+`,
 )
