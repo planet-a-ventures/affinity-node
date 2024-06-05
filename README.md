@@ -1,6 +1,6 @@
-# affinity-node
+# [![Test, Lint & Deploy](https://github.com/planet-a-ventures/affinity-node/actions/workflows/main.yml/badge.svg)](https://github.com/planet-a-ventures/affinity-node/actions/workflows/main.yml) affinity-node
 
-Node module for [Affinity](https://www.affinity.co/).
+Node module for the [Affinity](https://www.affinity.co/) CRM.
 
 > This module is [incomplete](#api-completeness); not all API endpoints are
 > implemented. It is in active development and the API might change without
@@ -14,9 +14,7 @@ below.
 
 ```js
 import { v1: Affinity } from '@planet-a/affinity-node'
-
 const { user } = await new Affinity(YOUR_API_KEY).auth.whoAmI()
-
 console.log(`Hello ${user.firstName} ${user.lastName}`)
 ```
 
