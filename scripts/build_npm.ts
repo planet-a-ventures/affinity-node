@@ -44,6 +44,10 @@ await build({
             url: 'https://github.com/planet-a-ventures/affinity-node/issues',
         },
         scripts: {},
+        private: false,
+        publishConfig: {
+            access: 'public',
+        },
     },
     postBuild() {
         // steps to run after building and before running the tests
