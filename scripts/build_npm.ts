@@ -67,6 +67,5 @@ await Deno.writeTextFile(
     `
 //registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}
 registry=https://registry.npmjs.org/
-always-auth=true
 `,
 )
