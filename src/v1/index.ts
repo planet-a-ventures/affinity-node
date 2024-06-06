@@ -46,14 +46,7 @@ export class Affinity {
                 password: apiKey,
             },
         })
-        this.axios.interceptors.response.use(
-            (response: AxiosResponse) => response,
-            // deno-lint-ignore no-explicit-any
-            (error: any) => {
-                // TODO(@joscha): this needs to be refined more, it currently also masks TypeErrors, etc.
-                return Promise.reject(new AffinityApiError(error))
-            },
-        )
+
         this.lists = new Lists(this.axios)
         this.rateLimit = new RateLimit(this.axios)
         this.auth = new Auth(this.axios)

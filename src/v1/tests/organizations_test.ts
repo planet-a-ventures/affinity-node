@@ -35,7 +35,7 @@ describe('organizations', () => {
 
     it('can search for organizations', async (t) => {
         const request = { term: 'affinity' }
-        mock?.onGet(organizationsUrl(), { data: request }).reply(
+        mock?.onGet(organizationsUrl(), { params: request }).reply(
             200,
             await getRawFixture('organizations/search.raw.response.json'),
         )
@@ -50,7 +50,7 @@ describe('organizations', () => {
             term: 'affinity',
         }
         mock?.onGet(organizationsUrl(), {
-            data: {
+            params: {
                 term: request.term,
                 min_first_email_date: myDate.toISOString(),
             },
@@ -136,7 +136,7 @@ describe('organizations', () => {
                 }
                 // console.log('Setting up page', params, page.list_entries)
                 mock?.onGet(organizationsUrl(), {
-                    data,
+                    params: data,
                 }).reply(
                     200,
                     page,

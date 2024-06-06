@@ -33,28 +33,12 @@ export type InteractionDateKey = `${InteractionType}_date`
  * Dates of the most recent and upcoming interactions with an organization are available in the interaction_dates field.
  * This data is only included when passing `with_interaction_dates=true` as a query parameter to the `GET /organizations` or the `GET /organizations/{organization_id}` endpoints.
  */
-export type OrganizationResponseRaw = {
+export type OrganizationResponseRaw = Organization & {
     /**
      * The unique identifier of the organization object.
      */
     id: number
-    /**
-     * The name of the organization.
-     */
-    name: string
-    /**
-     * The website name of the organization. This is used by Affinity to automatically associate {@link Person} objects with an organization.
-     */
-    domain: string
-    /**
-     * An array of all the websites associated with the organization. These are also used to automatically associate {@link Person} objects with an organization.
-     */
-    domains: string[]
 
-    /**
-     * Whether this is a global organization or not.
-     */
-    global: boolean
     /**
      * An array of unique identifiers of people ({@link Person.id}) that are associated with the organization.
      */
@@ -85,18 +69,12 @@ export type OrganizationResponseRaw = {
     }
 }
 
-/**
- * TODO(@joscha): This should probably be unified with {@link Organization}
- */
-export type SimpleOrganizationResponse = Pick<
-    OrganizationResponse,
-    | 'id'
-    | 'name'
-    | 'domain'
-    | 'domains'
-    | 'global'
-    | 'person_ids'
->
+export type SimpleOrganizationResponse =
+    & Organization
+    & Pick<
+        OrganizationResponse,
+        'person_ids'
+    >
 
 export type InteractionDateRaw = {
     date: DateTime
@@ -267,6 +245,17 @@ export class Organizations {
     constructor(private readonly axios: AxiosInstance) {
     }
 
+    private static transformSearchOrganizationsRequest(
+        data: SearchOrganizationsRequest,
+    ) {
+        return Object.fromEntries(
+            Object.entries(data).map(([key, value]) => [
+                key,
+                value instanceof Date ? value.toISOString() : value,
+            ]),
+        )
+    }
+
     /**
      * Fetches an organization with a specified organization_id.
      *
@@ -333,19 +322,9 @@ export class Organizations {
         const response = await this.axios.get<PagedOrganizationResponse>(
             organizationsUrl(),
             {
-                data: request,
-                transformRequest: [
-                    (data: SearchOrganizationsRequest) => {
-                        return Object.fromEntries(
-                            Object.entries(data).map(([key, value]) => [
-                                key,
-                                value instanceof Date
-                                    ? value.toISOString()
-                                    : value,
-                            ]),
-                        )
-                    },
-                ],
+                params: Organizations.transformSearchOrganizationsRequest(
+                    request,
+                ),
                 transformResponse: [
                     ...defaultTransformers(),
                     (

@@ -14,10 +14,24 @@ export type Person = {
 }
 
 export type Organization = {
+    /**
+     * The name of the organization.
+     */
     name: string
+    /**
+     * The website name of the organization. This is used by Affinity to automatically associate {@link Person} objects with an organization.
+     */
     domain: string
+    /**
+     * An array of all the websites associated with the organization. These are also used to automatically associate {@link Person} objects with an organization.
+     */
     domains: string[]
+
+    /**
+     * The unique identifier of the organization in Crunchbase.
+     */
     crunchbase_uuid: null | string
+
     /** Whether this is a global organization or not */
     global: boolean
 }
