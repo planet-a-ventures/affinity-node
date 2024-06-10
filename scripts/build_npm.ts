@@ -10,7 +10,11 @@ import ts from 'typescript'
 const { name, description, license, repository } = packageJson
 
 await build({
-    entryPoints: ['./src/index.ts'],
+    entryPoints: ['./src/index.ts', {
+        name: './v1',
+        path: './src/v1/index.ts',
+    }],
+    declaration: 'separate',
     outDir: './npm',
     importMap: 'deno.jsonc',
     skipNpmInstall: true,

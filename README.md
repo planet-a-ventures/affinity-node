@@ -13,7 +13,7 @@ below.
 ## Usage
 
 ```js
-import { v1: Affinity } from '@planet-a/affinity-node'
+import { Affinity } from '@planet-a/affinity-node/v1'
 
 const { user } = await new Affinity(YOUR_API_KEY).auth.whoAmI()
 console.log(`Hello ${user.firstName}`)

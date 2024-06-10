@@ -4,8 +4,10 @@ import { listEntriesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import type { DateTime } from './types.ts'
 import { PersonType } from './persons.ts'
+import { Organization } from './organizations.ts'
 
 export type Person = {
+    id: number
     type: PersonType
     first_name: string
     last_name: string
@@ -13,30 +15,8 @@ export type Person = {
     emails: string[]
 }
 
-export type Organization = {
-    /**
-     * The name of the organization.
-     */
-    name: string
-    /**
-     * The website name of the organization. This is used by Affinity to automatically associate {@link Person} objects with an organization.
-     */
-    domain: string
-    /**
-     * An array of all the websites associated with the organization. These are also used to automatically associate {@link Person} objects with an organization.
-     */
-    domains: string[]
-
-    /**
-     * The unique identifier of the organization in Crunchbase.
-     */
-    crunchbase_uuid: null | string
-
-    /** Whether this is a global organization or not */
-    global: boolean
-}
-
 export type Opportunity = {
+    id: number
     name: string
 }
 
@@ -44,12 +24,9 @@ export type Opportunity = {
  * The entity object contains details about the person, organization or opportunity corresponding to the list entry.
  */
 export type Entity =
-    & { id: number }
-    & (
-        | Person
-        | Organization
-        | Opportunity
-    )
+    | Person
+    | Organization
+    | Opportunity
 
 export type ListEntryReferenceRaw = {
     /**
