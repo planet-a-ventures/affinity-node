@@ -6,39 +6,39 @@ import { Field } from './lists.ts'
 import type { DateTime } from './types.ts'
 export type { DateTime } from './types.ts'
 
-export type Dropdown = string
-export type Number = number
-export type Person = number
-export type Organization = number
-export type Location = {
+export type DropdownValue = string
+export type NumberValue = number
+export type PersonValue = number
+export type OrganizationValue = number
+export type LocationValue = {
     city: string | null
     state: string | null
     country: string | null
     street_address: string | null
 }
 
-export type Text = string
+export type TextValue = string
 
 export type ValueRaw =
-    | Dropdown
-    | Number
-    | Person
-    | Organization
-    | Location
+    | DropdownValue
+    | NumberValue
+    | PersonValue
+    | OrganizationValue
+    | LocationValue
     | DateTime
-    | Text
+    | TextValue
 export type Value = Omit<ValueRaw, DateTime> | Date
 
 export interface FieldValueRawValues
     extends Record<keyof FieldValueType, ValueRaw> {
-    [FieldValueType.RANKED_DROPDOWN]: Dropdown
-    [FieldValueType.DROPDOWN]: Dropdown
-    [FieldValueType.NUMBER]: Number
-    [FieldValueType.PERSON]: Person
-    [FieldValueType.ORGANIZATION]: Organization
-    [FieldValueType.LOCATION]: Location
+    [FieldValueType.RANKED_DROPDOWN]: DropdownValue
+    [FieldValueType.DROPDOWN]: DropdownValue
+    [FieldValueType.NUMBER]: NumberValue
+    [FieldValueType.PERSON]: PersonValue
+    [FieldValueType.ORGANIZATION]: OrganizationValue
+    [FieldValueType.LOCATION]: LocationValue
     [FieldValueType.DATE]: DateTime
-    [FieldValueType.TEXT]: Text
+    [FieldValueType.TEXT]: TextValue
 }
 
 /**

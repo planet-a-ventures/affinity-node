@@ -6,7 +6,6 @@ import type { ListEntryReferenceRaw } from './list_entries.ts'
 import type { Person } from './persons.ts'
 import type { Opportunity } from './opportunities.ts'
 import type { Field } from './lists.ts'
-import type { Organization } from './list_entries.ts'
 
 export type InteractionOccurrenceQuantifier = 'first' | 'last'
 
@@ -18,6 +17,34 @@ export type InteractionType =
     | 'last_interaction'
 
 export type InteractionDateKey = `${InteractionType}_date`
+
+export type Organization = {
+    /**
+     * The unique identifier of the organization object.
+     */
+    id: number
+
+    /**
+     * The name of the organization.
+     */
+    name: string
+    /**
+     * The website name of the organization. This is used by Affinity to automatically associate {@link Person} objects with an organization.
+     */
+    domain: string
+    /**
+     * An array of all the websites associated with the organization. These are also used to automatically associate {@link Person} objects with an organization.
+     */
+    domains: string[]
+
+    /**
+     * The unique identifier of the organization in Crunchbase.
+     */
+    crunchbase_uuid: null | string
+
+    /** Whether this is a global organization or not */
+    global: boolean
+}
 
 /**
  * Each organization object has a unique id. It also has a name, domain (the website of the organization), and persons associated with it.
@@ -35,18 +62,13 @@ export type InteractionDateKey = `${InteractionType}_date`
  */
 export type OrganizationResponseRaw = Organization & {
     /**
-     * The unique identifier of the organization object.
-     */
-    id: number
-
-    /**
      * An array of unique identifiers of people ({@link Person.id}) that are associated with the organization.
      */
-    person_ids: number[]
+    person_ids?: number[]
     /**
      * An array of unique identifiers of opportunities ({@link Opportunity.id}) that are associated with the organization.
      */
-    opportunity_ids: number[]
+    opportunity_ids?: number[]
 
     /**
      * An object with string date fields representing the most recent and upcoming interactions with this organization.
