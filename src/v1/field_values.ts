@@ -4,9 +4,32 @@ import { defaultTransformers } from './axios_default_transformers.ts'
 import { FieldValueType } from './lists.ts'
 import { Field } from './lists.ts'
 import type { DateTime } from './types.ts'
+import { FieldBase } from './fields.ts'
 export type { DateTime } from './types.ts'
 
-export type DropdownValue = string
+export type DropdownValue = {
+    /**
+     * The unique identifier of the value.
+     */
+    id: number
+    /**
+     * Represents the field's value.
+     */
+    text: string
+    /**
+     * The color associated with the value.
+     */
+    color: number
+}
+
+export type RankedDropdownValue =
+    & DropdownValue
+    & {
+        /**
+         * The rank of the value.
+         */
+        rank: number
+    }
 export type NumberValue = number
 export type PersonValue = number
 export type OrganizationValue = number
@@ -21,6 +44,7 @@ export type TextValue = string
 
 export type ValueRaw =
     | DropdownValue
+    | RankedDropdownValue
     | NumberValue
     | PersonValue
     | OrganizationValue
@@ -31,7 +55,7 @@ export type Value = Omit<ValueRaw, DateTime> | Date
 
 export interface FieldValueRawValues
     extends Record<keyof FieldValueType, ValueRaw> {
-    [FieldValueType.RANKED_DROPDOWN]: DropdownValue
+    [FieldValueType.RANKED_DROPDOWN]: RankedDropdownValue
     [FieldValueType.DROPDOWN]: DropdownValue
     [FieldValueType.NUMBER]: NumberValue
     [FieldValueType.PERSON]: PersonValue
@@ -53,36 +77,39 @@ export interface FieldValueRawValues
  *
  * *Note*: When retrieving Field Values from a specific cell in your Affinity list, it may be helpful to think about it as an XY coordinate system. The X coordinate is the List Entry *or* Entity and the Y coordinate is the Field ID. You will need to have both to find the appropriate Field Value ID.
  */
-export type FieldValueRaw = {
-    /**
-     * The unique identifier of the field value object.
-     */
-    id: number
-    /**
-     * The unique identifier of the field the value is associated with.
-     */
-    field_id: number
-    /**
-     * The unique identifier of the person, organization, or opportunity object the field value is associated with.
-     */
-    entity_id: number
-    /**
-     * The unique identifier of the list entry object the field value is associated with. This only exists if the field the value is associated with is list-specific.
-     */
-    list_entry_id: number | null
-    /**
-     * The value attribute can take on many different types, depending on the field {@link Field.value_type}.
-     */
-    value: ValueRaw
-    /**
-     * The string representing the time when the field value was created.
-     */
-    created_at: DateTime
-    /**
-     * The string representing the last time the field value was updated.
-     */
-    updated_at: DateTime | null
-}
+export type FieldValueRaw =
+    & FieldBase
+    & {
+        /**
+         * The unique identifier of the field value object.
+         */
+        id: number
+        /**
+         * The unique identifier of the field the value is associated with.
+         */
+        field_id: number
+        /**
+         * The unique identifier of the person, organization, or opportunity object the field value is associated with.
+         */
+        entity_id: number
+        /**
+         * The unique identifier of the list entry object the field value is associated with.
+         * This only exists if the field the value is associated with is list-specific, `null` marks a global field value.
+         */
+        list_entry_id: number | null
+        /**
+         * The value attribute can take on many different types, depending on the field {@link Field.value_type}.
+         */
+        value: ValueRaw
+        /**
+         * The string representing the time when the field value was created.
+         */
+        created_at: DateTime
+        /**
+         * The string representing the last time the field value was updated.
+         */
+        updated_at: DateTime | null
+    }
 
 export type FieldValueResponseRaw = FieldValueRaw[]
 
@@ -108,19 +135,23 @@ export type UpdateFieldValueRequest = {
     value: Value
 }
 
-export type AllQueryParameters = {
-    /** The unique ID of the person object whose field values are to be retrieved. */
-    person_id: number
-} | {
-    /** The unique ID of the organization object whose field values are to be retrieved. */
-    organization_id: number
-} | {
-    /** The unique ID of the opportunity object whose field values are to be retrieved. */
-    opportunity_id: number
-} | {
-    /** The unique ID of the list entry object whose field values are to be retrieved. */
-    list_entry_id: number
-}
+export type AllQueryParameters =
+    | {
+        /** The unique ID of the person object whose field values are to be retrieved. */
+        person_id: number
+    }
+    | {
+        /** The unique ID of the organization object whose field values are to be retrieved. */
+        organization_id: number
+    }
+    | {
+        /** The unique ID of the opportunity object whose field values are to be retrieved. */
+        opportunity_id: number
+    }
+    | {
+        /** The unique ID of the list entry object whose field values are to be retrieved. */
+        list_entry_id: number
+    }
 
 /**
  * @module

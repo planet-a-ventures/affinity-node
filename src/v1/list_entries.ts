@@ -51,16 +51,18 @@ export type ListEntryReferenceRaw = {
     created_at: DateTime
 }
 
-export type ListEntryResponseRaw = ListEntryReferenceRaw & {
-    /**
-     * The type of the entity corresponding to the list entry.
-     */
-    entity_type: EntityType
-    /**
-     * Object containing entity-specific details like name, email address, domain etc. for the entity corresponding to entity_id.
-     */
-    entity: Entity
-}
+export type ListEntryResponseRaw =
+    & ListEntryReferenceRaw
+    & {
+        /**
+         * The type of the entity corresponding to the list entry.
+         */
+        entity_type: EntityType
+        /**
+         * Object containing entity-specific details like name, email address, domain etc. for the entity corresponding to entity_id.
+         */
+        entity: Entity
+    }
 
 export type PagedListEntryResponseRaw = {
     list_entries: ListEntryResponseRaw[]

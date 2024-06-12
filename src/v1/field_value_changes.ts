@@ -5,6 +5,7 @@ import type { DateTime } from './types.ts'
 import { fieldValueChangesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import type { Field } from './lists.ts'
+import type { Value, ValueRaw } from './field_values.ts'
 
 /**
  * Via https://stackoverflow.com/questions/40510611
@@ -35,33 +36,14 @@ export enum ActionType {
     UPDATE = 2,
 }
 
-export type Changer = {
-    /**
-     * The unique identifier of the changer.
-     */
-    id: number
-} & Person
-
-export type Value = {
-    /**
-     * The unique identifier of the value.
-     */
-    id: number
-    /**
-     * Represents the field's value.
-     */
-    text: string
-    /**
-     * The rank of the value.
-     *
-     * TODO(@joscha): can this be null for some value types?
-     */
-    rank: number
-    /**
-     * The color associated with the value.
-     */
-    color: number
-}
+export type Changer =
+    & Person
+    & {
+        /**
+         * The unique identifier of the changer.
+         */
+        id: number
+    }
 
 /**
  * Represents the response object for a field value change.
@@ -103,14 +85,16 @@ export type FieldValueChangeRaw = {
      * This attribute can take on many different types, depending on the field `value_type`.
      * When the action type is {@link ActionType.DELETE}, `value` represents the old value; otherwise, it represents the new value.
      */
-    value: Value
+    value: ValueRaw
 }
 
 export type FieldValueChangeResponseRaw = FieldValueChangeRaw[]
 
-export type FieldValueChange = Omit<FieldValueChangeRaw, 'changed_at'> & {
-    changed_at: Date
-}
+export type FieldValueChange =
+    & Omit<FieldValueChangeRaw, 'changed_at'>
+    & {
+        changed_at: Date
+    }
 
 export type FieldValueChangeResponse = FieldValueChange[]
 
@@ -188,6 +172,9 @@ export class FieldValueChanges {
     constructor(private readonly axios: AxiosInstance) {
     }
 
+    /**
+     * TODO(@joscha): transform DateTime values to Date objects and then change type {@link ValueRaw} to {@link Value}
+     */
     private static transformFieldValueChange(
         fieldValueChange: FieldValueChangeRaw,
     ): FieldValueChange {

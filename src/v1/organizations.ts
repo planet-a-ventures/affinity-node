@@ -60,36 +60,38 @@ export type Organization = {
  * Dates of the most recent and upcoming interactions with an organization are available in the interaction_dates field.
  * This data is only included when passing `with_interaction_dates=true` as a query parameter to the `GET /organizations` or the `GET /organizations/{organization_id}` endpoints.
  */
-export type OrganizationResponseRaw = Organization & {
-    /**
-     * An array of unique identifiers of people ({@link Person.id}) that are associated with the organization.
-     */
-    person_ids?: number[]
-    /**
-     * An array of unique identifiers of opportunities ({@link Opportunity.id}) that are associated with the organization.
-     */
-    opportunity_ids?: number[]
+export type OrganizationResponseRaw =
+    & Organization
+    & {
+        /**
+         * An array of unique identifiers of people ({@link Person.id}) that are associated with the organization.
+         */
+        person_ids?: number[]
+        /**
+         * An array of unique identifiers of opportunities ({@link Opportunity.id}) that are associated with the organization.
+         */
+        opportunity_ids?: number[]
 
-    /**
-     * An object with string date fields representing the most recent and upcoming interactions with this organization.
-     * Only returned when passing with_interaction_dates=true.
-     *
-     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-     */
-    interaction_dates?: {
-        [key in InteractionDateKey]: DateTime
+        /**
+         * An object with string date fields representing the most recent and upcoming interactions with this organization.
+         * Only returned when passing with_interaction_dates=true.
+         *
+         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+         */
+        interaction_dates?: {
+            [key in InteractionDateKey]: DateTime
+        }
+        /**
+         * An object with seven fields nested underneath.
+         * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
+         * Only returned when passing `with_interaction_dates=true`.
+         *
+         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+         */
+        interactions?: {
+            [key in InteractionType]: InteractionDateRaw
+        }
     }
-    /**
-     * An object with seven fields nested underneath.
-     * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
-     * Only returned when passing `with_interaction_dates=true`.
-     *
-     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-     */
-    interactions?: {
-        [key in InteractionType]: InteractionDateRaw
-    }
-}
 
 export type SimpleOrganizationResponse =
     & Organization
@@ -133,12 +135,14 @@ export type PagedOrganizationResponse =
         organizations: OrganizationResponse[]
     }
 
-export type SingleOrganizationResponseRaw = OrganizationResponseRaw & {
-    /**
-     * An array of list entry resources associated with the organization, only returned as part of the {@link Organizations.get} a specific organization endpoint.
-     */
-    list_entries: ListEntryReferenceRaw[]
-}
+export type SingleOrganizationResponseRaw =
+    & OrganizationResponseRaw
+    & {
+        /**
+         * An array of list entry resources associated with the organization, only returned as part of the {@link Organizations.get} a specific organization endpoint.
+         */
+        list_entries: ListEntryReferenceRaw[]
+    }
 
 export type ListEntryReference = Omit<ListEntryReferenceRaw, 'created_at'> & {
     created_at: Date
@@ -163,21 +167,23 @@ export type CreateOrganizationRequest = {
     person_ids?: number[]
 }
 
-export type UpdateOrganizationRequest = OrganizationReference & {
-    /**
-     * The name of the organization.
-     */
-    name?: string
-    /**
-     * The domain name of the organization.
-     */
-    domain?: string
-    /**
-     * An array of unique identifiers of persons that the organization will be associated with.
-     * *Note*: If you are trying to add a person to an organization, the existing values for `person_ids` must also be passed into the endpoint.
-     */
-    person_ids?: number[]
-}
+export type UpdateOrganizationRequest =
+    & OrganizationReference
+    & {
+        /**
+         * The name of the organization.
+         */
+        name?: string
+        /**
+         * The domain name of the organization.
+         */
+        domain?: string
+        /**
+         * An array of unique identifiers of persons that the organization will be associated with.
+         * *Note*: If you are trying to add a person to an organization, the existing values for `person_ids` must also be passed into the endpoint.
+         */
+        person_ids?: number[]
+    }
 
 export type InteractionTypeWithoutChat = Exclude<
     InteractionType,
@@ -192,16 +198,18 @@ export type OptionalMaxQueryParams = {
     [key in InteractionTypeWithoutChat & string as `max_${key}_date`]?: Date
 }
 
-export type InteractionDatesQueryParams = {
-    /** When true, interaction dates will be present on the returned resources. */
-    with_interaction_dates?: boolean
-} | {
-    with_interaction_dates: true
-    /**
-     * When true, persons for each interaction will be returned. Used in conjunction with `with_interaction_dates`
-     */
-    with_interaction_persons: true
-}
+export type InteractionDatesQueryParams =
+    | {
+        /** When true, interaction dates will be present on the returned resources. */
+        with_interaction_dates?: boolean
+    }
+    | {
+        with_interaction_dates: true
+        /**
+         * When true, persons for each interaction will be returned. Used in conjunction with `with_interaction_dates`
+         */
+        with_interaction_persons: true
+    }
 
 export type OpportunitiesQueryParams = {
     /**
