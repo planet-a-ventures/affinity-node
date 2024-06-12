@@ -11,6 +11,7 @@
     },
     "tasks": {
         "build": "deno run -A scripts/build_npm.ts",
+        "check": "deno check src/**/*.ts",
         "test": "deno test --allow-env=API_KEY,NODE_EXTRA_CA_CERTS --allow-net=api.affinity.co --doc --allow-read=./src/v1/tests/ src/**/tests/",
         "test:coverage": "deno task test --coverage=cov_profile && deno coverage cov_profile --html",
         "watch": "deno task test --no-clear-screen --watch --shuffle --parallel",
