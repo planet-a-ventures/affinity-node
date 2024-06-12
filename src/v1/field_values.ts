@@ -110,6 +110,40 @@ export type FieldValueRaw =
          */
         updated_at: DateTime | null
     }
+    & (
+        | {
+            value_type: FieldValueType.DROPDOWN
+            value: FieldValueRawValues[FieldValueType.DROPDOWN]
+        }
+        | {
+            value_type: FieldValueType.RANKED_DROPDOWN
+            value: RankedDropdownValue
+        }
+        | {
+            value_type: FieldValueType.NUMBER
+            value: FieldValueRawValues[FieldValueType.NUMBER]
+        }
+        | {
+            value_type: FieldValueType.PERSON
+            value: FieldValueRawValues[FieldValueType.PERSON]
+        }
+        | {
+            value_type: FieldValueType.ORGANIZATION
+            value: FieldValueRawValues[FieldValueType.ORGANIZATION]
+        }
+        | {
+            value_type: FieldValueType.LOCATION
+            value: FieldValueRawValues[FieldValueType.LOCATION]
+        }
+        | {
+            value_type: FieldValueType.DATE
+            value: FieldValueRawValues[FieldValueType.DATE]
+        }
+        | {
+            value_type: FieldValueType.TEXT
+            value: FieldValueRawValues[FieldValueType.TEXT]
+        }
+    )
 
 export type FieldValueResponseRaw = FieldValueRaw[]
 
@@ -119,6 +153,10 @@ export type FieldValue =
         value: Value
         updated_at: Date | null
         created_at: Date
+    }
+    & {
+        value_type: FieldValueType.DATE
+        value: Date
     }
 
 export type FieldValueResponse = FieldValue[]
