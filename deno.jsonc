@@ -29,6 +29,7 @@
         ],
         "exclude": [
             "src/**/fixtures/**/*.ts",
+            "dist/",
             "docs/"
         ],
         "rules": {
@@ -52,8 +53,9 @@
         "proseWrap": "always",
         "exclude": [
             "cov_profile/",
-            "npm/",
             "docs/",
+            "dist/",
+            "npm/",
             "openapi/",
             "src/**/tests/__snapshots__/**"
         ]
