@@ -24,6 +24,8 @@ jobs:
         run: yamlfmt -lint .
       - name: Format
         run: deno task format
+      - name: Check types
+        run: deno task check
       - name: Test
         run: deno task test:coverage
       - name: Archive code coverage results

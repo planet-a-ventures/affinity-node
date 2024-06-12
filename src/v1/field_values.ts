@@ -4,9 +4,32 @@ import { defaultTransformers } from './axios_default_transformers.ts'
 import { FieldValueType } from './lists.ts'
 import { Field } from './lists.ts'
 import type { DateTime } from './types.ts'
+import { FieldBase } from './fields.ts'
 export type { DateTime } from './types.ts'
 
-export type DropdownValue = string
+export type DropdownValue = {
+    /**
+     * The unique identifier of the value.
+     */
+    id: number
+    /**
+     * Represents the field's value.
+     */
+    text: string
+    /**
+     * The color associated with the value.
+     */
+    color: number
+}
+
+export type RankedDropdownValue =
+    & DropdownValue
+    & {
+        /**
+         * The rank of the value.
+         */
+        rank: number
+    }
 export type NumberValue = number
 export type PersonValue = number
 export type OrganizationValue = number
@@ -21,6 +44,7 @@ export type TextValue = string
 
 export type ValueRaw =
     | DropdownValue
+    | RankedDropdownValue
     | NumberValue
     | PersonValue
     | OrganizationValue
@@ -31,7 +55,7 @@ export type Value = Omit<ValueRaw, DateTime> | Date
 
 export interface FieldValueRawValues
     extends Record<keyof FieldValueType, ValueRaw> {
-    [FieldValueType.RANKED_DROPDOWN]: DropdownValue
+    [FieldValueType.RANKED_DROPDOWN]: RankedDropdownValue
     [FieldValueType.DROPDOWN]: DropdownValue
     [FieldValueType.NUMBER]: NumberValue
     [FieldValueType.PERSON]: PersonValue
@@ -40,6 +64,51 @@ export interface FieldValueRawValues
     [FieldValueType.DATE]: DateTime
     [FieldValueType.TEXT]: TextValue
 }
+
+export interface FieldValueValues extends Record<keyof FieldValueType, Value> {
+    [FieldValueType.RANKED_DROPDOWN]: RankedDropdownValue
+    [FieldValueType.DROPDOWN]: DropdownValue
+    [FieldValueType.NUMBER]: NumberValue
+    [FieldValueType.PERSON]: PersonValue
+    [FieldValueType.ORGANIZATION]: OrganizationValue
+    [FieldValueType.LOCATION]: LocationValue
+    [FieldValueType.DATE]: Date
+    [FieldValueType.TEXT]: TextValue
+}
+
+type ValueTypeMixin<T extends (FieldValueRawValues | FieldValueValues)> =
+    | {
+        value_type: FieldValueType.DROPDOWN
+        value: T[FieldValueType.DROPDOWN]
+    }
+    | {
+        value_type: FieldValueType.RANKED_DROPDOWN
+        value: T[FieldValueType.RANKED_DROPDOWN]
+    }
+    | {
+        value_type: FieldValueType.NUMBER
+        value: T[FieldValueType.NUMBER]
+    }
+    | {
+        value_type: FieldValueType.PERSON
+        value: T[FieldValueType.PERSON]
+    }
+    | {
+        value_type: FieldValueType.ORGANIZATION
+        value: T[FieldValueType.ORGANIZATION]
+    }
+    | {
+        value_type: FieldValueType.LOCATION
+        value: T[FieldValueType.LOCATION]
+    }
+    | {
+        value_type: FieldValueType.DATE
+        value: T[FieldValueType.DATE]
+    }
+    | {
+        value_type: FieldValueType.TEXT
+        value: T[FieldValueType.TEXT]
+    }
 
 /**
  * Each field value object has a unique id.
@@ -53,46 +122,46 @@ export interface FieldValueRawValues
  *
  * *Note*: When retrieving Field Values from a specific cell in your Affinity list, it may be helpful to think about it as an XY coordinate system. The X coordinate is the List Entry *or* Entity and the Y coordinate is the Field ID. You will need to have both to find the appropriate Field Value ID.
  */
-export type FieldValueRaw = {
-    /**
-     * The unique identifier of the field value object.
-     */
-    id: number
-    /**
-     * The unique identifier of the field the value is associated with.
-     */
-    field_id: number
-    /**
-     * The unique identifier of the person, organization, or opportunity object the field value is associated with.
-     */
-    entity_id: number
-    /**
-     * The unique identifier of the list entry object the field value is associated with. This only exists if the field the value is associated with is list-specific.
-     */
-    list_entry_id: number | null
-    /**
-     * The value attribute can take on many different types, depending on the field {@link Field.value_type}.
-     */
-    value: ValueRaw
-    /**
-     * The string representing the time when the field value was created.
-     */
-    created_at: DateTime
-    /**
-     * The string representing the last time the field value was updated.
-     */
-    updated_at: DateTime | null
-}
+export type FieldValueRaw =
+    & FieldBase
+    & {
+        /**
+         * The unique identifier of the field value object.
+         */
+        id: number
+        /**
+         * The unique identifier of the field the value is associated with.
+         */
+        field_id: number
+        /**
+         * The unique identifier of the person, organization, or opportunity object the field value is associated with.
+         */
+        entity_id: number
+        /**
+         * The unique identifier of the list entry object the field value is associated with.
+         * This only exists if the field the value is associated with is list-specific, `null` marks a global field value.
+         */
+        list_entry_id: number | null
+        /**
+         * The string representing the time when the field value was created.
+         */
+        created_at: DateTime
+        /**
+         * The string representing the last time the field value was updated.
+         */
+        updated_at: DateTime | null
+    }
+    & ValueTypeMixin<FieldValueRawValues>
 
 export type FieldValueResponseRaw = FieldValueRaw[]
 
 export type FieldValue =
     & Omit<FieldValueRaw, 'value' | 'updated_at' | 'created_at'>
     & {
-        value: Value
         updated_at: Date | null
         created_at: Date
     }
+    & ValueTypeMixin<FieldValueValues>
 
 export type FieldValueResponse = FieldValue[]
 
@@ -108,19 +177,23 @@ export type UpdateFieldValueRequest = {
     value: Value
 }
 
-export type AllQueryParameters = {
-    /** The unique ID of the person object whose field values are to be retrieved. */
-    person_id: number
-} | {
-    /** The unique ID of the organization object whose field values are to be retrieved. */
-    organization_id: number
-} | {
-    /** The unique ID of the opportunity object whose field values are to be retrieved. */
-    opportunity_id: number
-} | {
-    /** The unique ID of the list entry object whose field values are to be retrieved. */
-    list_entry_id: number
-}
+export type AllQueryParameters =
+    | {
+        /** The unique ID of the person object whose field values are to be retrieved. */
+        person_id: number
+    }
+    | {
+        /** The unique ID of the organization object whose field values are to be retrieved. */
+        organization_id: number
+    }
+    | {
+        /** The unique ID of the opportunity object whose field values are to be retrieved. */
+        opportunity_id: number
+    }
+    | {
+        /** The unique ID of the list entry object whose field values are to be retrieved. */
+        list_entry_id: number
+    }
 
 /**
  * @module
@@ -142,50 +215,19 @@ export class FieldValues {
     constructor(private readonly axios: AxiosInstance) {
     }
 
-    private static isValidISO8601(dateString: string): boolean {
-        // Define the regular expression for ISO 8601 format
-        const iso8601Regex =
-            /^(-?(?:[1-9][0-9]*)?[0-9]{4})(-(0[1-9]|1[0-2])(-([0-2][0-9]|3[01])(T([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])(\.\d+)?(Z|([+-]([01][0-9]|2[0-3]):[0-5][0-9])))?)?)?$/
-
-        // Check if the string matches the ISO 8601 format
-        if (!iso8601Regex.test(dateString)) {
-            return false
-        }
-
-        // Parse the date using the Date object
-        const date = new Date(dateString)
-        return date.toISOString() === dateString
-    }
-
-    private static transformValue(value: ValueRaw): Value
-    private static transformValue(value: Value): ValueRaw
-    private static transformValue(value: Value | ValueRaw): Value | ValueRaw {
-        if (value instanceof Date) {
-            return value.toISOString() as DateTime
-        } else if (
-            typeof value === 'string' && FieldValues.isValidISO8601(value)
-        ) {
-            // TODO(@joscha): introspection of the value shape is not ideal, as it will transform a text value that happens
-            // to be a valid ISO date string into a Date object. This is a limitation of the current design.
-            // A way around this can be to fetch the field definition and use that to determine the value type.
-            // The attached cost is an additional API request for each field value in string shape, which is not ideal.
-            return new Date(value)
-        } else {
-            return value
-        }
-    }
-
     private static transformFieldValue(
         fieldValue: FieldValueRaw,
     ): FieldValue {
         return {
             ...fieldValue,
-            value: FieldValues.transformValue(fieldValue.value),
+            value: fieldValue.value_type === FieldValueType.DATE
+                ? new Date(fieldValue.value)
+                : fieldValue.value,
             updated_at: fieldValue.updated_at === null
                 ? null
                 : new Date(fieldValue.updated_at),
             created_at: new Date(fieldValue.created_at),
-        }
+        } as FieldValue
     }
 
     /**
@@ -236,7 +278,9 @@ export class FieldValues {
             fieldValuesUrl(),
             {
                 ...data,
-                value: FieldValues.transformValue(data.value),
+                value: data.value instanceof Date
+                    ? data.value.toISOString()
+                    : data.value,
             },
             {
                 transformResponse: [
@@ -268,7 +312,11 @@ export class FieldValues {
     async update(data: UpdateFieldValueRequest): Promise<FieldValue> {
         const response = await this.axios.put<FieldValue>(
             fieldValuesUrl(data.field_value_id),
-            { value: FieldValues.transformValue(data.value) },
+            {
+                value: data.value instanceof Date
+                    ? data.value.toISOString()
+                    : data.value,
+            },
             {
                 transformResponse: [
                     ...defaultTransformers(),

@@ -5,40 +5,47 @@ import { EntityType, Field, FieldValueType } from './lists.ts'
 
 export type FieldResponse = Field[]
 
-export type FieldsQueryParameters = {
-    /**
-     * An unique identifier of the list whose fields are to be retrieved.
-     *
-     * Pass the `list_id` to only fetch fields that are specific to that list. Otherwise, all global and list-specific fields will be returned.
-     */
-    list_id?: number
+export type FieldBase = {
     /**
      * The value type of the fields that are to be retrieved.
      *
      * Pass the `value_type` to fetch fields of specific value types. Otherwise, all fields of any type will be returned.
      */
-    value_type?: FieldValueType
+    value_type: FieldValueType
     /**
      * The entity type of the fields that are to be retrieved.
      *
      * Pass the `entity_type` to fetch fields of specific entity types. Otherwise, any fields of any entity type will be returned.
      */
-    entity_type?: EntityType
-    /**
-     * When `true`, field names will return in the format `[List Name] Field Name`.
-     *
-     * Pass the `with_modified_names` flag to return the fields such that the names have the list name prepended to them in the format `[List Name] Field Name` (i.e. `[Deals] Status`).
-     */
-    with_modified_names?: boolean
-    /**
-     * When true, dropdown options will not be returned in the response.
-     *
-     * Pass the `exclude_dropdown_options` flag to exclude dropdown options from the response. This may be useful when the payload is too large due to too many dropdown options.
-     */
-    exclude_dropdown_options?: boolean
+    entity_type: EntityType
 }
 
+export type FieldsQueryParameters =
+    & Partial<FieldBase>
+    & {
+        /**
+         * An unique identifier of the list whose fields are to be retrieved.
+         *
+         * Pass the `list_id` to only fetch fields that are specific to that list. Otherwise, all global and list-specific fields will be returned.
+         */
+        list_id?: number
+
+        /**
+         * When `true`, field names will return in the format `[List Name] Field Name`.
+         *
+         * Pass the `with_modified_names` flag to return the fields such that the names have the list name prepended to them in the format `[List Name] Field Name` (i.e. `[Deals] Status`).
+         */
+        with_modified_names?: boolean
+        /**
+         * When true, dropdown options will not be returned in the response.
+         *
+         * Pass the `exclude_dropdown_options` flag to exclude dropdown options from the response. This may be useful when the payload is too large due to too many dropdown options.
+         */
+        exclude_dropdown_options?: boolean
+    }
+
 export type FieldCreateParameters =
+    & FieldBase
     & {
         /**
          * The name of the field.
