@@ -51,7 +51,7 @@ export type ValueRaw =
     | LocationValue
     | DateTime
     | TextValue
-export type Value = Omit<ValueRaw, DateTime> | Date
+export type Value = Exclude<ValueRaw, DateTime> | Date
 
 export interface FieldValueRawValues
     extends Record<keyof FieldValueType, ValueRaw> {
@@ -156,7 +156,7 @@ export type FieldValueRaw =
 export type FieldValueResponseRaw = FieldValueRaw[]
 
 export type FieldValue =
-    & Omit<FieldValueRaw, 'value' | 'updated_at' | 'created_at'>
+    & Omit<FieldValueRaw, 'value' | 'updated_at' | 'created_at' | 'value_type'>
     & {
         updated_at: Date | null
         created_at: Date
@@ -168,7 +168,11 @@ export type FieldValueResponse = FieldValue[]
 export type CreateFieldValueRequest = {
     field_id: number
     entity_id: number
-    value: Value
+    /**
+     * The value of the field value.
+     * In case of a {@link FieldValueType.DROPDOWN} or {@link FieldValueType.RANKED_DROPDOWN} field, this should be the text of the value.
+     */
+    value: Exclude<Value, DropdownValue | RankedDropdownValue>
     list_entry_id?: number
 }
 
@@ -227,7 +231,8 @@ export class FieldValues {
                 ? null
                 : new Date(fieldValue.updated_at),
             created_at: new Date(fieldValue.created_at),
-        } as FieldValue
+        } as // TODO(@joscha): remove this ugly cast
+        FieldValue
     }
 
     /**
