@@ -2,7 +2,6 @@ import axios, { type AxiosInstance, AxiosResponse } from 'axios'
 import { Auth } from './auth.ts'
 import { RateLimit } from './rate_limit.ts'
 import { Lists } from './lists.ts'
-import { AffinityApiError } from './errors.ts'
 import { Fields } from './fields.ts'
 import { FieldValues } from './field_values.ts'
 import { FieldValueChanges } from './field_value_changes.ts'
@@ -36,16 +35,14 @@ export class Affinity {
         apiKey: string,
         axiosInstance?: AxiosInstance,
     ) {
-        this.axios = axiosInstance || axios.create({
-            baseURL: 'https://api.affinity.co',
-            headers: {
-                'X-Requested-With': '@planet-a/affinity-node',
-            },
-            auth: {
-                username: '',
-                password: apiKey,
-            },
-        })
+        this.axios = axiosInstance || axios.create()
+        this.axios.defaults.headers.common['X-Requested-With'] =
+            '@planet-a/affinity-node'
+        this.axios.defaults.auth = {
+            username: '',
+            password: apiKey,
+        }
+        this.axios.defaults.baseURL = 'https://api.affinity.co'
 
         this.lists = new Lists(this.axios)
         this.rateLimit = new RateLimit(this.axios)
