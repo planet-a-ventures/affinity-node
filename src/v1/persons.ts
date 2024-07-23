@@ -1,11 +1,10 @@
 import type { AxiosInstance } from 'axios'
+import { defaultTransformers } from './axios_default_transformers.ts'
+import type { ListEntryReferenceRaw } from './list_entries.ts'
 import {
-    type InteractionDate,
-    type InteractionDateKey,
     InteractionDateResponse,
     type InteractionDateResponseRaw,
     InteractionDatesQueryParams,
-    type InteractionType,
     type ListEntryReference,
     OpportunitiesQueryParams,
     type OpportunityIdResponseRaw,
@@ -15,9 +14,8 @@ import {
     PagedResponse,
     transformInteractionDateResponseRaw,
 } from './organizations.ts'
-import type { ListEntryReferenceRaw } from './list_entries.ts'
 import { personsUrl } from './urls.ts'
-import { defaultTransformers } from './axios_default_transformers.ts'
+import type { Replace } from './types.ts'
 
 /**
  * The type of person.
@@ -61,14 +59,12 @@ export type PersonResponseRaw =
          *
          * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
          */
-        current_organization_ids: number[]
+        current_organization_ids?: number[]
     }
     & InteractionDateResponseRaw
     & OpportunityIdResponseRaw
 
-export type PersonResponse =
-    & Omit<PersonResponseRaw, keyof InteractionDateResponseRaw>
-    & InteractionDateResponse
+export type PersonResponse = Replace<PersonResponseRaw, InteractionDateResponse>
 
 export type SearchPersonsRequest =
     & {
@@ -90,23 +86,21 @@ export type PagedPersonResponseRaw =
     }
     & PagedResponse
 
-export type PagedPersonResponse =
-    & Omit<PagedPersonResponseRaw, 'persons'>
-    & {
-        persons: PersonResponse[]
-    }
+export type PagedPersonResponse = Replace<PagedPersonResponseRaw, {
+    persons: PersonResponse[]
+}>
 
 export type SinglePersonResponseRaw =
     & {
-        /**
-         * An array of list entry resources associated with the person, only returned as part of the {@link Persons.get} a specific person endpoint.
-         */
         list_entries: ListEntryReferenceRaw[]
     }
     & PersonResponseRaw
 
 export type SinglePersonResponse =
     & {
+        /**
+         * An array of list entry resources associated with the person, only returned as part of the {@link Persons.get} a specific person endpoint.
+         */
         list_entries: ListEntryReference[]
     }
     & PersonResponse

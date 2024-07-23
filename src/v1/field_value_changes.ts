@@ -1,7 +1,7 @@
 import type { AxiosInstance } from 'axios'
 
 import type { Person } from './list_entries.ts'
-import type { DateTime } from './types.ts'
+import type { DateTime, Replace } from './types.ts'
 import { fieldValueChangesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import type { Field } from './lists.ts'
@@ -90,11 +90,9 @@ export type FieldValueChangeRaw = {
 
 export type FieldValueChangeResponseRaw = FieldValueChangeRaw[]
 
-export type FieldValueChange =
-    & Omit<FieldValueChangeRaw, 'changed_at'>
-    & {
-        changed_at: Date
-    }
+export type FieldValueChange = Replace<FieldValueChangeRaw, {
+    changed_at: Date
+}>
 
 export type FieldValueChangeResponse = FieldValueChange[]
 

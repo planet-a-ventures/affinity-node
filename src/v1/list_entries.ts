@@ -2,7 +2,7 @@ import type { AxiosInstance } from 'axios'
 import type { EntityType, GetQuery } from './lists.ts'
 import { listEntriesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
-import type { DateTime } from './types.ts'
+import type { DateTime, Replace } from './types.ts'
 import { PersonType } from './persons.ts'
 import { Organization } from './organizations.ts'
 
@@ -52,7 +52,6 @@ export type ListEntryReferenceRaw = {
 }
 
 export type ListEntryResponseRaw =
-    & ListEntryReferenceRaw
     & {
         /**
          * The type of the entity corresponding to the list entry.
@@ -63,6 +62,7 @@ export type ListEntryResponseRaw =
          */
         entity: Entity
     }
+    & ListEntryReferenceRaw
 
 export type PagedListEntryResponseRaw = {
     list_entries: ListEntryResponseRaw[]
@@ -73,15 +73,13 @@ export type PagedListEntryResponseRaw = {
     next_page_token: string | null
 }
 
-export type ListEntryResponse = Omit<ListEntryResponseRaw, 'created_at'> & {
+export type ListEntryResponse = Replace<ListEntryResponseRaw, {
     created_at: Date
-}
+}>
 
-export type PagedListEntryResponse =
-    & Omit<PagedListEntryResponseRaw, 'list_entries'>
-    & {
-        list_entries: ListEntryResponse[]
-    }
+export type PagedListEntryResponse = Replace<PagedListEntryResponseRaw, {
+    list_entries: ListEntryResponse[]
+}>
 
 /**
  * Paging parameters for retrieving list entries.

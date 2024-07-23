@@ -6,6 +6,7 @@ import type { ListEntryReferenceRaw } from './list_entries.ts'
 import type { PersonResponse as Person } from './persons.ts'
 import type { Opportunity } from './opportunities.ts'
 import type { Field } from './lists.ts'
+import type { Replace } from './types.ts'
 
 export type InteractionOccurrenceQuantifier = 'first' | 'last'
 
@@ -58,61 +59,57 @@ export type OpportunityIdResponseRaw = {
 
 type InteractionDateResponseBase = {
     interaction_dates?: {
-        [key in InteractionDateKey]: unknown
+        [key in InteractionDateKey]: never
     }
     interactions?: {
-        [key in InteractionType]: unknown
+        [key in InteractionType]: never
     }
 }
 
-export type InteractionDateResponseRaw =
-    & InteractionDateResponseBase
-    & {
-        /**
-         * An object with string date fields representing the most recent and upcoming interactions with this entity.
-         * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
-         *
-         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-         */
-        interaction_dates?: {
-            [key in InteractionDateKey]: DateTime
-        }
-        /**
-         * An object with seven fields nested underneath.
-         * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
-         * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
-         *
-         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-         */
-        interactions?: {
-            [key in InteractionType]: InteractionDateRaw
-        }
+export type InteractionDateResponseRaw = Replace<InteractionDateResponseBase, {
+    /**
+     * An object with string date fields representing the most recent and upcoming interactions with this entity.
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interaction_dates?: {
+        [key in InteractionDateKey]: DateTime
+    }
+    /**
+     * An object with seven fields nested underneath.
+     * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interactions?: {
+        [key in InteractionType]: InteractionDateRaw
+    }
+}>
+
+export type InteractionDateResponse = Replace<InteractionDateResponseRaw, {
+    /**
+     * An object with string date fields representing the most recent and upcoming interactions with this entity.
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interaction_dates?: {
+        [key in InteractionDateKey]: Date
     }
 
-export type InteractionDateResponse =
-    & InteractionDateResponseBase
-    & {
-        /**
-         * An object with string date fields representing the most recent and upcoming interactions with this entity.
-         * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
-         *
-         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-         */
-        interaction_dates?: {
-            [key in InteractionDateKey]: Date
-        }
-
-        /**
-         * An object with seven fields nested underneath.
-         * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
-         * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
-         *
-         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-         */
-        interactions?: {
-            [key in InteractionType]: InteractionDate
-        }
+    /**
+     * An object with seven fields nested underneath.
+     * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interactions?: {
+        [key in InteractionType]: InteractionDate
     }
+}>
 
 /**
  * Each organization object has a unique id. It also has a name, domain (the website of the organization), and persons associated with it.
@@ -154,21 +151,22 @@ export type InteractionDateRaw = {
     person_ids?: number[]
 }
 
-export type InteractionDate = Omit<InteractionDateRaw, 'date'> & {
+export type InteractionDate = Replace<InteractionDateRaw, {
     date: Date
-}
+}>
 
-export type OrganizationResponse =
-    & Omit<OrganizationResponseRaw, keyof InteractionDateResponseRaw>
-    & InteractionDateResponse
+export type OrganizationResponse = Replace<
+    OrganizationResponseRaw,
+    InteractionDateResponse
+>
 
 export type PagedResponse = {
     next_page_token: string | null
 }
 
-export type ListEntryReference = Omit<ListEntryReferenceRaw, 'created_at'> & {
+export type ListEntryReference = Replace<ListEntryReferenceRaw, {
     created_at: Date
-}
+}>
 
 export type PagedOrganizationResponseRaw =
     & {
@@ -176,24 +174,24 @@ export type PagedOrganizationResponseRaw =
     }
     & PagedResponse
 
-export type PagedOrganizationResponse =
-    & Omit<PagedOrganizationResponseRaw, 'organizations'>
-    & {
-        organizations: OrganizationResponse[]
-    }
+export type PagedOrganizationResponse = Replace<PagedOrganizationResponseRaw, {
+    organizations: OrganizationResponse[]
+}>
 
 export type SingleOrganizationResponseRaw =
-    & OrganizationResponseRaw
     & {
         /**
          * An array of list entry resources associated with the organization, only returned as part of the {@link Organizations.get} a specific organization endpoint.
          */
         list_entries: ListEntryReferenceRaw[]
     }
+    & OrganizationResponseRaw
 
-export type SingleOrganizationResponse = OrganizationResponse & {
-    list_entries: ListEntryReference[]
-}
+export type SingleOrganizationResponse =
+    & {
+        list_entries: ListEntryReference[]
+    }
+    & OrganizationResponse
 
 export type CreateOrganizationRequest = {
     /**
@@ -211,7 +209,6 @@ export type CreateOrganizationRequest = {
 }
 
 export type UpdateOrganizationRequest =
-    & OrganizationReference
     & {
         /**
          * The name of the organization.
@@ -227,6 +224,7 @@ export type UpdateOrganizationRequest =
          */
         person_ids?: number[]
     }
+    & OrganizationReference
 
 export type InteractionTypeWithoutChat = Exclude<
     InteractionType,
@@ -261,6 +259,7 @@ export type OpportunitiesQueryParams = {
     with_opportunities?: boolean
 }
 
+// TODO(@joscha): see if we need to unify some of this with the `PagingParameters`.
 export type PagedRequest = {
     /**
      * The number of items to return per page.

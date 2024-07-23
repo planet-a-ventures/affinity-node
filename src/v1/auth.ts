@@ -2,6 +2,7 @@ import { AxiosInstance } from 'axios'
 import { enumFromValue } from './enum_from_value.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import { whoAmIUrl } from './urls.ts'
+import type { DateTime, Replace } from './types.ts'
 
 /**
  * TODO(@joscha): Enum is most likely incomplete
@@ -36,17 +37,13 @@ export type User = {
     email: string
 }
 
-type WhoAmIResponseRaw = {
-    tenant: Tenant
-    user: User
-    grant: {
-        type: string
-        scope: string
-        createdAt: string
-    }
+type GrantRaw = {
+    type: string
+    scope: string
+    createdAt: DateTime
 }
 
-export type WhoAmIResponse = {
+type WhoAmIResponseRaw = {
     /**
      * Information about the Affinity instance the user belongs to.
      */
@@ -58,12 +55,16 @@ export type WhoAmIResponse = {
     /**
      * Data about the type of authentication and metadata about the API key.
      */
+    grant: GrantRaw
+}
+
+export type WhoAmIResponse = Replace<WhoAmIResponseRaw, {
     grant: {
         type: GrantType
         scope: Scope
         createdAt: Date
     }
-}
+}>
 
 /**
  * @module
