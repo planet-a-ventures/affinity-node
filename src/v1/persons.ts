@@ -190,4 +190,42 @@ export class Persons {
         )
         return response.data
     }
+
+    /**
+     * Returns an async iterator that yields all person entries matching the given search terms
+     * Each yielded array contains up to the number specified in {@link SearchPersonsRequest.page_size} of persons.
+     * Use this method if you want to process the persons in a streaming fashion.
+     *
+     * *Please note:* the yielded persons array may be empty on the last page.
+     *
+     * @example
+     * ```typescript
+     * let page = 0
+     * for await (const entries of affinity.persons.searchIterator({
+     *     term: 'ben',
+     *     page_size: 10
+     * })) {
+     *     console.log(`Page ${++page} of entries:`, entries)
+     * }
+     * ```
+     */
+    async *searchIterator(
+        params: Omit<SearchPersonsRequest, 'page_token'>,
+    ): AsyncGenerator<PersonResponse[]> {
+        let page_token: string | undefined = undefined
+        while (true) {
+            const response: PagedPersonResponse = await this.search(
+                page_token ? { ...params, page_token } : params,
+            )
+
+            yield response.persons
+
+            if (response.next_page_token === null) {
+                // no more pages to fetch
+                return
+            } else {
+                page_token = response.next_page_token
+            }
+        }
+    }
 }
