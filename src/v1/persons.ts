@@ -180,7 +180,7 @@ export class Persons {
                     ): PagedPersonResponse => {
                         return {
                             ...json,
-                            persons: json.persons.map<PersonResponse>(
+                            persons: json.persons.map(
                                 transformInteractionDateResponseRaw,
                             ),
                         }

@@ -58,10 +58,10 @@ export type OpportunityIdResponseRaw = {
 
 type InteractionDateResponseBase = {
     interaction_dates?: {
-        [key in InteractionDateKey]: never
+        [key in InteractionDateKey]: unknown
     }
     interactions?: {
-        [key in InteractionType]: never
+        [key in InteractionType]: unknown
     }
 }
 
@@ -408,9 +408,7 @@ export class Organizations {
                     ): PagedOrganizationResponse => {
                         return {
                             ...json,
-                            organizations: json.organizations.map<
-                                OrganizationResponse
-                            >(
+                            organizations: json.organizations.map(
                                 transformInteractionDateResponseRaw,
                             ),
                         }
