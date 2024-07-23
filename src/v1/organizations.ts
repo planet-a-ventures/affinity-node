@@ -162,7 +162,7 @@ export type OrganizationResponse =
     & Omit<OrganizationResponseRaw, keyof InteractionDateResponseRaw>
     & InteractionDateResponse
 
-export type PagedResponseRaw = {
+export type PagedResponse = {
     next_page_token: string | null
 }
 
@@ -174,7 +174,7 @@ export type PagedOrganizationResponseRaw =
     & {
         organizations: OrganizationResponseRaw[]
     }
-    & PagedResponseRaw
+    & PagedResponse
 
 export type PagedOrganizationResponse =
     & Omit<PagedOrganizationResponseRaw, 'organizations'>
@@ -249,7 +249,7 @@ export type InteractionDatesQueryParams =
     | {
         with_interaction_dates: true
         /**
-         * When true, persons for each interaction will be returned. Used in conjunction with `with_interaction_dates`
+         * When true, persons for each interaction will be returned. Used in conjunction with {@link InteractionDatesQueryParams.with_interaction_dates}
          */
         with_interaction_persons: true
     }

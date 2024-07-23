@@ -12,7 +12,7 @@ import {
     OptionalMaxQueryParams,
     OptionalMinQueryParams,
     PagedRequest,
-    PagedResponseRaw,
+    PagedResponse,
     transformInteractionDateResponseRaw,
 } from './organizations.ts'
 import type { ListEntryReferenceRaw } from './list_entries.ts'
@@ -70,15 +70,6 @@ export type PersonResponse =
     & Omit<PersonResponseRaw, keyof InteractionDateResponseRaw>
     & InteractionDateResponse
 
-export type SinglePersonResponseRaw =
-    & PersonResponseRaw
-    & {
-        /**
-         * An array of list entry resources associated with the person, only returned as part of the {@link Persons.get} a specific person endpoint.
-         */
-        list_entries: ListEntryReferenceRaw[]
-    }
-
 export type SearchPersonsRequest =
     & {
         /**
@@ -97,7 +88,7 @@ export type PagedPersonResponseRaw =
     & {
         persons: PersonResponseRaw[]
     }
-    & PagedResponseRaw
+    & PagedResponse
 
 export type PagedPersonResponse =
     & Omit<PagedPersonResponseRaw, 'persons'>
@@ -105,7 +96,7 @@ export type PagedPersonResponse =
         persons: PersonResponse[]
     }
 
-export type SingleOrganizationResponseRaw =
+export type SinglePersonResponseRaw =
     & {
         /**
          * An array of list entry resources associated with the person, only returned as part of the {@link Persons.get} a specific person endpoint.
@@ -148,10 +139,10 @@ export class Persons {
     /**
      * Searches your teams data and fetches all the persons that meet the search criteria.
      *
-     * This result is paginated. An initial request returns an object with two fields: `persons` and `next_page_token`. `persons` contains an array of person resources. The value of `next_page_token` should be sent as the query parameter `page_token` in another request to retrieve the next page of results. While paginating through results, each request must have identical query parameters other than the changing `page_token`. Otherwise, an `Invalid page_token variable` error will be returned.
+     * This result is paginated. An initial request returns an object with two fields: `persons` and {@link PagedResponse.next_page_token}. `persons` contains an array of person resources. The value of {@link PagedResponse.next_page_token} should be sent as the query parameter `page_token` in another request to retrieve the next page of results. While paginating through results, each request must have identical query parameters other than the changing `page_token`. Otherwise, an `Invalid page_token variable` error will be returned.
      *
-     * The absence of a `next_page_token` indicates that all the records have been fetched, though its presence does not necessarily indicate that there are *more* resources to be fetched. The next page may be empty (but then `next_page_token` would be `null` to confirm that there are no more resources).
-     * Pass `with_interaction_dates=true` as a query parameter to include dates of the most recent and upcoming interactions with persons. When this parameter is included, persons with no interactions will not be returned in the response. Pass `with_interaction_persons=true` as a query parameter if `with_interaction_dates=true` to also get the internal persons associated with the interaction.
+     * The absence of a {@link PagedResponse.next_page_token} indicates that all the records have been fetched, though its presence does not necessarily indicate that there are *more* resources to be fetched. The next page may be empty (but then {@link PagedResponse.next_page_token} would be `null` to confirm that there are no more resources).
+     * Pass `{@link InteractionDatesQueryParams.with_interaction_dates}=true` as a query parameter to include dates of the most recent and upcoming interactions with persons. When this parameter is included, persons with no interactions will not be returned in the response. Pass `with_interaction_persons=true` as a query parameter if `with_interaction_dates=true` to also get the internal persons associated with the interaction.
      * You can filter by interaction dates by providing additional query parameters like `min_last_email_date` or `max_next_event_date`. The value of these query parameters should be ISO 8601 formatted date strings.
      *
      * @param request - Object containing the data for the request
