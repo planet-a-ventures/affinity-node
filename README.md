@@ -32,7 +32,7 @@ examples, etc.
 - ✅ [Fields](src/v1/fields.ts)
 - ✅ [Field Values](src/v1/field_values.ts)
 - ✅ [Field Value Changes](src/v1/field_value_changes.ts)
-- ❌ [Persons](src/v1/persons.ts)
+- ✅ [Persons](src/v1/persons.ts)
 - ✅ [Organizations](src/v1/organizations.ts)
 - ❌ [Opportunities](src/v1/opportunities.ts)
 - ❌ Interactions
