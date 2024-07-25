@@ -1,12 +1,15 @@
 import type { AxiosInstance } from 'axios'
-import { organizationFieldsUrl, organizationsUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
+import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
 import type { DateTime } from './field_values.ts'
 import type { ListEntryReferenceRaw } from './list_entries.ts'
-import type { PersonResponse as Person } from './persons.ts'
-import type { Opportunity } from './opportunities.ts'
 import type { Field } from './lists.ts'
+import type { Opportunity } from './opportunities.ts'
+import type { PagedRequest } from './paged_request.ts'
+import type { PagedResponse } from './paged_response.ts'
+import type { PersonResponse as Person } from './persons.ts'
 import type { Replace } from './types.ts'
+import { organizationFieldsUrl, organizationsUrl } from './urls.ts'
 
 export type InteractionOccurrenceQuantifier = 'first' | 'last'
 
@@ -160,10 +163,6 @@ export type OrganizationResponse = Replace<
     InteractionDateResponse
 >
 
-export type PagedResponse = {
-    next_page_token: string | null
-}
-
 export type ListEntryReference = Replace<ListEntryReferenceRaw, {
     created_at: Date
 }>
@@ -257,22 +256,6 @@ export type OpportunitiesQueryParams = {
      * When true, opportunity IDs associated with this organization will be returned.
      */
     with_opportunities?: boolean
-}
-
-// TODO(@joscha): see if we need to unify some of this with the `PagingParameters`.
-export type PagedRequest = {
-    /**
-     * The number of items to return per page.
-     *
-     * Default is the maximum value of 500.
-     */
-    page_size?: number
-
-    /**
-     * The page token to retrieve the next page of items.
-     * if you do not pass the `page_size` parameter, the next page will have the default page size of 500.
-     */
-    page_token?: string
 }
 
 export type SearchOrganizationsRequest =
@@ -436,25 +419,10 @@ export class Organizations {
      * }
      * ```
      */
-    async *searchIterator(
-        params: Omit<SearchOrganizationsRequest, 'page_token'>,
-    ): AsyncGenerator<OrganizationResponse[]> {
-        let page_token: string | undefined = undefined
-        while (true) {
-            const response: PagedOrganizationResponse = await this.search(
-                page_token ? { ...params, page_token } : params,
-            )
-
-            yield response.organizations
-
-            if (response.next_page_token === null) {
-                // no more pages to fetch
-                return
-            } else {
-                page_token = response.next_page_token
-            }
-        }
-    }
+    searchIterator = createSearchIteratorFn(
+        this.search.bind(this),
+        'organizations',
+    )
 
     /**
      * Creates a new organization with the supplied parameters.

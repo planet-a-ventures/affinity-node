@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios'
 import { defaultTransformers } from './axios_default_transformers.ts'
+import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
 import type { ListEntryReferenceRaw } from './list_entries.ts'
 import {
     InteractionDateResponse,
@@ -10,12 +11,12 @@ import {
     type OpportunityIdResponseRaw,
     OptionalMaxQueryParams,
     OptionalMinQueryParams,
-    PagedRequest,
-    PagedResponse,
     transformInteractionDateResponseRaw,
 } from './organizations.ts'
-import { personsUrl } from './urls.ts'
+import type { PagedRequest } from './paged_request.ts'
+import type { PagedResponse } from './paged_response.ts'
 import type { Replace } from './types.ts'
+import { personsUrl } from './urls.ts'
 
 /**
  * The type of person.
@@ -55,7 +56,7 @@ export type PersonResponseRaw =
         organization_ids: number[]
 
         /** An array of unique identifiers of organizations that the person is currently associated with according to the Affinity Data: Current Organization in-app column.
-         * Only returned when `with_current_organizations=true`.
+         * Only returned when `{@link WithCurrentOrganizatonParams.with_current_organizations}=true`.
          *
          * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
          */
@@ -65,6 +66,13 @@ export type PersonResponseRaw =
     & OpportunityIdResponseRaw
 
 export type PersonResponse = Replace<PersonResponseRaw, InteractionDateResponse>
+
+export type WithCurrentOrganizatonParams = {
+    /**
+     * When true, the organization IDs of each person's current organizations (according to the Affinity Data: Current Organizations column) will be returned.
+     */
+    with_current_organizations?: boolean
+}
 
 export type SearchPersonsRequest =
     & {
@@ -79,6 +87,7 @@ export type SearchPersonsRequest =
     & OptionalMinQueryParams
     & OptionalMaxQueryParams
     & InteractionDatesQueryParams
+    & WithCurrentOrganizatonParams
 
 export type PagedPersonResponseRaw =
     & {
@@ -194,23 +203,5 @@ export class Persons {
      * }
      * ```
      */
-    async *searchIterator(
-        params: Omit<SearchPersonsRequest, 'page_token'>,
-    ): AsyncGenerator<PersonResponse[]> {
-        let page_token: string | undefined = undefined
-        while (true) {
-            const response: PagedPersonResponse = await this.search(
-                page_token ? { ...params, page_token } : params,
-            )
-
-            yield response.persons
-
-            if (response.next_page_token === null) {
-                // no more pages to fetch
-                return
-            } else {
-                page_token = response.next_page_token
-            }
-        }
-    }
+    searchIterator = createSearchIteratorFn(this.search.bind(this), 'persons')
 }

@@ -1,22 +1,11 @@
 import type { AxiosInstance } from 'axios'
 
-import type { Person } from './list_entries.ts'
-import type { DateTime, Replace } from './types.ts'
-import { fieldValueChangesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
-import type { Field } from './lists.ts'
 import type { Value, ValueRaw } from './field_values.ts'
-
-/**
- * Via https://stackoverflow.com/questions/40510611
- */
-export type RequireOnlyOne<T, Keys extends keyof T = keyof T> =
-    & Pick<T, Exclude<keyof T, Keys>>
-    & {
-        [K in Keys]-?:
-            & Required<Pick<T, K>>
-            & Partial<Record<Exclude<Keys, K>, never>>
-    }[Keys]
+import type { Person } from './list_entries.ts'
+import type { Field } from './lists.ts'
+import type { DateTime, Replace, RequireOnlyOne } from './types.ts'
+import { fieldValueChangesUrl } from './urls.ts'
 
 /**
  * Enum for Action Type.
