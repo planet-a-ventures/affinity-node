@@ -41,3 +41,54 @@ snapshot[`persons > can search for persons 1`] = `
   ],
 }
 `;
+
+snapshot[`page 1 of persons 1`] = `
+[
+  {
+    emails: [
+      "j-m@p-a.com",
+    ],
+    first_name: "Joscha",
+    id: 198383654,
+    last_name: "Test",
+    primary_email: "j-m@p-a.com",
+    type: 0,
+  },
+]
+`;
+
+snapshot[`page 2 of persons 1`] = `
+[
+  {
+    emails: [
+      "some@group.calendar.google.com",
+    ],
+    first_name: "Someone's",
+    id: 191703462,
+    last_name: "and Else's appointments",
+    primary_email: "some@group.calendar.google.com",
+    type: 0,
+  },
+]
+`;
+
+snapshot[`page 3 of persons 1`] = `
+[
+  {
+    emails: [
+      "j@p-a.com",
+      "j@f.com",
+      "jf@j.com",
+      "j@c.com",
+      "jf@a.com",
+    ],
+    first_name: "Joscha",
+    id: 54576635,
+    last_name: "Feth",
+    primary_email: "j@p-a.com",
+    type: 1,
+  },
+]
+`;
+
+snapshot[`page 4 of persons 1`] = `[]`;

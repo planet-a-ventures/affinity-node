@@ -108,49 +108,49 @@ describe('persons', () => {
     //     await assertSnapshot(t, res)
     // })
 
-    // it('iterates over all persons', async (t) => {
-    //     const params: SearchPersonsRequest = {
-    //         term: 'fridel',
-    //         page_size: 1,
-    //     }
+    it('iterates over all persons', async (t) => {
+        const params: SearchPersonsRequest = {
+            term: 'joscha',
+            page_size: 1,
+        }
 
-    //     {
-    //         // set up pages sequentially, each referencing the one after
-    //         const { default: pages } = await import(
-    //             './fixtures/persons/paginated.iterator.combined.response.json',
-    //             {
-    //                 with: {
-    //                     type: 'json',
-    //                 },
-    //             }
-    //         )
+        {
+            // set up pages sequentially, each referencing the one after
+            const { default: pages } = await import(
+                './fixtures/persons/paginated.iterator.combined.response.json',
+                {
+                    with: {
+                        type: 'json',
+                    },
+                }
+            )
 
-    //         pages.forEach((page, i) => {
-    //             const { next_page_token: previous_page_token } = pages[i - 1] ||
-    //                 {}
-    //             const data: SearchPersonsRequest = {
-    //                 ...params,
-    //             }
-    //             if (previous_page_token) {
-    //                 data.page_token = previous_page_token
-    //             }
-    //             // console.log('Setting up page', params, page.list_entries)
-    //             mock?.onGet(personsUrl(), {
-    //                 params: data,
-    //             }).reply(
-    //                 200,
-    //                 page,
-    //             )
-    //         })
-    //     }
+            pages.forEach((page, i) => {
+                const { next_page_token: previous_page_token } = pages[i - 1] ||
+                    {}
+                const data: SearchPersonsRequest = {
+                    ...params,
+                }
+                if (previous_page_token) {
+                    data.page_token = previous_page_token
+                }
+                // console.log('Setting up page', params, page.list_entries)
+                mock?.onGet(personsUrl(), {
+                    params: data,
+                }).reply(
+                    200,
+                    page,
+                )
+            })
+        }
 
-    //     let page = 0
-    //     for await (
-    //         const entries of affinity.persons.searchIterator(params)
-    //     ) {
-    //         await assertSnapshot(t, entries, {
-    //             name: `page ${++page} of persons`,
-    //         })
-    //     }
-    // })
+        let page = 0
+        for await (
+            const entries of affinity.persons.searchIterator(params)
+        ) {
+            await assertSnapshot(t, entries, {
+                name: `page ${++page} of persons`,
+            })
+        }
+    })
 })
