@@ -23,15 +23,15 @@ describe('persons', () => {
         mock?.reset()
     })
 
-    // it('can get a specific person', async (t) => {
-    //     const person_id = 64779194
-    //     mock?.onGet(personsUrl(person_id)).reply(
-    //         200,
-    //         await getRawFixture('persons/get.raw.response.json'),
-    //     )
-    //     const res = await affinity.persons.get({ person_id })
-    //     await assertSnapshot(t, res)
-    // })
+    it('can get a specific person', async (t) => {
+        const person_id = 54576635
+        mock?.onGet(personsUrl(person_id)).reply(
+            200,
+            await getRawFixture('persons/get.raw.response.json'),
+        )
+        const res = await affinity.persons.get({ person_id })
+        await assertSnapshot(t, res)
+    })
 
     it('can search for persons', async (t) => {
         const request = { term: 'joscha' }
@@ -76,7 +76,7 @@ describe('persons', () => {
     //     await assertSnapshot(t, res)
     // })
 
-    // it('can update an person', async (t) => {
+    // it('can update a person', async (t) => {
     //     const data = {
     //         person_id: 120611418,
     //         name: 'Acme Corp.',
@@ -90,7 +90,7 @@ describe('persons', () => {
     //     await assertSnapshot(t, res)
     // })
 
-    // it('can delete an person', async (t) => {
+    // it('can delete a person', async (t) => {
     //     const person_id = 120611418
     //     mock?.onDelete(personsUrl(person_id)).reply(200, {
     //         success: true,

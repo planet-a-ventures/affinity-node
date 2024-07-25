@@ -11,6 +11,7 @@ import type { PersonResponse as Person } from './persons.ts'
 import type { Replace } from './types.ts'
 import { organizationFieldsUrl, organizationsUrl } from './urls.ts'
 import { transformInteractionDateResponseRaw } from './transform_interaction_date_response_raw.ts'
+import { transformListEntryReference } from './transform_list_entry_reference.ts'
 
 export type InteractionOccurrenceQuantifier = 'first' | 'last'
 
@@ -346,14 +347,9 @@ export class Organizations {
                             ...transformInteractionDateResponseRaw(
                                 organization,
                             ),
-                            list_entries: json.list_entries.map<
-                                ListEntryReference
-                            >((entry) => {
-                                return {
-                                    ...entry,
-                                    created_at: new Date(entry.created_at),
-                                }
-                            }),
+                            list_entries: json.list_entries.map(
+                                transformListEntryReference,
+                            ),
                         }
                     },
                 ],

@@ -12,9 +12,10 @@ import {
     OptionalMaxQueryParams,
     OptionalMinQueryParams,
 } from './organizations.ts'
-import { transformInteractionDateResponseRaw } from './transform_interaction_date_response_raw.ts'
 import type { PagedRequest } from './paged_request.ts'
 import type { PagedResponse } from './paged_response.ts'
+import { transformInteractionDateResponseRaw } from './transform_interaction_date_response_raw.ts'
+import { transformListEntryReference } from './transform_list_entry_reference.ts'
 import type { Replace } from './types.ts'
 import { personsUrl } from './urls.ts'
 
@@ -114,6 +115,17 @@ export type SinglePersonResponse =
     }
     & PersonResponse
 
+export type GetPersonRequest =
+    & PersonReference
+    & OpportunitiesQueryParams
+    & InteractionDatesQueryParams
+    & WithCurrentOrganizatonParams
+
+export type PersonReference = {
+    /** The unique ID of the person */
+    person_id: number
+}
+
 /**
  * @module
  * The persons API allows you to manage all the contacts of your organization.
@@ -123,6 +135,7 @@ export type SinglePersonResponse =
  * - If you are looking to add or remove a person from a list, please check out the {@link ListEntries} section of the API.
  * - If you are looking to modify a person's field values (one of the cells on Affinity's spreadsheet), please check out the {@link FieldValues} section of the API.
  */
+
 export class Persons {
     /** @hidden */
     constructor(private readonly axios: AxiosInstance) {
@@ -137,6 +150,48 @@ export class Persons {
                 value instanceof Date ? value.toISOString() : value,
             ]),
         )
+    }
+
+    /**
+     * Fetches an person with a specified `person_id`.
+     *
+     * @returns The person object corresponding to the `person_id`.
+     *
+     * @example
+     * ```typescript
+     * const person = await affinity.persons.get({
+     *     person_id: 12345
+     * })
+     * console.log(person)
+     * ```
+     */
+    async get(
+        params: GetPersonRequest,
+    ): Promise<SinglePersonResponse> {
+        const { person_id, ...rest } = params
+        const response = await this.axios.get<SinglePersonResponse>(
+            personsUrl(person_id),
+            {
+                params: rest,
+                transformResponse: [
+                    ...defaultTransformers(),
+                    (
+                        json: SinglePersonResponseRaw,
+                    ): SinglePersonResponse => {
+                        const { list_entries, ...person } = json
+                        return {
+                            ...transformInteractionDateResponseRaw(
+                                person,
+                            ),
+                            list_entries: json.list_entries.map(
+                                transformListEntryReference,
+                            ),
+                        }
+                    },
+                ],
+            },
+        )
+        return response.data
     }
 
     /**

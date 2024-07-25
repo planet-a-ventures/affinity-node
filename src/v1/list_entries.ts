@@ -5,6 +5,7 @@ import { defaultTransformers } from './axios_default_transformers.ts'
 import type { DateTime, Replace } from './types.ts'
 import { PersonType } from './persons.ts'
 import { Organization } from './organizations.ts'
+import { transformListEntryReference } from './transform_list_entry_reference.ts'
 
 export type Person = {
     id: number
@@ -142,15 +143,6 @@ export class ListEntries {
     constructor(private readonly axios: AxiosInstance) {
     }
 
-    private static transformEntry = (
-        entry: ListEntryResponseRaw,
-    ): ListEntryResponse => {
-        return {
-            ...entry,
-            created_at: new Date(entry.created_at),
-        }
-    }
-
     /**
      * Fetches all list entries in the list with the supplied list id.
      *
@@ -213,11 +205,11 @@ export class ListEntries {
                             return {
                                 ...json,
                                 list_entries: json.list_entries.map(
-                                    ListEntries.transformEntry,
+                                    transformListEntryReference,
                                 ),
                             }
                         } else {
-                            return json.map(ListEntries.transformEntry)
+                            return json.map(transformListEntryReference)
                         }
                     },
                 ],
@@ -246,9 +238,7 @@ export class ListEntries {
             {
                 transformResponse: [
                     ...defaultTransformers(),
-                    (json: ListEntryResponseRaw) => {
-                        return ListEntries.transformEntry(json)
-                    },
+                    transformListEntryReference,
                 ],
             },
         )
@@ -345,9 +335,7 @@ export class ListEntries {
             {
                 transformResponse: [
                     ...defaultTransformers(),
-                    (json: ListEntryResponseRaw) => {
-                        return ListEntries.transformEntry(json)
-                    },
+                    transformListEntryReference,
                 ],
             },
         )
