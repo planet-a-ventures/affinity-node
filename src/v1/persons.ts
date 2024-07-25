@@ -11,8 +11,8 @@ import {
     type OpportunityIdResponseRaw,
     OptionalMaxQueryParams,
     OptionalMinQueryParams,
-    transformInteractionDateResponseRaw,
 } from './organizations.ts'
+import { transformInteractionDateResponseRaw } from './transform_interaction_date_response_raw.ts'
 import type { PagedRequest } from './paged_request.ts'
 import type { PagedResponse } from './paged_response.ts'
 import type { Replace } from './types.ts'

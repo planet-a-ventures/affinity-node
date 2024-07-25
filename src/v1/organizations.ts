@@ -10,6 +10,7 @@ import type { PagedResponse } from './paged_response.ts'
 import type { PersonResponse as Person } from './persons.ts'
 import type { Replace } from './types.ts'
 import { organizationFieldsUrl, organizationsUrl } from './urls.ts'
+import { transformInteractionDateResponseRaw } from './transform_interaction_date_response_raw.ts'
 
 export type InteractionOccurrenceQuantifier = 'first' | 'last'
 
@@ -60,7 +61,7 @@ export type OpportunityIdResponseRaw = {
     opportunity_ids?: number[]
 }
 
-type InteractionDateResponseBase = {
+export type InteractionDateResponseBase = {
     interaction_dates?: {
         [key in InteractionDateKey]: never
     }
@@ -516,37 +517,4 @@ export class Organizations {
         )
         return response.data
     }
-}
-
-/**
- * @hidden
- */
-export function transformInteractionDateResponseRaw<
-    T extends InteractionDateResponseRaw,
-    U = Omit<T, keyof InteractionDateResponseBase> & InteractionDateResponse,
->(
-    entityWithInteractions: T,
-): U {
-    const { interaction_dates, interactions, ...rest } = entityWithInteractions
-    const dates: InteractionDateResponse = {}
-    if (interaction_dates) {
-        dates.interaction_dates = Object.fromEntries(
-            Object.entries(interaction_dates).map(
-                ([key, value]) => [key, new Date(value)],
-            ),
-        ) as Record<InteractionDateKey, Date>
-    }
-    if (interactions) {
-        dates.interactions = Object.fromEntries(
-            Object.entries(interactions).map(
-                ([key, value]) => [key, {
-                    ...value,
-                    date: new Date(value.date),
-                }],
-            ),
-        ) as Record<InteractionType, InteractionDate>
-    }
-
-    // TODO(@joscha): fix the types so we don't need to cast here
-    return { ...rest, ...dates } as unknown as U
 }
