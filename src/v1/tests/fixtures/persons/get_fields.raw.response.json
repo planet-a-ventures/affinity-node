@@ -1,0 +1,23 @@
+[
+    {
+        "id": 125,
+        "name": "Use Case",
+        "value_type": 2,
+        "allows_multiple": true,
+        "dropdown_options": []
+    },
+    {
+        "id": 198,
+        "name": "Referrers",
+        "value_type": 0,
+        "allows_multiple": true,
+        "dropdown_options": []
+    },
+    {
+        "id": 1615,
+        "name": "Address",
+        "value_type": 5,
+        "allows_multiple": false,
+        "dropdown_options": []
+    }
+]

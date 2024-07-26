@@ -85,6 +85,68 @@ snapshot[`persons > can search for persons 1`] = `
 }
 `;
 
+snapshot[`persons > can create a new person 1`] = `
+{
+  emails: [
+    "alice@affinity.co",
+  ],
+  first_name: "Alice",
+  id: 860197,
+  last_name: "Doe",
+  organization_ids: [
+    1687449,
+  ],
+  primary_email: "alice@affinity.co",
+  type: 0,
+}
+`;
+
+snapshot[`persons > can update a person 1`] = `
+{
+  emails: [
+    "alice@affinity.co",
+    "allison@example.com",
+    "allison@gmail.com",
+  ],
+  first_name: "Allison",
+  id: 860197,
+  last_name: "Doe",
+  organization_ids: [
+    1687449,
+  ],
+  primary_email: "alice@affinity.co",
+  type: 0,
+}
+`;
+
+snapshot[`persons > can delete a person 1`] = `true`;
+
+snapshot[`persons > can get global person fields 1`] = `
+[
+  {
+    allows_multiple: true,
+    dropdown_options: [],
+    id: 125,
+    name: "Use Case",
+    value_type: 2,
+  },
+  {
+    allows_multiple: true,
+    dropdown_options: [],
+    id: 198,
+    name: "Referrers",
+    value_type: 0,
+  },
+  {
+    allows_multiple: false,
+    dropdown_options: [],
+    id: 1615,
+    name: "Address",
+    value_type: 5,
+  },
+]
+`;
+
 snapshot[`page 1 of persons 1`] = `
 [
   {

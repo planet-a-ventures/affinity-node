@@ -3,6 +3,7 @@ import { defaultTransformers } from './axios_default_transformers.ts'
 import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
 import type { ListEntryReferenceRaw } from './list_entries.ts'
 import {
+    EntityField,
     InteractionDateResponse,
     type InteractionDateResponseRaw,
     InteractionDatesQueryParams,
@@ -17,7 +18,7 @@ import type { PagedResponse } from './paged_response.ts'
 import { transformInteractionDateResponseRaw } from './transform_interaction_date_response_raw.ts'
 import { transformListEntryReference } from './transform_list_entry_reference.ts'
 import type { Replace } from './types.ts'
-import { personsUrl } from './urls.ts'
+import { personFieldsUrl, personsUrl } from './urls.ts'
 
 /**
  * The type of person.
@@ -33,6 +34,23 @@ export enum PersonType {
     INTERNAL = 1,
 }
 
+export type Person = {
+    /** The unique identifier of the person object. */
+    id: number
+    /** The type of person. */
+    type: PersonType
+    /** The first name of the person. */
+    first_name: string
+    /** The last name of the person. */
+    last_name: string
+    /** The email addresses of the person. */
+    emails: string[]
+    /** The email (automatically computed) that is most likely to the current active email address of the person. */
+    primary_email: string
+    /** An array of unique identifiers of organizations that the person is associated with. */
+    organization_ids: number[]
+}
+
 /**
  * Each person resource is assigned a unique `id` and stores the name, type, and email addresses of the person. A person resource also has access to a smart attribute called `primary_email`. The value of `primary_email` is automatically computed by Affinity's proprietary algorithms and refers to the email that is most likely to be the current active email address of a person.
  * The person resource `organization_ids` is a collection of unique identifiers to the person's associated organizations. Note that a person can be associated with multiple organizations. For example, say your team has talked with organizations A and B. Person X used to work at A and was your point of contact, but then changed jobs and started emailing you from a new email address (corresponding to organization B). In this case, Affinity will automatically associate person X with both organization A and organization B.
@@ -41,21 +59,6 @@ export enum PersonType {
  */
 export type PersonResponseRaw =
     & {
-        /** The unique identifier of the person object. */
-        id: number
-        /** The type of person. */
-        type: PersonType
-        /** The first name of the person. */
-        first_name: string
-        /** The last name of the person. */
-        last_name: string
-        /** The email addresses of the person. */
-        emails: string[]
-        /** The email (automatically computed) that is most likely to the current active email address of the person. */
-        primary_email: string
-        /** An array of unique identifiers of organizations that the person is associated with. */
-        organization_ids: number[]
-
         /** An array of unique identifiers of organizations that the person is currently associated with according to the Affinity Data: Current Organization in-app column.
          * Only returned when `{@link WithCurrentOrganizatonParams.with_current_organizations}=true`.
          *
@@ -63,6 +66,7 @@ export type PersonResponseRaw =
          */
         current_organization_ids?: number[]
     }
+    & Person
     & InteractionDateResponseRaw
     & OpportunityIdResponseRaw
 
@@ -125,6 +129,66 @@ export type PersonReference = {
     /** The unique ID of the person */
     person_id: number
 }
+
+/**
+ * The request object for creating an organization.
+ */
+export type CreatePersonRequest = {
+    /**
+     * The first name of the person.
+     */
+    first_name: string
+    /**
+     * The last name of the person.
+     */
+    last_name: string
+    /**
+     * The email addresses of the person. If there are no email addresses, please specify an empty array.
+     */
+    emails: string[]
+    /**
+     * An array of unique identifiers of organizations that the person is associated with.
+     */
+    organization_ids?: number[]
+}
+
+/**
+ * The request object for updating an organization.
+ */
+export type UpdatePersonRequest =
+    & {
+        /**
+         * The first name of the person.
+         */
+        first_name?: string
+
+        /**
+         * The last name of the person.
+         */
+        last_name?: string
+
+        /**
+         * The email addresses of the person. If there are no email addresses, please specify an empty array.
+         *
+         * *Hint*: If you are trying to add a new email to a person, the existing values for `emails` must also be supplied as parameters.
+         */
+        emails?: string[]
+
+        /**
+         * An array of unique identifiers of organizations that the person is associated with.
+         *
+         * *Hint*: If you are trying to add a new organization to a person, the existing values for `organization_ids` must also be supplied as parameters.
+         */
+        organization_ids?: number[]
+    }
+    & PersonReference
+
+export type SimplePersonResponse =
+    & Person
+    & Pick<
+        PersonResponse,
+        'organization_ids'
+    >
 
 /**
  * @module
@@ -207,10 +271,10 @@ export class Persons {
      *
      * @example
      * ```typescript
-     * const result = await affinity.persons.search({
-     *     term: 'ben'
+     * const { persons: allAlices } = await affinity.persons.search({
+     *     term: 'Alice'
      * })
-     * console.log(result.primary_email)
+     * console.log(allAlices)
      * ```
      */
     async search(
@@ -251,12 +315,109 @@ export class Persons {
      * ```typescript
      * let page = 0
      * for await (const entries of affinity.persons.searchIterator({
-     *     term: 'ben',
+     *     term: 'Alice',
      *     page_size: 10
      * })) {
      *     console.log(`Page ${++page} of entries:`, entries)
      * }
      * ```
      */
-    searchIterator = createSearchIteratorFn(this.search.bind(this), 'persons')
+    searchIterator = createSearchIteratorFn(
+        this.search.bind(this),
+        'persons',
+    )
+
+    /**
+     * Creates a new person with the supplied parameters.
+     *
+     * @param data - Object containing the data for creating a new person
+     * @returns The person resource that was just created.
+     *
+     * @example
+     * ```typescript
+     * const newPerson = await affinity.persons.create({
+     *     first_name: 'Alice',
+     *     last_name: 'Doe',
+     *     emails: ['alice@doe.com'],
+     *     organization_ids: [123456]
+     * })
+     * console.log(newPerson)
+     * ```
+     */
+    async create(
+        data: CreatePersonRequest,
+    ): Promise<SimplePersonResponse> {
+        const response = await this.axios.post<SimplePersonResponse>(
+            personsUrl(),
+            data,
+        )
+        return response.data
+    }
+
+    /**
+     * Updates an existing person with `person_id` with the supplied parameters.
+     *
+     * @param data - Object containing the data for updating an person
+     * @returns The person resource that was just updated.
+     *
+     * @example
+     * ```typescript
+     * const updatedPerson = await affinity.persons.update({
+     *     person_id: 12345,
+     *     name: 'Acme Corp.',
+     *     person_ids: [38706, 89734]
+     * })
+     * console.log(updatedPerson)
+     * ```
+     */
+    async update(
+        data: UpdatePersonRequest,
+    ): Promise<SimplePersonResponse> {
+        const { person_id, ...rest } = data
+        const response = await this.axios.put<SimplePersonResponse>(
+            personsUrl(person_id),
+            rest,
+        )
+        return response.data
+    }
+
+    /**
+     * Deletes an person with a specified `person_id`.
+     * @returns true if the deletion was successful
+     *
+     * @example
+     * ```typescript
+     * const success = await affinity.persons.delete({
+     *     person_id: 12345
+     * })
+     * console.log(success ? 'Person deleted': 'Person not deleted')
+     * ```
+     */
+    async delete(request: PersonReference): Promise<boolean> {
+        const { person_id } = request
+        const response = await this.axios.delete<{ success: boolean }>(
+            personsUrl(person_id),
+        )
+        return response.data.success === true
+    }
+
+    /**
+     * Fetches an array of all the global fields that exist on persons.
+     *
+     * @returns An array of the fields that exist on all persons for your team.
+     *
+     * @example
+     * ```typescript
+     * const personFields = await affinity.persons.getFields()
+     * console.log(personFields)
+     * ```
+     */
+    async getFields(): Promise<EntityField[]> {
+        const response = await this.axios.get<
+            EntityField[]
+        >(
+            personFieldsUrl(),
+        )
+        return response.data
+    }
 }

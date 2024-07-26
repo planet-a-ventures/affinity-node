@@ -283,7 +283,7 @@ export type OrganizationReference = {
     organization_id: number
 }
 
-export type OrganizationField = Pick<
+export type EntityField = Pick<
     Field,
     'id' | 'name' | 'value_type' | 'allows_multiple' | 'dropdown_options'
 >
@@ -505,9 +505,9 @@ export class Organizations {
      * console.log(organizationFields)
      * ```
      */
-    async getFields(): Promise<OrganizationField[]> {
+    async getFields(): Promise<EntityField[]> {
         const response = await this.axios.get<
-            OrganizationField[]
+            EntityField[]
         >(
             organizationFieldsUrl(),
         )

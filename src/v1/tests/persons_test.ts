@@ -62,51 +62,56 @@ describe('persons', () => {
     //     await assertSnapshot(t, res)
     // })
 
-    // it('can create a new person', async (t) => {
-    //     const data = {
-    //         name: 'Acme Corporation',
-    //         domain: 'acme.co',
-    //         person_ids: [38706],
-    //     }
-    //     mock?.onPost(personsUrl()).reply(
-    //         201,
-    //         await getRawFixture('persons/create.raw.response.json'),
-    //     )
-    //     const res = await affinity.persons.create(data)
-    //     await assertSnapshot(t, res)
-    // })
+    it('can create a new person', async (t) => {
+        const data = {
+            first_name: 'Alice',
+            last_name: 'Doe',
+            emails: ['alice@affinity.co'],
+            organization_ids: [1687449],
+        }
+        mock?.onPost(personsUrl()).reply(
+            201,
+            await getRawFixture('persons/create.raw.response.json'),
+        )
+        const res = await affinity.persons.create(data)
+        await assertSnapshot(t, res)
+    })
 
-    // it('can update a person', async (t) => {
-    //     const data = {
-    //         person_id: 120611418,
-    //         name: 'Acme Corp.',
-    //         person_ids: [38706, 89734],
-    //     }
-    //     mock?.onPut(personsUrl(data.person_id)).reply(
-    //         200,
-    //         await getRawFixture('persons/update.raw.response.json'),
-    //     )
-    //     const res = await affinity.persons.update(data)
-    //     await assertSnapshot(t, res)
-    // })
+    it('can update a person', async (t) => {
+        const data = {
+            person_id: 860197,
+            first_name: 'Allison',
+            emails: [
+                'alice@affinity.co',
+                'allison@example.com',
+                'allison@gmail.com',
+            ],
+        }
+        mock?.onPut(personsUrl(data.person_id)).reply(
+            200,
+            await getRawFixture('persons/update.raw.response.json'),
+        )
+        const res = await affinity.persons.update(data)
+        await assertSnapshot(t, res)
+    })
 
-    // it('can delete a person', async (t) => {
-    //     const person_id = 120611418
-    //     mock?.onDelete(personsUrl(person_id)).reply(200, {
-    //         success: true,
-    //     })
-    //     const res = await affinity.persons.delete({ person_id })
-    //     await assertSnapshot(t, res)
-    // })
+    it('can delete a person', async (t) => {
+        const person_id = 860197
+        mock?.onDelete(personsUrl(person_id)).reply(200, {
+            success: true,
+        })
+        const res = await affinity.persons.delete({ person_id })
+        await assertSnapshot(t, res)
+    })
 
-    // it('can get global person fields', async (t) => {
-    //     mock?.onGet(personFieldsUrl()).reply(
-    //         200,
-    //         await getRawFixture('persons/get_fields.raw.response.json'),
-    //     )
-    //     const res = await affinity.persons.getFields()
-    //     await assertSnapshot(t, res)
-    // })
+    it('can get global person fields', async (t) => {
+        mock?.onGet(personFieldsUrl()).reply(
+            200,
+            await getRawFixture('persons/get_fields.raw.response.json'),
+        )
+        const res = await affinity.persons.getFields()
+        await assertSnapshot(t, res)
+    })
 
     it('iterates over all persons', async (t) => {
         const params: SearchPersonsRequest = {

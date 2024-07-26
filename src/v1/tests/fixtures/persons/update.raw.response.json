@@ -1,0 +1,9 @@
+{
+    "id": 860197,
+    "type": 0,
+    "first_name": "Allison",
+    "last_name": "Doe",
+    "primary_email": "alice@affinity.co",
+    "emails": ["alice@affinity.co", "allison@example.com", "allison@gmail.com"],
+    "organization_ids": [1687449]
+}
