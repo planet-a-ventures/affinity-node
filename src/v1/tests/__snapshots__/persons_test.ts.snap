@@ -1,0 +1,244 @@
+export const snapshot = {};
+
+snapshot[`persons > can get a specific person 1`] = `
+{
+  emails: [
+    "j@p-a.com",
+    "j@f.com",
+    "jf@j.com",
+    "j@c.com",
+    "jf@a.com",
+  ],
+  first_name: "Joscha",
+  id: 54576635,
+  last_name: "Feth",
+  list_entries: [
+    {
+      created_at: 2023-07-04T14:35:44.910Z,
+      creator_id: 54530389,
+      entity_id: 54576635,
+      entity_type: 0,
+      id: 133527223,
+      list_id: 188027,
+    },
+    {
+      created_at: 2024-05-23T12:27:09.733Z,
+      creator_id: 54576635,
+      entity_id: 54576635,
+      entity_type: 0,
+      id: 158330666,
+      list_id: 247888,
+    },
+  ],
+  organization_ids: [
+    290555008,
+    3584837,
+    295075617,
+    1517097,
+    1687113,
+    296715824,
+  ],
+  primary_email: "j@p-a.com",
+  type: 1,
+}
+`;
+
+snapshot[`persons > can search for persons 1`] = `
+{
+  next_page_token: null,
+  persons: [
+    {
+      emails: [
+        "j-m@p-a.com",
+      ],
+      first_name: "Joscha",
+      id: 198383654,
+      last_name: "Test",
+      primary_email: "j-m@p-a.com",
+      type: 0,
+    },
+    {
+      emails: [
+        "some@group.calendar.google.com",
+      ],
+      first_name: "Someone's",
+      id: 191703462,
+      last_name: "and Else's appointments",
+      primary_email: "some@group.calendar.google.com",
+      type: 0,
+    },
+    {
+      emails: [
+        "j@p-a.com",
+        "j@f.com",
+        "jf@j.com",
+        "j@c.com",
+        "jf@a.com",
+      ],
+      first_name: "Joscha",
+      id: 54576635,
+      last_name: "Feth",
+      primary_email: "j@p-a.com",
+      type: 1,
+    },
+  ],
+}
+`;
+
+snapshot[`persons > can search for persons with the appropriate dates 1`] = `
+{
+  persons: [
+    {
+      emails: [
+        "j@f.com",
+      ],
+      first_name: "Joscha",
+      id: 12345678,
+      interaction_dates: {
+        first_email_date: 2021-05-31T16:00:37.000Z,
+        first_event_date: 2021-05-20T06:30:00.000Z,
+        last_chat_message_date: null,
+        last_email_date: 2022-05-12T08:01:31.000Z,
+        last_event_date: 2022-07-08T07:00:00.000Z,
+        last_interaction_date: 2022-07-08T07:00:00.000Z,
+        next_event_date: null,
+      },
+      interactions: {
+        first_email: {
+          date: 2021-05-31T16:00:37.000Z,
+        },
+        first_event: {
+          date: 2021-05-20T06:30:00.000Z,
+        },
+        last_chat_message: null,
+        last_email: {
+          date: 2022-05-12T08:01:31.000Z,
+        },
+        last_event: {
+          date: 2022-07-08T07:00:00.000Z,
+        },
+        last_interaction: {
+          date: 2022-07-08T07:00:00.000Z,
+        },
+        next_event: null,
+      },
+      last_name: "Feth",
+      primary_email: "j@f.com",
+      type: 0,
+    },
+  ],
+}
+`;
+
+snapshot[`persons > can create a new person 1`] = `
+{
+  emails: [
+    "alice@affinity.co",
+  ],
+  first_name: "Alice",
+  id: 860197,
+  last_name: "Doe",
+  organization_ids: [
+    1687449,
+  ],
+  primary_email: "alice@affinity.co",
+  type: 0,
+}
+`;
+
+snapshot[`persons > can update a person 1`] = `
+{
+  emails: [
+    "alice@affinity.co",
+    "allison@example.com",
+    "allison@gmail.com",
+  ],
+  first_name: "Allison",
+  id: 860197,
+  last_name: "Doe",
+  organization_ids: [
+    1687449,
+  ],
+  primary_email: "alice@affinity.co",
+  type: 0,
+}
+`;
+
+snapshot[`persons > can delete a person 1`] = `true`;
+
+snapshot[`persons > can get global person fields 1`] = `
+[
+  {
+    allows_multiple: true,
+    dropdown_options: [],
+    id: 125,
+    name: "Use Case",
+    value_type: 2,
+  },
+  {
+    allows_multiple: true,
+    dropdown_options: [],
+    id: 198,
+    name: "Referrers",
+    value_type: 0,
+  },
+  {
+    allows_multiple: false,
+    dropdown_options: [],
+    id: 1615,
+    name: "Address",
+    value_type: 5,
+  },
+]
+`;
+
+snapshot[`page 1 of persons 1`] = `
+[
+  {
+    emails: [
+      "j-m@p-a.com",
+    ],
+    first_name: "Joscha",
+    id: 198383654,
+    last_name: "Test",
+    primary_email: "j-m@p-a.com",
+    type: 0,
+  },
+]
+`;
+
+snapshot[`page 2 of persons 1`] = `
+[
+  {
+    emails: [
+      "some@group.calendar.google.com",
+    ],
+    first_name: "Someone's",
+    id: 191703462,
+    last_name: "and Else's appointments",
+    primary_email: "some@group.calendar.google.com",
+    type: 0,
+  },
+]
+`;
+
+snapshot[`page 3 of persons 1`] = `
+[
+  {
+    emails: [
+      "j@p-a.com",
+      "j@f.com",
+      "jf@j.com",
+      "j@c.com",
+      "jf@a.com",
+    ],
+    first_name: "Joscha",
+    id: 54576635,
+    last_name: "Feth",
+    primary_email: "j@p-a.com",
+    type: 1,
+  },
+]
+`;
+
+snapshot[`page 4 of persons 1`] = `[]`;

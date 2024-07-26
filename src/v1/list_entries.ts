@@ -2,9 +2,10 @@ import type { AxiosInstance } from 'axios'
 import type { EntityType, GetQuery } from './lists.ts'
 import { listEntriesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
-import type { DateTime } from './types.ts'
+import type { DateTime, Replace } from './types.ts'
 import { PersonType } from './persons.ts'
 import { Organization } from './organizations.ts'
+import { transformListEntryReference } from './transform_list_entry_reference.ts'
 
 export type Person = {
     id: number
@@ -52,7 +53,6 @@ export type ListEntryReferenceRaw = {
 }
 
 export type ListEntryResponseRaw =
-    & ListEntryReferenceRaw
     & {
         /**
          * The type of the entity corresponding to the list entry.
@@ -63,25 +63,24 @@ export type ListEntryResponseRaw =
          */
         entity: Entity
     }
+    & ListEntryReferenceRaw
 
 export type PagedListEntryResponseRaw = {
     list_entries: ListEntryResponseRaw[]
     /**
-     * The absence of a `next_page_token` indicates that all the records have been fetched, though its presence does not necessarily indicate that there are more resources to be fetched.
-     * The next page may be empty (but then `next_page_token` would be `null` to confirm that there are no more resources).
+     * The absence of a {@link PagedResponse.next_page_token} indicates that all the records have been fetched, though its presence does not necessarily indicate that there are more resources to be fetched.
+     * The next page may be empty (but then {@link PagedResponse.next_page_token} would be `null` to confirm that there are no more resources).
      */
     next_page_token: string | null
 }
 
-export type ListEntryResponse = Omit<ListEntryResponseRaw, 'created_at'> & {
+export type ListEntryResponse = Replace<ListEntryResponseRaw, {
     created_at: Date
-}
+}>
 
-export type PagedListEntryResponse =
-    & Omit<PagedListEntryResponseRaw, 'list_entries'>
-    & {
-        list_entries: ListEntryResponse[]
-    }
+export type PagedListEntryResponse = Replace<PagedListEntryResponseRaw, {
+    list_entries: ListEntryResponse[]
+}>
 
 /**
  * Paging parameters for retrieving list entries.
@@ -142,15 +141,6 @@ export type CreateListEntryParameters = {
 export class ListEntries {
     /** @hidden */
     constructor(private readonly axios: AxiosInstance) {
-    }
-
-    private static transformEntry = (
-        entry: ListEntryResponseRaw,
-    ): ListEntryResponse => {
-        return {
-            ...entry,
-            created_at: new Date(entry.created_at),
-        }
     }
 
     /**
@@ -215,11 +205,11 @@ export class ListEntries {
                             return {
                                 ...json,
                                 list_entries: json.list_entries.map(
-                                    ListEntries.transformEntry,
+                                    transformListEntryReference,
                                 ),
                             }
                         } else {
-                            return json.map(ListEntries.transformEntry)
+                            return json.map(transformListEntryReference)
                         }
                     },
                 ],
@@ -248,9 +238,7 @@ export class ListEntries {
             {
                 transformResponse: [
                     ...defaultTransformers(),
-                    (json: ListEntryResponseRaw) => {
-                        return ListEntries.transformEntry(json)
-                    },
+                    transformListEntryReference,
                 ],
             },
         )
@@ -347,9 +335,7 @@ export class ListEntries {
             {
                 transformResponse: [
                     ...defaultTransformers(),
-                    (json: ListEntryResponseRaw) => {
-                        return ListEntries.transformEntry(json)
-                    },
+                    transformListEntryReference,
                 ],
             },
         )

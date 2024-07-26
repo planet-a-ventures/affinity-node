@@ -6,6 +6,7 @@ import { Fields } from './fields.ts'
 import { FieldValues } from './field_values.ts'
 import { FieldValueChanges } from './field_value_changes.ts'
 import { Organizations } from './organizations.ts'
+import { Persons } from './persons.ts'
 export type * as ListEntries from './list_entries.ts'
 export type * as Lists from './lists.ts'
 export type * as Fields from './fields.ts'
@@ -51,6 +52,7 @@ export class Affinity {
         this.fieldValues = new FieldValues(this.axios)
         this.fieldValueChanges = new FieldValueChanges(this.axios)
         this.organizations = new Organizations(this.axios)
+        this.persons = new Persons(this.axios)
     }
 
     public readonly auth: Auth
@@ -66,4 +68,6 @@ export class Affinity {
     public readonly fieldValueChanges: FieldValueChanges
 
     public readonly organizations: Organizations
+
+    public readonly persons: Persons
 }

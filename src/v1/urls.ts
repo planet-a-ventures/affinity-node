@@ -66,3 +66,17 @@ export const organizationsUrl = (organization_id?: number | 'fields') => {
  * See [here](https://api-docs.affinity.co/#get-global-organizations-fields) for more info.
  */
 export const organizationFieldsUrl = () => organizationsUrl('fields')
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#persons) for more info.
+ */
+export const personsUrl = (person_id?: number | 'fields') => {
+    return person_id ? `/persons/${encodeURIComponent(person_id)}` : '/persons'
+}
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#get-global-person-fields) for more info.
+ */
+export const personFieldsUrl = () => personsUrl('fields')

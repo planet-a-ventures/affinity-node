@@ -3,7 +3,7 @@ import { fieldValuesUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import { FieldValueType } from './lists.ts'
 import { Field } from './lists.ts'
-import type { DateTime } from './types.ts'
+import type { DateTime, Replace } from './types.ts'
 import { FieldBase } from './fields.ts'
 export type { DateTime } from './types.ts'
 
@@ -155,13 +155,14 @@ export type FieldValueRaw =
 
 export type FieldValueResponseRaw = FieldValueRaw[]
 
-export type FieldValue =
-    & Omit<FieldValueRaw, 'value' | 'updated_at' | 'created_at' | 'value_type'>
+export type FieldValue = Replace<
+    FieldValueRaw,
     & {
         updated_at: Date | null
         created_at: Date
     }
     & ValueTypeMixin<FieldValueValues>
+>
 
 export type FieldValueResponse = FieldValue[]
 

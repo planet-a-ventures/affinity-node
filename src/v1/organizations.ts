@@ -1,11 +1,17 @@
 import type { AxiosInstance } from 'axios'
-import { organizationFieldsUrl, organizationsUrl } from './urls.ts'
 import { defaultTransformers } from './axios_default_transformers.ts'
+import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
 import type { DateTime } from './field_values.ts'
 import type { ListEntryReferenceRaw } from './list_entries.ts'
-import type { Person } from './persons.ts'
-import type { Opportunity } from './opportunities.ts'
 import type { Field } from './lists.ts'
+import type { Opportunity } from './opportunities.ts'
+import type { PagedRequest } from './paged_request.ts'
+import type { PagedResponse } from './paged_response.ts'
+import type { PersonResponse as Person } from './persons.ts'
+import type { Replace } from './types.ts'
+import { organizationFieldsUrl, organizationsUrl } from './urls.ts'
+import { transformInteractionDateResponseRaw } from './transform_interaction_date_response_raw.ts'
+import { transformListEntryReference } from './transform_list_entry_reference.ts'
 
 export type InteractionOccurrenceQuantifier = 'first' | 'last'
 
@@ -46,6 +52,70 @@ export type Organization = {
     global: boolean
 }
 
+export type OpportunityIdResponseRaw = {
+    /**
+     * An array of unique identifiers of opportunities ({@link Opportunity.id}) that are associated with the entity.
+     * Only returned when passing `{@link OpportunitiesQueryParams.with_opportunities}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    opportunity_ids?: number[]
+}
+
+export type InteractionDateResponseBase = {
+    interaction_dates?: {
+        [key in InteractionDateKey]: never
+    }
+    interactions?: {
+        [key in InteractionType]: never
+    }
+}
+
+export type InteractionDateResponseRaw = Replace<InteractionDateResponseBase, {
+    /**
+     * An object with string date fields representing the most recent and upcoming interactions with this entity.
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interaction_dates?: {
+        [key in InteractionDateKey]: DateTime
+    }
+    /**
+     * An object with seven fields nested underneath.
+     * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interactions?: {
+        [key in InteractionType]: InteractionDateRaw
+    }
+}>
+
+export type InteractionDateResponse = Replace<InteractionDateResponseRaw, {
+    /**
+     * An object with string date fields representing the most recent and upcoming interactions with this entity.
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interaction_dates?: {
+        [key in InteractionDateKey]: Date
+    }
+
+    /**
+     * An object with seven fields nested underneath.
+     * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
+     * Only returned when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true`.
+     *
+     * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
+     */
+    interactions?: {
+        [key in InteractionType]: InteractionDate
+    }
+}>
+
 /**
  * Each organization object has a unique id. It also has a name, domain (the website of the organization), and persons associated with it.
  * The domain is an important attribute from an automation perspective, as it helps Affinity automatically link all the appropriate person objects to the organization.
@@ -58,39 +128,17 @@ export type Organization = {
  * Of course, if an organization is manually created by your team, all fields can be modified and the organization can be deleted.
  *
  * Dates of the most recent and upcoming interactions with an organization are available in the interaction_dates field.
- * This data is only included when passing `with_interaction_dates=true` as a query parameter to the `GET /organizations` or the `GET /organizations/{organization_id}` endpoints.
+ * This data is only included when passing `{@link InteractionDatesQueryParams.with_interaction_dates}=true` as a query parameter to the `GET /organizations` or the `GET /organizations/{organization_id}` endpoints.
  */
 export type OrganizationResponseRaw =
     & Organization
+    & OpportunityIdResponseRaw
+    & InteractionDateResponseRaw
     & {
         /**
          * An array of unique identifiers of people ({@link Person.id}) that are associated with the organization.
          */
         person_ids?: number[]
-        /**
-         * An array of unique identifiers of opportunities ({@link Opportunity.id}) that are associated with the organization.
-         */
-        opportunity_ids?: number[]
-
-        /**
-         * An object with string date fields representing the most recent and upcoming interactions with this organization.
-         * Only returned when passing with_interaction_dates=true.
-         *
-         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-         */
-        interaction_dates?: {
-            [key in InteractionDateKey]: DateTime
-        }
-        /**
-         * An object with seven fields nested underneath.
-         * Each field corresponds to one of the seven interactions, and includes nested fields for date and person_ids which indicates the internal people associated with that event (people only returned if passing `{@link InteractionDatesQueryParams.with_interaction_persons}=true`).
-         * Only returned when passing `with_interaction_dates=true`.
-         *
-         * TODO(@joscha): model this in the type system, so the return type is based on the query parameter type.
-         */
-        interactions?: {
-            [key in InteractionType]: InteractionDateRaw
-        }
     }
 
 export type SimpleOrganizationResponse =
@@ -108,49 +156,43 @@ export type InteractionDateRaw = {
     person_ids?: number[]
 }
 
-export type InteractionDate = Omit<InteractionDateRaw, 'date'> & {
+export type InteractionDate = Replace<InteractionDateRaw, {
     date: Date
-}
+}>
 
-export type OrganizationResponse =
-    & Omit<OrganizationResponseRaw, 'interaction_dates' | 'interactions'>
+export type OrganizationResponse = Replace<
+    OrganizationResponseRaw,
+    InteractionDateResponse
+>
+
+export type ListEntryReference = Replace<ListEntryReferenceRaw, {
+    created_at: Date
+}>
+
+export type PagedOrganizationResponseRaw =
     & {
-        interaction_dates?: {
-            [key in InteractionDateKey]: Date
-        }
-
-        interactions?: {
-            [key in InteractionType]: InteractionDate
-        }
+        organizations: OrganizationResponseRaw[]
     }
+    & PagedResponse
 
-export type PagedOrganizationResponseRaw = {
-    organizations: OrganizationResponseRaw[]
-    next_page_token: string | null
-}
-
-export type PagedOrganizationResponse =
-    & Omit<PagedOrganizationResponseRaw, 'organizations'>
-    & {
-        organizations: OrganizationResponse[]
-    }
+export type PagedOrganizationResponse = Replace<PagedOrganizationResponseRaw, {
+    organizations: OrganizationResponse[]
+}>
 
 export type SingleOrganizationResponseRaw =
-    & OrganizationResponseRaw
     & {
         /**
          * An array of list entry resources associated with the organization, only returned as part of the {@link Organizations.get} a specific organization endpoint.
          */
         list_entries: ListEntryReferenceRaw[]
     }
+    & OrganizationResponseRaw
 
-export type ListEntryReference = Omit<ListEntryReferenceRaw, 'created_at'> & {
-    created_at: Date
-}
-
-export type SingleOrganizationResponse = OrganizationResponse & {
-    list_entries: ListEntryReference[]
-}
+export type SingleOrganizationResponse =
+    & {
+        list_entries: ListEntryReference[]
+    }
+    & OrganizationResponse
 
 export type CreateOrganizationRequest = {
     /**
@@ -168,7 +210,6 @@ export type CreateOrganizationRequest = {
 }
 
 export type UpdateOrganizationRequest =
-    & OrganizationReference
     & {
         /**
          * The name of the organization.
@@ -184,6 +225,7 @@ export type UpdateOrganizationRequest =
          */
         person_ids?: number[]
     }
+    & OrganizationReference
 
 export type InteractionTypeWithoutChat = Exclude<
     InteractionType,
@@ -206,7 +248,7 @@ export type InteractionDatesQueryParams =
     | {
         with_interaction_dates: true
         /**
-         * When true, persons for each interaction will be returned. Used in conjunction with `with_interaction_dates`
+         * When true, persons for each interaction will be returned. Used in conjunction with {@link InteractionDatesQueryParams.with_interaction_dates}
          */
         with_interaction_persons: true
     }
@@ -224,20 +266,8 @@ export type SearchOrganizationsRequest =
          * The search term to filter organizations.
          */
         term?: string
-
-        /**
-         * The number of organizations to return per page.
-         *
-         * Default is the maximum value of 500.
-         */
-        page_size?: number
-
-        /**
-         * The page token to retrieve the next page of organizations.
-         * if you do not pass the `page_size` parameter, the next page will have the default page size of 500.
-         */
-        page_token?: string
     }
+    & PagedRequest
     & OpportunitiesQueryParams
     & OptionalMinQueryParams
     & OptionalMaxQueryParams
@@ -253,7 +283,7 @@ export type OrganizationReference = {
     organization_id: number
 }
 
-export type OrganizationField = Pick<
+export type EntityField = Pick<
     Field,
     'id' | 'name' | 'value_type' | 'allows_multiple' | 'dropdown_options'
 >
@@ -314,17 +344,12 @@ export class Organizations {
                     ): SingleOrganizationResponse => {
                         const { list_entries, ...organization } = json
                         return {
-                            ...Organizations.transformOrganization(
+                            ...transformInteractionDateResponseRaw(
                                 organization,
                             ),
-                            list_entries: json.list_entries.map<
-                                ListEntryReference
-                            >((entry) => {
-                                return {
-                                    ...entry,
-                                    created_at: new Date(entry.created_at),
-                                }
-                            }),
+                            list_entries: json.list_entries.map(
+                                transformListEntryReference,
+                            ),
                         }
                     },
                 ],
@@ -363,7 +388,7 @@ export class Organizations {
                         return {
                             ...json,
                             organizations: json.organizations.map(
-                                Organizations.transformOrganization,
+                                transformInteractionDateResponseRaw,
                             ),
                         }
                     },
@@ -371,34 +396,6 @@ export class Organizations {
             },
         )
         return response.data
-    }
-
-    private static transformOrganization(
-        organization: OrganizationResponseRaw,
-    ): OrganizationResponse {
-        const { interaction_dates, interactions, ...rest } = organization
-        const ret: OrganizationResponse = {
-            ...rest,
-        }
-        if (interaction_dates) {
-            ret.interaction_dates = Object.fromEntries(
-                Object.entries(interaction_dates).map(
-                    ([key, value]) => [key, new Date(value)],
-                ),
-            ) as Record<InteractionDateKey, Date>
-        }
-        if (interactions) {
-            ret.interactions = Object.fromEntries(
-                Object.entries(interactions).map(
-                    ([key, value]) => [key, {
-                        ...value,
-                        date: new Date(value.date),
-                    }],
-                ),
-            ) as Record<InteractionType, InteractionDate>
-        }
-
-        return ret
     }
 
     /**
@@ -419,25 +416,10 @@ export class Organizations {
      * }
      * ```
      */
-    async *searchIterator(
-        params: Omit<SearchOrganizationsRequest, 'page_token'>,
-    ): AsyncGenerator<OrganizationResponse[]> {
-        let page_token: string | undefined = undefined
-        while (true) {
-            const response: PagedOrganizationResponse = await this.search(
-                page_token ? { ...params, page_token } : params,
-            )
-
-            yield response.organizations
-
-            if (response.next_page_token === null) {
-                // no more pages to fetch
-                return
-            } else {
-                page_token = response.next_page_token
-            }
-        }
-    }
+    searchIterator = createSearchIteratorFn(
+        this.search.bind(this),
+        'organizations',
+    )
 
     /**
      * Creates a new organization with the supplied parameters.
@@ -523,9 +505,9 @@ export class Organizations {
      * console.log(organizationFields)
      * ```
      */
-    async getFields(): Promise<OrganizationField[]> {
+    async getFields(): Promise<EntityField[]> {
         const response = await this.axios.get<
-            OrganizationField[]
+            EntityField[]
         >(
             organizationFieldsUrl(),
         )
