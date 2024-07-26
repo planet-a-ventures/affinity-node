@@ -43,24 +43,26 @@ describe('persons', () => {
         await assertSnapshot(t, res)
     })
 
-    // it('can search for persons with the appropriate dates', async (t) => {
-    //     const myDate = new Date(1717428411010)
-    //     const request: SearchPersonsRequest = {
-    //         min_first_email_date: myDate,
-    //         term: 'joscha',
-    //     }
-    //     mock?.onGet(personsUrl(), {
-    //         params: {
-    //             term: request.term,
-    //             min_first_email_date: myDate.toISOString(),
-    //         },
-    //     }).reply(
-    //         200,
-    //         await getRawFixture('persons/search.raw.response.json'),
-    //     )
-    //     const res = await affinity.persons.search(request)
-    //     await assertSnapshot(t, res)
-    // })
+    it('can search for persons with the appropriate dates', async (t) => {
+        const myDate = new Date(0)
+        const request: SearchPersonsRequest = {
+            min_first_email_date: myDate,
+            term: 'Joscha',
+            with_interaction_dates: true,
+        }
+        mock?.onGet(personsUrl(), {
+            params: {
+                term: request.term,
+                min_first_email_date: myDate.toISOString(),
+                with_interaction_dates: true,
+            },
+        }).reply(
+            200,
+            await getRawFixture('persons/search_with_dates.raw.response.json'),
+        )
+        const res = await affinity.persons.search(request)
+        await assertSnapshot(t, res)
+    })
 
     it('can create a new person', async (t) => {
         const data = {

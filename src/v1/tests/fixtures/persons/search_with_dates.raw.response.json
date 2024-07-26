@@ -1,0 +1,30 @@
+{
+    "persons": [
+        {
+            "id": 12345678,
+            "type": 0,
+            "first_name": "Joscha",
+            "last_name": "Feth",
+            "primary_email": "j@f.com",
+            "emails": ["j@f.com"],
+            "interaction_dates": {
+                "first_email_date": "2021-05-31T09:00:37.000-07:00",
+                "first_event_date": "2021-05-19T23:30:00.000-07:00",
+                "last_email_date": "2022-05-12T01:01:31.000-07:00",
+                "last_event_date": "2022-07-08T00:00:00.000-07:00",
+                "last_chat_message_date": null,
+                "last_interaction_date": "2022-07-08T00:00:00.000-07:00",
+                "next_event_date": null
+            },
+            "interactions": {
+                "first_email": { "date": "2021-05-31T09:00:37.000-07:00" },
+                "last_email": { "date": "2022-05-12T01:01:31.000-07:00" },
+                "first_event": { "date": "2021-05-19T23:30:00.000-07:00" },
+                "next_event": null,
+                "last_event": { "date": "2022-07-08T00:00:00.000-07:00" },
+                "last_chat_message": null,
+                "last_interaction": { "date": "2022-07-08T00:00:00.000-07:00" }
+            }
+        }
+    ]
+}

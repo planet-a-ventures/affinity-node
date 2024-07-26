@@ -85,6 +85,51 @@ snapshot[`persons > can search for persons 1`] = `
 }
 `;
 
+snapshot[`persons > can search for persons with the appropriate dates 1`] = `
+{
+  persons: [
+    {
+      emails: [
+        "j@f.com",
+      ],
+      first_name: "Joscha",
+      id: 12345678,
+      interaction_dates: {
+        first_email_date: 2021-05-31T16:00:37.000Z,
+        first_event_date: 2021-05-20T06:30:00.000Z,
+        last_chat_message_date: null,
+        last_email_date: 2022-05-12T08:01:31.000Z,
+        last_event_date: 2022-07-08T07:00:00.000Z,
+        last_interaction_date: 2022-07-08T07:00:00.000Z,
+        next_event_date: null,
+      },
+      interactions: {
+        first_email: {
+          date: 2021-05-31T16:00:37.000Z,
+        },
+        first_event: {
+          date: 2021-05-20T06:30:00.000Z,
+        },
+        last_chat_message: null,
+        last_email: {
+          date: 2022-05-12T08:01:31.000Z,
+        },
+        last_event: {
+          date: 2022-07-08T07:00:00.000Z,
+        },
+        last_interaction: {
+          date: 2022-07-08T07:00:00.000Z,
+        },
+        next_event: null,
+      },
+      last_name: "Feth",
+      primary_email: "j@f.com",
+      type: 0,
+    },
+  ],
+}
+`;
+
 snapshot[`persons > can create a new person 1`] = `
 {
   emails: [

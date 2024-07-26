@@ -48,11 +48,13 @@ describe('organizations', () => {
         const request: SearchOrganizationsRequest = {
             min_first_email_date: myDate,
             term: 'affinity',
+            with_interaction_dates: true,
         }
         mock?.onGet(organizationsUrl(), {
             params: {
                 term: request.term,
                 min_first_email_date: myDate.toISOString(),
+                with_interaction_dates: true,
             },
         }).reply(
             200,

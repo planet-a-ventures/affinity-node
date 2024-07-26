@@ -22,17 +22,25 @@ export function transformInteractionDateResponseRaw<
     if (interaction_dates) {
         dates.interaction_dates = Object.fromEntries(
             Object.entries(interaction_dates).map(
-                ([key, value]) => [key, new Date(value)],
+                ([key, value]) => [
+                    key,
+                    value ? new Date(value) : null,
+                ],
             ),
         ) as Record<InteractionDateKey, Date>
     }
     if (interactions) {
         dates.interactions = Object.fromEntries(
             Object.entries(interactions).map(
-                ([key, value]) => [key, {
-                    ...value,
-                    date: new Date(value.date),
-                }],
+                ([key, value]) => [
+                    key,
+                    value
+                        ? {
+                            ...value,
+                            date: new Date(value.date),
+                        }
+                        : null,
+                ],
             ),
         ) as Record<InteractionType, InteractionDate>
     }
