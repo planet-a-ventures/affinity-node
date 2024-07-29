@@ -85,10 +85,7 @@ export type FieldValueChange = Replace<FieldValueChangeRaw, {
 
 export type FieldValueChangeResponse = FieldValueChange[]
 
-/**
- * Only one of these properties can be present at a time
- */
-export interface GetFieldValueChangesRequestFilter {
+export interface EntityRequestFilter {
     /**
      * A unique ID that represents a person object whose field value changes are to be retrieved.
      */
@@ -101,6 +98,12 @@ export interface GetFieldValueChangesRequestFilter {
      * A unique ID that represents an opportunity object whose field value changes are to be retrieved.
      */
     opportunity_id: number
+}
+
+/**
+ * Only one of these properties can be present at a time
+ */
+export interface GetFieldValueChangesRequestFilter extends EntityRequestFilter {
     /**
      * A unique ID that represents a list entry object whose field value changes are to be retrieved.
      */

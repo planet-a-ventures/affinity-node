@@ -6,6 +6,7 @@ import type { DateTime, Replace } from './types.ts'
 import { PersonType } from './persons.ts'
 import { Organization } from './organizations.ts'
 import { transformListEntryReference } from './transform_list_entry_reference.ts'
+import { PagedResponse } from './paged_response.ts'
 
 export type Person = {
     id: number
@@ -65,14 +66,11 @@ export type ListEntryResponseRaw =
     }
     & ListEntryReferenceRaw
 
-export type PagedListEntryResponseRaw = {
-    list_entries: ListEntryResponseRaw[]
-    /**
-     * The absence of a {@link PagedResponse.next_page_token} indicates that all the records have been fetched, though its presence does not necessarily indicate that there are more resources to be fetched.
-     * The next page may be empty (but then {@link PagedResponse.next_page_token} would be `null` to confirm that there are no more resources).
-     */
-    next_page_token: string | null
-}
+export type PagedListEntryResponseRaw =
+    & {
+        list_entries: ListEntryResponseRaw[]
+    }
+    & PagedResponse
 
 export type ListEntryResponse = Replace<ListEntryResponseRaw, {
     created_at: Date

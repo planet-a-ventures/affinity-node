@@ -17,14 +17,15 @@ await build({
     declaration: 'separate',
     outDir: './npm',
     importMap: 'deno.jsonc',
-    skipNpmInstall: true,
+    skipNpmInstall: false,
     skipSourceOutput: true,
     // due to: https://github.com/denoland/dnt/issues/254 tests are disabled for now
     test: false,
     scriptModule: false,
     shims: {
         // see JS docs for overview and more options
-        deno: true,
+        deno: false,
+        undici: true,
     },
     rootTestDir: './src/v1/tests',
     filterDiagnostic(diagnostic: ts.Diagnostic) {

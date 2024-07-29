@@ -7,6 +7,7 @@ import { FieldValues } from './field_values.ts'
 import { FieldValueChanges } from './field_value_changes.ts'
 import { Organizations } from './organizations.ts'
 import { Persons } from './persons.ts'
+import { EntityFiles } from './entity_files.ts'
 export type * as ListEntries from './list_entries.ts'
 export type * as Lists from './lists.ts'
 export type * as Fields from './fields.ts'
@@ -16,6 +17,7 @@ export type * as FieldValues from './field_values.ts'
 export type * as FieldValueChanges from './field_value_changes.ts'
 export type * as Organizations from './organizations.ts'
 export type * as Persons from './persons.ts'
+export type * as EntityFiles from './entity_files.ts'
 export { EntityType, FieldValueType, RoleId } from './lists.ts'
 export { AffinityApiError } from './errors.ts'
 export { ActionType } from './field_value_changes.ts'
@@ -53,6 +55,7 @@ export class Affinity {
         this.fieldValueChanges = new FieldValueChanges(this.axios)
         this.organizations = new Organizations(this.axios)
         this.persons = new Persons(this.axios)
+        this.entityFiles = new EntityFiles(this.axios)
     }
 
     public readonly auth: Auth
@@ -70,4 +73,6 @@ export class Affinity {
     public readonly organizations: Organizations
 
     public readonly persons: Persons
+
+    public readonly entityFiles: EntityFiles
 }

@@ -1,0 +1,192 @@
+import { assert, assertEquals } from '@std/assert'
+import { afterEach, beforeEach, describe, it } from '@std/testing/bdd'
+import { assertSnapshot } from '@std/testing/snapshot'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import { Buffer } from 'jsr:@std/io/buffer'
+import { Readable } from 'node:stream'
+import { buffer } from 'node:stream/consumers'
+import { AllEntityFileRequest } from '../entity_files.ts'
+import { Affinity } from '../index.ts'
+import { entityFilesUrl } from '../urls.ts'
+import { apiKey, isLiveRun } from './env.ts'
+import { getRawFixture, readFixtureFile } from './get_raw_fixture.ts'
+
+const multipartFormDataHeaderMatcher = {
+    asymmetricMatch: (headers: Record<string, string>) => {
+        assertEquals(headers['Content-Type'], 'multipart/form-data')
+        return true
+    },
+}
+
+const createSnapshotBodyMatcher = (t: Deno.TestContext) => ({
+    asymmetricMatch: async (reqBody: FormData) => {
+        const data: Record<string, unknown> = Object.fromEntries(
+            reqBody.entries(),
+        )
+        if (reqBody.has('files[]')) {
+            // normal serialization overwrites duplicated keys, so we need to handle this case
+            data['files[]'] = reqBody.getAll('files[]')
+        }
+        await assertSnapshot(t, data)
+        return true
+    },
+})
+
+describe('entityFiles', () => {
+    let mock: MockAdapter
+    let affinity: Affinity
+
+    beforeEach(() => {
+        if (!isLiveRun()) {
+            mock = new MockAdapter(axios, { onNoMatch: 'throwException' })
+        }
+        affinity = new Affinity(apiKey() || 'api_key')
+    })
+    afterEach(() => {
+        mock?.reset()
+    })
+
+    it('can list all files', async (t) => {
+        mock?.onGet(entityFilesUrl()).reply(
+            200,
+            await getRawFixture('entity_files/all.raw.response.json'),
+        )
+        const res = await affinity.entityFiles.all({
+            person_id: 170614434,
+        })
+        await assertSnapshot(t, res)
+    })
+
+    it('can get a single file', async (t) => {
+        mock?.onGet(entityFilesUrl(131)).reply(
+            200,
+            await getRawFixture('entity_files/get.raw.response.json'),
+        )
+        const res = await affinity.entityFiles.get(131)
+        await assertSnapshot(t, res)
+    })
+
+    it('can upload a file', async (t) => {
+        mock
+            ?.onPost(
+                entityFilesUrl(),
+                createSnapshotBodyMatcher(t),
+                multipartFormDataHeaderMatcher,
+            )
+            .reply(
+                200,
+                { success: true },
+            )
+        const res = await affinity.entityFiles.upload({
+            person_id: 170614434,
+            files: [
+                new File(
+                    [
+                        await readFixtureFile('./entity_files/test.pdf'),
+                    ],
+                    'test.pdf',
+                ),
+            ],
+        })
+        assert(res)
+    })
+
+    it('can upload multiple files', async (t) => {
+        mock
+            ?.onPost(
+                entityFilesUrl(),
+                createSnapshotBodyMatcher(t),
+                multipartFormDataHeaderMatcher,
+            )
+            .reply(
+                200,
+                { success: true },
+            )
+        const res = await affinity.entityFiles.upload({
+            person_id: 170614434,
+            files: [
+                new File(
+                    [await readFixtureFile('./entity_files/test.pdf')],
+                    'test1.pdf',
+                ),
+                new File(
+                    [await readFixtureFile('./entity_files/test.pdf')],
+                    'test2.pdf',
+                ),
+            ],
+        })
+        assert(res)
+    })
+
+    it('can download a file', async (t) => {
+        const pdfContents = await readFixtureFile('./entity_files/test.pdf')
+
+        mock?.onGet(entityFilesUrl(6534776, true)).reply(
+            200,
+            readableFromArray(pdfContents),
+        )
+
+        const stream = await affinity.entityFiles.download(6534776)
+        const buf: ArrayBuffer = await buffer(stream)
+
+        const expected = new Buffer()
+        expected.read(pdfContents)
+        assertEquals(new Buffer(buf), expected)
+    })
+
+    it('iterates over all entity files', async (t) => {
+        const params: AllEntityFileRequest = {
+            person_id: 142,
+            page_size: 1,
+        }
+
+        {
+            // set up pages sequentially, each referencing the one after
+            const { default: pages } = await import(
+                './fixtures/entity_files/paginated.iterator.combined.response.json',
+                {
+                    with: {
+                        type: 'json',
+                    },
+                }
+            )
+
+            pages.forEach((page, i) => {
+                const { next_page_token: previous_page_token } = pages[i - 1] ||
+                    {}
+                const data: AllEntityFileRequest = {
+                    ...params,
+                }
+                if (previous_page_token) {
+                    data.page_token = previous_page_token
+                }
+                // console.log('Setting up page', params, page.list_entries)
+                mock?.onGet(entityFilesUrl(), {
+                    params: data,
+                }).reply(
+                    200,
+                    page,
+                )
+            })
+        }
+
+        let page = 0
+        for await (
+            const entries of affinity.entityFiles.pagedIterator(params)
+        ) {
+            await assertSnapshot(t, entries, {
+                name: `page ${++page} of entity files`,
+            })
+        }
+    })
+})
+
+function readableFromArray(arr: Uint8Array) {
+    return new Readable({
+        read(size: number) {
+            this.push(arr)
+            this.push(null)
+        },
+    })
+}
