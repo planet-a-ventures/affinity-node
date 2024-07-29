@@ -10,6 +10,7 @@ export type { DateTime } from './types.ts'
 import { Readable } from 'node:stream'
 import { EntityRequestFilter } from './field_value_changes.ts'
 import { assert } from '@std/assert'
+import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
 
 type EntityFileRaw = {
     /** The unique identifier of the entity file object. */
@@ -37,7 +38,7 @@ type EntityFile = Replace<EntityFileRaw, {
 /**
  * Represents the request parameters for retrieving entity files.
  */
-type AllEntityFileRequest =
+export type AllEntityFileRequest =
     & {
         /**
          * A unique ID that represents a Person whose associated files should be retrieved.
@@ -109,6 +110,29 @@ export class EntityFiles {
         )
         return response.data
     }
+
+    /**
+     * Returns an async iterator that yields all entity files matching the given request
+     * Each yielded array contains up to the number specified in {@link AllEntityFileRequest.page_size} of entity files.
+     * Use this method if you want to process the entity files in a streaming fashion.
+     *
+     * *Please note:* the yielded entity files array may be empty on the last page.
+     *
+     * @example
+     * ```typescript
+     * let page = 0
+     * for await (const entries of affinity.entityFiles.pagedIterator({
+     *     person_id: 123,
+     *     page_size: 10
+     * })) {
+     *     console.log(`Page ${++page} of entries:`, entries)
+     * }
+     * ```
+     */
+    pagedIterator = createSearchIteratorFn(
+        this.all.bind(this),
+        'entity_files',
+    )
 
     /**
      * Fetches an entity with a specified `entity_file_id`.

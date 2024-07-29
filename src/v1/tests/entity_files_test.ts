@@ -3,12 +3,14 @@ import { afterEach, beforeEach, describe, it } from '@std/testing/bdd'
 import { assertSnapshot } from '@std/testing/snapshot'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
+import { Buffer } from 'jsr:@std/io/buffer'
+import { Readable } from 'node:stream'
+import { buffer } from 'node:stream/consumers'
+import { AllEntityFileRequest } from '../entity_files.ts'
 import { Affinity } from '../index.ts'
 import { entityFilesUrl } from '../urls.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { getRawFixture, readFixtureFile } from './get_raw_fixture.ts'
-import { buffer } from 'node:stream/consumers'
-import { Buffer } from 'jsr:@std/io/buffer'
 
 const multipartFormDataHeaderMatcher = {
     asymmetricMatch: (headers: Record<string, string>) => {
@@ -31,7 +33,7 @@ const createSnapshotBodyMatcher = (t: Deno.TestContext) => ({
     },
 })
 
-describe('persons', () => {
+describe('entityFiles', () => {
     let mock: MockAdapter
     let affinity: Affinity
 
@@ -50,7 +52,18 @@ describe('persons', () => {
             200,
             await getRawFixture('entity_files/all.raw.response.json'),
         )
-        const res = await affinity.entityFiles.all()
+        const res = await affinity.entityFiles.all({
+            person_id: 170614434,
+        })
+        await assertSnapshot(t, res)
+    })
+
+    it('can get a single file', async (t) => {
+        mock?.onGet(entityFilesUrl(131)).reply(
+            200,
+            await getRawFixture('entity_files/get.raw.response.json'),
+        )
+        const res = await affinity.entityFiles.get(131)
         await assertSnapshot(t, res)
     })
 
@@ -106,16 +119,74 @@ describe('persons', () => {
         assert(res)
     })
 
-    it.only('can download a file', async (t) => {
-        // mock?.onGet(entityFilesUrl(6534776, true)).reply(
-        //     200,
-        //     await readFixtureFile('./entity_files/test.pdf'),
-        // )
+    it('can download a file', async (t) => {
+        const pdfContents = await readFixtureFile('./entity_files/test.pdf')
+
+        mock?.onGet(entityFilesUrl(6534776, true)).reply(
+            200,
+            readableFromArray(pdfContents),
+        )
+
         const stream = await affinity.entityFiles.download(6534776)
         const buf: ArrayBuffer = await buffer(stream)
-        const pdfContents = await readFixtureFile('./entity_files/test.pdf')
+
         const expected = new Buffer()
         expected.read(pdfContents)
         assertEquals(new Buffer(buf), expected)
     })
+
+    it('iterates over all entity files', async (t) => {
+        const params: AllEntityFileRequest = {
+            person_id: 142,
+            page_size: 1,
+        }
+
+        {
+            // set up pages sequentially, each referencing the one after
+            const { default: pages } = await import(
+                './fixtures/entity_files/paginated.iterator.combined.response.json',
+                {
+                    with: {
+                        type: 'json',
+                    },
+                }
+            )
+
+            pages.forEach((page, i) => {
+                const { next_page_token: previous_page_token } = pages[i - 1] ||
+                    {}
+                const data: AllEntityFileRequest = {
+                    ...params,
+                }
+                if (previous_page_token) {
+                    data.page_token = previous_page_token
+                }
+                // console.log('Setting up page', params, page.list_entries)
+                mock?.onGet(entityFilesUrl(), {
+                    params: data,
+                }).reply(
+                    200,
+                    page,
+                )
+            })
+        }
+
+        let page = 0
+        for await (
+            const entries of affinity.entityFiles.pagedIterator(params)
+        ) {
+            await assertSnapshot(t, entries, {
+                name: `page ${++page} of entity files`,
+            })
+        }
+    })
 })
+
+function readableFromArray(arr: Uint8Array) {
+    return new Readable({
+        read(size: number) {
+            this.push(arr)
+            this.push(null)
+        },
+    })
+}

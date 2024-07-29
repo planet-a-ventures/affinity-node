@@ -1,6 +1,6 @@
 export const snapshot = {};
 
-snapshot[`persons > can list all files 1`] = `
+snapshot[`entityFiles > can list all files 1`] = `
 {
   entity_files: [
     {
@@ -28,7 +28,20 @@ snapshot[`persons > can list all files 1`] = `
 }
 `;
 
-snapshot[`persons > can upload a file 1`] = `
+snapshot[`entityFiles > can get a single file 1`] = `
+{
+  created_at: 2019-01-13T20:52:51.539Z,
+  id: 131,
+  name: "Import.csv",
+  opportunity_id: null,
+  organization_id: null,
+  person_id: 38654,
+  size: 227224,
+  uploader_id: 101,
+}
+`;
+
+snapshot[`entityFiles > can upload a file 1`] = `
 {
   file: File {
     name: "test.pdf",
@@ -39,7 +52,7 @@ snapshot[`persons > can upload a file 1`] = `
 }
 `;
 
-snapshot[`persons > can upload multiple files 1`] = `
+snapshot[`entityFiles > can upload multiple files 1`] = `
 {
   "files[]": [
     File {
@@ -56,3 +69,35 @@ snapshot[`persons > can upload multiple files 1`] = `
   person_id: "170614434",
 }
 `;
+
+snapshot[`page 1 of entity files 1`] = `
+[
+  {
+    created_at: 2011-01-25T17:59:35.288Z,
+    id: 43212,
+    name: "JohnDoeFriends.csv",
+    opportunity_id: null,
+    organization_id: null,
+    person_id: 142,
+    size: 993,
+    uploader_id: 10,
+  },
+]
+`;
+
+snapshot[`page 2 of entity files 1`] = `
+[
+  {
+    created_at: 2019-01-13T20:52:51.539Z,
+    id: 131,
+    name: "Import.csv",
+    opportunity_id: null,
+    organization_id: null,
+    person_id: 142,
+    size: 227224,
+    uploader_id: 101,
+  },
+]
+`;
+
+snapshot[`page 3 of entity files 1`] = `[]`;
