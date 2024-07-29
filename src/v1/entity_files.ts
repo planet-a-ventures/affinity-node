@@ -1,24 +1,22 @@
+import { assert } from '@std/assert'
 import type { AxiosInstance } from 'axios'
+import type { Readable } from 'node:stream'
 import { defaultTransformers } from './axios_default_transformers.ts'
-import { FieldBase } from './fields.ts'
-import { FieldValueType } from './lists.ts'
-import type { DateTime, Replace, RequireOnlyOne } from './types.ts'
-import { entityFilesUrl, fieldsUrl } from './urls.ts'
+import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
+import { EntityRequestFilter } from './field_value_changes.ts'
 import type { PagedRequest } from './paged_request.ts'
 import type { PagedResponse } from './paged_response.ts'
+import type { DateTime, Replace, RequireOnlyOne } from './types.ts'
+import { entityFilesUrl } from './urls.ts'
 export type { DateTime } from './types.ts'
-import { Readable } from 'node:stream'
-import { EntityRequestFilter } from './field_value_changes.ts'
-import { assert } from '@std/assert'
-import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
 
-type EntityFileRaw = {
+export type EntityFileRaw = {
     /** The unique identifier of the entity file object. */
     id: number
     /** The name of the file. */
     name: string
     /** The size of the file in bytes. */
-    size: string
+    size: number
     /** The unique identifier of the person corresponding to the entity file. */
     person_id: number | null
     /** The unique identifier of the organization corresponding to the entity file. */
@@ -31,7 +29,7 @@ type EntityFileRaw = {
     created_at: DateTime
 }
 
-type EntityFile = Replace<EntityFileRaw, {
+export type EntityFile = Replace<EntityFileRaw, {
     created_at: Date
 }>
 
@@ -55,17 +53,17 @@ export type AllEntityFileRequest =
     }
     & PagedRequest
 
-type PagedEntityFileResponseRaw =
+export type PagedEntityFileResponseRaw =
     & {
         entity_files: EntityFileRaw[]
     }
     & PagedResponse
 
-type PagedEntityFileResponse = Replace<PagedEntityFileResponseRaw, {
+export type PagedEntityFileResponse = Replace<PagedEntityFileResponseRaw, {
     entity_files: EntityFile[]
 }>
 
-type UploadEntityFileRequest =
+export type UploadEntityFileRequest =
     & {
         files: File[]
     }
