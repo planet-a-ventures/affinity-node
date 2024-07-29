@@ -1,0 +1,58 @@
+export const snapshot = {};
+
+snapshot[`persons > can list all files 1`] = `
+{
+  entity_files: [
+    {
+      created_at: 2011-01-25T17:59:35.288Z,
+      id: 43212,
+      name: "JohnDoeFriends.csv",
+      opportunity_id: null,
+      organization_id: null,
+      person_id: 142,
+      size: 993,
+      uploader_id: 10,
+    },
+    {
+      created_at: 2019-01-13T20:52:51.539Z,
+      id: 131,
+      name: "Import.csv",
+      opportunity_id: null,
+      organization_id: null,
+      person_id: 38654,
+      size: 227224,
+      uploader_id: 101,
+    },
+  ],
+  next_page_token: null,
+}
+`;
+
+snapshot[`persons > can upload a file 1`] = `
+{
+  file: File {
+    name: "test.pdf",
+    size: 16374,
+    type: "",
+  },
+  person_id: "170614434",
+}
+`;
+
+snapshot[`persons > can upload multiple files 1`] = `
+{
+  "files[]": [
+    File {
+      name: "test1.pdf",
+      size: 16374,
+      type: "",
+    },
+    File {
+      name: "test2.pdf",
+      size: 16374,
+      type: "",
+    },
+  ],
+  person_id: "170614434",
+}
+`;

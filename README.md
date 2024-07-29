@@ -38,7 +38,7 @@ examples, etc.
 - ❌ Interactions
 - ❌ Relationship Strengths
 - ❌ Notes
-- ❌ Entity Files
+- ✅ [Entity Files](src/v1/entity_files.ts)
 - ❌ Reminders
 - ❌ Webhooks
 - ✅ [Whoami](src/v1/auth.ts)

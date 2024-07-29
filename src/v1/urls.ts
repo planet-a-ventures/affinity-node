@@ -80,3 +80,17 @@ export const personsUrl = (person_id?: number | 'fields') => {
  * See [here](https://api-docs.affinity.co/#get-global-person-fields) for more info.
  */
 export const personFieldsUrl = () => personsUrl('fields')
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#entity-files) for more info.
+ */
+export const entityFilesUrl = (
+    entity_file_id?: number,
+    is_download: boolean = false,
+) => {
+    return entity_file_id
+        ? `/entity-files` + (is_download ? '/download' : '') +
+            `/${encodeURIComponent(entity_file_id)}`
+        : '/entity-files'
+}
