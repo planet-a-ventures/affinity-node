@@ -350,8 +350,8 @@ export class Persons {
         const response = await this.axios.post<SimplePersonResponse>(
             personsUrl(),
             {
-                emails: [], // the API requires this field to be present
                 ...data,
+                emails: data.emails ?? [], // the API requires this field to be present
             },
         )
         return response.data
