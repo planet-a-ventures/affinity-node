@@ -145,7 +145,7 @@ export type CreatePersonRequest = {
     /**
      * The email addresses of the person. If there are no email addresses, please specify an empty array.
      */
-    emails: string[]
+    emails?: string[]
     /**
      * An array of unique identifiers of organizations that the person is associated with.
      */
@@ -349,7 +349,10 @@ export class Persons {
     ): Promise<SimplePersonResponse> {
         const response = await this.axios.post<SimplePersonResponse>(
             personsUrl(),
-            data,
+            {
+                ...data,
+                emails: data.emails ?? [], // the API requires this field to be present
+            },
         )
         return response.data
     }
