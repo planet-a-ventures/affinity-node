@@ -236,6 +236,7 @@ async function appendToFormData(
         formData.append('files[]', f)
     } else if (isFile(file)) {
         formData.append('files[]', file)
+        return null
     } else {
         throw new Error('Unsupported file type')
     }
