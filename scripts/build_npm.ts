@@ -54,6 +54,9 @@ await build({
             access: 'public',
         },
         keywords: ['affinity', 'crm', 'node', 'api', 'sdk'],
+        engines: {
+            node: '>=20',
+        },
     },
     postBuild() {
         // steps to run after building and before running the tests

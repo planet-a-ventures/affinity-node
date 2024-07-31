@@ -41,13 +41,28 @@ snapshot[`entityFiles > can get a single file 1`] = `
 }
 `;
 
+snapshot[`entityFiles > can upload files from path 1`] = `
+{
+  "files[]": [
+    File {
+      name: "test.pdf",
+      size: 16374,
+      type: "",
+    },
+  ],
+  person_id: "170614434",
+}
+`;
+
 snapshot[`entityFiles > can upload a file 1`] = `
 {
-  file: File {
-    name: "test.pdf",
-    size: 16374,
-    type: "",
-  },
+  "files[]": [
+    File {
+      name: "test.pdf",
+      size: 16374,
+      type: "",
+    },
+  ],
   person_id: "170614434",
 }
 `;
