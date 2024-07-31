@@ -180,9 +180,8 @@ export class EntityFiles {
      *
      * @example
      * ```typescript
-     * const file = fs.createReadStream('example.pdf');
      * const entityFile = await affinity.entityFiles.upload({
-     *     files: [file],
+     *     files: ['/path/to/example.pdf'],
      *     person_id: 123,
      * });
      * ```
