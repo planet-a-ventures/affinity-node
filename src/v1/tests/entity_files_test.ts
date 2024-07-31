@@ -11,6 +11,10 @@ import { Affinity } from '../index.ts'
 import { entityFilesUrl } from '../urls.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { getRawFixture, readFixtureFile } from './get_raw_fixture.ts'
+import * as path from '@std/path'
+import fs from 'node:fs'
+
+const __dirname = path.dirname(path.fromFileUrl(import.meta.url))
 
 const multipartFormDataHeaderMatcher = {
     asymmetricMatch: (headers: Record<string, string>) => {
@@ -65,6 +69,32 @@ describe('entityFiles', () => {
         )
         const res = await affinity.entityFiles.get(131)
         await assertSnapshot(t, res)
+    })
+
+    it('can upload files from path', async (t) => {
+        mock
+            ?.onPost(
+                entityFilesUrl(),
+                createSnapshotBodyMatcher(t),
+                multipartFormDataHeaderMatcher,
+            )
+            .reply(
+                200,
+                { success: true },
+            )
+        const localPath = path.join(
+            __dirname,
+            'fixtures',
+            'entity_files',
+            'test.pdf',
+        )
+        const res = await affinity.entityFiles.upload({
+            person_id: 170614434,
+            files: [
+                localPath,
+            ],
+        })
+        assert(res)
     })
 
     it('can upload a file', async (t) => {

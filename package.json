@@ -14,5 +14,8 @@
     "author": "Planet A Ventures <dev@planet-a.com>",
     "license": "MIT",
     "private": true,
-    "type": "module"
+    "type": "module",
+    "engines": {
+        "node": ">=20"
+    }
 }

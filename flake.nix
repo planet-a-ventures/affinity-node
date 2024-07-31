@@ -42,7 +42,7 @@
             deno
             nixpkgs-fmt
             # can't use slim here as long as we still publish with npm.
-            # TODO(@joscha) change this once we only publish to jsr
+            # TODO(@joscha) change this once we only publish to jsr only
             nodejs_20
             # For openapi-generator
             # If more dependencies are needed, investigate whether to load https://github.com/OpenAPITools/openapi-generator/blob/master/flake.nix

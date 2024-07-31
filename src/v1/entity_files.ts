@@ -1,5 +1,7 @@
 import { assert } from '@std/assert'
 import type { AxiosInstance } from 'axios'
+import fs from 'node:fs'
+import path from 'node:path'
 import type { Readable } from 'node:stream'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
@@ -63,9 +65,11 @@ export type PagedEntityFileResponse = Replace<PagedEntityFileResponseRaw, {
     entity_files: EntityFile[]
 }>
 
+export type SupportedFileType = File | string
+
 export type UploadEntityFileRequest =
     & {
-        files: File[]
+        files: SupportedFileType[]
     }
     & RequireOnlyOne<EntityRequestFilter, keyof EntityRequestFilter>
 
@@ -188,18 +192,9 @@ export class EntityFiles {
         const formData = new FormData()
         const { files } = params
         assert(files.length, 'At least one file must be provided')
-        if (files.length === 1) {
-            // Append the file as 'file' if only one file is provided
-            // it's a bit odd that the Affinity API expects the file to be sent in a different
-            // parameter, but maybe there is an implementation detail that treats multiple files
-            // differently to a single one, so we're complying with the API here
-            const [file] = files
-            formData.append('file', file, file.name)
-        } else {
-            files.forEach((file) => {
-                formData.append('files[]', file, file.name)
-            })
-        }
+
+        await Promise.all(files.map((file) => appendToFormData(formData, file)))
+
         if (params.person_id) {
             formData.append('person_id', params.person_id.toString())
         } else if (params.organization_id) {
@@ -226,4 +221,33 @@ export class EntityFiles {
         )
         return response.data.success === true
     }
+}
+
+function isFile(file: unknown): file is File {
+    return file instanceof File
+}
+
+async function appendToFormData(formData: FormData, file: SupportedFileType) {
+    if (typeof file === 'string') {
+        formData.append('files[]', await openAsBlob(file), path.basename(file))
+    } else if (isFile(file)) {
+        formData.append('files[]', file)
+    } else {
+        throw new Error('Unsupported file type')
+    }
+}
+
+// TODO(@joscha): replace with `import { openAsBlob } from "node:fs";` ASAP
+function openAsBlob(filePath: string): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+        const fileStream = fs.createReadStream(filePath)
+        const chunks: (string | ArrayBuffer)[] = []
+        fileStream.on('data', (chunk) => {
+            chunks.push(typeof chunk === 'string' ? chunk : chunk.buffer)
+        })
+        fileStream.on('end', () => {
+            resolve(new Blob(chunks))
+        })
+        fileStream.on('error', reject)
+    })
 }
