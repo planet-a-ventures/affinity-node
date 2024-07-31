@@ -1,4 +1,4 @@
-# [![Test, Lint & Deploy](https://github.com/planet-a-ventures/affinity-node/actions/workflows/main.yml/badge.svg)](https://github.com/planet-a-ventures/affinity-node/actions/workflows/main.yml) affinity-node
+# [![Test, Lint & Deploy](https://github.com/planet-a-ventures/affinity-node/actions/workflows/main.yml/badge.svg)](https://github.com/planet-a-ventures/affinity-node/actions/workflows/main.yml) ![NPM Version](https://img.shields.io/npm/v/%40planet-a%2Faffinity-node) affinity-node
 
 Node module for the [Affinity](https://www.affinity.co/) CRM.
 
