@@ -31,6 +31,7 @@
       "npm:@types/node": "npm:@types/node@18.16.19",
       "npm:axios@^1.7.2": "npm:axios@1.7.2",
       "npm:code-block-writer@^13.0.1": "npm:code-block-writer@13.0.1",
+      "npm:fetch-blob@^4.0.0": "npm:fetch-blob@4.0.0",
       "npm:typedoc@0.25.13": "npm:typedoc@0.25.13_typescript@5.4.5",
       "npm:typescript@^5.4.5": "npm:typescript@5.4.5"
     },
@@ -522,6 +523,12 @@
           "reusify": "reusify@1.0.4"
         }
       },
+      "fetch-blob@4.0.0": {
+        "integrity": "sha512-nPmnhRmpNMjYWnp9EBMGs6z5lq9RXed5W1vuZcECrsDVQInM8AMQSooVb3X183Aole60adzjWbH9qlRFWzDDTA==",
+        "dependencies": {
+          "node-domexception": "node-domexception@1.0.0"
+        }
+      },
       "figures@3.2.0": {
         "integrity": "sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==",
         "dependencies": {
@@ -742,6 +749,10 @@
       },
       "mute-stream@0.0.8": {
         "integrity": "sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==",
+        "dependencies": {}
+      },
+      "node-domexception@1.0.0": {
+        "integrity": "sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==",
         "dependencies": {}
       },
       "node-fetch@2.7.0": {
@@ -1125,6 +1136,7 @@
       "jsr:@std/streams@^1.0.0",
       "jsr:@std/testing@^0.225.0",
       "npm:axios@^1.7.2",
+      "npm:fetch-blob@^4.0.0",
       "npm:typescript@^5.4.5"
     ]
   }

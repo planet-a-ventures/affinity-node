@@ -44,11 +44,7 @@ snapshot[`entityFiles > can get a single file 1`] = `
 snapshot[`entityFiles > can upload files from path 1`] = `
 {
   "files[]": [
-    MyFile {
-      name: "test.pdf",
-      size: 16374,
-      type: "",
-    },
+    "[object File]",
   ],
   person_id: "170614434",
 }

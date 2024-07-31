@@ -1,8 +1,6 @@
 import { assert } from '@std/assert'
 import type { AxiosInstance } from 'axios'
-import fs from 'node:fs'
-import { open, stat } from 'node:fs/promises'
-import path from 'node:path'
+import { fileFrom } from 'fetch-blob/from.js'
 import type { Readable } from 'node:stream'
 import { defaultTransformers } from './axios_default_transformers.ts'
 import { createSearchIteratorFn } from './create_search_iterator_fn.ts'
@@ -209,24 +207,19 @@ export class EntityFiles {
             )
         }
 
-        let handles: (fs.promises.FileHandle | null)[] = []
-        try {
-            handles = await Promise.all(
-                files.map((file) => appendToFormData(formData, file)),
-            )
-            const response = await this.axios.post<{ success: boolean }>(
-                entityFilesUrl(),
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
+        await Promise.all(
+            files.map((file) => appendToFormData(formData, file)),
+        )
+        const response = await this.axios.post<{ success: boolean }>(
+            entityFilesUrl(),
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
                 },
-            )
-            return response.data.success === true
-        } finally {
-            handles.forEach((handle) => handle?.close())
-        }
+            },
+        )
+        return response.data.success === true
     }
 }
 
@@ -237,32 +230,12 @@ function isFile(file: unknown): file is File {
 async function appendToFormData(
     formData: FormData,
     file: SupportedFileType,
-): Promise<fs.promises.FileHandle | null> {
+) {
     if (typeof file === 'string') {
-        const handle = await open(file)
-        const { size } = await stat(file)
-
-        // see https://stackoverflow.com/questions/74527306/unable-to-use-createreadstream-with-node-18-formdata
-        class MyFile extends File {
-            // we should set correct size
-            // otherwise we will encounter UND_ERR_REQ_CONTENT_LENGTH_MISMATCH
-            size = size
-
-            // @ts-ignore-next-line
-            override stream() {
-                return handle.readableWebStream()
-            }
-        }
-
-        const myFile = new MyFile([], path.basename(file))
-
-        formData.append('files[]', myFile as unknown as File)
-
-        // we need to return the handle here, in order to close it when we're done with our upload
-        return handle
+        const f = await fileFrom(file)
+        formData.append('files[]', f)
     } else if (isFile(file)) {
         formData.append('files[]', file)
-        return null
     } else {
         throw new Error('Unsupported file type')
     }
