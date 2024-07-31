@@ -47,8 +47,6 @@ export type Person = {
     emails: string[]
     /** The email (automatically computed) that is most likely to the current active email address of the person. */
     primary_email: string
-    /** An array of unique identifiers of organizations that the person is associated with. */
-    organization_ids: number[]
 }
 
 /**
@@ -106,11 +104,14 @@ export type PagedPersonResponse = Replace<PagedPersonResponseRaw, {
 
 export type SinglePersonResponseRaw =
     & {
+        /** An array of unique identifiers of organizations that the person is associated with. */
+        organization_ids: number[]
         list_entries: ListEntryReferenceRaw[]
     }
     & PersonResponseRaw
 
-export type SinglePersonResponse =
+export type SinglePersonResponse = Replace<
+    SinglePersonResponseRaw,
     & {
         /**
          * An array of list entry resources associated with the person, only returned as part of the {@link Persons.get} a specific person endpoint.
@@ -118,6 +119,7 @@ export type SinglePersonResponse =
         list_entries: ListEntryReference[]
     }
     & PersonResponse
+>
 
 export type GetPersonRequest =
     & PersonReference
@@ -183,12 +185,7 @@ export type UpdatePersonRequest =
     }
     & PersonReference
 
-export type SimplePersonResponse =
-    & Person
-    & Pick<
-        PersonResponse,
-        'organization_ids'
-    >
+export type SimplePersonResponse = Omit<SinglePersonResponse, 'list_entries'>
 
 /**
  * @module
