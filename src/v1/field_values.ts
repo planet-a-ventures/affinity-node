@@ -6,7 +6,8 @@ import type { DateTime, Replace } from './types.ts'
 import { fieldValuesUrl } from './urls.ts'
 export type { DateTime } from './types.ts'
 
-export type DropdownValue = {
+export type DropdownValue = string
+export type RankedDropdownValue = {
     /**
      * The unique identifier of the value.
      */
@@ -19,16 +20,11 @@ export type DropdownValue = {
      * The color associated with the value.
      */
     color: number
+    /**
+     * The rank of the value.
+     */
+    rank: number
 }
-
-export type RankedDropdownValue =
-    & DropdownValue
-    & {
-        /**
-         * The rank of the value.
-         */
-        rank: number
-    }
 export type NumberValue = number
 export type PersonValue = number
 export type OrganizationValue = number
@@ -172,7 +168,7 @@ export type CreateFieldValueRequest = {
      * The value of the field value.
      * In case of a {@link FieldValueType.DROPDOWN} or {@link FieldValueType.RANKED_DROPDOWN} field, this should be the text of the value.
      */
-    value: Exclude<Value, DropdownValue | RankedDropdownValue>
+    value: Exclude<Value, RankedDropdownValue>
     list_entry_id?: number
 }
 
