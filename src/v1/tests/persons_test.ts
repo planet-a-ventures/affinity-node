@@ -130,36 +130,6 @@ describe('persons', () => {
             mock,
         )
 
-        // {
-        //     // set up pages sequentially, each referencing the one after
-        //     const { default: pages } = await import(
-        //         './fixtures/persons/paginated.iterator.combined.response.json',
-        //         {
-        //             with: {
-        //                 type: 'json',
-        //             },
-        //         }
-        //     )
-
-        //     pages.forEach((page, i) => {
-        //         const { next_page_token: previous_page_token } = pages[i - 1] ||
-        //             {}
-        //         const data: SearchPersonsRequest = {
-        //             ...params,
-        //         }
-        //         if (previous_page_token) {
-        //             data.page_token = previous_page_token
-        //         }
-        //         // console.log('Setting up page', params, page.list_entries)
-        //         mock?.onGet(personsUrl(), {
-        //             params: data,
-        //         }).reply(
-        //             200,
-        //             page,
-        //         )
-        //     })
-        // }
-
         let page = 0
         for await (
             const entries of affinity.persons.searchIterator(params)
