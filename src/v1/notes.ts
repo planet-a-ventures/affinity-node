@@ -94,7 +94,7 @@ type Note = Replace<NoteRaw, {
     updated_at: Date | null
 }>
 
-type AllNotesRequest =
+export type AllNotesRequest =
     | PagedRequest
     | (
         & PagedRequest

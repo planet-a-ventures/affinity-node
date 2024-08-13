@@ -38,21 +38,24 @@ export type EntityFile = Replace<EntityFileRaw, {
  * Represents the request parameters for retrieving entity files.
  */
 export type AllEntityFileRequest =
-    & {
-        /**
-         * A unique ID that represents a Person whose associated files should be retrieved.
-         */
-        person_id?: number
-        /**
-         * A unique ID that represents an Organization whose associated files should be retrieved.
-         */
-        organization_id?: number
-        /**
-         * A unique ID that represents an Opportunity whose associated files should be retrieved.
-         */
-        opportunity_id?: number
-    }
-    & PagedRequest
+    | PagedRequest
+    | (
+        & RequireOnlyOne<{
+            /**
+             * A unique ID that represents a Person whose associated files should be retrieved.
+             */
+            person_id?: number
+            /**
+             * A unique ID that represents an Organization whose associated files should be retrieved.
+             */
+            organization_id?: number
+            /**
+             * A unique ID that represents an Opportunity whose associated files should be retrieved.
+             */
+            opportunity_id?: number
+        }>
+        & PagedRequest
+    )
 
 export type PagedEntityFileResponseRaw =
     & {
