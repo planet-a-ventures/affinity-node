@@ -16,7 +16,7 @@
         "check": "deno check src/**/*.ts",
         "test": "deno test --allow-env=API_KEY,NODE_EXTRA_CA_CERTS --allow-net --doc --allow-read=./src/v1/tests/ src/**/tests/",
         "test:single": "deno test --allow-env=API_KEY,NODE_EXTRA_CA_CERTS --allow-net --doc --allow-read=./src/v1/tests/",
-        "test:coverage": "deno task test --coverage=cov_profile && deno coverage cov_profile --html",
+        "test:coverage": "deno task test --coverage=cov_profile --clean && deno coverage cov_profile --html --exclude=tests",
         "watch": "deno task test --no-clear-screen --watch --shuffle --parallel",
         "snapshot-update": "deno task test --allow-write=./src/v1/tests/__snapshots__ -- --update",
         "format": "deno fmt && nixpkgs-fmt *.nix && yamllint . && yamlfmt .",
