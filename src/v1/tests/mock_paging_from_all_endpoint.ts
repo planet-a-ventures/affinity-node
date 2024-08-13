@@ -8,11 +8,10 @@ import { PagedRequest } from '../paged_request.ts'
  */
 export async function mockPagingFromAllEndpoint<
     REQUEST_T extends PagedRequest,
-    ALL_RESPONSE_T,
 >(
     pathToAllResponse: string,
     request: REQUEST_T,
-    key: keyof ALL_RESPONSE_T,
+    key: string,
     urlGenerator: () => string,
     mock?: MockAdapter,
 ) {
@@ -21,7 +20,7 @@ export async function mockPagingFromAllEndpoint<
         return
     }
     // set up pages sequentially, each referencing the one after
-    const json = await import(
+    const { default: response } = await import(
         pathToAllResponse,
         {
             with: {
@@ -29,11 +28,10 @@ export async function mockPagingFromAllEndpoint<
             },
         }
     )
-    const response: ALL_RESPONSE_T = json.default
 
     let arr
     if (Array.isArray(response)) {
-        // asymmetric API
+        // asymmetric API, the response is not under an "entity_type" key for the 'all' endpoint, but only when you page through it :(
         arr = response
     } else {
         assert(
