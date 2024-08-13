@@ -31,7 +31,10 @@ await build({
     filterDiagnostic(diagnostic: ts.Diagnostic) {
         if (
             diagnostic.file?.fileName.endsWith(
-                'src/deps/jsr.io/@std/testing/0.225.0/snapshot.ts',
+                'src/deps/jsr.io/@std/assert/1.0.2/assertion_error.ts',
+            ) ||
+            diagnostic.file?.fileName.endsWith(
+                'src/deps/jsr.io/@std/assert/1.0.2/object_match.ts',
             )
         ) {
             // see https://github.com/denoland/deno_std/pull/4957
