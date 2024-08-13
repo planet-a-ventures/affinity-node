@@ -70,7 +70,7 @@ export type UploadEntityFileRequest =
     & {
         files: SupportedFileType[]
     }
-    & RequireOnlyOne<EntityRequestFilter, keyof EntityRequestFilter>
+    & RequireOnlyOne<EntityRequestFilter>
 
 /**
  * Entity files are files uploaded to a relevant entity.

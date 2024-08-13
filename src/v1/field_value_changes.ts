@@ -125,10 +125,7 @@ export type GetFieldValueChangesRequest =
     | GetFieldValueChangesRequestBase
     | (
         & GetFieldValueChangesRequestBase
-        & RequireOnlyOne<
-            GetFieldValueChangesRequestFilter,
-            keyof GetFieldValueChangesRequestFilter
-        >
+        & RequireOnlyOne<GetFieldValueChangesRequestFilter>
     )
 
 /**

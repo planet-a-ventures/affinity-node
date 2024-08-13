@@ -1,4 +1,5 @@
 import { assert, assertEquals } from '@std/assert'
+import * as path from '@std/path'
 import { afterEach, beforeEach, describe, it } from '@std/testing/bdd'
 import { assertSnapshot } from '@std/testing/snapshot'
 import axios from 'axios'
@@ -11,8 +12,6 @@ import { Affinity } from '../index.ts'
 import { entityFilesUrl } from '../urls.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { getRawFixture, readFixtureFile } from './get_raw_fixture.ts'
-import * as path from '@std/path'
-import fs from 'node:fs'
 
 const __dirname = path.dirname(path.fromFileUrl(import.meta.url))
 

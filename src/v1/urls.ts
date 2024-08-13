@@ -94,3 +94,11 @@ export const entityFilesUrl = (
             `/${encodeURIComponent(entity_file_id)}`
         : '/entity-files'
 }
+
+/**
+ * @hidden
+ * See [here](https://api-docs.affinity.co/#notes) for more info.
+ */
+export const notesUrl = (note_id?: number) => {
+    return note_id ? `/notes/${encodeURIComponent(note_id)}` : '/notes'
+}
