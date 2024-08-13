@@ -214,7 +214,7 @@ export class Persons {
     }
 
     /**
-     * Fetches an person with a specified `person_id`.
+     * Fetches a person with a specified `person_id`.
      *
      * @returns The person object corresponding to the `person_id`.
      *
@@ -357,7 +357,7 @@ export class Persons {
     /**
      * Updates an existing person with `person_id` with the supplied parameters.
      *
-     * @param data - Object containing the data for updating an person
+     * @param data - Object containing the data for updating a person
      * @returns The person resource that was just updated.
      *
      * @example
@@ -382,7 +382,7 @@ export class Persons {
     }
 
     /**
-     * Deletes an person with a specified `person_id`.
+     * Deletes a person with a specified `person_id`.
      * @returns true if the deletion was successful
      *
      * @example
