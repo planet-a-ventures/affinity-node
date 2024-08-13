@@ -6,7 +6,7 @@
         "@std/path": "jsr:@std/path@^0.225.2",
         "@std/streams": "jsr:@std/streams@^1.0.0",
         "@std/testing": "jsr:@std/testing@^0.225.0",
-        "axios": "npm:axios@^1.7.2",
+        "axios": "npm:axios@^1.7.3",
         "axios-mock-adapter": "npm:axios-mock-adapter@^2.0.0",
         "fetch-blob": "npm:fetch-blob@^4.0.0",
         "typescript": "npm:typescript@^5.4.5"
