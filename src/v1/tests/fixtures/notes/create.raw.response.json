@@ -1,0 +1,18 @@
+{
+    "id": 20423147,
+    "creator_id": 54576635,
+    "person_ids": [],
+    "associated_person_ids": [],
+    "interaction_person_ids": [],
+    "interaction_id": null,
+    "interaction_type": null,
+    "is_meeting": false,
+    "mentioned_person_ids": [],
+    "organization_ids": [297551634],
+    "opportunity_ids": [],
+    "parent_id": null,
+    "content": "This is an **important** note",
+    "type": 2,
+    "created_at": "2021-01-01T00:00:00.000-07:00",
+    "updated_at": null
+}

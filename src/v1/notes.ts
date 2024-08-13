@@ -336,6 +336,11 @@ export class Notes {
     /**
      * Updates an existing person with `note_id` with the supplied parameters.
      *
+     * *Caveats:*
+     * - You cannot update the content of a note that has mentions.
+     * - You also cannot update the content of a note associated with an email.
+     * - You cannot update the type of a note.
+     *
      * @example
      * ```typescript
      * const updatedNote = await affinity.notes.update({

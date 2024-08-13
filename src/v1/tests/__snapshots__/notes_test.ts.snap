@@ -1,5 +1,28 @@
 export const snapshot = {};
 
+snapshot[`notes > can get a specific note 1`] = `
+{
+  associated_person_ids: [],
+  content: "This is an **important** note",
+  created_at: 2021-01-01T00:00:00.000Z,
+  creator_id: 54576635,
+  id: 20423470,
+  interaction_id: null,
+  interaction_person_ids: [],
+  interaction_type: null,
+  is_meeting: false,
+  mentioned_person_ids: [],
+  opportunity_ids: [],
+  organization_ids: [
+    297551634,
+  ],
+  parent_id: null,
+  person_ids: [],
+  type: 2,
+  updated_at: null,
+}
+`;
+
 snapshot[`notes > can list all notes 1`] = `
 {
   next_page_token: null,
@@ -111,3 +134,51 @@ snapshot[`page 2 of notes 1`] = `
 `;
 
 snapshot[`page 3 of notes 1`] = `[]`;
+
+snapshot[`notes > can create a new note 1`] = `
+{
+  associated_person_ids: [],
+  content: "This is an **important** note",
+  created_at: 2021-01-01T07:00:00.000Z,
+  creator_id: 54576635,
+  id: 20423147,
+  interaction_id: null,
+  interaction_person_ids: [],
+  interaction_type: null,
+  is_meeting: false,
+  mentioned_person_ids: [],
+  opportunity_ids: [],
+  organization_ids: [
+    297551634,
+  ],
+  parent_id: null,
+  person_ids: [],
+  type: 2,
+  updated_at: null,
+}
+`;
+
+snapshot[`notes > can update a note 1`] = `
+{
+  associated_person_ids: [],
+  content: "This is a <strong>super important</strong> note",
+  created_at: 2024-08-13T14:03:12.601Z,
+  creator_id: 54576635,
+  id: 20423147,
+  interaction_id: null,
+  interaction_person_ids: [],
+  interaction_type: null,
+  is_meeting: false,
+  mentioned_person_ids: [],
+  opportunity_ids: [],
+  organization_ids: [
+    297551634,
+  ],
+  parent_id: null,
+  person_ids: [],
+  type: 0,
+  updated_at: 2024-08-13T14:10:29.868Z,
+}
+`;
+
+snapshot[`notes > can delete a note 1`] = `true`;
