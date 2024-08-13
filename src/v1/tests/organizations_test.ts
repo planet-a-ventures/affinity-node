@@ -8,6 +8,7 @@ import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { organizationFieldsUrl, organizationsUrl } from '../urls.ts'
 import type { SearchOrganizationsRequest } from '../organizations.ts'
+import { mockPagingFromAllEndpoint } from './mock_paging_from_all_endpoint.ts'
 
 describe('organizations', () => {
     let mock: MockAdapter
@@ -116,35 +117,13 @@ describe('organizations', () => {
             page_size: 1,
         }
 
-        {
-            // set up pages sequentially, each referencing the one after
-            const { default: pages } = await import(
-                './fixtures/organizations/paginated.iterator.combined.response.json',
-                {
-                    with: {
-                        type: 'json',
-                    },
-                }
-            )
-
-            pages.forEach((page, i) => {
-                const { next_page_token: previous_page_token } = pages[i - 1] ||
-                    {}
-                const data: SearchOrganizationsRequest = {
-                    ...params,
-                }
-                if (previous_page_token) {
-                    data.page_token = previous_page_token
-                }
-                // console.log('Setting up page', params, page.list_entries)
-                mock?.onGet(organizationsUrl(), {
-                    params: data,
-                }).reply(
-                    200,
-                    page,
-                )
-            })
-        }
+        await mockPagingFromAllEndpoint(
+            './fixtures/organizations/search.raw.response.json',
+            params,
+            'organizations',
+            organizationsUrl,
+            mock,
+        )
 
         let page = 0
         for await (

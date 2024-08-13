@@ -8,6 +8,7 @@ import { getRawFixture } from './get_raw_fixture.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { personFieldsUrl, personsUrl } from '../urls.ts'
 import type { SearchPersonsRequest } from '../persons.ts'
+import { mockPagingFromAllEndpoint } from './mock_paging_from_all_endpoint.ts'
 
 describe('persons', () => {
     let mock: MockAdapter
@@ -121,35 +122,13 @@ describe('persons', () => {
             page_size: 1,
         }
 
-        {
-            // set up pages sequentially, each referencing the one after
-            const { default: pages } = await import(
-                './fixtures/persons/paginated.iterator.combined.response.json',
-                {
-                    with: {
-                        type: 'json',
-                    },
-                }
-            )
-
-            pages.forEach((page, i) => {
-                const { next_page_token: previous_page_token } = pages[i - 1] ||
-                    {}
-                const data: SearchPersonsRequest = {
-                    ...params,
-                }
-                if (previous_page_token) {
-                    data.page_token = previous_page_token
-                }
-                // console.log('Setting up page', params, page.list_entries)
-                mock?.onGet(personsUrl(), {
-                    params: data,
-                }).reply(
-                    200,
-                    page,
-                )
-            })
-        }
+        await mockPagingFromAllEndpoint(
+            './fixtures/persons/search.raw.response.json',
+            params,
+            'persons',
+            personsUrl,
+            mock,
+        )
 
         let page = 0
         for await (

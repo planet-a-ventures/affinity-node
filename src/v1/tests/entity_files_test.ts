@@ -1,4 +1,5 @@
 import { assert, assertEquals } from '@std/assert'
+import * as path from '@std/path'
 import { afterEach, beforeEach, describe, it } from '@std/testing/bdd'
 import { assertSnapshot } from '@std/testing/snapshot'
 import axios from 'axios'
@@ -11,15 +12,16 @@ import { Affinity } from '../index.ts'
 import { entityFilesUrl } from '../urls.ts'
 import { apiKey, isLiveRun } from './env.ts'
 import { getRawFixture, readFixtureFile } from './get_raw_fixture.ts'
-import * as path from '@std/path'
-import fs from 'node:fs'
+import { mockPagingFromAllEndpoint } from './mock_paging_from_all_endpoint.ts'
 
 const __dirname = path.dirname(path.fromFileUrl(import.meta.url))
 
 const multipartFormDataHeaderMatcher = {
-    asymmetricMatch: (headers: Record<string, string>) => {
-        assertEquals(headers['Content-Type'], 'multipart/form-data')
-        return true
+    headers: {
+        asymmetricMatch: (headers: Record<string, string>) => {
+            assertEquals(headers['Content-Type'], 'multipart/form-data')
+            return true
+        },
     },
 }
 
@@ -171,35 +173,13 @@ describe('entityFiles', () => {
             page_size: 1,
         }
 
-        {
-            // set up pages sequentially, each referencing the one after
-            const { default: pages } = await import(
-                './fixtures/entity_files/paginated.iterator.combined.response.json',
-                {
-                    with: {
-                        type: 'json',
-                    },
-                }
-            )
-
-            pages.forEach((page, i) => {
-                const { next_page_token: previous_page_token } = pages[i - 1] ||
-                    {}
-                const data: AllEntityFileRequest = {
-                    ...params,
-                }
-                if (previous_page_token) {
-                    data.page_token = previous_page_token
-                }
-                // console.log('Setting up page', params, page.list_entries)
-                mock?.onGet(entityFilesUrl(), {
-                    params: data,
-                }).reply(
-                    200,
-                    page,
-                )
-            })
-        }
+        await mockPagingFromAllEndpoint(
+            './fixtures/entity_files/all.raw.response.json',
+            params,
+            'entity_files',
+            entityFilesUrl,
+            mock,
+        )
 
         let page = 0
         for await (

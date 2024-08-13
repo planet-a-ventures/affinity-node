@@ -37,7 +37,7 @@ examples, etc.
 - ❌ [Opportunities](src/v1/opportunities.ts)
 - ❌ Interactions
 - ❌ Relationship Strengths
-- ❌ Notes
+- ✅ [Notes](src/v1/notes.ts)
 - ✅ [Entity Files](src/v1/entity_files.ts)
 - ❌ Reminders
 - ❌ Webhooks

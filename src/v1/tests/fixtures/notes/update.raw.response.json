@@ -1,0 +1,18 @@
+{
+    "id": 20423147,
+    "creator_id": 54576635,
+    "person_ids": [],
+    "associated_person_ids": [],
+    "interaction_person_ids": [],
+    "interaction_id": null,
+    "interaction_type": null,
+    "is_meeting": false,
+    "mentioned_person_ids": [],
+    "organization_ids": [297551634],
+    "opportunity_ids": [],
+    "parent_id": null,
+    "content": "This is a <strong>super important</strong> note",
+    "type": 0,
+    "created_at": "2024-08-13T07:03:12.601-07:00",
+    "updated_at": "2024-08-13T07:10:29.868-07:00"
+}
