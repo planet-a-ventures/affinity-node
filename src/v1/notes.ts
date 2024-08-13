@@ -341,6 +341,8 @@ export class Notes {
      * - You also cannot update the content of a note associated with an email.
      * - You cannot update the type of a note.
      *
+     * *Note from 2024-08-13*: Updating an HTML note with changed HTML content seems to result in the note being displayed as plain text in the Affinity web app. Bug is reported.
+     *
      * @example
      * ```typescript
      * const updatedNote = await affinity.notes.update({
