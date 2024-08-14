@@ -26,6 +26,7 @@
       "jsr:@std/internal@^1.0.0": "jsr:@std/internal@1.0.1",
       "jsr:@std/internal@^1.0.1": "jsr:@std/internal@1.0.1",
       "jsr:@std/io@^0.223": "jsr:@std/io@0.223.0",
+      "jsr:@std/jsonc@^1.0.0": "jsr:@std/jsonc@1.0.0",
       "jsr:@std/path@1": "jsr:@std/path@1.0.2",
       "jsr:@std/path@1.0.0-rc.1": "jsr:@std/path@1.0.0-rc.1",
       "jsr:@std/path@^0.223": "jsr:@std/path@0.223.0",
@@ -141,6 +142,9 @@
           "jsr:@std/assert@^0.223.0",
           "jsr:@std/bytes@^0.223.0"
         ]
+      },
+      "@std/jsonc@1.0.0": {
+        "integrity": "835da212e586f3ef94ab25e8f0e8a7711a86fddbee95ad40c34d6b3d74da1a1b"
       },
       "@std/path@0.223.0": {
         "integrity": "593963402d7e6597f5a6e620931661053572c982fc014000459edc1f93cc3989",
@@ -916,6 +920,7 @@
       "jsr:@deno/dnt@^0.41.2",
       "jsr:@std/assert@^1.0.0",
       "jsr:@std/fs@^1.0.0",
+      "jsr:@std/jsonc@^1.0.0",
       "jsr:@std/path@^1.0.0",
       "jsr:@std/streams@^1.0.0",
       "jsr:@std/testing@^1.0.0",

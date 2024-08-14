@@ -1,12 +1,13 @@
 // ex. scripts/build_npm.ts
-import { build, emptyDir } from '@deno/dnt'
-import { copy } from '@std/fs'
+import { build, emptyDir, type LibName } from '@deno/dnt'
+import { parse } from '@std/jsonc'
 
 await emptyDir('./npm')
 
 import packageJson from '../package.json' with { type: 'json' }
-import ts from 'typescript'
 
+// assumption is for this to be executed from git root
+const tsconfig = parse(Deno.readTextFileSync('./tsconfig.json'))
 const { name, description, license, repository } = packageJson
 
 await build({
@@ -29,7 +30,7 @@ await build({
     },
     rootTestDir: './src/v1/tests',
     compilerOptions: {
-        lib: ['ESNext', 'DOM'],
+        lib: tsconfig.compilerOptions.lib as LibName[],
     },
     package: {
         name,
