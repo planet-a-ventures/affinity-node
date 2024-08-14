@@ -28,19 +28,8 @@ await build({
         undici: true,
     },
     rootTestDir: './src/v1/tests',
-    filterDiagnostic(diagnostic: ts.Diagnostic) {
-        if (
-            diagnostic.file?.fileName.endsWith(
-                'src/deps/jsr.io/@std/assert/1.0.2/assertion_error.ts',
-            ) ||
-            diagnostic.file?.fileName.endsWith(
-                'src/deps/jsr.io/@std/assert/1.0.2/object_match.ts',
-            )
-        ) {
-            // see https://github.com/denoland/deno_std/pull/4957
-            return false // ignore all diagnostics in this file
-        }
-        return true
+    compilerOptions: {
+        lib: ['ESNext', 'DOM'],
     },
     package: {
         name,
