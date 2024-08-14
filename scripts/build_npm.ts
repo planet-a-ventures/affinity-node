@@ -1,12 +1,13 @@
 // ex. scripts/build_npm.ts
-import { build, emptyDir } from '@deno/dnt'
-import { copy } from '@std/fs'
+import { build, emptyDir, type LibName } from '@deno/dnt'
+import { parse } from '@std/jsonc'
 
 await emptyDir('./npm')
 
 import packageJson from '../package.json' with { type: 'json' }
-import ts from 'typescript'
 
+// assumption is for this to be executed from git root
+const tsconfig = parse(Deno.readTextFileSync('./tsconfig.json'))
 const { name, description, license, repository } = packageJson
 
 await build({
@@ -28,16 +29,8 @@ await build({
         undici: true,
     },
     rootTestDir: './src/v1/tests',
-    filterDiagnostic(diagnostic: ts.Diagnostic) {
-        if (
-            diagnostic.file?.fileName.endsWith(
-                'src/deps/jsr.io/@std/testing/0.225.0/snapshot.ts',
-            )
-        ) {
-            // see https://github.com/denoland/deno_std/pull/4957
-            return false // ignore all diagnostics in this file
-        }
-        return true
+    compilerOptions: {
+        lib: tsconfig.compilerOptions.lib as LibName[],
     },
     package: {
         name,
