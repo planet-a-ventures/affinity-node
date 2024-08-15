@@ -62,6 +62,10 @@ An up-to-date OpenAPI spec can be downloaded from
 into `./openapi` before you run the command above (remove the old version
 beforehand).
 
+## Similar projects
+
+* [AffinityPython](https://github.com/JustinStals/AffinityPython)
+
 ## Development
 
 > Note on deno: This repository is using [Deno](https://deno.com/) heavily for
