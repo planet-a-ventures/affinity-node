@@ -1,11 +1,12 @@
 {
     "imports": {
         "@deno/dnt": "jsr:@deno/dnt@^0.41.2",
-        "@std/assert": "jsr:@std/assert@^0.226.0",
-        "@std/fs": "jsr:@std/fs@^0.229.1",
-        "@std/path": "jsr:@std/path@^0.225.2",
+        "@std/assert": "jsr:@std/assert@^1.0.0",
+        "@std/fs": "jsr:@std/fs@^1.0.0",
+        "@std/jsonc": "jsr:@std/jsonc@^1.0.0",
+        "@std/path": "jsr:@std/path@^1.0.0",
         "@std/streams": "jsr:@std/streams@^1.0.0",
-        "@std/testing": "jsr:@std/testing@^0.225.0",
+        "@std/testing": "jsr:@std/testing@^1.0.0",
         "axios": "npm:axios@^1.7.3",
         "axios-mock-adapter": "npm:axios-mock-adapter@^2.0.0",
         "fetch-blob": "npm:fetch-blob@^4.0.0",
@@ -24,7 +25,9 @@
         "docs": "deno run --allow-read --allow-env --allow-run --allow-write=./docs/ npm:typedoc@0.25.13",
         "generate-v2-client": "rm -rf src/v2/ && deno run --allow-read --allow-run --allow-env --allow-write=openapitools.json,node_modules,/tmp,/var --allow-net='search.maven.org,repo1.maven.org' npm:@openapitools/openapi-generator-cli@2.13.4 generate",
         "update-deno-lock": "deno cache --lock-write src/index.ts",
-        "update-flake-lock": "nix --option commit-lockfile-summary 'chore: update flake.lock' flake update --commit-lock-file"
+        "update-flake-lock": "nix --option commit-lockfile-summary 'chore: update flake.lock' flake update --commit-lock-file",
+        "update": "deno run --allow-env --allow-read --allow-write='~/.local,.' --allow-run=git,deno --allow-net=jsr.io jsr:@molt/cli",
+        "update:commit": "deno task -q update --commit"
     },
     "lint": {
         "include": [
