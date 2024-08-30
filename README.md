@@ -2,13 +2,11 @@
 
 Node module for the [Affinity](https://www.affinity.co/) CRM.
 
-> This module is [incomplete](#api-completeness); not all API endpoints are
-> implemented. It is in active development and the API might change without
-> notice. Contributions welcome.
+Supports both V1 and V2 of the Affinity API.
 
-_Note_: Currently only supporting
-[V1](https://api-docs.affinity.co/#introduction). See section on [V2](#v2)
-below.
+> This module is [incomplete](#api-completeness) for V1; not all API endpoints
+> are implemented. It is in active development and the API might change without
+> notice. Contributions welcome.
 
 ## Usage
 
