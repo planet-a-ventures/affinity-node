@@ -35,6 +35,7 @@
         ],
         "exclude": [
             "src/**/fixtures/**/*.ts",
+            "src/v2/generated/**",
             "dist/",
             "docs/"
         ],

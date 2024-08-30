@@ -64,7 +64,7 @@ beforehand).
 
 ## Similar projects
 
-* [AffinityPython](https://github.com/JustinStals/AffinityPython)
+- [AffinityPython](https://github.com/JustinStals/AffinityPython)
 
 ## Development
 
