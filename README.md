@@ -46,16 +46,35 @@ examples, etc.
 
 ### V2
 
-A preliminary generator for [V2](https://developer.affinity.co/docs/v2/) can be
-executed via
+[V2](https://developer.affinity.co/docs/v2/) is generated via
+[OpenAPITools/openapi-generator](https://github.com/OpenAPITools/openapi-generator).
+
+The command:
 
 ```sh
 nix develop --command deno task generate-v2-client
 ```
 
-which will generate an OpenAPI client for Node in Typescript.
+will generate an OpenAPI client for Node in Typescript.
 
-> If you have V2 API access, give it a try and report back here, please 🙏.
+Sample usage:
+
+```ts
+import { createConfiguration, ObjectAuthApi } from '@planet-a/affinity-node/v2'
+
+const config = createConfiguration({
+    authMethods: {
+        bearerAuth: {
+            tokenProvider: {
+                getToken: async () => Promise.resolve('API_KEY'),
+            },
+        },
+    },
+})
+const authApi = new ObjectAuthApi(config)
+const { tenant } = await authApi.getV2AuthWhoami()
+console.log(tenant.name)
+```
 
 An up-to-date OpenAPI spec can be downloaded from
 [here](https://developer.affinity.co/docs/v2/#section/Introduction). Drop it
