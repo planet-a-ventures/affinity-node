@@ -11,6 +11,7 @@
  */
 
 import { Pagination } from '../models/Pagination.ts'
+import { List } from '../models/List.ts'
 import { HttpFile } from '../http/http.ts'
 
 /**
@@ -20,7 +21,7 @@ export class ListPaged {
     /**
      * A page of List results
      */
-    'data': Array<Array>
+    'data': Array<List>
     'pagination': Pagination
 
     static readonly discriminator: string | undefined = undefined
@@ -33,7 +34,7 @@ export class ListPaged {
         {
             'name': 'data',
             'baseName': 'data',
-            'type': 'Array<Array>',
+            'type': 'Array<List>',
             'format': '',
         },
         {
