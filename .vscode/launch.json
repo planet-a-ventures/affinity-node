@@ -13,7 +13,7 @@
             "env": {
                 "API_KEY": "<API_KEY>"
             },
-            "runtimeExecutable": "/nix/store/lhc956f4x75mnqdpcln51qcp733jdffw-deno-1.45.5/bin/deno",
+            "runtimeExecutable": "deno",
             "runtimeArgs": [
                 "task",
                 "test:single:debug"
