@@ -16,25 +16,27 @@ export class PersonData {
     /**
      * The persons\'s unique identifier
      */
-    'id'?: number
+    'id'?: number | null
     /**
      * The person\'s first name
      */
-    'firstName'?: string
+    'firstName'?: string | null
     /**
      * The person\'s last name
      */
-    'lastName'?: string
+    'lastName'?: string | null
     /**
      * The person\'s primary email address
      */
-    'primaryEmailAddress'?: string
+    'primaryEmailAddress'?: string | null
     /**
      * The person\'s type
      */
     'type'?: PersonDataTypeEnum
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

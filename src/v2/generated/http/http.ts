@@ -34,8 +34,6 @@ export type RequestBody = undefined | string | FormData | URLSearchParams
 function ensureAbsoluteUrl(url: string) {
     if (url.startsWith('http://') || url.startsWith('https://')) {
         return url
-    } else if (url.startsWith('//')) {
-        return 'https:' + url
     }
     return window.location.origin + url
 }

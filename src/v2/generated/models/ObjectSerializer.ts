@@ -124,18 +124,14 @@ import {
     FieldMetadataValueTypeEnum,
 } from '../models/FieldMetadata.ts'
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts'
-import { FieldValue, FieldValueTypeEnum } from '../models/FieldValue.ts'
+import { FieldValueClass } from '../models/FieldValue.ts'
 import { FloatValue, FloatValueTypeEnum } from '../models/FloatValue.ts'
 import { FloatsValue, FloatsValueTypeEnum } from '../models/FloatsValue.ts'
 import { FormulaNumber } from '../models/FormulaNumber.ts'
 import { FormulaValue, FormulaValueTypeEnum } from '../models/FormulaValue.ts'
 import { GenericError } from '../models/GenericError.ts'
 import { Grant, GrantTypeEnum } from '../models/Grant.ts'
-import {
-    Interaction,
-    InteractionDirectionEnum,
-    InteractionTypeEnum,
-} from '../models/Interaction.ts'
+import { InteractionClass } from '../models/Interaction.ts'
 import {
     InteractionValue,
     InteractionValueTypeEnum,
@@ -146,10 +142,7 @@ import { InvalidVersionHeaderError } from '../models/InvalidVersionHeaderError.t
 import { List } from '../models/List.ts'
 import { ListEntry } from '../models/ListEntry.ts'
 import { ListEntryPaged } from '../models/ListEntryPaged.ts'
-import {
-    ListEntryWithEntity,
-    ListEntryWithEntityTypeEnum,
-} from '../models/ListEntryWithEntity.ts'
+import { ListEntryWithEntityClass } from '../models/ListEntryWithEntity.ts'
 import { ListEntryWithEntityPaged } from '../models/ListEntryWithEntityPaged.ts'
 import { ListPaged } from '../models/ListPaged.ts'
 import { ListWithType, ListWithTypeTypeEnum } from '../models/ListWithType.ts'
@@ -165,7 +158,7 @@ import {
 } from '../models/LocationsValue.ts'
 import { Meeting, MeetingTypeEnum } from '../models/Meeting.ts'
 import { MethodNotAllowedError } from '../models/MethodNotAllowedError.ts'
-import { ModelError } from '../models/ModelError.ts'
+import { ModelErrorClass } from '../models/ModelError.ts'
 import { NotFoundError } from '../models/NotFoundError.ts'
 import { NotFoundErrors } from '../models/NotFoundErrors.ts'
 import { Opportunity } from '../models/Opportunity.ts'
@@ -281,14 +274,14 @@ let typeMap: { [index: string]: any } = {
     'Field': Field,
     'FieldMetadata': FieldMetadata,
     'FieldMetadataPaged': FieldMetadataPaged,
-    'FieldValue': FieldValue,
+    'FieldValue': FieldValueClass,
     'FloatValue': FloatValue,
     'FloatsValue': FloatsValue,
     'FormulaNumber': FormulaNumber,
     'FormulaValue': FormulaValue,
     'GenericError': GenericError,
     'Grant': Grant,
-    'Interaction': Interaction,
+    'Interaction': InteractionClass,
     'InteractionValue': InteractionValue,
     'InvalidAcceptHeaderError': InvalidAcceptHeaderError,
     'InvalidMessageBodyError': InvalidMessageBodyError,
@@ -296,7 +289,7 @@ let typeMap: { [index: string]: any } = {
     'List': List,
     'ListEntry': ListEntry,
     'ListEntryPaged': ListEntryPaged,
-    'ListEntryWithEntity': ListEntryWithEntity,
+    'ListEntryWithEntity': ListEntryWithEntityClass,
     'ListEntryWithEntityPaged': ListEntryWithEntityPaged,
     'ListPaged': ListPaged,
     'ListWithType': ListWithType,
@@ -306,7 +299,7 @@ let typeMap: { [index: string]: any } = {
     'LocationsValue': LocationsValue,
     'Meeting': Meeting,
     'MethodNotAllowedError': MethodNotAllowedError,
-    'ModelError': ModelError,
+    'ModelError': ModelErrorClass,
     'NotFoundError': NotFoundError,
     'NotFoundErrors': NotFoundErrors,
     'Opportunity': Opportunity,
@@ -429,8 +422,11 @@ export class ObjectSerializer {
             } else {
                 if (data[discriminatorProperty]) {
                     var discriminatorType = data[discriminatorProperty]
-                    if (typeMap[discriminatorType]) {
-                        return discriminatorType // use the type given in the discriminator
+                    let mapping = typeMap[expectedType].mapping
+                    if (mapping != undefined && mapping[discriminatorType]) {
+                        return mapping[discriminatorType] // use the type given in the discriminator
+                    } else if (typeMap[discriminatorType]) {
+                        return discriminatorType
                     } else {
                         return expectedType // discriminator did not map to a type
                     }

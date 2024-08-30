@@ -29,10 +29,12 @@ export class Field {
     /**
      * The source of the data in this Field (if it is enriched)
      */
-    'enrichmentSource': FieldEnrichmentSourceEnum
+    'enrichmentSource': FieldEnrichmentSourceEnum | null
     'value': FieldValue
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

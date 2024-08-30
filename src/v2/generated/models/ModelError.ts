@@ -26,50 +26,48 @@ import { TooManyMultipartFilesError } from '../models/TooManyMultipartFilesError
 import { ValidationError } from '../models/ValidationError.ts'
 import { HttpFile } from '../http/http.ts'
 
-export class ModelError {
-    /**
-     * Error code
-     */
-    'code'?: string
-    /**
-     * Error message
-     */
-    'message'?: string
-    /**
-     * Param the error refers to
-     */
-    'param'?: string
+/**
+ * @type ModelError
+ * Type
+ * @export
+ */
+export type ModelError =
+    | AuthenticationError
+    | AuthorizationError
+    | ConflictError
+    | EmptyMessageBodyError
+    | GenericError
+    | InvalidAcceptHeaderError
+    | InvalidMessageBodyError
+    | InvalidVersionHeaderError
+    | MethodNotAllowedError
+    | NotFoundError
+    | RateLimitError
+    | ServerError
+    | TooManyMultipartFilesError
+    | ValidationError
 
+/**
+ * @type ModelErrorClass
+ * @export
+ */
+export class ModelErrorClass {
     static readonly discriminator: string | undefined = 'code'
 
-    static readonly attributeTypeMap: Array<
-        { name: string; baseName: string; type: string; format: string }
-    > = [
-        {
-            'name': 'code',
-            'baseName': 'code',
-            'type': 'string',
-            'format': '',
-        },
-        {
-            'name': 'message',
-            'baseName': 'message',
-            'type': 'string',
-            'format': '',
-        },
-        {
-            'name': 'param',
-            'baseName': 'param',
-            'type': 'string',
-            'format': '',
-        },
-    ]
-
-    static getAttributeTypeMap() {
-        return ModelError.attributeTypeMap
-    }
-
-    public constructor() {
-        this.code = 'ModelError'
+    static readonly mapping: { [index: string]: string } | undefined = {
+        'authentication': 'AuthenticationError',
+        'authorization': 'AuthorizationError',
+        'conflict': 'ConflictError',
+        'empty-message-body': 'EmptyMessageBodyError',
+        'error': 'GenericError',
+        'invalid-accept-header': 'InvalidAcceptHeaderError',
+        'invalid-message-body': 'InvalidMessageBodyError',
+        'invalid-version-header': 'InvalidVersionHeaderError',
+        'method-not-allowed': 'MethodNotAllowedError',
+        'not-found': 'NotFoundError',
+        'rate-limit': 'RateLimitError',
+        'server': 'ServerError',
+        'too-many-multipart-files': 'TooManyMultipartFilesError',
+        'validation': 'ValidationError',
     }
 }

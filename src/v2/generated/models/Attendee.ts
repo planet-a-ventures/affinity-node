@@ -17,10 +17,12 @@ export class Attendee {
     /**
      * The email addresses of the attendee
      */
-    'emailAddress'?: string
+    'emailAddress'?: string | null
     'person'?: PersonData | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

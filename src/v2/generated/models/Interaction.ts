@@ -10,183 +10,30 @@
  * Do not edit the class manually.
  */
 
-import { Attendee } from '../models/Attendee.ts'
 import { ChatMessage } from '../models/ChatMessage.ts'
 import { Email } from '../models/Email.ts'
 import { Meeting } from '../models/Meeting.ts'
-import { PersonData } from '../models/PersonData.ts'
 import { PhoneCall } from '../models/PhoneCall.ts'
 import { HttpFile } from '../http/http.ts'
 
-export class Interaction {
-    /**
-     * The type of interaction
-     */
-    'type': InteractionTypeEnum | 'Interaction'
-    /**
-     * The phon_call\'s unique identifier
-     */
-    'id'?: number
-    /**
-     * The direction of the chat message
-     */
-    'direction'?: InteractionDirectionEnum
-    /**
-     * The time the email was sent
-     */
-    'sentAt'?: Date
-    'manualCreator'?: PersonData
-    /**
-     * The participants of the chat
-     */
-    'participants'?: Array<PersonData>
-    /**
-     * The subject of the email
-     */
-    'subject'?: string
-    '_from'?: Attendee
-    /**
-     * The recipients of the email
-     */
-    'to'?: Array<Attendee>
-    /**
-     * The cc recipients of the email
-     */
-    'cc'?: Array<Attendee>
-    /**
-     * The meeting\'s title
-     */
-    'title'?: string
-    /**
-     * Whether the meeting is an all-day event
-     */
-    'allDay'?: boolean
-    /**
-     * The call start time
-     */
-    'startTime'?: Date
-    /**
-     * The meeting end time
-     */
-    'endTime'?: Date
-    /**
-     * People attending the call
-     */
-    'attendees'?: Array<Attendee>
+/**
+ * @type Interaction
+ * Type
+ * @export
+ */
+export type Interaction = ChatMessage | Email | Meeting | PhoneCall
 
+/**
+ * @type InteractionClass
+ * @export
+ */
+export class InteractionClass {
     static readonly discriminator: string | undefined = 'type'
 
-    static readonly attributeTypeMap: Array<
-        { name: string; baseName: string; type: string; format: string }
-    > = [
-        {
-            'name': 'type',
-            'baseName': 'type',
-            'type': 'InteractionTypeEnum',
-            'format': '',
-        },
-        {
-            'name': 'id',
-            'baseName': 'id',
-            'type': 'number',
-            'format': 'int64',
-        },
-        {
-            'name': 'direction',
-            'baseName': 'direction',
-            'type': 'InteractionDirectionEnum',
-            'format': '',
-        },
-        {
-            'name': 'sentAt',
-            'baseName': 'sentAt',
-            'type': 'Date',
-            'format': 'date-time',
-        },
-        {
-            'name': 'manualCreator',
-            'baseName': 'manualCreator',
-            'type': 'PersonData',
-            'format': '',
-        },
-        {
-            'name': 'participants',
-            'baseName': 'participants',
-            'type': 'Array<PersonData>',
-            'format': '',
-        },
-        {
-            'name': 'subject',
-            'baseName': 'subject',
-            'type': 'string',
-            'format': '',
-        },
-        {
-            'name': '_from',
-            'baseName': 'from',
-            'type': 'Attendee',
-            'format': '',
-        },
-        {
-            'name': 'to',
-            'baseName': 'to',
-            'type': 'Array<Attendee>',
-            'format': '',
-        },
-        {
-            'name': 'cc',
-            'baseName': 'cc',
-            'type': 'Array<Attendee>',
-            'format': '',
-        },
-        {
-            'name': 'title',
-            'baseName': 'title',
-            'type': 'string',
-            'format': '',
-        },
-        {
-            'name': 'allDay',
-            'baseName': 'allDay',
-            'type': 'boolean',
-            'format': '',
-        },
-        {
-            'name': 'startTime',
-            'baseName': 'startTime',
-            'type': 'Date',
-            'format': 'date-time',
-        },
-        {
-            'name': 'endTime',
-            'baseName': 'endTime',
-            'type': 'Date',
-            'format': 'date-time',
-        },
-        {
-            'name': 'attendees',
-            'baseName': 'attendees',
-            'type': 'Array<Attendee>',
-            'format': '',
-        },
-    ]
-
-    static getAttributeTypeMap() {
-        return Interaction.attributeTypeMap
+    static readonly mapping: { [index: string]: string } | undefined = {
+        'call': 'PhoneCall',
+        'chat-message': 'ChatMessage',
+        'email': 'Email',
+        'meeting': 'Meeting',
     }
-
-    public constructor() {
-        this.type = 'Interaction'
-    }
-}
-
-export enum InteractionTypeEnum {
-    Call = 'call',
-    Email = 'email',
-    Meeting = 'meeting',
-    ChatMessage = 'chat-message',
-}
-export enum InteractionDirectionEnum {
-    Received = 'received',
-    Sent = 'sent',
 }

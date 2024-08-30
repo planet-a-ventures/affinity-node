@@ -29,10 +29,12 @@ export class OpportunityListEntry {
     /**
      * The ID of the user that created this list entry
      */
-    'creatorId': number
+    'creatorId': number | null
     'entity': OpportunityWithFields
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

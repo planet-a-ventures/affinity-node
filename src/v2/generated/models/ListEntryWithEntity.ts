@@ -12,77 +12,29 @@
 
 import { CompanyListEntry } from '../models/CompanyListEntry.ts'
 import { OpportunityListEntry } from '../models/OpportunityListEntry.ts'
-import { Person } from '../models/Person.ts'
 import { PersonListEntry } from '../models/PersonListEntry.ts'
 import { HttpFile } from '../http/http.ts'
 
-export class ListEntryWithEntity {
-    /**
-     * The entity type for this list entry
-     */
-    'type': ListEntryWithEntityTypeEnum | 'ListEntryWithEntity'
-    /**
-     * The list entry\'s unique identifier
-     */
-    'id': number
-    /**
-     * The date that the list entry was created
-     */
-    'createdAt': Date
-    /**
-     * The ID of the user that created this list entry
-     */
-    'creatorId': number
-    'entity': Person
+/**
+ * @type ListEntryWithEntity
+ * Type
+ * @export
+ */
+export type ListEntryWithEntity =
+    | CompanyListEntry
+    | OpportunityListEntry
+    | PersonListEntry
 
+/**
+ * @type ListEntryWithEntityClass
+ * @export
+ */
+export class ListEntryWithEntityClass {
     static readonly discriminator: string | undefined = 'type'
 
-    static readonly attributeTypeMap: Array<
-        { name: string; baseName: string; type: string; format: string }
-    > = [
-        {
-            'name': 'type',
-            'baseName': 'type',
-            'type': 'ListEntryWithEntityTypeEnum',
-            'format': '',
-        },
-        {
-            'name': 'id',
-            'baseName': 'id',
-            'type': 'number',
-            'format': 'int64',
-        },
-        {
-            'name': 'createdAt',
-            'baseName': 'createdAt',
-            'type': 'Date',
-            'format': 'date-time',
-        },
-        {
-            'name': 'creatorId',
-            'baseName': 'creatorId',
-            'type': 'number',
-            'format': 'int64',
-        },
-        {
-            'name': 'entity',
-            'baseName': 'entity',
-            'type': 'Person',
-            'format': '',
-        },
-    ]
-
-    static getAttributeTypeMap() {
-        return ListEntryWithEntity.attributeTypeMap
+    static readonly mapping: { [index: string]: string } | undefined = {
+        'company': 'CompanyListEntry',
+        'opportunity': 'OpportunityListEntry',
+        'person': 'PersonListEntry',
     }
-
-    public constructor() {
-        this.type = 'ListEntryWithEntity'
-    }
-}
-
-export enum ListEntryWithEntityTypeEnum {
-    Company = 'company',
-    Opportunity = 'opportunity',
-    Person = 'person',
 }

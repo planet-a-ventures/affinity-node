@@ -21,29 +21,31 @@ export class Meeting {
     /**
      * The meeting\'s unique identifier
      */
-    'id'?: number
+    'id'?: number | null
     /**
      * The meeting\'s title
      */
-    'title'?: string
+    'title'?: string | null
     /**
      * Whether the meeting is an all-day event
      */
-    'allDay'?: boolean
+    'allDay'?: boolean | null
     /**
      * The meeting start time
      */
-    'startTime'?: Date
+    'startTime'?: Date | null
     /**
      * The meeting end time
      */
-    'endTime'?: Date
+    'endTime'?: Date | null
     /**
      * People attending the meeting
      */
-    'attendees'?: Array<Attendee>
+    'attendees'?: Array<Attendee> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

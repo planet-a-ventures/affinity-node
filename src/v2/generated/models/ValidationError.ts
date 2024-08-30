@@ -16,17 +16,19 @@ export class ValidationError {
     /**
      * Error code
      */
-    'code'?: string
+    'code'?: string | null
     /**
      * Error message
      */
-    'message'?: string
+    'message'?: string | null
     /**
      * Param the error refers to
      */
-    'param'?: string
+    'param'?: string | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

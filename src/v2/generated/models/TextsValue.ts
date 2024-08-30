@@ -20,9 +20,11 @@ export class TextsValue {
     /**
      * The value for many strings
      */
-    'data': Array<string>
+    'data': Array<string> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

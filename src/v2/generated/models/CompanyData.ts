@@ -16,17 +16,19 @@ export class CompanyData {
     /**
      * The company\'s unique identifier
      */
-    'id'?: number
+    'id'?: number | null
     /**
      * The company\'s name
      */
-    'name'?: string
+    'name'?: string | null
     /**
      * The company\'s primary domain
      */
-    'domain'?: string
+    'domain'?: string | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

@@ -21,7 +21,7 @@ export class ChatMessage {
     /**
      * The chat message\'s unique identifier
      */
-    'id'?: number
+    'id'?: number | null
     /**
      * The direction of the chat message
      */
@@ -29,14 +29,16 @@ export class ChatMessage {
     /**
      * The time the chat message was sent
      */
-    'sentAt'?: Date
+    'sentAt'?: Date | null
     'manualCreator'?: PersonData
     /**
      * The participants of the chat
      */
-    'participants'?: Array<PersonData>
+    'participants'?: Array<PersonData> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

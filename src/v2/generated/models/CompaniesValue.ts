@@ -21,9 +21,11 @@ export class CompaniesValue {
     /**
      * The values for many companies
      */
-    'data': Array<CompanyData>
+    'data': Array<CompanyData> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

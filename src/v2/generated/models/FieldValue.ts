@@ -18,7 +18,6 @@ import { DropdownsValue } from '../models/DropdownsValue.ts'
 import { FloatValue } from '../models/FloatValue.ts'
 import { FloatsValue } from '../models/FloatsValue.ts'
 import { FormulaValue } from '../models/FormulaValue.ts'
-import { Interaction } from '../models/Interaction.ts'
 import { InteractionValue } from '../models/InteractionValue.ts'
 import { LocationValue } from '../models/LocationValue.ts'
 import { LocationsValue } from '../models/LocationsValue.ts'
@@ -29,57 +28,53 @@ import { TextValue } from '../models/TextValue.ts'
 import { TextsValue } from '../models/TextsValue.ts'
 import { HttpFile } from '../http/http.ts'
 
-export class FieldValue {
-    /**
-     * The type of value
-     */
-    'type': FieldValueTypeEnum | 'FieldValue'
-    'data': Interaction
+/**
+ * @type FieldValue
+ * Type
+ * @export
+ */
+export type FieldValue =
+    | CompaniesValue
+    | CompanyValue
+    | DateValue
+    | DropdownValue
+    | DropdownsValue
+    | FloatValue
+    | FloatsValue
+    | FormulaValue
+    | InteractionValue
+    | LocationValue
+    | LocationsValue
+    | PersonValue
+    | PersonsValue
+    | RankedDropdownValue
+    | TextValue
+    | TextsValue
 
+/**
+ * @type FieldValueClass
+ * @export
+ */
+export class FieldValueClass {
     static readonly discriminator: string | undefined = 'type'
 
-    static readonly attributeTypeMap: Array<
-        { name: string; baseName: string; type: string; format: string }
-    > = [
-        {
-            'name': 'type',
-            'baseName': 'type',
-            'type': 'FieldValueTypeEnum',
-            'format': '',
-        },
-        {
-            'name': 'data',
-            'baseName': 'data',
-            'type': 'Interaction',
-            'format': '',
-        },
-    ]
-
-    static getAttributeTypeMap() {
-        return FieldValue.attributeTypeMap
+    static readonly mapping: { [index: string]: string } | undefined = {
+        'company': 'CompanyValue',
+        'company-multi': 'CompaniesValue',
+        'datetime': 'DateValue',
+        'dropdown': 'DropdownValue',
+        'dropdown-multi': 'DropdownsValue',
+        'filterable-text': 'TextValue',
+        'filterable-text-multi': 'TextsValue',
+        'formula-number': 'FormulaValue',
+        'interaction': 'InteractionValue',
+        'location': 'LocationValue',
+        'location-multi': 'LocationsValue',
+        'number': 'FloatValue',
+        'number-multi': 'FloatsValue',
+        'person': 'PersonValue',
+        'person-multi': 'PersonsValue',
+        'ranked-dropdown': 'RankedDropdownValue',
+        'text': 'TextValue',
     }
-
-    public constructor() {
-        this.type = 'FieldValue'
-    }
-}
-
-export enum FieldValueTypeEnum {
-    Person = 'person',
-    PersonMulti = 'person-multi',
-    Company = 'company',
-    CompanyMulti = 'company-multi',
-    FilterableText = 'filterable-text',
-    FilterableTextMulti = 'filterable-text-multi',
-    Number = 'number',
-    NumberMulti = 'number-multi',
-    Datetime = 'datetime',
-    Location = 'location',
-    LocationMulti = 'location-multi',
-    Text = 'text',
-    RankedDropdown = 'ranked-dropdown',
-    Dropdown = 'dropdown',
-    DropdownMulti = 'dropdown-multi',
-    FormulaNumber = 'formula-number',
-    Interaction = 'interaction',
 }

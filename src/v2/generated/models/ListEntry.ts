@@ -29,13 +29,15 @@ export class ListEntry {
     /**
      * The ID of the user that created this list entry
      */
-    'creatorId': number
+    'creatorId': number | null
     /**
      * The fields associated with the list entry
      */
     'fields': Array<Field>
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

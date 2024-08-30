@@ -16,13 +16,15 @@ export class Pagination {
     /**
      * URL for the previous page
      */
-    'prevUrl'?: string
+    'prevUrl'?: string | null
     /**
      * URL for the next page
      */
-    'nextUrl'?: string
+    'nextUrl'?: string | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

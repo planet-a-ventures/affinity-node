@@ -16,25 +16,27 @@ export class Location {
     /**
      * Street address
      */
-    'streetAddress'?: string
+    'streetAddress'?: string | null
     /**
      * City
      */
-    'city'?: string
+    'city'?: string | null
     /**
      * State
      */
-    'state'?: string
+    'state'?: string | null
     /**
      * Country
      */
-    'country'?: string
+    'country'?: string | null
     /**
      * Continent
      */
-    'continent'?: string
+    'continent'?: string | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

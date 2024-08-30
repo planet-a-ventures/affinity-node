@@ -20,9 +20,11 @@ export class FloatsValue {
     /**
      * The value for many numbers
      */
-    'data': Array<number>
+    'data': Array<number> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

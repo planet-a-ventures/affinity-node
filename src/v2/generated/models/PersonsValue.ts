@@ -21,9 +21,11 @@ export class PersonsValue {
     /**
      * The values for many persons
      */
-    'data': Array<PersonData>
+    'data': Array<PersonData> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

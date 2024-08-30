@@ -28,11 +28,11 @@ export class Person {
     /**
      * The person\'s last name
      */
-    'lastName': string
+    'lastName': string | null
     /**
      * The person\'s primary email address
      */
-    'primaryEmailAddress': string
+    'primaryEmailAddress': string | null
     /**
      * All of the person\'s email addresses
      */
@@ -47,6 +47,8 @@ export class Person {
     'fields'?: Array<Field>
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

@@ -1,6 +1,6 @@
 # .OpportunitiesApi
 
-All URIs are relative to _http://api.affinity.co_
+All URIs are relative to _https://api.affinity.co_
 
 | Method                                                               | HTTP request                   | Description              |
 | -------------------------------------------------------------------- | ------------------------------ | ------------------------ |

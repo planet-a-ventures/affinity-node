@@ -20,9 +20,11 @@ export class DateValue {
     /**
      * The value for a date
      */
-    'data': Date
+    'data': Date | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

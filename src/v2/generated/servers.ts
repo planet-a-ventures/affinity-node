@@ -54,6 +54,9 @@ export class ServerConfiguration<T extends { [key: string]: string }>
     }
 }
 
-export const server1 = new ServerConfiguration<{}>('//api.affinity.co', {})
+export const server1 = new ServerConfiguration<{}>(
+    'https://api.affinity.co',
+    {},
+)
 
 export const servers = [server1]

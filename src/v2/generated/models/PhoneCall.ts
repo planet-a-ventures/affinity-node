@@ -21,17 +21,19 @@ export class PhoneCall {
     /**
      * The phon_call\'s unique identifier
      */
-    'id'?: number
+    'id'?: number | null
     /**
      * The call start time
      */
-    'startTime'?: Date
+    'startTime'?: Date | null
     /**
      * People attending the call
      */
-    'attendees'?: Array<Attendee>
+    'attendees'?: Array<Attendee> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }

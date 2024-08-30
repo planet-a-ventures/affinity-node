@@ -21,26 +21,28 @@ export class Email {
     /**
      * The email\'s unique identifier
      */
-    'id'?: number
+    'id'?: number | null
     /**
      * The subject of the email
      */
-    'subject'?: string
+    'subject'?: string | null
     /**
      * The time the email was sent
      */
-    'sentAt'?: Date
+    'sentAt'?: Date | null
     '_from'?: Attendee | null
     /**
      * The recipients of the email
      */
-    'to'?: Array<Attendee>
+    'to'?: Array<Attendee> | null
     /**
      * The cc recipients of the email
      */
-    'cc'?: Array<Attendee>
+    'cc'?: Array<Attendee> | null
 
     static readonly discriminator: string | undefined = undefined
+
+    static readonly mapping: { [index: string]: string } | undefined = undefined
 
     static readonly attributeTypeMap: Array<
         { name: string; baseName: string; type: string; format: string }
