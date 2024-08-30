@@ -5,7 +5,8 @@
     "main": "src/index.ts",
     "exports": {
         ".": "./dist/src/index.js",
-        "./v1/*": "./dist/src/v1/*"
+        "./v1/*": "./dist/src/v1/*",
+        "./v2/*": "./dist/src/v2/*"
     },
     "repository": {
         "type": "git",

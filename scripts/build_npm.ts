@@ -12,10 +12,17 @@ const tsconfig = parse(Deno.readTextFileSync('./tsconfig.json'))
 const { name, description, license, repository } = packageJson
 
 await build({
-    entryPoints: ['./src/index.ts', {
-        name: './v1',
-        path: './src/v1/index.ts',
-    }],
+    entryPoints: [
+        './src/index.ts',
+        {
+            name: './v1',
+            path: './src/v1/index.ts',
+        },
+        {
+            name: './v2',
+            path: './src/v2/index.ts',
+        },
+    ],
     declaration: 'separate',
     outDir: './npm',
     importMap: 'deno.jsonc',
