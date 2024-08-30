@@ -6,7 +6,7 @@
         "generators": {
             "v2": {
                 "generatorName": "typescript",
-                "output": "src/v2",
+                "output": "src/v2/generated",
                 "glob": "openapi/*.json",
                 "additionalProperties": {
                     "npmName": "@planet-a/affinity-node-v2",

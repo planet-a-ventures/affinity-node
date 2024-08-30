@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "request": "launch",
+            "name": "Deno single",
+            "type": "node",
+            "program": "${workspaceFolder}/src/v2/tests/smoke_test.ts",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "API_KEY": "<API_KEY>"
+            },
+            "runtimeExecutable": "/nix/store/lhc956f4x75mnqdpcln51qcp733jdffw-deno-1.45.5/bin/deno",
+            "runtimeArgs": [
+                "task",
+                "test:single:debug"
+            ],
+            "attachSimplePort": 9229
+        }
+    ]
+}
