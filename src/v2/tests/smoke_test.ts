@@ -1,16 +1,13 @@
-import { afterEach, beforeEach, describe, it } from '@std/testing/bdd'
-import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
+import { afterEach, describe, it } from '@std/testing/bdd'
 import { apiKey, isLiveRun } from '../../v1/tests/env.ts'
 
-import { ObjectAuthApi } from '../generated/types/ObjectParamAPI.ts'
+import { assertEquals } from '@std/assert'
+import fetchMock from 'fetch-mock'
 import { createConfiguration } from '../generated/configuration.ts'
-import { List, ListsApi } from '../index.ts'
+import { ObjectAuthApi } from '../generated/types/ObjectParamAPI.ts'
+import { ListsApi } from '../index.ts'
 
 describe('whoami', () => {
-    let mock: MockAdapter
-    let authApi: ObjectAuthApi
-
     const config = createConfiguration({
         authMethods: {
             bearerAuth: {
@@ -23,29 +20,38 @@ describe('whoami', () => {
         },
     })
 
-    beforeEach(() => {
-        if (!isLiveRun()) {
-            mock = new MockAdapter(axios)
-        }
-
-        authApi = new ObjectAuthApi(config)
-    })
     afterEach(() => {
-        mock?.reset()
+        fetchMock.reset()
     })
 
-    it.skip('can be called', async (t) => {
-        // mock?.onGet(whoAmIUrl()).reply(
-        //     200,
-        //     await getRawFixture('auth/whoami/whoami.raw.response.json'),
-        // )
+    it('can be called', async (t) => {
+        if (!isLiveRun()) {
+            fetchMock.get('https://api.affinity.co/v2/auth/whoami', {
+                'tenant': {
+                    'id': 123,
+                    'name': 'Planet A',
+                    'subdomain': 'planet',
+                },
+                'user': {
+                    'id': 1234567,
+                    'firstName': 'Joscha',
+                    'lastName': 'Feth',
+                    'emailAddress': 'j@p-a.com',
+                },
+                'grant': {
+                    'type': 'api-key',
+                    'scopes': ['api'],
+                    'createdAt': '2024-06-24T10:22:21Z',
+                },
+            })
+        }
+        const authApi = new ObjectAuthApi(config)
+
         const res = await authApi.getV2AuthWhoami()
-        console.log(res.tenant.name)
-        //assertInstanceOf(res.grant.createdAt, Date)
-        //await assertSnapshot(t, res)
+        assertEquals(res.tenant.name, 'Planet A')
     })
 
-    it('can read a list', async (t) => {
+    it.skip('can read a list', async (t) => {
         const listsApi = new ListsApi(config)
         const res = await listsApi.getV2ListsListidSavedViewsViewidListEntries({
             listId: 260971,
