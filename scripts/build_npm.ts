@@ -1,6 +1,7 @@
 // ex. scripts/build_npm.ts
 import { build, emptyDir, type LibName } from '@deno/dnt'
 import { parse } from '@std/jsonc'
+import ts from 'typescript'
 
 await emptyDir('./npm')
 
@@ -11,10 +12,17 @@ const tsconfig = parse(Deno.readTextFileSync('./tsconfig.json'))
 const { name, description, license, repository } = packageJson
 
 await build({
-    entryPoints: ['./src/index.ts', {
-        name: './v1',
-        path: './src/v1/index.ts',
-    }],
+    entryPoints: [
+        './src/index.ts',
+        {
+            name: './v1',
+            path: './src/v1/index.ts',
+        },
+        {
+            name: './v2',
+            path: './src/v2/index.ts',
+        },
+    ],
     declaration: 'separate',
     outDir: './npm',
     importMap: 'deno.jsonc',
@@ -29,6 +37,16 @@ await build({
         undici: true,
     },
     rootTestDir: './src/v1/tests',
+    filterDiagnostic(diagnostic: ts.Diagnostic) {
+        if (
+            diagnostic.file?.fileName.endsWith(
+                'src/v2/generated/http/http.ts',
+            )
+        ) {
+            return false // ignore all diagnostics in this file
+        }
+        return true
+    },
     compilerOptions: {
         lib: tsconfig.compilerOptions.lib as LibName[],
     },
