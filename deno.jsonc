@@ -10,6 +10,7 @@
         "axios": "npm:axios@^1.7.3",
         "axios-mock-adapter": "npm:axios-mock-adapter@^2.0.0",
         "fetch-blob": "npm:fetch-blob@^4.0.0",
+        "fetch-mock": "npm:fetch-mock@^11.1.3",
         "typescript": "npm:typescript@^5.4.5"
     },
     "tasks": {
@@ -17,13 +18,14 @@
         "check": "deno check src/**/*.ts",
         "test": "deno test --allow-env=API_KEY,NODE_EXTRA_CA_CERTS --allow-net --doc --allow-read=./src/v1/tests/ src/**/tests/",
         "test:single": "deno test --allow-env=API_KEY,NODE_EXTRA_CA_CERTS --allow-net --doc --allow-read=./src/v1/tests/",
+        "test:single:debug": "deno test --inspect-brk --allow-all",
         "test:coverage": "deno task test --coverage=cov_profile --clean && deno coverage cov_profile --html --exclude=tests",
         "watch": "deno task test --no-clear-screen --watch --shuffle --parallel",
         "snapshot-update": "deno task test --allow-write=./src/v1/tests/__snapshots__ -- --update",
         "format": "deno fmt && nixpkgs-fmt *.nix && yamllint . && yamlfmt .",
         "lint": "deno lint",
         "docs": "deno run --allow-read --allow-env --allow-run --allow-write=./docs/ npm:typedoc@0.25.13",
-        "generate-v2-client": "rm -rf src/v2/ && deno run --allow-read --allow-run --allow-env --allow-write=openapitools.json,node_modules,/tmp,/var --allow-net='search.maven.org,repo1.maven.org' npm:@openapitools/openapi-generator-cli@2.13.4 generate",
+        "generate-v2-client": "rm -rf src/v2/generated && deno run --allow-read --allow-run --allow-env --allow-write=openapitools.json,node_modules,/tmp,/var --allow-net='search.maven.org,repo1.maven.org,oss.sonatype.org:443' npm:@openapitools/openapi-generator-cli@2.13.5 generate",
         "update-deno-lock": "deno cache --lock-write src/index.ts",
         "update-flake-lock": "nix --option commit-lockfile-summary 'chore: update flake.lock' flake update --commit-lock-file",
         "update": "deno run --allow-env --allow-read --allow-write='~/.local,.' --allow-run=git,deno --allow-net=jsr.io jsr:@molt/cli",
@@ -35,6 +37,7 @@
         ],
         "exclude": [
             "src/**/fixtures/**/*.ts",
+            "src/v2/generated/",
             "dist/",
             "docs/"
         ],
@@ -63,7 +66,8 @@
             "dist/",
             "npm/",
             "openapi/",
-            "src/**/tests/__snapshots__/**"
+            "src/**/tests/__snapshots__/**",
+            "src/v2/generated/"
         ]
     }
 }

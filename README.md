@@ -2,13 +2,11 @@
 
 Node module for the [Affinity](https://www.affinity.co/) CRM.
 
-> This module is [incomplete](#api-completeness); not all API endpoints are
-> implemented. It is in active development and the API might change without
-> notice. Contributions welcome.
+Supports both V1 and V2 of the Affinity API.
 
-_Note_: Currently only supporting
-[V1](https://api-docs.affinity.co/#introduction). See section on [V2](#v2)
-below.
+> This module is [incomplete](#api-completeness) for V1; not all API endpoints
+> are implemented. It is in active development and the API might change without
+> notice. Contributions welcome.
 
 ## Usage
 
@@ -46,16 +44,35 @@ examples, etc.
 
 ### V2
 
-A preliminary generator for [V2](https://developer.affinity.co/docs/v2/) can be
-executed via
+[V2](https://developer.affinity.co/docs/v2/) is generated via
+[OpenAPITools/openapi-generator](https://github.com/OpenAPITools/openapi-generator).
+
+The command:
 
 ```sh
 nix develop --command deno task generate-v2-client
 ```
 
-which will generate an OpenAPI client for Node in Typescript.
+will generate an OpenAPI client for Node in Typescript.
 
-> If you have V2 API access, give it a try and report back here, please 🙏.
+Sample usage:
+
+```ts
+import { createConfiguration, ObjectAuthApi } from '@planet-a/affinity-node/v2'
+
+const config = createConfiguration({
+    authMethods: {
+        bearerAuth: {
+            tokenProvider: {
+                getToken: async () => Promise.resolve('API_KEY'),
+            },
+        },
+    },
+})
+const authApi = new ObjectAuthApi(config)
+const { tenant } = await authApi.getV2AuthWhoami()
+console.log(tenant.name)
+```
 
 An up-to-date OpenAPI spec can be downloaded from
 [here](https://developer.affinity.co/docs/v2/#section/Introduction). Drop it
@@ -64,7 +81,7 @@ beforehand).
 
 ## Similar projects
 
-* [AffinityPython](https://github.com/JustinStals/AffinityPython)
+- [AffinityPython](https://github.com/JustinStals/AffinityPython)
 
 ## Development
 
