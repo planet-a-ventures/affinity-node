@@ -1,4 +1,4 @@
-import { RequestContext } from '../http/http.ts'
+import { RequestContext } from "../http/http.ts";
 
 /**
  * Interface authentication schemes.
@@ -7,18 +7,18 @@ export interface SecurityAuthentication {
     /*
      * @return returns the name of the security authentication as specified in OAI
      */
-    getName(): string
+    getName(): string;
 
     /**
      * Applies the authentication scheme to the request context
      *
      * @params context the request context which should use this authentication scheme
      */
-    applySecurityAuthentication(context: RequestContext): void | Promise<void>
+    applySecurityAuthentication(context: RequestContext): void | Promise<void>;
 }
 
 export interface TokenProvider {
-    getToken(): Promise<string> | string
+  getToken(): Promise<string> | string;
 }
 
 /**
@@ -33,50 +33,47 @@ export class BearerAuthAuthentication implements SecurityAuthentication {
     public constructor(private tokenProvider: TokenProvider) {}
 
     public getName(): string {
-        return 'bearerAuth'
+        return "bearerAuth";
     }
 
     public async applySecurityAuthentication(context: RequestContext) {
-        context.setHeaderParam(
-            'Authorization',
-            'Bearer ' + await this.tokenProvider.getToken(),
-        )
+        context.setHeaderParam("Authorization", "Bearer " + await this.tokenProvider.getToken());
     }
 }
 
+
 export type AuthMethods = {
-    'default'?: SecurityAuthentication
-    'bearerAuth'?: SecurityAuthentication
+    "default"?: SecurityAuthentication,
+    "bearerAuth"?: SecurityAuthentication
 }
 
-export type ApiKeyConfiguration = string
-export type HttpBasicConfiguration = { 'username': string; 'password': string }
-export type HttpBearerConfiguration = { tokenProvider: TokenProvider }
-export type OAuth2Configuration = { accessToken: string }
+export type ApiKeyConfiguration = string;
+export type HttpBasicConfiguration = { "username": string, "password": string };
+export type HttpBearerConfiguration = { tokenProvider: TokenProvider };
+export type OAuth2Configuration = { accessToken: string };
 
 export type AuthMethodsConfiguration = {
-    'default'?: SecurityAuthentication
-    'bearerAuth'?: HttpBearerConfiguration
+    "default"?: SecurityAuthentication,
+    "bearerAuth"?: HttpBearerConfiguration
 }
 
 /**
  * Creates the authentication methods from a swagger description.
+ *
  */
-export function configureAuthMethods(
-    config: AuthMethodsConfiguration | undefined,
-): AuthMethods {
+export function configureAuthMethods(config: AuthMethodsConfiguration | undefined): AuthMethods {
     let authMethods: AuthMethods = {}
 
     if (!config) {
-        return authMethods
+        return authMethods;
     }
-    authMethods['default'] = config['default']
+    authMethods["default"] = config["default"]
 
-    if (config['bearerAuth']) {
-        authMethods['bearerAuth'] = new BearerAuthAuthentication(
-            config['bearerAuth']['tokenProvider'],
-        )
+    if (config["bearerAuth"]) {
+        authMethods["bearerAuth"] = new BearerAuthAuthentication(
+            config["bearerAuth"]["tokenProvider"]
+        );
     }
 
-    return authMethods
+    return authMethods;
 }

@@ -1,50 +1,51 @@
-import { from, Observable } from '../rxjsStub.ts'
+import { Observable, from } from '../rxjsStub.ts';
+
 
 /**
  * Represents an HTTP method.
  */
 export enum HttpMethod {
-    GET = 'GET',
-    HEAD = 'HEAD',
-    POST = 'POST',
-    PUT = 'PUT',
-    DELETE = 'DELETE',
-    CONNECT = 'CONNECT',
-    OPTIONS = 'OPTIONS',
-    TRACE = 'TRACE',
-    PATCH = 'PATCH',
+    GET = "GET",
+    HEAD = "HEAD",
+    POST = "POST",
+    PUT = "PUT",
+    DELETE = "DELETE",
+    CONNECT = "CONNECT",
+    OPTIONS = "OPTIONS",
+    TRACE = "TRACE",
+    PATCH = "PATCH"
 }
 
 /**
  * Represents an HTTP file which will be transferred from or to a server.
  */
-export type HttpFile = Blob & { readonly name: string }
+export type HttpFile = Blob & { readonly name: string };
 
 export class HttpException extends Error {
     public constructor(msg: string) {
-        super(msg)
+        super(msg);
     }
 }
 
 /**
  * Represents the body of an outgoing HTTP request.
  */
-export type RequestBody = undefined | string | FormData | URLSearchParams
+export type RequestBody = undefined | string | FormData | URLSearchParams;
 
 function ensureAbsoluteUrl(url: string) {
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-        return url
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+        return url;
     }
-    return window.location.origin + url
+    return window.location.origin + url;
 }
 
 /**
  * Represents an HTTP request context
  */
 export class RequestContext {
-    private headers: { [key: string]: string } = {}
-    private body: RequestBody = undefined
-    private url: URL
+    private headers: { [key: string]: string } = {};
+    private body: RequestBody = undefined;
+    private url: URL;
 
     /**
      * Creates the request context using a http method and request resource url
@@ -53,23 +54,25 @@ export class RequestContext {
      * @param httpMethod http method
      */
     public constructor(url: string, private httpMethod: HttpMethod) {
-        this.url = new URL(ensureAbsoluteUrl(url))
+        this.url = new URL(ensureAbsoluteUrl(url));
     }
 
     /*
      * Returns the url set in the constructor including the query string
+     *
      */
     public getUrl(): string {
-        return this.url.toString().endsWith('/')
-            ? this.url.toString().slice(0, -1)
-            : this.url.toString()
+        return this.url.toString().endsWith("/") ?
+            this.url.toString().slice(0, -1)
+            : this.url.toString();
     }
 
     /**
      * Replaces the url set in the constructor with this url.
+     *
      */
     public setUrl(url: string) {
-        this.url = new URL(ensureAbsoluteUrl(url))
+        this.url = new URL(ensureAbsoluteUrl(url));
     }
 
     /**
@@ -82,43 +85,44 @@ export class RequestContext {
      * @param body the body of the request
      */
     public setBody(body: RequestBody) {
-        this.body = body
+        this.body = body;
     }
 
     public getHttpMethod(): HttpMethod {
-        return this.httpMethod
+        return this.httpMethod;
     }
 
     public getHeaders(): { [key: string]: string } {
-        return this.headers
+        return this.headers;
     }
 
     public getBody(): RequestBody {
-        return this.body
+        return this.body;
     }
 
     public setQueryParam(name: string, value: string) {
-        this.url.searchParams.set(name, value)
+        this.url.searchParams.set(name, value);
     }
 
     /**
      * Sets a cookie with the name and value. NO check  for duplicate cookies is performed
+     *
      */
     public addCookie(name: string, value: string): void {
-        if (!this.headers['Cookie']) {
-            this.headers['Cookie'] = ''
+        if (!this.headers["Cookie"]) {
+            this.headers["Cookie"] = "";
         }
-        this.headers['Cookie'] += name + '=' + value + '; '
+        this.headers["Cookie"] += name + "=" + value + "; ";
     }
 
-    public setHeaderParam(key: string, value: string): void {
-        this.headers[key] = value
+    public setHeaderParam(key: string, value: string): void  {
+        this.headers[key] = value;
     }
 }
 
 export interface ResponseBody {
-    text(): Promise<string>
-    binary(): Promise<Blob>
+    text(): Promise<string>;
+    binary(): Promise<Blob>;
 }
 
 /**
@@ -128,12 +132,12 @@ export class SelfDecodingBody implements ResponseBody {
     constructor(private dataSource: Promise<Blob>) {}
 
     binary(): Promise<Blob> {
-        return this.dataSource
+        return this.dataSource;
     }
 
     async text(): Promise<string> {
-        const data: Blob = await this.dataSource
-        return data.text()
+        const data: Blob = await this.dataSource;
+        return data.text();
     }
 }
 
@@ -141,7 +145,7 @@ export class ResponseContext {
     public constructor(
         public httpStatusCode: number,
         public headers: { [key: string]: string },
-        public body: ResponseBody,
+        public body: ResponseBody
     ) {}
 
     /**
@@ -151,44 +155,41 @@ export class ResponseContext {
      * Parameter names are converted to lower case
      * The first parameter is returned with the key `""`
      */
-    public getParsedHeader(
-        headerName: string,
-    ): { [parameter: string]: string } {
-        const result: { [parameter: string]: string } = {}
+    public getParsedHeader(headerName: string): { [parameter: string]: string } {
+        const result: { [parameter: string]: string } = {};
         if (!this.headers[headerName]) {
-            return result
+            return result;
         }
 
-        const parameters = this.headers[headerName].split(';')
+        const parameters = this.headers[headerName].split(";");
         for (const parameter of parameters) {
-            let [key, value] = parameter.split('=', 2)
-            key = key.toLowerCase().trim()
+            let [key, value] = parameter.split("=", 2);
+            key = key.toLowerCase().trim();
             if (value === undefined) {
-                result[''] = key
+                result[""] = key;
             } else {
-                value = value.trim()
+                value = value.trim();
                 if (value.startsWith('"') && value.endsWith('"')) {
-                    value = value.substring(1, value.length - 1)
+                    value = value.substring(1, value.length - 1);
                 }
-                result[key] = value
+                result[key] = value;
             }
         }
-        return result
+        return result;
     }
 
     public async getBodyAsFile(): Promise<HttpFile> {
-        const data = await this.body.binary()
-        const fileName =
-            this.getParsedHeader('content-disposition')['filename'] || ''
-        const contentType = this.headers['content-type'] || ''
+        const data = await this.body.binary();
+        const fileName = this.getParsedHeader("content-disposition")["filename"] || "";
+        const contentType = this.headers["content-type"] || "";
         try {
-            return new File([data], fileName, { type: contentType })
+            return new File([data], fileName, { type: contentType });
         } catch (error) {
             /** Fallback for when the File constructor is not available */
             return Object.assign(data, {
                 name: fileName,
-                type: contentType,
-            })
+                type: contentType
+            });
         }
     }
 
@@ -198,33 +199,31 @@ export class ResponseContext {
      */
     public getBodyAsAny(): Promise<string | Blob | undefined> {
         try {
-            return this.body.text()
+            return this.body.text();
         } catch {}
 
         try {
-            return this.body.binary()
+            return this.body.binary();
         } catch {}
 
-        return Promise.resolve(undefined)
+        return Promise.resolve(undefined);
     }
 }
 
 export interface HttpLibrary {
-    send(request: RequestContext): Observable<ResponseContext>
+    send(request: RequestContext): Observable<ResponseContext>;
 }
 
 export interface PromiseHttpLibrary {
-    send(request: RequestContext): Promise<ResponseContext>
+    send(request: RequestContext): Promise<ResponseContext>;
 }
 
-export function wrapHttpLibrary(
-    promiseHttpLibrary: PromiseHttpLibrary,
-): HttpLibrary {
-    return {
-        send(request: RequestContext): Observable<ResponseContext> {
-            return from(promiseHttpLibrary.send(request))
-        },
+export function wrapHttpLibrary(promiseHttpLibrary: PromiseHttpLibrary): HttpLibrary {
+  return {
+    send(request: RequestContext): Observable<ResponseContext> {
+      return from(promiseHttpLibrary.send(request));
     }
+  }
 }
 
 export class HttpInfo<T> extends ResponseContext {
@@ -234,6 +233,6 @@ export class HttpInfo<T> extends ResponseContext {
         public body: ResponseBody,
         public data: T,
     ) {
-        super(httpStatusCode, headers, body)
+        super(httpStatusCode, headers, body);
     }
 }
