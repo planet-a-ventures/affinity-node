@@ -58,7 +58,7 @@ will generate an OpenAPI client for Node in Typescript.
 Sample usage:
 
 ```ts
-import { createConfiguration, ObjectAuthApi } from '@planet-a/affinity-node/v2'
+import { AuthApi, createConfiguration } from '@planet-a/affinity-node/v2'
 
 const config = createConfiguration({
     authMethods: {
@@ -78,6 +78,28 @@ An up-to-date OpenAPI spec can be downloaded from
 [here](https://developer.affinity.co/docs/v2/#section/Introduction). Drop it
 into `./openapi` before you run the command above (remove the old version
 beforehand).
+
+#### Paging
+
+This module comes with a pagination helper for the V2 API. Sample usage:
+
+```ts
+import { CompaniesApi, helpers } from '@planet-a/affinity-node/v2'
+const { paginator: { paginated } } = helpers
+
+const companiesApi = new CompaniesApi(config)
+
+for await (
+    const page of paginated(
+        companiesApi.getV2Companies.bind(companiesApi),
+    )({
+        limit: 10,
+    })
+) {
+    // Fetch 10 companies at a time, print, repeat
+    console.log(page)
+}
+```
 
 ## Similar projects
 

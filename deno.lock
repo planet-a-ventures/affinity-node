@@ -25,6 +25,7 @@
       "jsr:@std/fs@^1.0.1": "jsr:@std/fs@1.0.1",
       "jsr:@std/internal@^1.0.0": "jsr:@std/internal@1.0.1",
       "jsr:@std/internal@^1.0.1": "jsr:@std/internal@1.0.1",
+      "jsr:@std/io": "jsr:@std/io@0.223.0",
       "jsr:@std/io@^0.223": "jsr:@std/io@0.223.0",
       "jsr:@std/jsonc@^1.0.0": "jsr:@std/jsonc@1.0.0",
       "jsr:@std/path@1": "jsr:@std/path@1.0.2",
@@ -994,7 +995,9 @@
       }
     }
   },
-  "remote": {},
+  "remote": {
+    "https://deno.land/x/keypress@0.0.11/mod.ts": "22fe0ea62136f3015149c639f891076a5b2312c0b8974c4a2bd8acaaded61c61"
+  },
   "workspace": {
     "dependencies": [
       "jsr:@deno/dnt@^0.41.2",

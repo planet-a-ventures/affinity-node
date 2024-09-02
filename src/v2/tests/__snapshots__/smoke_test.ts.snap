@@ -1,0 +1,54 @@
+export const snapshot = {};
+
+snapshot[`V2 > can be called 1`] = `
+WhoAmI {
+  grant: Grant {
+    createdAt: 2024-06-24T10:22:21.000Z,
+    scopes: [
+      "api",
+    ],
+    type: "api-key",
+  },
+  tenant: Tenant {
+    id: 123,
+    name: "Planet A",
+    subdomain: "planet",
+  },
+  user: User {
+    emailAddress: "j@p-a.com",
+    firstName: "Joscha",
+    id: 1234567,
+    lastName: "Feth",
+  },
+}
+`;
+
+snapshot[`V2 > can read a list and page through it 1`] = `
+[
+  Company {
+    domain: "planet-a.com",
+    domains: [
+      "planet-a.com",
+    ],
+    fields: undefined,
+    id: 123,
+    isGlobal: true,
+    name: "Planet A",
+  },
+]
+`;
+
+snapshot[`V2 > can read a list and page through it 2`] = `
+[
+  Company {
+    domain: "planet-b.com",
+    domains: [
+      "planet-b.com",
+    ],
+    fields: undefined,
+    id: 123,
+    isGlobal: false,
+    name: "Planet B",
+  },
+]
+`;
