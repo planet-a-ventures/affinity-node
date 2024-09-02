@@ -2,10 +2,14 @@ import { afterEach, describe, it } from '@std/testing/bdd'
 import { apiKey, isLiveRun } from '../../v1/tests/env.ts'
 
 import { assertEquals } from '@std/assert'
+import { assertSnapshot } from '@std/testing/snapshot'
 import fetchMock from 'fetch-mock'
-import { createConfiguration } from '../generated/configuration.ts'
-import { ObjectAuthApi } from '../generated/types/ObjectParamAPI.ts'
-import { ListsApi } from '../index.ts'
+import {
+    AuthApi,
+    CompaniesApi,
+    createConfiguration,
+    paginated,
+} from '../index.ts'
 
 describe('whoami', () => {
     const config = createConfiguration({
@@ -45,19 +49,61 @@ describe('whoami', () => {
                 },
             })
         }
-        const authApi = new ObjectAuthApi(config)
+        const authApi = new AuthApi(config)
 
-        const res = await authApi.getV2AuthWhoami()
-        assertEquals(res.tenant.name, 'Planet A')
+        const auth = await authApi.getV2AuthWhoami()
+        await assertSnapshot(t, auth)
     })
 
-    it.skip('can read a list', async (t) => {
-        const listsApi = new ListsApi(config)
-        const res = await listsApi.getV2ListsListidSavedViewsViewidListEntries({
-            listId: 260971,
-            viewId: 1777562,
-        })
+    it('can read a list and page through it', async (t) => {
+        if (!isLiveRun()) {
+            fetchMock.get('https://api.affinity.co/v2/companies?limit=1', {
+                'data': [
+                    {
+                        'id': 123,
+                        'name': 'Planet A',
+                        'domain': 'planet-a.com',
+                        'domains': ['planet-a.com'],
+                        'isGlobal': true,
+                        'fields': undefined,
+                    },
+                ],
+                'pagination': {
+                    'prevUrl': null,
+                    'nextUrl':
+                        'https://api.affinity.co/v2/companies?cursor=123',
+                },
+            })
+            fetchMock.get(
+                'https://api.affinity.co/v2/companies?cursor=123&limit=1',
+                {
+                    'data': [
+                        {
+                            'id': 123,
+                            'name': 'Planet B',
+                            'domain': 'planet-b.com',
+                            'domains': ['planet-b.com'],
+                            'isGlobal': false,
+                            'fields': undefined,
+                        },
+                    ],
+                    'pagination': {
+                        'prevUrl': 'https://api.affinity.co/v2/companies',
+                        'nextUrl': null,
+                    },
+                },
+            )
+        }
+        const companiesApi = new CompaniesApi(config)
 
-        console.log(res)
+        for await (
+            const page of paginated(
+                companiesApi.getV2Companies.bind(companiesApi),
+            )({
+                limit: 1,
+            })
+        ) {
+            await assertSnapshot(t, page)
+        }
     })
 })
