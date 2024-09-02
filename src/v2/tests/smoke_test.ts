@@ -1,7 +1,6 @@
 import { afterEach, describe, it } from '@std/testing/bdd'
 import { apiKey, isLiveRun } from '../../v1/tests/env.ts'
 
-import { assertEquals } from '@std/assert'
 import { assertSnapshot } from '@std/testing/snapshot'
 import fetchMock from 'fetch-mock'
 import {
