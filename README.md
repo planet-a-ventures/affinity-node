@@ -84,12 +84,13 @@ beforehand).
 This module comes with a pagination helper for the V2 API. Sample usage:
 
 ```ts
-import { CompaniesApi, paginator } from '@planet-a/affinity-node/v2'
+import { CompaniesApi, helpers } from '@planet-a/affinity-node/v2'
+const { paginator: { paginated } } = helpers
 
 const companiesApi = new CompaniesApi(config)
 
 for await (
-    const page of paginator.paginated(
+    const page of paginated(
         companiesApi.getV2Companies.bind(companiesApi),
     )({
         limit: 10,
