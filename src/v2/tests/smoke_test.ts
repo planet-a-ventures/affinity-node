@@ -10,7 +10,7 @@ import {
     paginated,
 } from '../index.ts'
 
-describe('whoami', () => {
+describe('V2', () => {
     const config = createConfiguration({
         authMethods: {
             bearerAuth: {

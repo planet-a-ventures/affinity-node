@@ -1,6 +1,6 @@
 export const snapshot = {};
 
-snapshot[`whoami > can be called 1`] = `
+snapshot[`V2 > can be called 1`] = `
 WhoAmI {
   grant: Grant {
     createdAt: 2024-06-24T10:22:21.000Z,
@@ -23,7 +23,7 @@ WhoAmI {
 }
 `;
 
-snapshot[`whoami > can read a list and page through it 1`] = `
+snapshot[`V2 > can read a list and page through it 1`] = `
 [
   Company {
     domain: "planet-a.com",
@@ -38,7 +38,7 @@ snapshot[`whoami > can read a list and page through it 1`] = `
 ]
 `;
 
-snapshot[`whoami > can read a list and page through it 2`] = `
+snapshot[`V2 > can read a list and page through it 2`] = `
 [
   Company {
     domain: "planet-b.com",
