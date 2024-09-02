@@ -7,7 +7,7 @@ import {
     AuthApi,
     CompaniesApi,
     createConfiguration,
-    paginated,
+    paginator,
 } from '../index.ts'
 
 describe('V2', () => {
@@ -96,7 +96,7 @@ describe('V2', () => {
         const companiesApi = new CompaniesApi(config)
 
         for await (
-            const page of paginated(
+            const page of paginator.paginated(
                 companiesApi.getV2Companies.bind(companiesApi),
             )({
                 limit: 1,

@@ -1,2 +1,2 @@
 export * from './generated/index.ts'
-export { paginated } from './paginated.ts'
+export * as paginator from './paginator.ts'
