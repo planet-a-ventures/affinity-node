@@ -71,7 +71,7 @@ export interface FieldValueValues extends Record<keyof FieldValueType, Value> {
     [FieldValueType.TEXT]: TextValue
 }
 
-type ValueTypeMixin<T extends (FieldValueRawValues | FieldValueValues)> =
+export type ValueTypeMixin<T extends (FieldValueRawValues | FieldValueValues)> =
     | {
         value_type: FieldValueType.DROPDOWN
         value: T[FieldValueType.DROPDOWN]
