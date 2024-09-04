@@ -14,7 +14,7 @@ import { HttpFile } from '../http/http.ts';
 
 export class RankedDropdown {
     /**
-    * Dropdown item\'s unique identifier
+    * Dropdown item's unique identifier
     */
     'dropdownOptionId'?: number | null;
     /**

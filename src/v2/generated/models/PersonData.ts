@@ -14,23 +14,23 @@ import { HttpFile } from '../http/http.ts';
 
 export class PersonData {
     /**
-    * The persons\'s unique identifier
+    * The persons's unique identifier
     */
     'id'?: number | null;
     /**
-    * The person\'s first name
+    * The person's first name
     */
     'firstName'?: string | null;
     /**
-    * The person\'s last name
+    * The person's last name
     */
     'lastName'?: string | null;
     /**
-    * The person\'s primary email address
+    * The person's primary email address
     */
     'primaryEmailAddress'?: string | null;
     /**
-    * The person\'s type
+    * The person's type
     */
     'type'?: PersonDataTypeEnum;
 
