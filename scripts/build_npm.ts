@@ -1,15 +1,29 @@
-// ex. scripts/build_npm.ts
 import { build, emptyDir, type LibName } from '@deno/dnt'
 import { parse } from '@std/jsonc'
+import { dirname, join } from '@std/path'
+import { expandGlob } from '@std/fs'
 import ts from 'typescript'
-
-await emptyDir('./npm')
-
 import packageJson from '../package.json' with { type: 'json' }
+import { assert } from '@std/assert'
 
 // assumption is for this to be executed from git root
-const tsconfig = parse(Deno.readTextFileSync('./tsconfig.json'))
+const tsconfig = parse(await Deno.readTextFile('./tsconfig.json'))
 const { name, description, license, repository } = packageJson
+const outDir = './npm'
+const openapiSpecPath = './openapi/spec.json'
+
+await emptyDir(outDir)
+await Deno.mkdir(dirname(join(outDir, openapiSpecPath)))
+
+let foundFiles = 0
+for await (const jsonFile of expandGlob('./openapi/*.json')) {
+    foundFiles++
+    await Deno.copyFile(jsonFile.path, join(outDir, openapiSpecPath))
+}
+assert(
+    foundFiles === 1,
+    `Expected to find exactly one OpenAPI spec file; Found ${foundFiles}`,
+)
 
 await build({
     entryPoints: [
@@ -24,7 +38,7 @@ await build({
         },
     ],
     declaration: 'separate',
-    outDir: './npm',
+    outDir,
     importMap: 'deno.jsonc',
     skipNpmInstall: false,
     skipSourceOutput: true,
@@ -69,10 +83,10 @@ await build({
             node: '>=20',
         },
     },
-    postBuild() {
+    async postBuild() {
         // steps to run after building and before running the tests
-        Deno.copyFileSync('LICENSE', 'npm/LICENSE')
-        Deno.copyFileSync('README.md', 'npm/README.md')
+        await Deno.copyFile('LICENSE', join(outDir, 'LICENSE'))
+        await Deno.copyFile('README.md', join(outDir, 'README.md'))
     },
 })
 
