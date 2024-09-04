@@ -199,12 +199,18 @@ export class ListsApiRequestFactory extends BaseAPIRequestFactory {
 
         // Query Params
         if (fieldIds !== undefined) {
-            requestContext.setQueryParam("fieldIds", ObjectSerializer.serialize(fieldIds, "Array<string>", "string"));
+            const serializedParams = ObjectSerializer.serialize(fieldIds, "Array<string>", "string");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldIds", serializedParam);
+            }
         }
 
         // Query Params
         if (fieldTypes !== undefined) {
-            requestContext.setQueryParam("fieldTypes", ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>", "string"));
+            const serializedParams = ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>", "string");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldTypes", serializedParam);
+            }
         }
 
 
