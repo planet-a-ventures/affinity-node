@@ -58,17 +58,26 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
 
         // Query Params
         if (ids !== undefined) {
-            requestContext.setQueryParam("ids", ObjectSerializer.serialize(ids, "Array<number>", "int64"));
+            const serializedParams = ObjectSerializer.serialize(ids, "Array<number>", "int64");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("ids", serializedParam);
+            }
         }
 
         // Query Params
         if (fieldIds !== undefined) {
-            requestContext.setQueryParam("fieldIds", ObjectSerializer.serialize(fieldIds, "Array<string>", "string"));
+            const serializedParams = ObjectSerializer.serialize(fieldIds, "Array<string>", "string");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldIds", serializedParam);
+            }
         }
 
         // Query Params
         if (fieldTypes !== undefined) {
-            requestContext.setQueryParam("fieldTypes", ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "string"));
+            const serializedParams = ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "string");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldTypes", serializedParam);
+            }
         }
 
 
@@ -159,12 +168,18 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
 
         // Query Params
         if (fieldIds !== undefined) {
-            requestContext.setQueryParam("fieldIds", ObjectSerializer.serialize(fieldIds, "Array<string>", "string"));
+            const serializedParams = ObjectSerializer.serialize(fieldIds, "Array<string>", "string");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldIds", serializedParam);
+            }
         }
 
         // Query Params
         if (fieldTypes !== undefined) {
-            requestContext.setQueryParam("fieldTypes", ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "string"));
+            const serializedParams = ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "string");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldTypes", serializedParam);
+            }
         }
 
 

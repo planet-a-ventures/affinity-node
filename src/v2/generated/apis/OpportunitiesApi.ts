@@ -51,7 +51,10 @@ export class OpportunitiesApiRequestFactory extends BaseAPIRequestFactory {
 
         // Query Params
         if (ids !== undefined) {
-            requestContext.setQueryParam("ids", ObjectSerializer.serialize(ids, "Array<number>", "int64"));
+            const serializedParams = ObjectSerializer.serialize(ids, "Array<number>", "int64");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("ids", serializedParam);
+            }
         }
 
 
