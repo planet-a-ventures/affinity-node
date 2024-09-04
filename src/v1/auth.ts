@@ -37,13 +37,13 @@ export type User = {
     email: string
 }
 
-type GrantRaw = {
+export type GrantRaw = {
     type: string
     scope: string
     createdAt: DateTime
 }
 
-type WhoAmIResponseRaw = {
+export type WhoAmIResponseRaw = {
     /**
      * Information about the Affinity instance the user belongs to.
      */

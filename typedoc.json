@@ -1,6 +1,19 @@
 {
     "$schema": "https://typedoc.org/schema.json",
-    "entryPoints": ["./src/", "./src/v1/"],
+    "entryPoints": [
+        "./src/",
+        "./src/v1/"
+        // the automatically generated docs from V2 docs is not great at the moment
+        // try this again after typedoc@0.26.6
+        //  "./src/v2/**/*.ts"
+    ],
+    "projectDocuments": [
+        // include the extra V2 documents
+        // 2024-09-04:
+        // a bit confusing as they show up alongside V1 docs AND there is no generated README.md either, but better than nothing
+        "./src/v2/*.md",
+        "./src/v2/**/*.md"
+    ],
     "exclude": ["**/tests/**/*"],
     //"entryPointStrategy":"expand",
     "excludeInternal": true,
@@ -9,5 +22,7 @@
     "excludeReferences": false,
     "excludeExternals": true,
     "out": "docs",
+    // we need to keep this one for Deno at the moment
+    // see https://stackoverflow.com/questions/64348009/how-to-make-typedoc-works-with-deno
     "skipErrorChecking": true
 }

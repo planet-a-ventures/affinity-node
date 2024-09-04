@@ -172,13 +172,16 @@ export type AllNotesRequest =
         }>
     )
 
-type PagedNotesResponseRaw =
+export type PagedNotesResponseRaw =
     & {
         notes: NoteRaw[]
     }
     & PagedResponse
 
-type PagedNotesResponse = Replace<{ notes: Note[] }, PagedNotesResponseRaw>
+export type PagedNotesResponse = Replace<
+    { notes: Note[] },
+    PagedNotesResponseRaw
+>
 
 export type NoteReference = {
     /** The unique ID of the note */
@@ -264,7 +267,7 @@ export class Notes {
 
     /**
      * Returns an async iterator that yields all notes matching the given request
-     * Each yielded array contains up to the number specified in {@link AllEntityFileRequest.page_size} of notes.
+     * Each yielded array contains up to the number specified in {@link PagedRequest.page_size} of notes.
      * Use this method if you want to process the notes in a streaming fashion.
      *
      * *Please note:* the yielded notes array may be empty on the last page.
