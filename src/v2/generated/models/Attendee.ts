@@ -17,8 +17,8 @@ export class Attendee {
     /**
     * The email addresses of the attendee
     */
-    'emailAddress'?: string | null;
-    'person'?: PersonData | null;
+    'emailAddress': string | null;
+    'person': PersonData | null;
 
     static readonly discriminator: string | undefined = undefined;
 

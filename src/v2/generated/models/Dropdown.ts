@@ -16,11 +16,11 @@ export class Dropdown {
     /**
     * Dropdown item\'s unique identifier
     */
-    'dropdownOptionId'?: number | null;
+    'dropdownOptionId': number;
     /**
     * Dropdown item text
     */
-    'text'?: string | null;
+    'text': string;
 
     static readonly discriminator: string | undefined = undefined;
 

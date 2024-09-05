@@ -21,15 +21,15 @@ export class PhoneCall {
     /**
     * The phon_call\'s unique identifier
     */
-    'id'?: number | null;
+    'id': number;
     /**
     * The call start time
     */
-    'startTime'?: Date | null;
+    'startTime': Date;
     /**
     * People attending the call
     */
-    'attendees'?: Array<Attendee> | null;
+    'attendees': Array<Attendee>;
 
     static readonly discriminator: string | undefined = undefined;
 

@@ -16,23 +16,23 @@ export class PersonData {
     /**
     * The persons\'s unique identifier
     */
-    'id'?: number | null;
+    'id': number;
     /**
     * The person\'s first name
     */
-    'firstName'?: string | null;
+    'firstName': string | null;
     /**
     * The person\'s last name
     */
-    'lastName'?: string | null;
+    'lastName': string | null;
     /**
     * The person\'s primary email address
     */
-    'primaryEmailAddress'?: string | null;
+    'primaryEmailAddress': string | null;
     /**
     * The person\'s type
     */
-    'type'?: PersonDataTypeEnum;
+    'type': PersonDataTypeEnum;
 
     static readonly discriminator: string | undefined = undefined;
 

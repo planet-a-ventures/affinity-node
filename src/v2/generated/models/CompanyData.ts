@@ -16,15 +16,15 @@ export class CompanyData {
     /**
     * The company\'s unique identifier
     */
-    'id'?: number | null;
+    'id': number;
     /**
     * The company\'s name
     */
-    'name'?: string | null;
+    'name': string;
     /**
     * The company\'s primary domain
     */
-    'domain'?: string | null;
+    'domain': string;
 
     static readonly discriminator: string | undefined = undefined;
 
