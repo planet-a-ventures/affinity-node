@@ -16,19 +16,19 @@ export class RankedDropdown {
     /**
     * Dropdown item\'s unique identifier
     */
-    'dropdownOptionId'?: number | null;
+    'dropdownOptionId': number;
     /**
     * Dropdown item text
     */
-    'text'?: string | null;
+    'text': string;
     /**
     * Dropdown item rank
     */
-    'rank'?: number | null;
+    'rank': number;
     /**
     * Dropdown item color
     */
-    'color'?: string | null;
+    'color': string | null;
 
     static readonly discriminator: string | undefined = undefined;
 

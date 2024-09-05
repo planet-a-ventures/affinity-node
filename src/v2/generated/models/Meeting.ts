@@ -21,27 +21,27 @@ export class Meeting {
     /**
     * The meeting\'s unique identifier
     */
-    'id'?: number | null;
+    'id': number;
     /**
     * The meeting\'s title
     */
-    'title'?: string | null;
+    'title': string | null;
     /**
     * Whether the meeting is an all-day event
     */
-    'allDay'?: boolean | null;
+    'allDay': boolean;
     /**
     * The meeting start time
     */
-    'startTime'?: Date | null;
+    'startTime': Date;
     /**
     * The meeting end time
     */
-    'endTime'?: Date | null;
+    'endTime': Date | null;
     /**
     * People attending the meeting
     */
-    'attendees'?: Array<Attendee> | null;
+    'attendees': Array<Attendee>;
 
     static readonly discriminator: string | undefined = undefined;
 

@@ -21,24 +21,24 @@ export class Email {
     /**
     * The email\'s unique identifier
     */
-    'id'?: number | null;
+    'id': number;
     /**
     * The subject of the email
     */
-    'subject'?: string | null;
+    'subject': string | null;
     /**
     * The time the email was sent
     */
-    'sentAt'?: Date | null;
-    '_from'?: Attendee | null;
+    'sentAt': Date;
+    '_from': Attendee;
     /**
     * The recipients of the email
     */
-    'to'?: Array<Attendee> | null;
+    'to': Array<Attendee>;
     /**
     * The cc recipients of the email
     */
-    'cc'?: Array<Attendee> | null;
+    'cc': Array<Attendee>;
 
     static readonly discriminator: string | undefined = undefined;
 

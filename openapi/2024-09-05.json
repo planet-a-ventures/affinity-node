@@ -2216,6 +2216,13 @@
             "nullable": true
           }
         },
+        "required": [
+          "city",
+          "continent",
+          "country",
+          "state",
+          "streetAddress"
+        ],
         "type": "object"
       },
       "OpportunityPaged": {
@@ -2479,10 +2486,6 @@
           }
         },
         "required": [
-          "createdAt",
-          "creatorId",
-          "entity",
-          "id",
           "type"
         ],
         "type": "object",
@@ -2932,15 +2935,13 @@
             "description": "The phon_call's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "startTime": {
             "description": "The call start time",
             "example": "2023-02-03 04:00:00.000000000 Z",
             "format": "date-time",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "attendees": {
             "description": "People attending the call",
@@ -2950,11 +2951,13 @@
             "items": {
               "$ref": "#/components/schemas/Attendee"
             },
-            "type": "array",
-            "nullable": true
+            "type": "array"
           }
         },
         "required": [
+          "attendees",
+          "id",
+          "startTime",
           "type"
         ],
         "type": "object"
@@ -2979,6 +2982,10 @@
             ]
           }
         },
+        "required": [
+          "emailAddress",
+          "person"
+        ],
         "type": "object"
       },
       "PersonData": {
@@ -2987,8 +2994,7 @@
             "description": "The persons's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "firstName": {
             "description": "The person's first name",
@@ -3020,6 +3026,13 @@
             "type": "string"
           }
         },
+        "required": [
+          "firstName",
+          "id",
+          "lastName",
+          "primaryEmailAddress",
+          "type"
+        ],
         "type": "object"
       },
       "Meeting": {
@@ -3036,8 +3049,7 @@
             "description": "The meeting's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "title": {
             "description": "The meeting's title",
@@ -3048,15 +3060,13 @@
           "allDay": {
             "description": "Whether the meeting is an all-day event",
             "example": false,
-            "type": "boolean",
-            "nullable": true
+            "type": "boolean"
           },
           "startTime": {
             "description": "The meeting start time",
             "example": "2023-02-03 04:00:00.000000000 Z",
             "format": "date-time",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "endTime": {
             "description": "The meeting end time",
@@ -3073,11 +3083,16 @@
             "items": {
               "$ref": "#/components/schemas/Attendee"
             },
-            "type": "array",
-            "nullable": true
+            "type": "array"
           }
         },
         "required": [
+          "allDay",
+          "attendees",
+          "endTime",
+          "id",
+          "startTime",
+          "title",
           "type"
         ],
         "type": "object"
@@ -3096,8 +3111,7 @@
             "description": "The email's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "subject": {
             "description": "The subject of the email",
@@ -3109,18 +3123,10 @@
             "description": "The time the email was sent",
             "example": "2023-01-01 00:00:00.000000000 Z",
             "format": "date-time",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "from": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Attendee"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/Attendee"
           },
           "to": {
             "description": "The recipients of the email",
@@ -3130,8 +3136,7 @@
             "items": {
               "$ref": "#/components/schemas/Attendee"
             },
-            "type": "array",
-            "nullable": true
+            "type": "array"
           },
           "cc": {
             "description": "The cc recipients of the email",
@@ -3141,11 +3146,16 @@
             "items": {
               "$ref": "#/components/schemas/Attendee"
             },
-            "type": "array",
-            "nullable": true
+            "type": "array"
           }
         },
         "required": [
+          "cc",
+          "from",
+          "id",
+          "sentAt",
+          "subject",
+          "to",
           "type"
         ],
         "type": "object"
@@ -3164,8 +3174,7 @@
             "description": "The chat message's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "direction": {
             "description": "The direction of the chat message",
@@ -3180,8 +3189,7 @@
             "description": "The time the chat message was sent",
             "example": "2023-01-01 00:00:00.000000000 Z",
             "format": "date-time",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "manualCreator": {
             "$ref": "#/components/schemas/PersonData"
@@ -3194,11 +3202,15 @@
             "items": {
               "$ref": "#/components/schemas/PersonData"
             },
-            "type": "array",
-            "nullable": true
+            "type": "array"
           }
         },
         "required": [
+          "direction",
+          "id",
+          "manualCreator",
+          "participants",
+          "sentAt",
           "type"
         ],
         "type": "object"
@@ -3337,16 +3349,18 @@
             "description": "Dropdown item's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "text": {
             "description": "Dropdown item text",
             "example": "first",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
+        "required": [
+          "dropdownOptionId",
+          "text"
+        ],
         "type": "object"
       },
       "DropdownValue": {
@@ -3381,21 +3395,18 @@
             "description": "Dropdown item's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "text": {
             "description": "Dropdown item text",
             "example": "first",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "rank": {
             "description": "Dropdown item rank",
             "example": 0,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "color": {
             "description": "Dropdown item color",
@@ -3404,6 +3415,12 @@
             "nullable": true
           }
         },
+        "required": [
+          "color",
+          "dropdownOptionId",
+          "rank",
+          "text"
+        ],
         "type": "object"
       },
       "RankedDropdownValue": {
@@ -3626,23 +3643,25 @@
             "description": "The company's unique identifier",
             "example": 1,
             "format": "int64",
-            "type": "integer",
-            "nullable": true
+            "type": "integer"
           },
           "name": {
             "description": "The company's name",
             "example": "Acme",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           },
           "domain": {
             "description": "The company's primary domain",
             "example": "acme.co",
             "format": "hostname",
-            "type": "string",
-            "nullable": true
+            "type": "string"
           }
         },
+        "required": [
+          "domain",
+          "id",
+          "name"
+        ],
         "type": "object"
       },
       "CompanyValue": {

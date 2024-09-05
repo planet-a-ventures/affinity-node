@@ -16,23 +16,23 @@ export class Location {
     /**
     * Street address
     */
-    'streetAddress'?: string | null;
+    'streetAddress': string | null;
     /**
     * City
     */
-    'city'?: string | null;
+    'city': string | null;
     /**
     * State
     */
-    'state'?: string | null;
+    'state': string | null;
     /**
     * Country
     */
-    'country'?: string | null;
+    'country': string | null;
     /**
     * Continent
     */
-    'continent'?: string | null;
+    'continent': string | null;
 
     static readonly discriminator: string | undefined = undefined;
 

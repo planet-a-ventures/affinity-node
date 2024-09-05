@@ -21,20 +21,20 @@ export class ChatMessage {
     /**
     * The chat message\'s unique identifier
     */
-    'id'?: number | null;
+    'id': number;
     /**
     * The direction of the chat message
     */
-    'direction'?: ChatMessageDirectionEnum;
+    'direction': ChatMessageDirectionEnum;
     /**
     * The time the chat message was sent
     */
-    'sentAt'?: Date | null;
-    'manualCreator'?: PersonData;
+    'sentAt': Date;
+    'manualCreator': PersonData;
     /**
     * The participants of the chat
     */
-    'participants'?: Array<PersonData> | null;
+    'participants': Array<PersonData>;
 
     static readonly discriminator: string | undefined = undefined;
 
