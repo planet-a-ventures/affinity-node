@@ -32,7 +32,7 @@ export class ListPaged {
         {
             "name": "data",
             "baseName": "data",
-            "type": "Array<Array>",
+            "type": "Array<List>",
             "format": ""
         },
         {
