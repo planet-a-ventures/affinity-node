@@ -1,4 +1,4 @@
-# .ListsApi
+# Affinity.ListsApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -22,13 +22,13 @@ Returns metadata on Lists.
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .ListsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.ListsApi(configuration);
 
-let body:.ListsApiGetV2ListsRequest = {
+let body:Affinity.ListsApiGetV2ListsRequest = {
   // string | Cursor for the next or previous page (optional)
   cursor: "cursor_example",
   // number | Number of items to include in the page (optional)
@@ -80,13 +80,13 @@ Returns metadata on a single List.
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .ListsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.ListsApi(configuration);
 
-let body:.ListsApiGetV2ListsListidRequest = {
+let body:Affinity.ListsApiGetV2ListsListidRequest = {
   // number | List ID
   listId: 1,
 };
@@ -136,13 +136,13 @@ Returns metadata on the Fields available on a single List.  Use the returned Fie
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .ListsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.ListsApi(configuration);
 
-let body:.ListsApiGetV2ListsListidFieldsRequest = {
+let body:Affinity.ListsApiGetV2ListsListidFieldsRequest = {
   // number | List ID
   listId: 1,
   // string | Cursor for the next or previous page (optional)
@@ -198,13 +198,13 @@ Paginate through the List Entries (AKA rows) on a given List. Returns basic info
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .ListsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.ListsApi(configuration);
 
-let body:.ListsApiGetV2ListsListidListEntriesRequest = {
+let body:Affinity.ListsApiGetV2ListsListidListEntriesRequest = {
   // number | List ID
   listId: 1,
   // string | Cursor for the next or previous page (optional)
@@ -271,13 +271,13 @@ Returns metadata on the Saved Views on a List.
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .ListsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.ListsApi(configuration);
 
-let body:.ListsApiGetV2ListsListidSavedViewsRequest = {
+let body:Affinity.ListsApiGetV2ListsListidSavedViewsRequest = {
   // number | List ID
   listId: 1,
   // string | Cursor for the next or previous page (optional)
@@ -333,13 +333,13 @@ Returns metadata on a single Saved View.
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .ListsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.ListsApi(configuration);
 
-let body:.ListsApiGetV2ListsListidSavedViewsViewidRequest = {
+let body:Affinity.ListsApiGetV2ListsListidSavedViewsViewidRequest = {
   // number | List ID
   listId: 1,
   // number | Saved view ID
@@ -392,13 +392,13 @@ Paginate through the List Entries (AKA rows) on a given Saved View. Use this end
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .ListsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.ListsApi(configuration);
 
-let body:.ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest = {
+let body:Affinity.ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest = {
   // number | List ID
   listId: 1,
   // number | Saved view ID

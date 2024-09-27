@@ -1,4 +1,4 @@
-# .PersonsApi
+# Affinity.PersonsApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -20,13 +20,13 @@ Paginate through Persons in Affinity. Returns basic information and non-list-spe
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .PersonsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.PersonsApi(configuration);
 
-let body:.PersonsApiGetV2PersonsRequest = {
+let body:Affinity.PersonsApiGetV2PersonsRequest = {
   // string | Cursor for the next or previous page (optional)
   cursor: "cursor_example",
   // number | Number of items to include in the page (optional)
@@ -94,13 +94,13 @@ Returns metadata on non-list-specific Person Fields.  Use the returned Field IDs
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .PersonsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.PersonsApi(configuration);
 
-let body:.PersonsApiGetV2PersonsFieldsRequest = {
+let body:Affinity.PersonsApiGetV2PersonsFieldsRequest = {
   // string | Cursor for the next or previous page (optional)
   cursor: "cursor_example",
   // number | Number of items to include in the page (optional)
@@ -152,13 +152,13 @@ Returns basic information and non-list-specific field data on the requested Pers
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .PersonsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.PersonsApi(configuration);
 
-let body:.PersonsApiGetV2PersonsIdRequest = {
+let body:Affinity.PersonsApiGetV2PersonsIdRequest = {
   // number | Person ID
   id: 1,
   // Array<string> | Field IDs for which to return field data (optional)
@@ -219,13 +219,13 @@ Paginate through the List Entries (AKA rows) for the given Person across all Lis
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .PersonsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.PersonsApi(configuration);
 
-let body:.PersonsApiGetV2PersonsIdListEntriesRequest = {
+let body:Affinity.PersonsApiGetV2PersonsIdListEntriesRequest = {
   // number | Persons ID
   id: 1,
   // string | Cursor for the next or previous page (optional)
@@ -282,13 +282,13 @@ Returns metadata for all the Lists on which the given Person appears.
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .PersonsApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.PersonsApi(configuration);
 
-let body:.PersonsApiGetV2PersonsIdListsRequest = {
+let body:Affinity.PersonsApiGetV2PersonsIdListsRequest = {
   // number | Persons ID
   id: 1,
   // string | Cursor for the next or previous page (optional)
