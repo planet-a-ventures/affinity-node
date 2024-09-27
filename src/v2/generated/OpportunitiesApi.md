@@ -1,4 +1,4 @@
-# .OpportunitiesApi
+# Affinity.OpportunitiesApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -17,13 +17,13 @@ Paginate through Opportunities in Affinity. Returns basic information but **not*
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .OpportunitiesApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.OpportunitiesApi(configuration);
 
-let body:.OpportunitiesApiGetV2OpportunitiesRequest = {
+let body:Affinity.OpportunitiesApiGetV2OpportunitiesRequest = {
   // string | Cursor for the next or previous page (optional)
   cursor: "cursor_example",
   // number | Number of items to include in the page (optional)
@@ -81,13 +81,13 @@ Returns basic information but **not** field data on the requested Opportunity.  
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .OpportunitiesApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.OpportunitiesApi(configuration);
 
-let body:.OpportunitiesApiGetV2OpportunitiesIdRequest = {
+let body:Affinity.OpportunitiesApiGetV2OpportunitiesIdRequest = {
   // number | Opportunity ID
   id: 1,
 };

@@ -1,4 +1,4 @@
-# .CompaniesApi
+# Affinity.CompaniesApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -20,13 +20,13 @@ Paginate through Companies in Affinity. Returns basic information and non-list-s
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesRequest = {
+let body:Affinity.CompaniesApiGetV2CompaniesRequest = {
   // string | Cursor for the next or previous page (optional)
   cursor: "cursor_example",
   // number | Number of items to include in the page (optional)
@@ -94,13 +94,13 @@ Returns metadata on non-list-specific Company Fields.  Use the returned Field ID
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesFieldsRequest = {
+let body:Affinity.CompaniesApiGetV2CompaniesFieldsRequest = {
   // string | Cursor for the next or previous page (optional)
   cursor: "cursor_example",
   // number | Number of items to include in the page (optional)
@@ -152,13 +152,13 @@ Returns basic information and non-list-specific field data on the requested Comp
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesIdRequest = {
+let body:Affinity.CompaniesApiGetV2CompaniesIdRequest = {
   // number | Company ID
   id: 1,
   // Array<string> | Field IDs for which to return field data (optional)
@@ -219,13 +219,13 @@ Paginate through the List Entries (AKA rows) for the given Company across all Li
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesIdListEntriesRequest = {
+let body:Affinity.CompaniesApiGetV2CompaniesIdListEntriesRequest = {
   // number | Company ID
   id: 1,
   // string | Cursor for the next or previous page (optional)
@@ -282,13 +282,13 @@ Returns metadata for all the Lists on which the given Company appears.
 
 
 ```typescript
-import {  } from '';
+import { Affinity } from '@planet-a/affinity-node/v2';
 import * as fs from 'fs';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = Affinity.createConfiguration();
+const apiInstance = new Affinity.CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesIdListsRequest = {
+let body:Affinity.CompaniesApiGetV2CompaniesIdListsRequest = {
   // number | Company ID
   id: 1,
   // string | Cursor for the next or previous page (optional)
