@@ -1649,6 +1649,198 @@
       }
     },
     "schemas": {
+      "BadRequestError": {
+        "examples": [
+          {
+            "code": "bad-request",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "bad-request",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "ConflictError": {
+        "examples": [
+          {
+            "code": "conflict",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "conflict",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "MethodNotAllowedError": {
+        "examples": [
+          {
+            "code": "method-not-allowed",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "method-not-allowed",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "NotAcceptableError": {
+        "examples": [
+          {
+            "code": "not-acceptable",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "not-acceptable",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "NotImplementedError": {
+        "examples": [
+          {
+            "code": "not-implemented",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "not-implemented",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "RateLimitError": {
+        "examples": [
+          {
+            "code": "rate-limit",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "rate-limit",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "ServerError": {
+        "examples": [
+          {
+            "code": "server",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "server",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "UnprocessableEntityError": {
+        "examples": [
+          {
+            "code": "unprocessable-entity",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "unprocessable-entity",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
       "Tenant": {
         "examples": [
           {
@@ -1961,7 +2153,10 @@
               "acme.co"
             ],
             "format": "hostname",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -3157,7 +3352,10 @@
               "acme.co"
             ],
             "format": "hostname",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "domains": {
             "description": "All of the company's domains",

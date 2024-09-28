@@ -28,7 +28,7 @@ export class Company {
     /**
     * The company\'s primary domain
     */
-    'domain': string;
+    'domain': string | null;
     /**
     * All of the company\'s domains
     */

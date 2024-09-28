@@ -3,6 +3,7 @@ export * from '../models/AuthenticationError.ts';
 export * from '../models/AuthenticationErrors.ts';
 export * from '../models/AuthorizationError.ts';
 export * from '../models/AuthorizationErrors.ts';
+export * from '../models/BadRequestError.ts';
 export * from '../models/ChatMessage.ts';
 export * from '../models/CompaniesValue.ts';
 export * from '../models/Company.ts';
@@ -10,6 +11,7 @@ export * from '../models/CompanyData.ts';
 export * from '../models/CompanyListEntry.ts';
 export * from '../models/CompanyPaged.ts';
 export * from '../models/CompanyValue.ts';
+export * from '../models/ConflictError.ts';
 export * from '../models/DateValue.ts';
 export * from '../models/Dropdown.ts';
 export * from '../models/DropdownValue.ts';
@@ -38,8 +40,11 @@ export * from '../models/Location.ts';
 export * from '../models/LocationValue.ts';
 export * from '../models/LocationsValue.ts';
 export * from '../models/Meeting.ts';
+export * from '../models/MethodNotAllowedError.ts';
+export * from '../models/NotAcceptableError.ts';
 export * from '../models/NotFoundError.ts';
 export * from '../models/NotFoundErrors.ts';
+export * from '../models/NotImplementedError.ts';
 export * from '../models/Opportunity.ts';
 export * from '../models/OpportunityListEntry.ts';
 export * from '../models/OpportunityPaged.ts';
@@ -54,11 +59,14 @@ export * from '../models/PersonsValue.ts';
 export * from '../models/PhoneCall.ts';
 export * from '../models/RankedDropdown.ts';
 export * from '../models/RankedDropdownValue.ts';
+export * from '../models/RateLimitError.ts';
 export * from '../models/SavedView.ts';
 export * from '../models/SavedViewPaged.ts';
+export * from '../models/ServerError.ts';
 export * from '../models/Tenant.ts';
 export * from '../models/TextValue.ts';
 export * from '../models/TextsValue.ts';
+export * from '../models/UnprocessableEntityError.ts';
 export * from '../models/User.ts';
 export * from '../models/ValidationError.ts';
 export * from '../models/ValidationErrors.ts';
@@ -69,6 +77,7 @@ import { AuthenticationError } from '../models/AuthenticationError.ts';
 import { AuthenticationErrors } from '../models/AuthenticationErrors.ts';
 import { AuthorizationError } from '../models/AuthorizationError.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
+import { BadRequestError } from '../models/BadRequestError.ts';
 import { ChatMessage  , ChatMessageDirectionEnum      } from '../models/ChatMessage.ts';
 import { CompaniesValue } from '../models/CompaniesValue.ts';
 import { Company } from '../models/Company.ts';
@@ -76,6 +85,7 @@ import { CompanyData } from '../models/CompanyData.ts';
 import { CompanyListEntry } from '../models/CompanyListEntry.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
 import { CompanyValue } from '../models/CompanyValue.ts';
+import { ConflictError } from '../models/ConflictError.ts';
 import { DateValue } from '../models/DateValue.ts';
 import { Dropdown } from '../models/Dropdown.ts';
 import { DropdownValue } from '../models/DropdownValue.ts';
@@ -104,8 +114,11 @@ import { Location } from '../models/Location.ts';
 import { LocationValue } from '../models/LocationValue.ts';
 import { LocationsValue } from '../models/LocationsValue.ts';
 import { Meeting } from '../models/Meeting.ts';
+import { MethodNotAllowedError } from '../models/MethodNotAllowedError.ts';
+import { NotAcceptableError } from '../models/NotAcceptableError.ts';
 import { NotFoundError } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
+import { NotImplementedError } from '../models/NotImplementedError.ts';
 import { Opportunity } from '../models/Opportunity.ts';
 import { OpportunityListEntry } from '../models/OpportunityListEntry.ts';
 import { OpportunityPaged } from '../models/OpportunityPaged.ts';
@@ -120,11 +133,14 @@ import { PersonsValue } from '../models/PersonsValue.ts';
 import { PhoneCall } from '../models/PhoneCall.ts';
 import { RankedDropdown } from '../models/RankedDropdown.ts';
 import { RankedDropdownValue } from '../models/RankedDropdownValue.ts';
+import { RateLimitError } from '../models/RateLimitError.ts';
 import { SavedView  , SavedViewTypeEnum    } from '../models/SavedView.ts';
 import { SavedViewPaged } from '../models/SavedViewPaged.ts';
+import { ServerError } from '../models/ServerError.ts';
 import { Tenant } from '../models/Tenant.ts';
 import { TextValue, TextValueTypeEnum    } from '../models/TextValue.ts';
 import { TextsValue } from '../models/TextsValue.ts';
+import { UnprocessableEntityError } from '../models/UnprocessableEntityError.ts';
 import { User } from '../models/User.ts';
 import { ValidationError } from '../models/ValidationError.ts';
 import { ValidationErrors } from '../models/ValidationErrors.ts';
@@ -166,6 +182,7 @@ let typeMap: {[index: string]: any} = {
     "AuthenticationErrors": AuthenticationErrors,
     "AuthorizationError": AuthorizationError,
     "AuthorizationErrors": AuthorizationErrors,
+    "BadRequestError": BadRequestError,
     "ChatMessage": ChatMessage,
     "CompaniesValue": CompaniesValue,
     "Company": Company,
@@ -173,6 +190,7 @@ let typeMap: {[index: string]: any} = {
     "CompanyListEntry": CompanyListEntry,
     "CompanyPaged": CompanyPaged,
     "CompanyValue": CompanyValue,
+    "ConflictError": ConflictError,
     "DateValue": DateValue,
     "Dropdown": Dropdown,
     "DropdownValue": DropdownValue,
@@ -201,8 +219,11 @@ let typeMap: {[index: string]: any} = {
     "LocationValue": LocationValue,
     "LocationsValue": LocationsValue,
     "Meeting": Meeting,
+    "MethodNotAllowedError": MethodNotAllowedError,
+    "NotAcceptableError": NotAcceptableError,
     "NotFoundError": NotFoundError,
     "NotFoundErrors": NotFoundErrors,
+    "NotImplementedError": NotImplementedError,
     "Opportunity": Opportunity,
     "OpportunityListEntry": OpportunityListEntry,
     "OpportunityPaged": OpportunityPaged,
@@ -217,11 +238,14 @@ let typeMap: {[index: string]: any} = {
     "PhoneCall": PhoneCall,
     "RankedDropdown": RankedDropdown,
     "RankedDropdownValue": RankedDropdownValue,
+    "RateLimitError": RateLimitError,
     "SavedView": SavedView,
     "SavedViewPaged": SavedViewPaged,
+    "ServerError": ServerError,
     "Tenant": Tenant,
     "TextValue": TextValue,
     "TextsValue": TextsValue,
+    "UnprocessableEntityError": UnprocessableEntityError,
     "User": User,
     "ValidationError": ValidationError,
     "ValidationErrors": ValidationErrors,

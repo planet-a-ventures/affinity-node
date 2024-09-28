@@ -12,19 +12,15 @@
 
 import { HttpFile } from '../http/http.ts';
 
-export class CompanyData {
+export class BadRequestError {
     /**
-    * The company\'s unique identifier
+    * Error code
     */
-    'id': number;
+    'code': string;
     /**
-    * The company\'s name
+    * Error message
     */
-    'name': string;
-    /**
-    * The company\'s primary domain
-    */
-    'domain': string | null;
+    'message': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -32,26 +28,20 @@ export class CompanyData {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": "int64"
-        },
-        {
-            "name": "name",
-            "baseName": "name",
+            "name": "code",
+            "baseName": "code",
             "type": "string",
             "format": ""
         },
         {
-            "name": "domain",
-            "baseName": "domain",
+            "name": "message",
+            "baseName": "message",
             "type": "string",
-            "format": "hostname"
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return CompanyData.attributeTypeMap;
+        return BadRequestError.attributeTypeMap;
     }
 
     public constructor() {

@@ -24,6 +24,7 @@ models/AuthenticationError.ts
 models/AuthenticationErrors.ts
 models/AuthorizationError.ts
 models/AuthorizationErrors.ts
+models/BadRequestError.ts
 models/ChatMessage.ts
 models/CompaniesValue.ts
 models/Company.ts
@@ -31,6 +32,7 @@ models/CompanyData.ts
 models/CompanyListEntry.ts
 models/CompanyPaged.ts
 models/CompanyValue.ts
+models/ConflictError.ts
 models/DateValue.ts
 models/Dropdown.ts
 models/DropdownValue.ts
@@ -59,8 +61,11 @@ models/Location.ts
 models/LocationValue.ts
 models/LocationsValue.ts
 models/Meeting.ts
+models/MethodNotAllowedError.ts
+models/NotAcceptableError.ts
 models/NotFoundError.ts
 models/NotFoundErrors.ts
+models/NotImplementedError.ts
 models/ObjectSerializer.ts
 models/Opportunity.ts
 models/OpportunityListEntry.ts
@@ -76,11 +81,14 @@ models/PersonsValue.ts
 models/PhoneCall.ts
 models/RankedDropdown.ts
 models/RankedDropdownValue.ts
+models/RateLimitError.ts
 models/SavedView.ts
 models/SavedViewPaged.ts
+models/ServerError.ts
 models/Tenant.ts
 models/TextValue.ts
 models/TextsValue.ts
+models/UnprocessableEntityError.ts
 models/User.ts
 models/ValidationError.ts
 models/ValidationErrors.ts
