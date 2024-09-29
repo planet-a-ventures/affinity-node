@@ -22,22 +22,21 @@ Returns metadata on Lists.
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.ListsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
 
-let body:Affinity.ListsApiGetV2ListsRequest = {
-  // string | Cursor for the next or previous page (optional)
+const request: ListsApiGetV2ListsRequest = {
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2Lists(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2Lists(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -80,20 +79,19 @@ Returns metadata on a single List.
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.ListsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
 
-let body:Affinity.ListsApiGetV2ListsListidRequest = {
-  // number | List ID
+const request: ListsApiGetV2ListsListidRequest = {
+    // List ID
   listId: 1,
 };
 
-apiInstance.getV2ListsListid(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2ListsListid(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -136,24 +134,23 @@ Returns metadata on the Fields available on a single List.  Use the returned Fie
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidFieldsRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.ListsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
 
-let body:Affinity.ListsApiGetV2ListsListidFieldsRequest = {
-  // number | List ID
+const request: ListsApiGetV2ListsListidFieldsRequest = {
+    // List ID
   listId: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2ListsListidFields(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2ListsListidFields(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -198,32 +195,31 @@ Paginate through the List Entries (AKA rows) on a given List. Returns basic info
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidListEntriesRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.ListsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
 
-let body:Affinity.ListsApiGetV2ListsListidListEntriesRequest = {
-  // number | List ID
+const request: ListsApiGetV2ListsListidListEntriesRequest = {
+    // List ID
   listId: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
-  // Array<string> | Field IDs for which to return field data (optional)
+    // Field IDs for which to return field data (optional)
   fieldIds: [
     "fieldIds_example",
   ],
-  // Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'> | Field Types for which to return field data (optional)
+    // Field Types for which to return field data (optional)
   fieldTypes: [
     "enriched",
   ],
 };
 
-apiInstance.getV2ListsListidListEntries(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2ListsListidListEntries(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -271,24 +267,23 @@ Returns metadata on the Saved Views on a List.
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidSavedViewsRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.ListsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
 
-let body:Affinity.ListsApiGetV2ListsListidSavedViewsRequest = {
-  // number | List ID
+const request: ListsApiGetV2ListsListidSavedViewsRequest = {
+    // List ID
   listId: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2ListsListidSavedViews(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2ListsListidSavedViews(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -333,22 +328,21 @@ Returns metadata on a single Saved View.
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidSavedViewsViewidRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.ListsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
 
-let body:Affinity.ListsApiGetV2ListsListidSavedViewsViewidRequest = {
-  // number | List ID
+const request: ListsApiGetV2ListsListidSavedViewsViewidRequest = {
+    // List ID
   listId: 1,
-  // number | Saved view ID
+    // Saved view ID
   viewId: 1,
 };
 
-apiInstance.getV2ListsListidSavedViewsViewid(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2ListsListidSavedViewsViewid(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -392,26 +386,25 @@ Paginate through the List Entries (AKA rows) on a given Saved View. Use this end
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.ListsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
 
-let body:Affinity.ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest = {
-  // number | List ID
+const request: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest = {
+    // List ID
   listId: 1,
-  // number | Saved view ID
+    // Saved view ID
   viewId: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2ListsListidSavedViewsViewidListEntries(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2ListsListidSavedViewsViewidListEntries(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 

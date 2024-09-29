@@ -16,17 +16,15 @@ Returns metadata about the current user.
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, AuthApi } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.AuthApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new AuthApi(configuration);
 
-let body:any = {};
+const request = {};
 
-apiInstance.getV2AuthWhoami(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2AuthWhoami(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 

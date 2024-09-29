@@ -20,34 +20,33 @@ Paginate through Persons in Affinity. Returns basic information and non-list-spe
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.PersonsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new PersonsApi(configuration);
 
-let body:Affinity.PersonsApiGetV2PersonsRequest = {
-  // string | Cursor for the next or previous page (optional)
+const request: PersonsApiGetV2PersonsRequest = {
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
-  // Array<number> | People IDs (optional)
+    // People IDs (optional)
   ids: [
     1,
   ],
-  // Array<string> | Field IDs for which to return field data (optional)
+    // Field IDs for which to return field data (optional)
   fieldIds: [
     "fieldIds_example",
   ],
-  // Array<'enriched' | 'global' | 'relationship-intelligence'> | Field Types for which to return field data (optional)
+    // Field Types for which to return field data (optional)
   fieldTypes: [
     "enriched",
   ],
 };
 
-apiInstance.getV2Persons(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2Persons(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -94,22 +93,21 @@ Returns metadata on non-list-specific Person Fields.  Use the returned Field IDs
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsFieldsRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.PersonsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new PersonsApi(configuration);
 
-let body:Affinity.PersonsApiGetV2PersonsFieldsRequest = {
-  // string | Cursor for the next or previous page (optional)
+const request: PersonsApiGetV2PersonsFieldsRequest = {
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2PersonsFields(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2PersonsFields(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -152,28 +150,27 @@ Returns basic information and non-list-specific field data on the requested Pers
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsIdRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.PersonsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new PersonsApi(configuration);
 
-let body:Affinity.PersonsApiGetV2PersonsIdRequest = {
-  // number | Person ID
+const request: PersonsApiGetV2PersonsIdRequest = {
+    // Person ID
   id: 1,
-  // Array<string> | Field IDs for which to return field data (optional)
+    // Field IDs for which to return field data (optional)
   fieldIds: [
     "fieldIds_example",
   ],
-  // Array<'enriched' | 'global' | 'relationship-intelligence'> | Field Types for which to return field data (optional)
+    // Field Types for which to return field data (optional)
   fieldTypes: [
     "enriched",
   ],
 };
 
-apiInstance.getV2PersonsId(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2PersonsId(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -219,24 +216,23 @@ Paginate through the List Entries (AKA rows) for the given Person across all Lis
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsIdListEntriesRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.PersonsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new PersonsApi(configuration);
 
-let body:Affinity.PersonsApiGetV2PersonsIdListEntriesRequest = {
-  // number | Persons ID
+const request: PersonsApiGetV2PersonsIdListEntriesRequest = {
+    // Persons ID
   id: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2PersonsIdListEntries(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2PersonsIdListEntries(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -282,24 +278,23 @@ Returns metadata for all the Lists on which the given Person appears.
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsIdListsRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.PersonsApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new PersonsApi(configuration);
 
-let body:Affinity.PersonsApiGetV2PersonsIdListsRequest = {
-  // number | Persons ID
+const request: PersonsApiGetV2PersonsIdListsRequest = {
+    // Persons ID
   id: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2PersonsIdLists(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2PersonsIdLists(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
