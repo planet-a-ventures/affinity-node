@@ -118,30 +118,37 @@ import { CompaniesApiRequestFactory, CompaniesApiResponseProcessor} from "../api
 export interface CompaniesApiGetV2CompaniesRequest {
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof CompaniesApigetV2Companies
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof CompaniesApigetV2Companies
      */
     limit?: number
     /**
      * Company IDs
+     * Defaults to: undefined
      * @type Array&lt;number&gt;
      * @memberof CompaniesApigetV2Companies
      */
     ids?: Array<number>
     /**
      * Field IDs for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;string&gt;
      * @memberof CompaniesApigetV2Companies
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
      * @memberof CompaniesApigetV2Companies
      */
@@ -151,12 +158,16 @@ export interface CompaniesApiGetV2CompaniesRequest {
 export interface CompaniesApiGetV2CompaniesFieldsRequest {
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof CompaniesApigetV2CompaniesFields
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof CompaniesApigetV2CompaniesFields
      */
@@ -166,18 +177,23 @@ export interface CompaniesApiGetV2CompaniesFieldsRequest {
 export interface CompaniesApiGetV2CompaniesIdRequest {
     /**
      * Company ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof CompaniesApigetV2CompaniesId
      */
     id: number
     /**
      * Field IDs for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;string&gt;
      * @memberof CompaniesApigetV2CompaniesId
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
      * @memberof CompaniesApigetV2CompaniesId
      */
@@ -187,18 +203,25 @@ export interface CompaniesApiGetV2CompaniesIdRequest {
 export interface CompaniesApiGetV2CompaniesIdListEntriesRequest {
     /**
      * Company ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof CompaniesApigetV2CompaniesIdListEntries
      */
     id: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof CompaniesApigetV2CompaniesIdListEntries
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof CompaniesApigetV2CompaniesIdListEntries
      */
@@ -208,18 +231,25 @@ export interface CompaniesApiGetV2CompaniesIdListEntriesRequest {
 export interface CompaniesApiGetV2CompaniesIdListsRequest {
     /**
      * Company ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof CompaniesApigetV2CompaniesIdLists
      */
     id: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof CompaniesApigetV2CompaniesIdLists
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof CompaniesApigetV2CompaniesIdLists
      */
@@ -331,12 +361,16 @@ import { ListsApiRequestFactory, ListsApiResponseProcessor} from "../apis/ListsA
 export interface ListsApiGetV2ListsRequest {
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof ListsApigetV2Lists
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof ListsApigetV2Lists
      */
@@ -346,6 +380,9 @@ export interface ListsApiGetV2ListsRequest {
 export interface ListsApiGetV2ListsListidRequest {
     /**
      * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListid
      */
@@ -355,18 +392,25 @@ export interface ListsApiGetV2ListsListidRequest {
 export interface ListsApiGetV2ListsListidFieldsRequest {
     /**
      * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListidFields
      */
     listId: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof ListsApigetV2ListsListidFields
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof ListsApigetV2ListsListidFields
      */
@@ -376,30 +420,39 @@ export interface ListsApiGetV2ListsListidFieldsRequest {
 export interface ListsApiGetV2ListsListidListEntriesRequest {
     /**
      * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListidListEntries
      */
     listId: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof ListsApigetV2ListsListidListEntries
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof ListsApigetV2ListsListidListEntries
      */
     limit?: number
     /**
      * Field IDs for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;string&gt;
      * @memberof ListsApigetV2ListsListidListEntries
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;list&#39; | &#39;relationship-intelligence&#39;&gt;
      * @memberof ListsApigetV2ListsListidListEntries
      */
@@ -409,18 +462,25 @@ export interface ListsApiGetV2ListsListidListEntriesRequest {
 export interface ListsApiGetV2ListsListidSavedViewsRequest {
     /**
      * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListidSavedViews
      */
     listId: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof ListsApigetV2ListsListidSavedViews
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof ListsApigetV2ListsListidSavedViews
      */
@@ -430,12 +490,18 @@ export interface ListsApiGetV2ListsListidSavedViewsRequest {
 export interface ListsApiGetV2ListsListidSavedViewsViewidRequest {
     /**
      * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListidSavedViewsViewid
      */
     listId: number
     /**
      * Saved view ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListidSavedViewsViewid
      */
@@ -445,24 +511,34 @@ export interface ListsApiGetV2ListsListidSavedViewsViewidRequest {
 export interface ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest {
     /**
      * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
      */
     listId: number
     /**
      * Saved view ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
      */
     viewId: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
      */
@@ -610,18 +686,23 @@ import { OpportunitiesApiRequestFactory, OpportunitiesApiResponseProcessor} from
 export interface OpportunitiesApiGetV2OpportunitiesRequest {
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof OpportunitiesApigetV2Opportunities
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof OpportunitiesApigetV2Opportunities
      */
     limit?: number
     /**
      * Opportunity IDs
+     * Defaults to: undefined
      * @type Array&lt;number&gt;
      * @memberof OpportunitiesApigetV2Opportunities
      */
@@ -631,6 +712,9 @@ export interface OpportunitiesApiGetV2OpportunitiesRequest {
 export interface OpportunitiesApiGetV2OpportunitiesIdRequest {
     /**
      * Opportunity ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof OpportunitiesApigetV2OpportunitiesId
      */
@@ -688,30 +772,37 @@ import { PersonsApiRequestFactory, PersonsApiResponseProcessor} from "../apis/Pe
 export interface PersonsApiGetV2PersonsRequest {
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof PersonsApigetV2Persons
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof PersonsApigetV2Persons
      */
     limit?: number
     /**
      * People IDs
+     * Defaults to: undefined
      * @type Array&lt;number&gt;
      * @memberof PersonsApigetV2Persons
      */
     ids?: Array<number>
     /**
      * Field IDs for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;string&gt;
      * @memberof PersonsApigetV2Persons
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
      * @memberof PersonsApigetV2Persons
      */
@@ -721,12 +812,16 @@ export interface PersonsApiGetV2PersonsRequest {
 export interface PersonsApiGetV2PersonsFieldsRequest {
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof PersonsApigetV2PersonsFields
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof PersonsApigetV2PersonsFields
      */
@@ -736,18 +831,23 @@ export interface PersonsApiGetV2PersonsFieldsRequest {
 export interface PersonsApiGetV2PersonsIdRequest {
     /**
      * Person ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof PersonsApigetV2PersonsId
      */
     id: number
     /**
      * Field IDs for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;string&gt;
      * @memberof PersonsApigetV2PersonsId
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
+     * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
      * @memberof PersonsApigetV2PersonsId
      */
@@ -757,18 +857,25 @@ export interface PersonsApiGetV2PersonsIdRequest {
 export interface PersonsApiGetV2PersonsIdListEntriesRequest {
     /**
      * Persons ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof PersonsApigetV2PersonsIdListEntries
      */
     id: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof PersonsApigetV2PersonsIdListEntries
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof PersonsApigetV2PersonsIdListEntries
      */
@@ -778,18 +885,25 @@ export interface PersonsApiGetV2PersonsIdListEntriesRequest {
 export interface PersonsApiGetV2PersonsIdListsRequest {
     /**
      * Persons ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
      * @type number
      * @memberof PersonsApigetV2PersonsIdLists
      */
     id: number
     /**
      * Cursor for the next or previous page
+     * Defaults to: undefined
      * @type string
      * @memberof PersonsApigetV2PersonsIdLists
      */
     cursor?: string
     /**
      * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
      * @type number
      * @memberof PersonsApigetV2PersonsIdLists
      */

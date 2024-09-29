@@ -17,26 +17,25 @@ Paginate through Opportunities in Affinity. Returns basic information but **not*
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, OpportunitiesApi } from '@planet-a/affinity-node/v2';
+import type { OpportunitiesApiGetV2OpportunitiesRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.OpportunitiesApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new OpportunitiesApi(configuration);
 
-let body:Affinity.OpportunitiesApiGetV2OpportunitiesRequest = {
-  // string | Cursor for the next or previous page (optional)
+const request: OpportunitiesApiGetV2OpportunitiesRequest = {
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
-  // Array<number> | Opportunity IDs (optional)
+    // Opportunity IDs (optional)
   ids: [
     1,
   ],
 };
 
-apiInstance.getV2Opportunities(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2Opportunities(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -81,20 +80,19 @@ Returns basic information but **not** field data on the requested Opportunity.  
 
 
 ```typescript
-import { Affinity } from '@planet-a/affinity-node/v2';
-import * as fs from 'fs';
+import { createConfiguration, OpportunitiesApi } from '@planet-a/affinity-node/v2';
+import type { OpportunitiesApiGetV2OpportunitiesIdRequest } from '@planet-a/affinity-node/v2';
 
-const configuration = Affinity.createConfiguration();
-const apiInstance = new Affinity.OpportunitiesApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new OpportunitiesApi(configuration);
 
-let body:Affinity.OpportunitiesApiGetV2OpportunitiesIdRequest = {
-  // number | Opportunity ID
+const request: OpportunitiesApiGetV2OpportunitiesIdRequest = {
+    // Opportunity ID
   id: 1,
 };
 
-apiInstance.getV2OpportunitiesId(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2OpportunitiesId(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
