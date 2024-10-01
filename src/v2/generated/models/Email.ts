@@ -30,7 +30,7 @@ export class Email {
     * The time the email was sent
     */
     'sentAt': Date;
-    'from': Attendee;
+    '_from': Attendee;
     /**
     * The recipients of the email
     */
@@ -70,7 +70,7 @@ export class Email {
             "format": "date-time"
         },
         {
-            "name": "from",
+            "name": "_from",
             "baseName": "from",
             "type": "Attendee",
             "format": ""
