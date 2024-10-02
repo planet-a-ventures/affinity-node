@@ -45,7 +45,6 @@
             # TODO(@joscha) change this once we only publish to jsr only
             nodejs_20
             jre
-            openapi-generator-cli
             yamllint
             yamlfmt
           ];
