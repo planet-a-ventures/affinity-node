@@ -25,7 +25,7 @@
         "format": "deno fmt && nixpkgs-fmt *.nix && yamllint . && yamlfmt .",
         "lint": "deno lint",
         "docs": "deno run --allow-read --allow-env --allow-run --allow-write=./docs/ npm:typedoc@0.26.6",
-        "generate-v2-client": "rm -rf src/v2/generated && deno run --allow-read --allow-run --allow-env --allow-write=openapitools.json,node_modules,/tmp,/var --allow-net='search.maven.org,repo1.maven.org,oss.sonatype.org:443' npm:@openapitools/openapi-generator-cli@2.13.5 generate",
+        "generate-v2-client": "rm -rf src/v2/generated && openapi-generator-cli generate",
         "update-deno-lock": "deno cache --lock-write src/index.ts",
         "update-flake-lock": "nix --option commit-lockfile-summary 'chore: update flake.lock' flake update --commit-lock-file",
         "update": "deno run --allow-env --allow-read --allow-write='~/.local,.' --allow-run=git,deno --allow-net=jsr.io jsr:@molt/cli",
