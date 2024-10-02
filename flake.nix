@@ -44,7 +44,7 @@
             # can't use slim here as long as we still publish with npm.
             # TODO(@joscha) change this once we only publish to jsr only
             nodejs_20
-            # jre
+            jre
             openapi-generator-cli
             yamllint
             yamlfmt
