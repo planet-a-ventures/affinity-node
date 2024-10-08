@@ -1841,6 +1841,30 @@
         ],
         "type": "object"
       },
+      "UnsupportedMediaTypeError": {
+        "examples": [
+          {
+            "code": "unsupported-media-type",
+            "message": "🚨 Error! Sound the alarm! 🚨"
+          }
+        ],
+        "properties": {
+          "code": {
+            "description": "Error code",
+            "const": "unsupported-media-type",
+            "type": "string"
+          },
+          "message": {
+            "description": "Error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
       "Tenant": {
         "examples": [
           {
