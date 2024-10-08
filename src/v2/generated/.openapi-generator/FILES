@@ -25,6 +25,7 @@ models/AuthenticationError.ts
 models/AuthenticationErrors.ts
 models/AuthorizationError.ts
 models/AuthorizationErrors.ts
+models/BadRequestError.ts
 models/ChatMessage.ts
 models/CompaniesValue.ts
 models/Company.ts
@@ -38,8 +39,6 @@ models/Dropdown.ts
 models/DropdownValue.ts
 models/DropdownsValue.ts
 models/Email.ts
-models/EmptyMessageBodyError.ts
-models/Errors.ts
 models/Field.ts
 models/FieldMetadata.ts
 models/FieldMetadataPaged.ts
@@ -48,13 +47,9 @@ models/FloatValue.ts
 models/FloatsValue.ts
 models/FormulaNumber.ts
 models/FormulaValue.ts
-models/GenericError.ts
 models/Grant.ts
 models/Interaction.ts
 models/InteractionValue.ts
-models/InvalidAcceptHeaderError.ts
-models/InvalidMessageBodyError.ts
-models/InvalidVersionHeaderError.ts
 models/List.ts
 models/ListEntry.ts
 models/ListEntryPaged.ts
@@ -68,9 +63,10 @@ models/LocationValue.ts
 models/LocationsValue.ts
 models/Meeting.ts
 models/MethodNotAllowedError.ts
-models/ModelError.ts
+models/NotAcceptableError.ts
 models/NotFoundError.ts
 models/NotFoundErrors.ts
+models/NotImplementedError.ts
 models/ObjectSerializer.ts
 models/Opportunity.ts
 models/OpportunityListEntry.ts
@@ -93,7 +89,8 @@ models/ServerError.ts
 models/Tenant.ts
 models/TextValue.ts
 models/TextsValue.ts
-models/TooManyMultipartFilesError.ts
+models/UnprocessableEntityError.ts
+models/UnsupportedMediaTypeError.ts
 models/User.ts
 models/ValidationError.ts
 models/ValidationErrors.ts

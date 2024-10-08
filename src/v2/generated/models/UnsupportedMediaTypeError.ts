@@ -10,19 +10,17 @@
  * Do not edit the class manually.
  */
 
-import { Company } from '../models/Company.ts';
-import { Pagination } from '../models/Pagination.ts';
 import { HttpFile } from '../http/http.ts';
 
-/**
-* CompanyPaged model
-*/
-export class CompanyPaged {
+export class UnsupportedMediaTypeError {
     /**
-    * A page of Company results
+    * Error code
     */
-    'data': Array<Company>;
-    'pagination': Pagination;
+    'code': UnsupportedMediaTypeErrorCodeEnum;
+    /**
+    * Error message
+    */
+    'message': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -30,22 +28,27 @@ export class CompanyPaged {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "data",
-            "baseName": "data",
-            "type": "Array<Company>",
+            "name": "code",
+            "baseName": "code",
+            "type": "UnsupportedMediaTypeErrorCodeEnum",
             "format": ""
         },
         {
-            "name": "pagination",
-            "baseName": "pagination",
-            "type": "Pagination",
+            "name": "message",
+            "baseName": "message",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return CompanyPaged.attributeTypeMap;
+        return UnsupportedMediaTypeError.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
+
+export enum UnsupportedMediaTypeErrorCodeEnum {
+    UnsupportedMediaType = 'unsupported-media-type'
+}
+
