@@ -1,4 +1,4 @@
-# .CompaniesApi
+# Affinity.CompaniesApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -20,8 +20,8 @@ Paginate through Companies in Affinity. Returns basic information and non-list-s
 
 
 ```typescript
-import { createConfiguration, CompaniesApi } from '';
-import type { CompaniesApiGetV2CompaniesRequest } from '';
+import { createConfiguration, CompaniesApi } from '@planet-a/affinity-node/v2';
+import type { CompaniesApiGetV2CompaniesRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new CompaniesApi(configuration);
@@ -93,8 +93,8 @@ Returns metadata on non-list-specific Company Fields.  Use the returned Field ID
 
 
 ```typescript
-import { createConfiguration, CompaniesApi } from '';
-import type { CompaniesApiGetV2CompaniesFieldsRequest } from '';
+import { createConfiguration, CompaniesApi } from '@planet-a/affinity-node/v2';
+import type { CompaniesApiGetV2CompaniesFieldsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new CompaniesApi(configuration);
@@ -150,8 +150,8 @@ Returns basic information and non-list-specific field data on the requested Comp
 
 
 ```typescript
-import { createConfiguration, CompaniesApi } from '';
-import type { CompaniesApiGetV2CompaniesIdRequest } from '';
+import { createConfiguration, CompaniesApi } from '@planet-a/affinity-node/v2';
+import type { CompaniesApiGetV2CompaniesIdRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new CompaniesApi(configuration);
@@ -216,8 +216,8 @@ Paginate through the List Entries (AKA rows) for the given Company across all Li
 
 
 ```typescript
-import { createConfiguration, CompaniesApi } from '';
-import type { CompaniesApiGetV2CompaniesIdListEntriesRequest } from '';
+import { createConfiguration, CompaniesApi } from '@planet-a/affinity-node/v2';
+import type { CompaniesApiGetV2CompaniesIdListEntriesRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new CompaniesApi(configuration);
@@ -278,8 +278,8 @@ Returns metadata for all the Lists on which the given Company appears.
 
 
 ```typescript
-import { createConfiguration, CompaniesApi } from '';
-import type { CompaniesApiGetV2CompaniesIdListsRequest } from '';
+import { createConfiguration, CompaniesApi } from '@planet-a/affinity-node/v2';
+import type { CompaniesApiGetV2CompaniesIdListsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new CompaniesApi(configuration);

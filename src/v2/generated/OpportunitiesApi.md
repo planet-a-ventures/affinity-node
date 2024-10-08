@@ -1,4 +1,4 @@
-# .OpportunitiesApi
+# Affinity.OpportunitiesApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -17,8 +17,8 @@ Paginate through Opportunities in Affinity. Returns basic information but **not*
 
 
 ```typescript
-import { createConfiguration, OpportunitiesApi } from '';
-import type { OpportunitiesApiGetV2OpportunitiesRequest } from '';
+import { createConfiguration, OpportunitiesApi } from '@planet-a/affinity-node/v2';
+import type { OpportunitiesApiGetV2OpportunitiesRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new OpportunitiesApi(configuration);
@@ -80,8 +80,8 @@ Returns basic information but **not** field data on the requested Opportunity.  
 
 
 ```typescript
-import { createConfiguration, OpportunitiesApi } from '';
-import type { OpportunitiesApiGetV2OpportunitiesIdRequest } from '';
+import { createConfiguration, OpportunitiesApi } from '@planet-a/affinity-node/v2';
+import type { OpportunitiesApiGetV2OpportunitiesIdRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new OpportunitiesApi(configuration);

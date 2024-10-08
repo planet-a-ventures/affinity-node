@@ -1,4 +1,4 @@
-# .PersonsApi
+# Affinity.PersonsApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -20,8 +20,8 @@ Paginate through Persons in Affinity. Returns basic information and non-list-spe
 
 
 ```typescript
-import { createConfiguration, PersonsApi } from '';
-import type { PersonsApiGetV2PersonsRequest } from '';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new PersonsApi(configuration);
@@ -93,8 +93,8 @@ Returns metadata on non-list-specific Person Fields.  Use the returned Field IDs
 
 
 ```typescript
-import { createConfiguration, PersonsApi } from '';
-import type { PersonsApiGetV2PersonsFieldsRequest } from '';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsFieldsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new PersonsApi(configuration);
@@ -150,8 +150,8 @@ Returns basic information and non-list-specific field data on the requested Pers
 
 
 ```typescript
-import { createConfiguration, PersonsApi } from '';
-import type { PersonsApiGetV2PersonsIdRequest } from '';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsIdRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new PersonsApi(configuration);
@@ -216,8 +216,8 @@ Paginate through the List Entries (AKA rows) for the given Person across all Lis
 
 
 ```typescript
-import { createConfiguration, PersonsApi } from '';
-import type { PersonsApiGetV2PersonsIdListEntriesRequest } from '';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsIdListEntriesRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new PersonsApi(configuration);
@@ -278,8 +278,8 @@ Returns metadata for all the Lists on which the given Person appears.
 
 
 ```typescript
-import { createConfiguration, PersonsApi } from '';
-import type { PersonsApiGetV2PersonsIdListsRequest } from '';
+import { createConfiguration, PersonsApi } from '@planet-a/affinity-node/v2';
+import type { PersonsApiGetV2PersonsIdListsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new PersonsApi(configuration);

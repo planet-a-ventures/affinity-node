@@ -1,4 +1,4 @@
-# .ListsApi
+# Affinity.ListsApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -22,8 +22,8 @@ Returns metadata on Lists.
 
 
 ```typescript
-import { createConfiguration, ListsApi } from '';
-import type { ListsApiGetV2ListsRequest } from '';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new ListsApi(configuration);
@@ -79,8 +79,8 @@ Returns metadata on a single List.
 
 
 ```typescript
-import { createConfiguration, ListsApi } from '';
-import type { ListsApiGetV2ListsListidRequest } from '';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new ListsApi(configuration);
@@ -134,8 +134,8 @@ Returns metadata on the Fields available on a single List.  Use the returned Fie
 
 
 ```typescript
-import { createConfiguration, ListsApi } from '';
-import type { ListsApiGetV2ListsListidFieldsRequest } from '';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidFieldsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new ListsApi(configuration);
@@ -195,8 +195,8 @@ Paginate through the List Entries (AKA rows) on a given List. Returns basic info
 
 
 ```typescript
-import { createConfiguration, ListsApi } from '';
-import type { ListsApiGetV2ListsListidListEntriesRequest } from '';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidListEntriesRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new ListsApi(configuration);
@@ -267,8 +267,8 @@ Returns metadata on the Saved Views on a List.
 
 
 ```typescript
-import { createConfiguration, ListsApi } from '';
-import type { ListsApiGetV2ListsListidSavedViewsRequest } from '';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidSavedViewsRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new ListsApi(configuration);
@@ -328,8 +328,8 @@ Returns metadata on a single Saved View.
 
 
 ```typescript
-import { createConfiguration, ListsApi } from '';
-import type { ListsApiGetV2ListsListidSavedViewsViewidRequest } from '';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidSavedViewsViewidRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new ListsApi(configuration);
@@ -386,8 +386,8 @@ Paginate through the List Entries (AKA rows) on a given Saved View. Use this end
 
 
 ```typescript
-import { createConfiguration, ListsApi } from '';
-import type { ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest } from '';
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new ListsApi(configuration);

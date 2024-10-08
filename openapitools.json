@@ -12,10 +12,11 @@
                 "output": "src/v2/generated",
                 "glob": "openapi/*.json",
                 "additionalProperties": {
-                    "npmName": "@planet-a/affinity-node-v2",
                     "supportsES6": true,
                     "platform": "deno",
-                    "useObjectParameters": true
+                    "useObjectParameters": true,
+                    "moduleName": "Affinity",
+                    "projectName": "@planet-a/affinity-node/v2"
                 }
             }
         }

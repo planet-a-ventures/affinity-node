@@ -1,4 +1,4 @@
-# .AuthApi
+# Affinity.AuthApi
 
 All URIs are relative to *https://api.affinity.co*
 
@@ -16,7 +16,7 @@ Returns metadata about the current user.
 
 
 ```typescript
-import { createConfiguration, AuthApi } from '';
+import { createConfiguration, AuthApi } from '@planet-a/affinity-node/v2';
 
 const configuration = createConfiguration();
 const apiInstance = new AuthApi(configuration);
