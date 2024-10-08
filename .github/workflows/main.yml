@@ -28,12 +28,10 @@ jobs:
         run: deno task check
       - name: Regenerate V2
         run: deno task generate-v2-client
-      - uses: mudlabs/simple-diff@v1.2.0
-        id: diff
+      - name: Diff porcelain
+        uses: mmontes11/diff-porcelain@v0.0.1
         with:
-          path: src/v2/generated/
-      - run: exit 1
-        if: steps.diff.outputs.modified == true
+          message: Generated OpenAPI client is not up to date. Run 'deno task generate-v2-client' and commit the changes.
       - name: V2 Smoke Test
         run: deno task test:single src/v2/tests/smoke_test.ts
       - name: Test
