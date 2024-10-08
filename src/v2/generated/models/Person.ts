@@ -18,27 +18,27 @@ import { HttpFile } from '../http/http.ts';
 */
 export class Person {
     /**
-    * The persons\'s unique identifier
+    * The persons's unique identifier
     */
     'id': number;
     /**
-    * The person\'s first name
+    * The person's first name
     */
     'firstName': string;
     /**
-    * The person\'s last name
+    * The person's last name
     */
     'lastName': string | null;
     /**
-    * The person\'s primary email address
+    * The person's primary email address
     */
     'primaryEmailAddress': string | null;
     /**
-    * All of the person\'s email addresses
+    * All of the person's email addresses
     */
     'emailAddresses': Array<string>;
     /**
-    * The person\'s type
+    * The person's type
     */
     'type': PersonTypeEnum;
     /**

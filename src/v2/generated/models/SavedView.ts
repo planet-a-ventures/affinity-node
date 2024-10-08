@@ -17,11 +17,11 @@ import { HttpFile } from '../http/http.ts';
 */
 export class SavedView {
     /**
-    * The saved view\'s unique identifier
+    * The saved view's unique identifier
     */
     'id': number;
     /**
-    * The saved view\'s name
+    * The saved view's name
     */
     'name': string;
     /**

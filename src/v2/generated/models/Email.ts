@@ -19,7 +19,7 @@ export class Email {
     */
     'type': EmailTypeEnum;
     /**
-    * The email\'s unique identifier
+    * The email's unique identifier
     */
     'id': number;
     /**

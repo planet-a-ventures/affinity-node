@@ -19,7 +19,7 @@ export class ChatMessage {
     */
     'type': ChatMessageTypeEnum;
     /**
-    * The chat message\'s unique identifier
+    * The chat message's unique identifier
     */
     'id': number;
     /**
