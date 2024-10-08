@@ -27,9 +27,11 @@ jobs:
       - name: Check types
         run: deno task check
       - name: Regenerate V2
-        uses: nickcharlton/diff-check@main
+        run: deno task generate-v2-client
+      - name: Diff porcelain
+        uses: mmontes11/diff-porcelain@v0.0.1
         with:
-          command: deno task generate-v2-client
+          message: Generated OpenAPI client is not up to date. Run 'deno task generate-v2-client' and commit the changes.
       - name: V2 Smoke Test
         run: deno task test:single src/v2/tests/smoke_test.ts
       - name: Test
