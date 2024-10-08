@@ -17,7 +17,7 @@ export class Meeting {
     /**
     * The type of interaction
     */
-    'type': string;
+    'type': MeetingTypeEnum;
     /**
     * The meeting\'s unique identifier
     */
@@ -51,7 +51,7 @@ export class Meeting {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "MeetingTypeEnum",
             "format": ""
         },
         {
@@ -98,3 +98,8 @@ export class Meeting {
     public constructor() {
     }
 }
+
+export enum MeetingTypeEnum {
+    Meeting = 'meeting'
+}
+

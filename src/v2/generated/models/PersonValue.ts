@@ -17,7 +17,7 @@ export class PersonValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': PersonValueTypeEnum;
     'data': PersonData | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,7 +28,7 @@ export class PersonValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "PersonValueTypeEnum",
             "format": ""
         },
         {
@@ -45,3 +45,8 @@ export class PersonValue {
     public constructor() {
     }
 }
+
+export enum PersonValueTypeEnum {
+    Person = 'person'
+}
+

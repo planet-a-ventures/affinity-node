@@ -17,7 +17,7 @@ export class PhoneCall {
     /**
     * The type of interaction
     */
-    'type': string;
+    'type': PhoneCallTypeEnum;
     /**
     * The phon_call\'s unique identifier
     */
@@ -39,7 +39,7 @@ export class PhoneCall {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "PhoneCallTypeEnum",
             "format": ""
         },
         {
@@ -68,3 +68,8 @@ export class PhoneCall {
     public constructor() {
     }
 }
+
+export enum PhoneCallTypeEnum {
+    Call = 'call'
+}
+

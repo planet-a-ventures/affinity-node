@@ -16,7 +16,7 @@ export class UnprocessableEntityError {
     /**
     * Error code
     */
-    'code': string;
+    'code': UnprocessableEntityErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class UnprocessableEntityError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "UnprocessableEntityErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class UnprocessableEntityError {
     public constructor() {
     }
 }
+
+export enum UnprocessableEntityErrorCodeEnum {
+    UnprocessableEntity = 'unprocessable-entity'
+}
+

@@ -17,11 +17,11 @@ export class CompaniesValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': CompaniesValueTypeEnum;
     /**
     * The values for many companies
     */
-    'data': Array<CompanyData>;
+    'data': Array<CompanyData> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -31,7 +31,7 @@ export class CompaniesValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "CompaniesValueTypeEnum",
             "format": ""
         },
         {
@@ -48,3 +48,8 @@ export class CompaniesValue {
     public constructor() {
     }
 }
+
+export enum CompaniesValueTypeEnum {
+    CompanyMulti = 'company-multi'
+}
+

@@ -21,7 +21,7 @@ export class PersonListEntry {
     /**
     * The entity type for this list entry
     */
-    'type': string;
+    'type': PersonListEntryTypeEnum;
     /**
     * The date that the list entry was created
     */
@@ -46,7 +46,7 @@ export class PersonListEntry {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "PersonListEntryTypeEnum",
             "format": ""
         },
         {
@@ -75,3 +75,8 @@ export class PersonListEntry {
     public constructor() {
     }
 }
+
+export enum PersonListEntryTypeEnum {
+    Person = 'person'
+}
+

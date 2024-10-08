@@ -16,7 +16,7 @@ export class MethodNotAllowedError {
     /**
     * Error code
     */
-    'code': string;
+    'code': MethodNotAllowedErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class MethodNotAllowedError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "MethodNotAllowedErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class MethodNotAllowedError {
     public constructor() {
     }
 }
+
+export enum MethodNotAllowedErrorCodeEnum {
+    MethodNotAllowed = 'method-not-allowed'
+}
+

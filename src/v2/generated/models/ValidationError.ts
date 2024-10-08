@@ -16,7 +16,7 @@ export class ValidationError {
     /**
     * Error code
     */
-    'code': string;
+    'code': ValidationErrorCodeEnum;
     /**
     * Error message
     */
@@ -34,7 +34,7 @@ export class ValidationError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "ValidationErrorCodeEnum",
             "format": ""
         },
         {
@@ -57,3 +57,8 @@ export class ValidationError {
     public constructor() {
     }
 }
+
+export enum ValidationErrorCodeEnum {
+    Validation = 'validation'
+}
+

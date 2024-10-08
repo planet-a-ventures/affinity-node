@@ -16,7 +16,7 @@ export class ConflictError {
     /**
     * Error code
     */
-    'code': string;
+    'code': ConflictErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class ConflictError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "ConflictErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class ConflictError {
     public constructor() {
     }
 }
+
+export enum ConflictErrorCodeEnum {
+    Conflict = 'conflict'
+}
+

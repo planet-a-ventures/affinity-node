@@ -16,7 +16,7 @@ export class NotAcceptableError {
     /**
     * Error code
     */
-    'code': string;
+    'code': NotAcceptableErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class NotAcceptableError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "NotAcceptableErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class NotAcceptableError {
     public constructor() {
     }
 }
+
+export enum NotAcceptableErrorCodeEnum {
+    NotAcceptable = 'not-acceptable'
+}
+

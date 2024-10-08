@@ -16,7 +16,7 @@ export class DateValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': DateValueTypeEnum;
     /**
     * The value for a date
     */
@@ -30,7 +30,7 @@ export class DateValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "DateValueTypeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class DateValue {
     public constructor() {
     }
 }
+
+export enum DateValueTypeEnum {
+    Datetime = 'datetime'
+}
+

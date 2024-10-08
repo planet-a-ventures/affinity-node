@@ -17,11 +17,11 @@ export class PersonsValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': PersonsValueTypeEnum;
     /**
     * The values for many persons
     */
-    'data': Array<PersonData>;
+    'data': Array<PersonData> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -31,7 +31,7 @@ export class PersonsValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "PersonsValueTypeEnum",
             "format": ""
         },
         {
@@ -48,3 +48,8 @@ export class PersonsValue {
     public constructor() {
     }
 }
+
+export enum PersonsValueTypeEnum {
+    PersonMulti = 'person-multi'
+}
+

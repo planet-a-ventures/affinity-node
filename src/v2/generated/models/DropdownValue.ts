@@ -17,7 +17,7 @@ export class DropdownValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': DropdownValueTypeEnum;
     'data': Dropdown | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,7 +28,7 @@ export class DropdownValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "DropdownValueTypeEnum",
             "format": ""
         },
         {
@@ -45,3 +45,8 @@ export class DropdownValue {
     public constructor() {
     }
 }
+
+export enum DropdownValueTypeEnum {
+    Dropdown = 'dropdown'
+}
+

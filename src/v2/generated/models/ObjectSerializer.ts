@@ -67,41 +67,42 @@ export * from '../models/Tenant.ts';
 export * from '../models/TextValue.ts';
 export * from '../models/TextsValue.ts';
 export * from '../models/UnprocessableEntityError.ts';
+export * from '../models/UnsupportedMediaTypeError.ts';
 export * from '../models/User.ts';
 export * from '../models/ValidationError.ts';
 export * from '../models/ValidationErrors.ts';
 export * from '../models/WhoAmI.ts';
 
 import { Attendee } from '../models/Attendee.ts';
-import { AuthenticationError } from '../models/AuthenticationError.ts';
+import { AuthenticationError, AuthenticationErrorCodeEnum    } from '../models/AuthenticationError.ts';
 import { AuthenticationErrors } from '../models/AuthenticationErrors.ts';
-import { AuthorizationError } from '../models/AuthorizationError.ts';
+import { AuthorizationError, AuthorizationErrorCodeEnum    } from '../models/AuthorizationError.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
-import { BadRequestError } from '../models/BadRequestError.ts';
-import { ChatMessage  , ChatMessageDirectionEnum      } from '../models/ChatMessage.ts';
-import { CompaniesValue } from '../models/CompaniesValue.ts';
+import { BadRequestError, BadRequestErrorCodeEnum    } from '../models/BadRequestError.ts';
+import { ChatMessage, ChatMessageTypeEnum   , ChatMessageDirectionEnum      } from '../models/ChatMessage.ts';
+import { CompaniesValue, CompaniesValueTypeEnum    } from '../models/CompaniesValue.ts';
 import { Company } from '../models/Company.ts';
 import { CompanyData } from '../models/CompanyData.ts';
-import { CompanyListEntry } from '../models/CompanyListEntry.ts';
+import { CompanyListEntry , CompanyListEntryTypeEnum      } from '../models/CompanyListEntry.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
-import { CompanyValue } from '../models/CompanyValue.ts';
-import { ConflictError } from '../models/ConflictError.ts';
-import { DateValue } from '../models/DateValue.ts';
+import { CompanyValue, CompanyValueTypeEnum    } from '../models/CompanyValue.ts';
+import { ConflictError, ConflictErrorCodeEnum    } from '../models/ConflictError.ts';
+import { DateValue, DateValueTypeEnum    } from '../models/DateValue.ts';
 import { Dropdown } from '../models/Dropdown.ts';
-import { DropdownValue } from '../models/DropdownValue.ts';
-import { DropdownsValue } from '../models/DropdownsValue.ts';
-import { Email } from '../models/Email.ts';
+import { DropdownValue, DropdownValueTypeEnum    } from '../models/DropdownValue.ts';
+import { DropdownsValue, DropdownsValueTypeEnum    } from '../models/DropdownsValue.ts';
+import { Email, EmailTypeEnum         } from '../models/Email.ts';
 import { Field  , FieldTypeEnum  , FieldEnrichmentSourceEnum    } from '../models/Field.ts';
 import { FieldMetadata  , FieldMetadataTypeEnum  , FieldMetadataEnrichmentSourceEnum  , FieldMetadataValueTypeEnum   } from '../models/FieldMetadata.ts';
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts';
 import { FieldValueClass } from '../models/FieldValue.ts';
-import { FloatValue } from '../models/FloatValue.ts';
-import { FloatsValue } from '../models/FloatsValue.ts';
+import { FloatValue, FloatValueTypeEnum    } from '../models/FloatValue.ts';
+import { FloatsValue, FloatsValueTypeEnum    } from '../models/FloatsValue.ts';
 import { FormulaNumber } from '../models/FormulaNumber.ts';
-import { FormulaValue } from '../models/FormulaValue.ts';
-import { Grant } from '../models/Grant.ts';
+import { FormulaValue, FormulaValueTypeEnum    } from '../models/FormulaValue.ts';
+import { Grant, GrantTypeEnum     } from '../models/Grant.ts';
 import { InteractionClass } from '../models/Interaction.ts';
-import { InteractionValue } from '../models/InteractionValue.ts';
+import { InteractionValue, InteractionValueTypeEnum    } from '../models/InteractionValue.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
 import { ListEntryPaged } from '../models/ListEntryPaged.ts';
@@ -111,38 +112,39 @@ import { ListPaged } from '../models/ListPaged.ts';
 import { ListWithType     , ListWithTypeTypeEnum   } from '../models/ListWithType.ts';
 import { ListWithTypePaged } from '../models/ListWithTypePaged.ts';
 import { Location } from '../models/Location.ts';
-import { LocationValue } from '../models/LocationValue.ts';
-import { LocationsValue } from '../models/LocationsValue.ts';
-import { Meeting } from '../models/Meeting.ts';
-import { MethodNotAllowedError } from '../models/MethodNotAllowedError.ts';
-import { NotAcceptableError } from '../models/NotAcceptableError.ts';
-import { NotFoundError } from '../models/NotFoundError.ts';
+import { LocationValue, LocationValueTypeEnum    } from '../models/LocationValue.ts';
+import { LocationsValue, LocationsValueTypeEnum    } from '../models/LocationsValue.ts';
+import { Meeting, MeetingTypeEnum         } from '../models/Meeting.ts';
+import { MethodNotAllowedError, MethodNotAllowedErrorCodeEnum    } from '../models/MethodNotAllowedError.ts';
+import { NotAcceptableError, NotAcceptableErrorCodeEnum    } from '../models/NotAcceptableError.ts';
+import { NotFoundError, NotFoundErrorCodeEnum    } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
-import { NotImplementedError } from '../models/NotImplementedError.ts';
+import { NotImplementedError, NotImplementedErrorCodeEnum    } from '../models/NotImplementedError.ts';
 import { Opportunity } from '../models/Opportunity.ts';
-import { OpportunityListEntry } from '../models/OpportunityListEntry.ts';
+import { OpportunityListEntry , OpportunityListEntryTypeEnum      } from '../models/OpportunityListEntry.ts';
 import { OpportunityPaged } from '../models/OpportunityPaged.ts';
 import { OpportunityWithFields } from '../models/OpportunityWithFields.ts';
 import { Pagination } from '../models/Pagination.ts';
 import { Person     , PersonTypeEnum    } from '../models/Person.ts';
 import { PersonData    , PersonDataTypeEnum   } from '../models/PersonData.ts';
-import { PersonListEntry } from '../models/PersonListEntry.ts';
+import { PersonListEntry , PersonListEntryTypeEnum      } from '../models/PersonListEntry.ts';
 import { PersonPaged } from '../models/PersonPaged.ts';
-import { PersonValue } from '../models/PersonValue.ts';
-import { PersonsValue } from '../models/PersonsValue.ts';
-import { PhoneCall } from '../models/PhoneCall.ts';
+import { PersonValue, PersonValueTypeEnum    } from '../models/PersonValue.ts';
+import { PersonsValue, PersonsValueTypeEnum    } from '../models/PersonsValue.ts';
+import { PhoneCall, PhoneCallTypeEnum      } from '../models/PhoneCall.ts';
 import { RankedDropdown } from '../models/RankedDropdown.ts';
-import { RankedDropdownValue } from '../models/RankedDropdownValue.ts';
-import { RateLimitError } from '../models/RateLimitError.ts';
+import { RankedDropdownValue, RankedDropdownValueTypeEnum    } from '../models/RankedDropdownValue.ts';
+import { RateLimitError, RateLimitErrorCodeEnum    } from '../models/RateLimitError.ts';
 import { SavedView  , SavedViewTypeEnum    } from '../models/SavedView.ts';
 import { SavedViewPaged } from '../models/SavedViewPaged.ts';
-import { ServerError } from '../models/ServerError.ts';
+import { ServerError, ServerErrorCodeEnum    } from '../models/ServerError.ts';
 import { Tenant } from '../models/Tenant.ts';
 import { TextValue, TextValueTypeEnum    } from '../models/TextValue.ts';
-import { TextsValue } from '../models/TextsValue.ts';
-import { UnprocessableEntityError } from '../models/UnprocessableEntityError.ts';
+import { TextsValue, TextsValueTypeEnum    } from '../models/TextsValue.ts';
+import { UnprocessableEntityError, UnprocessableEntityErrorCodeEnum    } from '../models/UnprocessableEntityError.ts';
+import { UnsupportedMediaTypeError, UnsupportedMediaTypeErrorCodeEnum    } from '../models/UnsupportedMediaTypeError.ts';
 import { User } from '../models/User.ts';
-import { ValidationError } from '../models/ValidationError.ts';
+import { ValidationError, ValidationErrorCodeEnum     } from '../models/ValidationError.ts';
 import { ValidationErrors } from '../models/ValidationErrors.ts';
 import { WhoAmI } from '../models/WhoAmI.ts';
 
@@ -159,21 +161,57 @@ let primitives = [
                  ];
 
 let enumsMap: Set<string> = new Set<string>([
+    "AuthenticationErrorCodeEnum",
+    "AuthorizationErrorCodeEnum",
+    "BadRequestErrorCodeEnum",
+    "ChatMessageTypeEnum",
     "ChatMessageDirectionEnum",
+    "CompaniesValueTypeEnum",
+    "CompanyListEntryTypeEnum",
+    "CompanyValueTypeEnum",
+    "ConflictErrorCodeEnum",
+    "DateValueTypeEnum",
+    "DropdownValueTypeEnum",
+    "DropdownsValueTypeEnum",
+    "EmailTypeEnum",
     "FieldTypeEnum",
     "FieldEnrichmentSourceEnum",
     "FieldMetadataTypeEnum",
     "FieldMetadataEnrichmentSourceEnum",
     "FieldMetadataValueTypeEnum",
     "FieldValueTypeEnum",
+    "FloatValueTypeEnum",
+    "FloatsValueTypeEnum",
+    "FormulaValueTypeEnum",
+    "GrantTypeEnum",
     "InteractionTypeEnum",
     "InteractionDirectionEnum",
+    "InteractionValueTypeEnum",
     "ListEntryWithEntityTypeEnum",
     "ListWithTypeTypeEnum",
+    "LocationValueTypeEnum",
+    "LocationsValueTypeEnum",
+    "MeetingTypeEnum",
+    "MethodNotAllowedErrorCodeEnum",
+    "NotAcceptableErrorCodeEnum",
+    "NotFoundErrorCodeEnum",
+    "NotImplementedErrorCodeEnum",
+    "OpportunityListEntryTypeEnum",
     "PersonTypeEnum",
     "PersonDataTypeEnum",
+    "PersonListEntryTypeEnum",
+    "PersonValueTypeEnum",
+    "PersonsValueTypeEnum",
+    "PhoneCallTypeEnum",
+    "RankedDropdownValueTypeEnum",
+    "RateLimitErrorCodeEnum",
     "SavedViewTypeEnum",
+    "ServerErrorCodeEnum",
     "TextValueTypeEnum",
+    "TextsValueTypeEnum",
+    "UnprocessableEntityErrorCodeEnum",
+    "UnsupportedMediaTypeErrorCodeEnum",
+    "ValidationErrorCodeEnum",
 ]);
 
 let typeMap: {[index: string]: any} = {
@@ -246,6 +284,7 @@ let typeMap: {[index: string]: any} = {
     "TextValue": TextValue,
     "TextsValue": TextsValue,
     "UnprocessableEntityError": UnprocessableEntityError,
+    "UnsupportedMediaTypeError": UnsupportedMediaTypeError,
     "User": User,
     "ValidationError": ValidationError,
     "ValidationErrors": ValidationErrors,
@@ -304,6 +343,13 @@ const supportedMimeTypePredicatesWithPriority: MimeTypePredicate[] = [
     isFormUrlencodedMimeType,
 ];
 
+const nullableSuffix = " | null";
+const optionalSuffix = " | undefined";
+const arrayPrefix = "Array<";
+const arraySuffix = ">";
+const mapPrefix = "{ [key: string]: ";
+const mapSuffix = "; }";
+
 export class ObjectSerializer {
     public static findCorrectType(data: any, expectedType: string) {
         if (data == undefined) {
@@ -343,17 +389,33 @@ export class ObjectSerializer {
         }
     }
 
-    public static serialize(data: any, type: string, format: string) {
+    public static serialize(data: any, type: string, format: string): any {
         if (data == undefined) {
             return data;
         } else if (primitives.indexOf(type.toLowerCase()) !== -1) {
             return data;
-        } else if (type.lastIndexOf("Array<", 0) === 0) { // string.startsWith pre es6
-            let subType: string = type.replace("Array<", ""); // Array<Type> => Type>
-            subType = subType.substring(0, subType.length - 1); // Type> => Type
+        } else if (type.endsWith(nullableSuffix)) {
+            let subType: string = type.slice(0, -nullableSuffix.length); // Type | null => Type
+            return ObjectSerializer.serialize(data, subType, format);
+        } else if (type.endsWith(optionalSuffix)) {
+            let subType: string = type.slice(0, -optionalSuffix.length); // Type | undefined => Type
+            return ObjectSerializer.serialize(data, subType, format);
+        } else if (type.startsWith(arrayPrefix)) {
+            let subType: string = type.slice(arrayPrefix.length, -arraySuffix.length); // Array<Type> => Type
             let transformedData: any[] = [];
             for (let date of data) {
                 transformedData.push(ObjectSerializer.serialize(date, subType, format));
+            }
+            return transformedData;
+        } else if (type.startsWith(mapPrefix)) {
+            let subType: string = type.slice(mapPrefix.length, -mapSuffix.length); // { [key: string]: Type; } => Type
+            let transformedData: { [key: string]: any } = {};
+            for (let key in data) {
+                transformedData[key] = ObjectSerializer.serialize(
+                    data[key],
+                    subType,
+                    format,
+                );
             }
             return transformedData;
         } else if (type === "Date") {
@@ -388,19 +450,35 @@ export class ObjectSerializer {
         }
     }
 
-    public static deserialize(data: any, type: string, format: string) {
+    public static deserialize(data: any, type: string, format: string): any {
         // polymorphism may change the actual type.
         type = ObjectSerializer.findCorrectType(data, type);
         if (data == undefined) {
             return data;
         } else if (primitives.indexOf(type.toLowerCase()) !== -1) {
             return data;
-        } else if (type.lastIndexOf("Array<", 0) === 0) { // string.startsWith pre es6
-            let subType: string = type.replace("Array<", ""); // Array<Type> => Type>
-            subType = subType.substring(0, subType.length - 1); // Type> => Type
+        } else if (type.endsWith(nullableSuffix)) {
+            let subType: string = type.slice(0, -nullableSuffix.length); // Type | null => Type
+            return ObjectSerializer.deserialize(data, subType, format);
+        } else if (type.endsWith(optionalSuffix)) {
+            let subType: string = type.slice(0, -optionalSuffix.length); // Type | undefined => Type
+            return ObjectSerializer.deserialize(data, subType, format);
+        } else if (type.startsWith(arrayPrefix)) {
+            let subType: string = type.slice(arrayPrefix.length, -arraySuffix.length); // Array<Type> => Type
             let transformedData: any[] = [];
             for (let date of data) {
                 transformedData.push(ObjectSerializer.deserialize(date, subType, format));
+            }
+            return transformedData;
+        } else if (type.startsWith(mapPrefix)) {
+            let subType: string = type.slice(mapPrefix.length, -mapSuffix.length); // { [key: string]: Type; } => Type
+            let transformedData: { [key: string]: any } = {};
+            for (let key in data) {
+                transformedData[key] = ObjectSerializer.deserialize(
+                    data[key],
+                    subType,
+                    format,
+                );
             }
             return transformedData;
         } else if (type === "Date") {

@@ -21,7 +21,7 @@ export class OpportunityListEntry {
     /**
     * The entity type for this list entry
     */
-    'type': string;
+    'type': OpportunityListEntryTypeEnum;
     /**
     * The date that the list entry was created
     */
@@ -46,7 +46,7 @@ export class OpportunityListEntry {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "OpportunityListEntryTypeEnum",
             "format": ""
         },
         {
@@ -75,3 +75,8 @@ export class OpportunityListEntry {
     public constructor() {
     }
 }
+
+export enum OpportunityListEntryTypeEnum {
+    Opportunity = 'opportunity'
+}
+

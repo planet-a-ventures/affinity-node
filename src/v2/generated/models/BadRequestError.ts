@@ -16,7 +16,7 @@ export class BadRequestError {
     /**
     * Error code
     */
-    'code': string;
+    'code': BadRequestErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class BadRequestError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "BadRequestErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class BadRequestError {
     public constructor() {
     }
 }
+
+export enum BadRequestErrorCodeEnum {
+    BadRequest = 'bad-request'
+}
+

@@ -17,7 +17,7 @@ export class LocationValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': LocationValueTypeEnum;
     'data': Location | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,7 +28,7 @@ export class LocationValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "LocationValueTypeEnum",
             "format": ""
         },
         {
@@ -45,3 +45,8 @@ export class LocationValue {
     public constructor() {
     }
 }
+
+export enum LocationValueTypeEnum {
+    Location = 'location'
+}
+

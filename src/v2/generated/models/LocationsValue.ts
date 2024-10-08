@@ -17,11 +17,11 @@ export class LocationsValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': LocationsValueTypeEnum;
     /**
     * The values for many locations
     */
-    'data': Array<Location>;
+    'data': Array<Location> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -31,7 +31,7 @@ export class LocationsValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "LocationsValueTypeEnum",
             "format": ""
         },
         {
@@ -48,3 +48,8 @@ export class LocationsValue {
     public constructor() {
     }
 }
+
+export enum LocationsValueTypeEnum {
+    LocationMulti = 'location-multi'
+}
+

@@ -1,3 +1,4 @@
+.gitattributes
 .gitignore
 .openapi-generator-ignore
 AuthApi.md
@@ -89,6 +90,7 @@ models/Tenant.ts
 models/TextValue.ts
 models/TextsValue.ts
 models/UnprocessableEntityError.ts
+models/UnsupportedMediaTypeError.ts
 models/User.ts
 models/ValidationError.ts
 models/ValidationErrors.ts

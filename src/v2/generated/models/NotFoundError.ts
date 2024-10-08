@@ -16,7 +16,7 @@ export class NotFoundError {
     /**
     * Error code
     */
-    'code': string;
+    'code': NotFoundErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class NotFoundError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "NotFoundErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class NotFoundError {
     public constructor() {
     }
 }
+
+export enum NotFoundErrorCodeEnum {
+    NotFound = 'not-found'
+}
+

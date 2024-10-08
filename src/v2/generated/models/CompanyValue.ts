@@ -17,7 +17,7 @@ export class CompanyValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': CompanyValueTypeEnum;
     'data': CompanyData | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,7 +28,7 @@ export class CompanyValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "CompanyValueTypeEnum",
             "format": ""
         },
         {
@@ -45,3 +45,8 @@ export class CompanyValue {
     public constructor() {
     }
 }
+
+export enum CompanyValueTypeEnum {
+    Company = 'company'
+}
+

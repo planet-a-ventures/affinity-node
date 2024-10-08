@@ -16,11 +16,11 @@ export class FloatsValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': FloatsValueTypeEnum;
     /**
     * The value for many numbers
     */
-    'data': Array<number>;
+    'data': Array<number> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -30,7 +30,7 @@ export class FloatsValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "FloatsValueTypeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class FloatsValue {
     public constructor() {
     }
 }
+
+export enum FloatsValueTypeEnum {
+    NumberMulti = 'number-multi'
+}
+

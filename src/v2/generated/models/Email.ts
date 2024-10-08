@@ -17,7 +17,7 @@ export class Email {
     /**
     * The type of interaction
     */
-    'type': string;
+    'type': EmailTypeEnum;
     /**
     * The email\'s unique identifier
     */
@@ -48,7 +48,7 @@ export class Email {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "EmailTypeEnum",
             "format": ""
         },
         {
@@ -95,3 +95,8 @@ export class Email {
     public constructor() {
     }
 }
+
+export enum EmailTypeEnum {
+    Email = 'email'
+}
+

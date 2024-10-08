@@ -17,7 +17,7 @@ export class ChatMessage {
     /**
     * The type of interaction
     */
-    'type': string;
+    'type': ChatMessageTypeEnum;
     /**
     * The chat message\'s unique identifier
     */
@@ -44,7 +44,7 @@ export class ChatMessage {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "ChatMessageTypeEnum",
             "format": ""
         },
         {
@@ -86,6 +86,9 @@ export class ChatMessage {
     }
 }
 
+export enum ChatMessageTypeEnum {
+    ChatMessage = 'chat-message'
+}
 export enum ChatMessageDirectionEnum {
     Received = 'received',
     Sent = 'sent'

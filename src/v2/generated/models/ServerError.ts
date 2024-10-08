@@ -16,7 +16,7 @@ export class ServerError {
     /**
     * Error code
     */
-    'code': string;
+    'code': ServerErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class ServerError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "ServerErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class ServerError {
     public constructor() {
     }
 }
+
+export enum ServerErrorCodeEnum {
+    Server = 'server'
+}
+

@@ -17,7 +17,7 @@ export class InteractionValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': InteractionValueTypeEnum;
     'data': Interaction | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,7 +28,7 @@ export class InteractionValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "InteractionValueTypeEnum",
             "format": ""
         },
         {
@@ -45,3 +45,8 @@ export class InteractionValue {
     public constructor() {
     }
 }
+
+export enum InteractionValueTypeEnum {
+    Interaction = 'interaction'
+}
+

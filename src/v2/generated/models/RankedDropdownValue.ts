@@ -17,7 +17,7 @@ export class RankedDropdownValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': RankedDropdownValueTypeEnum;
     'data': RankedDropdown | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,7 +28,7 @@ export class RankedDropdownValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "RankedDropdownValueTypeEnum",
             "format": ""
         },
         {
@@ -45,3 +45,8 @@ export class RankedDropdownValue {
     public constructor() {
     }
 }
+
+export enum RankedDropdownValueTypeEnum {
+    RankedDropdown = 'ranked-dropdown'
+}
+

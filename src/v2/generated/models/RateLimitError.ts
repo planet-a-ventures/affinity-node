@@ -16,7 +16,7 @@ export class RateLimitError {
     /**
     * Error code
     */
-    'code': string;
+    'code': RateLimitErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class RateLimitError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "RateLimitErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class RateLimitError {
     public constructor() {
     }
 }
+
+export enum RateLimitErrorCodeEnum {
+    RateLimit = 'rate-limit'
+}
+

@@ -21,7 +21,7 @@ export class ListEntryWithEntityPaged {
     /**
     * A page of ListEntryWithEntity results
     */
-    'data': Array<ListEntryWithEntity>;
+    'data': Array<ListEntryWithEntity> | null;
     'pagination': Pagination;
 
     static readonly discriminator: string | undefined = undefined;

@@ -16,7 +16,7 @@ export class FloatValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': FloatValueTypeEnum;
     /**
     * The value for a number
     */
@@ -30,7 +30,7 @@ export class FloatValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "FloatValueTypeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class FloatValue {
     public constructor() {
     }
 }
+
+export enum FloatValueTypeEnum {
+    Number = 'number'
+}
+

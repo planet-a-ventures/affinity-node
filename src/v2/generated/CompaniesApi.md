@@ -20,34 +20,33 @@ Paginate through Companies in Affinity. Returns basic information and non-list-s
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, CompaniesApi } from '';
+import type { CompaniesApiGetV2CompaniesRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesRequest = {
-  // string | Cursor for the next or previous page (optional)
+const request: CompaniesApiGetV2CompaniesRequest = {
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
-  // Array<number> | Company IDs (optional)
+    // Company IDs (optional)
   ids: [
     1,
   ],
-  // Array<string> | Field IDs for which to return field data (optional)
+    // Field IDs for which to return field data (optional)
   fieldIds: [
     "fieldIds_example",
   ],
-  // Array<'enriched' | 'global' | 'relationship-intelligence'> | Field Types for which to return field data (optional)
+    // Field Types for which to return field data (optional)
   fieldTypes: [
     "enriched",
   ],
 };
 
-apiInstance.getV2Companies(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2Companies(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -94,22 +93,21 @@ Returns metadata on non-list-specific Company Fields.  Use the returned Field ID
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, CompaniesApi } from '';
+import type { CompaniesApiGetV2CompaniesFieldsRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesFieldsRequest = {
-  // string | Cursor for the next or previous page (optional)
+const request: CompaniesApiGetV2CompaniesFieldsRequest = {
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2CompaniesFields(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2CompaniesFields(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -152,28 +150,27 @@ Returns basic information and non-list-specific field data on the requested Comp
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, CompaniesApi } from '';
+import type { CompaniesApiGetV2CompaniesIdRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesIdRequest = {
-  // number | Company ID
+const request: CompaniesApiGetV2CompaniesIdRequest = {
+    // Company ID
   id: 1,
-  // Array<string> | Field IDs for which to return field data (optional)
+    // Field IDs for which to return field data (optional)
   fieldIds: [
     "fieldIds_example",
   ],
-  // Array<'enriched' | 'global' | 'relationship-intelligence'> | Field Types for which to return field data (optional)
+    // Field Types for which to return field data (optional)
   fieldTypes: [
     "enriched",
   ],
 };
 
-apiInstance.getV2CompaniesId(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2CompaniesId(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -219,24 +216,23 @@ Paginate through the List Entries (AKA rows) for the given Company across all Li
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, CompaniesApi } from '';
+import type { CompaniesApiGetV2CompaniesIdListEntriesRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesIdListEntriesRequest = {
-  // number | Company ID
+const request: CompaniesApiGetV2CompaniesIdListEntriesRequest = {
+    // Company ID
   id: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2CompaniesIdListEntries(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2CompaniesIdListEntries(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 
@@ -282,24 +278,23 @@ Returns metadata for all the Lists on which the given Company appears.
 
 
 ```typescript
-import {  } from '';
-import * as fs from 'fs';
+import { createConfiguration, CompaniesApi } from '';
+import type { CompaniesApiGetV2CompaniesIdListsRequest } from '';
 
-const configuration = .createConfiguration();
-const apiInstance = new .CompaniesApi(configuration);
+const configuration = createConfiguration();
+const apiInstance = new CompaniesApi(configuration);
 
-let body:.CompaniesApiGetV2CompaniesIdListsRequest = {
-  // number | Company ID
+const request: CompaniesApiGetV2CompaniesIdListsRequest = {
+    // Company ID
   id: 1,
-  // string | Cursor for the next or previous page (optional)
+    // Cursor for the next or previous page (optional)
   cursor: "cursor_example",
-  // number | Number of items to include in the page (optional)
+    // Number of items to include in the page (optional)
   limit: 100,
 };
 
-apiInstance.getV2CompaniesIdLists(body).then((data:any) => {
-  console.log('API called successfully. Returned data: ' + data);
-}).catch((error:any) => console.error(error));
+const data = await apiInstance.getV2CompaniesIdLists(request);
+console.log('API called successfully. Returned data:', data);
 ```
 
 

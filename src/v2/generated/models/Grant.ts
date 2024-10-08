@@ -16,7 +16,7 @@ export class Grant {
     /**
     * The type of grant used to authenticate
     */
-    'type': string;
+    'type': GrantTypeEnum;
     /**
     * The scopes available to the current grant
     */
@@ -34,7 +34,7 @@ export class Grant {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "GrantTypeEnum",
             "format": ""
         },
         {
@@ -57,3 +57,8 @@ export class Grant {
     public constructor() {
     }
 }
+
+export enum GrantTypeEnum {
+    ApiKey = 'api-key'
+}
+

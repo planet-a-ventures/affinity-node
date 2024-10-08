@@ -70,6 +70,7 @@ import { Tenant } from '../models/Tenant.ts';
 import { TextValue } from '../models/TextValue.ts';
 import { TextsValue } from '../models/TextsValue.ts';
 import { UnprocessableEntityError } from '../models/UnprocessableEntityError.ts';
+import { UnsupportedMediaTypeError } from '../models/UnsupportedMediaTypeError.ts';
 import { User } from '../models/User.ts';
 import { ValidationError } from '../models/ValidationError.ts';
 import { ValidationErrors } from '../models/ValidationErrors.ts';
@@ -128,11 +129,11 @@ export class PromiseCompaniesApi {
     /**
      * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
      * Get all Companies
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param ids Company IDs
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [ids] Company IDs
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2CompaniesWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<HttpInfo<CompanyPaged>> {
         const result = this.api.getV2CompaniesWithHttpInfo(cursor, limit, ids, fieldIds, fieldTypes, _options);
@@ -142,11 +143,11 @@ export class PromiseCompaniesApi {
     /**
      * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
      * Get all Companies
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param ids Company IDs
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [ids] Company IDs
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2Companies(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<CompanyPaged> {
         const result = this.api.getV2Companies(cursor, limit, ids, fieldIds, fieldTypes, _options);
@@ -156,8 +157,8 @@ export class PromiseCompaniesApi {
     /**
      * Returns metadata on non-list-specific Company Fields.  Use the returned Field IDs to request field data from the GET `/v2/companies` and GET `/v2/companies/{id}` endpoints.
      * Get metadata on Company Fields
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2CompaniesFieldsWithHttpInfo(cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<FieldMetadataPaged>> {
         const result = this.api.getV2CompaniesFieldsWithHttpInfo(cursor, limit, _options);
@@ -167,8 +168,8 @@ export class PromiseCompaniesApi {
     /**
      * Returns metadata on non-list-specific Company Fields.  Use the returned Field IDs to request field data from the GET `/v2/companies` and GET `/v2/companies/{id}` endpoints.
      * Get metadata on Company Fields
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2CompaniesFields(cursor?: string, limit?: number, _options?: Configuration): Promise<FieldMetadataPaged> {
         const result = this.api.getV2CompaniesFields(cursor, limit, _options);
@@ -179,8 +180,8 @@ export class PromiseCompaniesApi {
      * Returns basic information and non-list-specific field data on the requested Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
      * Get a single Company
      * @param id Company ID
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2CompaniesIdWithHttpInfo(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<HttpInfo<Company>> {
         const result = this.api.getV2CompaniesIdWithHttpInfo(id, fieldIds, fieldTypes, _options);
@@ -191,8 +192,8 @@ export class PromiseCompaniesApi {
      * Returns basic information and non-list-specific field data on the requested Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
      * Get a single Company
      * @param id Company ID
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2CompaniesId(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<Company> {
         const result = this.api.getV2CompaniesId(id, fieldIds, fieldTypes, _options);
@@ -203,8 +204,8 @@ export class PromiseCompaniesApi {
      * Paginate through the List Entries (AKA rows) for the given Company across all Lists. Each List Entry includes field data for the Company, including list-specific field data. Each List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get a Company\'s List Entries
      * @param id Company ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2CompaniesIdListEntriesWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<ListEntryPaged>> {
         const result = this.api.getV2CompaniesIdListEntriesWithHttpInfo(id, cursor, limit, _options);
@@ -215,8 +216,8 @@ export class PromiseCompaniesApi {
      * Paginate through the List Entries (AKA rows) for the given Company across all Lists. Each List Entry includes field data for the Company, including list-specific field data. Each List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get a Company\'s List Entries
      * @param id Company ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2CompaniesIdListEntries(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<ListEntryPaged> {
         const result = this.api.getV2CompaniesIdListEntries(id, cursor, limit, _options);
@@ -227,8 +228,8 @@ export class PromiseCompaniesApi {
      * Returns metadata for all the Lists on which the given Company appears.
      * Get a Company\'s Lists
      * @param id Company ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2CompaniesIdListsWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<ListPaged>> {
         const result = this.api.getV2CompaniesIdListsWithHttpInfo(id, cursor, limit, _options);
@@ -239,8 +240,8 @@ export class PromiseCompaniesApi {
      * Returns metadata for all the Lists on which the given Company appears.
      * Get a Company\'s Lists
      * @param id Company ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2CompaniesIdLists(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<ListPaged> {
         const result = this.api.getV2CompaniesIdLists(id, cursor, limit, _options);
@@ -269,8 +270,8 @@ export class PromiseListsApi {
     /**
      * Returns metadata on Lists.
      * Get metadata on all Lists
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2ListsWithHttpInfo(cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<ListWithTypePaged>> {
         const result = this.api.getV2ListsWithHttpInfo(cursor, limit, _options);
@@ -280,8 +281,8 @@ export class PromiseListsApi {
     /**
      * Returns metadata on Lists.
      * Get metadata on all Lists
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2Lists(cursor?: string, limit?: number, _options?: Configuration): Promise<ListWithTypePaged> {
         const result = this.api.getV2Lists(cursor, limit, _options);
@@ -312,8 +313,8 @@ export class PromiseListsApi {
      * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
      * Get metadata on a single List\'s Fields
      * @param listId List ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2ListsListidFieldsWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<FieldMetadataPaged>> {
         const result = this.api.getV2ListsListidFieldsWithHttpInfo(listId, cursor, limit, _options);
@@ -324,8 +325,8 @@ export class PromiseListsApi {
      * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
      * Get metadata on a single List\'s Fields
      * @param listId List ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2ListsListidFields(listId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<FieldMetadataPaged> {
         const result = this.api.getV2ListsListidFields(listId, cursor, limit, _options);
@@ -336,10 +337,10 @@ export class PromiseListsApi {
      * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get all List Entries on a List
      * @param listId List ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2ListsListidListEntriesWithHttpInfo(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: Configuration): Promise<HttpInfo<ListEntryWithEntityPaged>> {
         const result = this.api.getV2ListsListidListEntriesWithHttpInfo(listId, cursor, limit, fieldIds, fieldTypes, _options);
@@ -350,10 +351,10 @@ export class PromiseListsApi {
      * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get all List Entries on a List
      * @param listId List ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2ListsListidListEntries(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: Configuration): Promise<ListEntryWithEntityPaged> {
         const result = this.api.getV2ListsListidListEntries(listId, cursor, limit, fieldIds, fieldTypes, _options);
@@ -364,8 +365,8 @@ export class PromiseListsApi {
      * Returns metadata on the Saved Views on a List.
      * Get metadata on Saved Views
      * @param listId List ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2ListsListidSavedViewsWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<SavedViewPaged>> {
         const result = this.api.getV2ListsListidSavedViewsWithHttpInfo(listId, cursor, limit, _options);
@@ -376,8 +377,8 @@ export class PromiseListsApi {
      * Returns metadata on the Saved Views on a List.
      * Get metadata on Saved Views
      * @param listId List ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2ListsListidSavedViews(listId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<SavedViewPaged> {
         const result = this.api.getV2ListsListidSavedViews(listId, cursor, limit, _options);
@@ -411,8 +412,8 @@ export class PromiseListsApi {
      * Get all List Entries on a Saved View
      * @param listId List ID
      * @param viewId Saved view ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(listId: number, viewId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<ListEntryWithEntityPaged>> {
         const result = this.api.getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(listId, viewId, cursor, limit, _options);
@@ -424,8 +425,8 @@ export class PromiseListsApi {
      * Get all List Entries on a Saved View
      * @param listId List ID
      * @param viewId Saved view ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2ListsListidSavedViewsViewidListEntries(listId: number, viewId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<ListEntryWithEntityPaged> {
         const result = this.api.getV2ListsListidSavedViewsViewidListEntries(listId, viewId, cursor, limit, _options);
@@ -454,9 +455,9 @@ export class PromiseOpportunitiesApi {
     /**
      * Paginate through Opportunities in Affinity. Returns basic information but **not** field data on each Opportunity.  To access field data on Opportunities, use the `/lists/{list_id}/list-entries` or the `/v2/lists/{list_id}/saved-views/{view_id}/list-entries` GET endpoint.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get all Opportunities
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param ids Opportunity IDs
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [ids] Opportunity IDs
      */
     public getV2OpportunitiesWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, _options?: Configuration): Promise<HttpInfo<OpportunityPaged>> {
         const result = this.api.getV2OpportunitiesWithHttpInfo(cursor, limit, ids, _options);
@@ -466,9 +467,9 @@ export class PromiseOpportunitiesApi {
     /**
      * Paginate through Opportunities in Affinity. Returns basic information but **not** field data on each Opportunity.  To access field data on Opportunities, use the `/lists/{list_id}/list-entries` or the `/v2/lists/{list_id}/saved-views/{view_id}/list-entries` GET endpoint.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get all Opportunities
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param ids Opportunity IDs
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [ids] Opportunity IDs
      */
     public getV2Opportunities(cursor?: string, limit?: number, ids?: Array<number>, _options?: Configuration): Promise<OpportunityPaged> {
         const result = this.api.getV2Opportunities(cursor, limit, ids, _options);
@@ -517,11 +518,11 @@ export class PromisePersonsApi {
     /**
      * Paginate through Persons in Affinity. Returns basic information and non-list-specific field data on each Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
      * Get all Persons
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param ids People IDs
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [ids] People IDs
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2PersonsWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<HttpInfo<PersonPaged>> {
         const result = this.api.getV2PersonsWithHttpInfo(cursor, limit, ids, fieldIds, fieldTypes, _options);
@@ -531,11 +532,11 @@ export class PromisePersonsApi {
     /**
      * Paginate through Persons in Affinity. Returns basic information and non-list-specific field data on each Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
      * Get all Persons
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param ids People IDs
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [ids] People IDs
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2Persons(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<PersonPaged> {
         const result = this.api.getV2Persons(cursor, limit, ids, fieldIds, fieldTypes, _options);
@@ -545,8 +546,8 @@ export class PromisePersonsApi {
     /**
      * Returns metadata on non-list-specific Person Fields.  Use the returned Field IDs to request field data from the GET `/v2/persons` and GET `/v2/persons/{id}` endpoints.
      * Get metadata on Person Fields
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2PersonsFieldsWithHttpInfo(cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<FieldMetadataPaged>> {
         const result = this.api.getV2PersonsFieldsWithHttpInfo(cursor, limit, _options);
@@ -556,8 +557,8 @@ export class PromisePersonsApi {
     /**
      * Returns metadata on non-list-specific Person Fields.  Use the returned Field IDs to request field data from the GET `/v2/persons` and GET `/v2/persons/{id}` endpoints.
      * Get metadata on Person Fields
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2PersonsFields(cursor?: string, limit?: number, _options?: Configuration): Promise<FieldMetadataPaged> {
         const result = this.api.getV2PersonsFields(cursor, limit, _options);
@@ -568,8 +569,8 @@ export class PromisePersonsApi {
      * Returns basic information and non-list-specific field data on the requested Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
      * Get a single Person
      * @param id Person ID
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2PersonsIdWithHttpInfo(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<HttpInfo<Person>> {
         const result = this.api.getV2PersonsIdWithHttpInfo(id, fieldIds, fieldTypes, _options);
@@ -580,8 +581,8 @@ export class PromisePersonsApi {
      * Returns basic information and non-list-specific field data on the requested Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
      * Get a single Person
      * @param id Person ID
-     * @param fieldIds Field IDs for which to return field data
-     * @param fieldTypes Field Types for which to return field data
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
      */
     public getV2PersonsId(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<Person> {
         const result = this.api.getV2PersonsId(id, fieldIds, fieldTypes, _options);
@@ -592,8 +593,8 @@ export class PromisePersonsApi {
      * Paginate through the List Entries (AKA rows) for the given Person across all Lists. Each List Entry includes field data for the Person, including list-specific field data. Each List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get a Person\'s List Entries
      * @param id Persons ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2PersonsIdListEntriesWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<ListEntryPaged>> {
         const result = this.api.getV2PersonsIdListEntriesWithHttpInfo(id, cursor, limit, _options);
@@ -604,8 +605,8 @@ export class PromisePersonsApi {
      * Paginate through the List Entries (AKA rows) for the given Person across all Lists. Each List Entry includes field data for the Person, including list-specific field data. Each List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get a Person\'s List Entries
      * @param id Persons ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2PersonsIdListEntries(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<ListEntryPaged> {
         const result = this.api.getV2PersonsIdListEntries(id, cursor, limit, _options);
@@ -616,8 +617,8 @@ export class PromisePersonsApi {
      * Returns metadata for all the Lists on which the given Person appears.
      * Get a Person\'s Lists
      * @param id Persons ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2PersonsIdListsWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<HttpInfo<ListPaged>> {
         const result = this.api.getV2PersonsIdListsWithHttpInfo(id, cursor, limit, _options);
@@ -628,8 +629,8 @@ export class PromisePersonsApi {
      * Returns metadata for all the Lists on which the given Person appears.
      * Get a Person\'s Lists
      * @param id Persons ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
      */
     public getV2PersonsIdLists(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<ListPaged> {
         const result = this.api.getV2PersonsIdLists(id, cursor, limit, _options);

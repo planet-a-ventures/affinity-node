@@ -16,7 +16,7 @@ export class NotImplementedError {
     /**
     * Error code
     */
-    'code': string;
+    'code': NotImplementedErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class NotImplementedError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "NotImplementedErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class NotImplementedError {
     public constructor() {
     }
 }
+
+export enum NotImplementedErrorCodeEnum {
+    NotImplemented = 'not-implemented'
+}
+

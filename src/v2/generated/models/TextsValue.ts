@@ -16,11 +16,11 @@ export class TextsValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': TextsValueTypeEnum;
     /**
     * The value for many strings
     */
-    'data': Array<string>;
+    'data': Array<string> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -30,7 +30,7 @@ export class TextsValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "TextsValueTypeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class TextsValue {
     public constructor() {
     }
 }
+
+export enum TextsValueTypeEnum {
+    FilterableTextMulti = 'filterable-text-multi'
+}
+

@@ -84,7 +84,6 @@ export enum FieldTypeEnum {
 }
 export enum FieldEnrichmentSourceEnum {
     AffinityData = 'affinity-data',
-    Dealroom = 'dealroom',
-    Null = 'null'
+    Dealroom = 'dealroom'
 }
 

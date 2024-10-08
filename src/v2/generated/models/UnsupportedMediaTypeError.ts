@@ -10,27 +10,17 @@
  * Do not edit the class manually.
  */
 
-import { Company } from '../models/Company.ts';
 import { HttpFile } from '../http/http.ts';
 
-export class CompanyListEntry {
+export class UnsupportedMediaTypeError {
     /**
-    * The list entry\'s unique identifier
+    * Error code
     */
-    'id': number;
+    'code': UnsupportedMediaTypeErrorCodeEnum;
     /**
-    * The entity type for this list entry
+    * Error message
     */
-    'type': CompanyListEntryTypeEnum;
-    /**
-    * The date that the list entry was created
-    */
-    'createdAt': Date;
-    /**
-    * The ID of the user that created this list entry
-    */
-    'creatorId': number | null;
-    'entity': Company;
+    'message': string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -38,45 +28,27 @@ export class CompanyListEntry {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": "int64"
-        },
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "CompanyListEntryTypeEnum",
+            "name": "code",
+            "baseName": "code",
+            "type": "UnsupportedMediaTypeErrorCodeEnum",
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "createdAt",
-            "type": "Date",
-            "format": "date-time"
-        },
-        {
-            "name": "creatorId",
-            "baseName": "creatorId",
-            "type": "number",
-            "format": "int64"
-        },
-        {
-            "name": "entity",
-            "baseName": "entity",
-            "type": "Company",
+            "name": "message",
+            "baseName": "message",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return CompanyListEntry.attributeTypeMap;
+        return UnsupportedMediaTypeError.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
 
-export enum CompanyListEntryTypeEnum {
-    Company = 'company'
+export enum UnsupportedMediaTypeErrorCodeEnum {
+    UnsupportedMediaType = 'unsupported-media-type'
 }
 

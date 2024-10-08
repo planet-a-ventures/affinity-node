@@ -17,11 +17,11 @@ export class DropdownsValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': DropdownsValueTypeEnum;
     /**
     * The value for many dropdown items
     */
-    'data': Array<Dropdown>;
+    'data': Array<Dropdown> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -31,7 +31,7 @@ export class DropdownsValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "DropdownsValueTypeEnum",
             "format": ""
         },
         {
@@ -48,3 +48,8 @@ export class DropdownsValue {
     public constructor() {
     }
 }
+
+export enum DropdownsValueTypeEnum {
+    DropdownMulti = 'dropdown-multi'
+}
+

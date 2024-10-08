@@ -16,7 +16,7 @@ export class AuthenticationError {
     /**
     * Error code
     */
-    'code': string;
+    'code': AuthenticationErrorCodeEnum;
     /**
     * Error message
     */
@@ -30,7 +30,7 @@ export class AuthenticationError {
         {
             "name": "code",
             "baseName": "code",
-            "type": "string",
+            "type": "AuthenticationErrorCodeEnum",
             "format": ""
         },
         {
@@ -47,3 +47,8 @@ export class AuthenticationError {
     public constructor() {
     }
 }
+
+export enum AuthenticationErrorCodeEnum {
+    Authentication = 'authentication'
+}
+

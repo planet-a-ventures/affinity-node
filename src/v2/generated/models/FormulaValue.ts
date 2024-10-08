@@ -17,7 +17,7 @@ export class FormulaValue {
     /**
     * The type of value
     */
-    'type': string;
+    'type': FormulaValueTypeEnum;
     'data': FormulaNumber | null;
 
     static readonly discriminator: string | undefined = undefined;
@@ -28,7 +28,7 @@ export class FormulaValue {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "FormulaValueTypeEnum",
             "format": ""
         },
         {
@@ -45,3 +45,8 @@ export class FormulaValue {
     public constructor() {
     }
 }
+
+export enum FormulaValueTypeEnum {
+    FormulaNumber = 'formula-number'
+}
+
