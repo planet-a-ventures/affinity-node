@@ -26,6 +26,12 @@ jobs:
         run: deno task format
       - name: Check types
         run: deno task check
+      - name: Regenerate V2
+        uses: nickcharlton/diff-check@main
+        with:
+          command: deno task generate-v2-client
+      - name: V2 Smoke Test
+        run: deno task test:single src/v2/tests/smoke_test.ts
       - name: Test
         run: deno task test:coverage
       - name: Archive code coverage results
