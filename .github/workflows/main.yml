@@ -27,9 +27,13 @@ jobs:
       - name: Check types
         run: deno task check
       - name: Regenerate V2
-        uses: nickcharlton/diff-check@main
+        run: deno task generate-v2-client
+      - uses: mudlabs/simple-diff@v1.2.0
+        id: diff
         with:
-          command: deno task generate-v2-client
+          path: src/v2/generated
+      - run: exit 1
+        if: steps.diff.outputs.modified == true
       - name: V2 Smoke Test
         run: deno task test:single src/v2/tests/smoke_test.ts
       - name: Test
