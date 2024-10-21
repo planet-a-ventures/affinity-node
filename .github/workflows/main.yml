@@ -1,4 +1,4 @@
-name: "Test, Lint & Deploy"
+name: 'Test, Lint & Deploy'
 on: [push, pull_request]
 env:
   DIRENV_WARN_TIMEOUT: 5m

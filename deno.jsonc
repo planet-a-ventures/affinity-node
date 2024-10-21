@@ -61,6 +61,7 @@
         "singleQuote": true,
         "proseWrap": "always",
         "exclude": [
+            ".pre-commit-config.yaml",
             "cov_profile/",
             "docs/",
             "dist/",

@@ -2,3 +2,4 @@ gitignore_excludes: true
 eof_newline: true
 exclude:
   - .yamllint
+  - .pre-commit-config.yaml
