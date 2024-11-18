@@ -145,6 +145,13 @@ export class OpportunitiesApiResponseProcessor {
             ) as AuthorizationErrors;
             throw new ApiException<AuthorizationErrors>(response.httpStatusCode, "Forbidden", body, response.headers);
         }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: NotFoundErrors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotFoundErrors", ""
+            ) as NotFoundErrors;
+            throw new ApiException<NotFoundErrors>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
