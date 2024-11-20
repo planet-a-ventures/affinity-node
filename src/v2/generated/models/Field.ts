@@ -15,15 +15,15 @@ import { HttpFile } from '../http/http.ts';
 
 export class Field {
     /**
-    * The field\'s unique identifier
+    * The field's unique identifier
     */
     'id': string;
     /**
-    * The field\'s name
+    * The field's name
     */
     'name': string;
     /**
-    * The field\'s type
+    * The field's type
     */
     'type': FieldTypeEnum;
     /**

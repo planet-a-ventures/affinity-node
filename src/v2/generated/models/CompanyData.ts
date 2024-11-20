@@ -14,15 +14,15 @@ import { HttpFile } from '../http/http.ts';
 
 export class CompanyData {
     /**
-    * The company\'s unique identifier
+    * The company's unique identifier
     */
     'id': number;
     /**
-    * The company\'s name
+    * The company's name
     */
     'name': string;
     /**
-    * The company\'s primary domain
+    * The company's primary domain
     */
     'domain': string | null;
 
