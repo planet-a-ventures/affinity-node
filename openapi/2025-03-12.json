@@ -1292,6 +1292,7 @@
             "name": "fieldId",
             "description": "Field ID",
             "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "string"
@@ -1433,6 +1434,7 @@
             "name": "fieldId",
             "description": "Field ID",
             "in": "path",
+            "required": true,
             "schema": {
               "type": "string",
               "format": "string"
