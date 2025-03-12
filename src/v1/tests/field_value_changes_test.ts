@@ -15,7 +15,11 @@ describe('field_value_changes', () => {
 
     beforeEach(() => {
         if (!isLiveRun()) {
-            mock = new MockAdapter(axios, { onNoMatch: 'throwException' })
+            // see https://github.com/ctimmerm/axios-mock-adapter/issues/400
+            // deno-lint-ignore no-explicit-any
+            mock = new MockAdapter(axios as any, {
+                onNoMatch: 'throwException',
+            })
         }
         affinity = new Affinity(apiKey() || 'api_key')
     })

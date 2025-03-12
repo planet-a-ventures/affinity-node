@@ -30,6 +30,7 @@
         pre-commit.settings.hooks.typos.enable = true;
         pre-commit.settings.hooks.yamllint.enable = true;
         pre-commit.settings.hooks.yamlfmt.enable = true;
+        pre-commit.settings.hooks.openapi-spec-validator.enable = true;
 
         # NOTE: You can also use `config.pre-commit.devShell`
         devShells.default = pkgs.mkShell {
@@ -38,6 +39,7 @@
             echo 1>&2 "Welcome to the development shell!"
           '';
           buildInputs = with pkgs; [
+            python312Packages.openapi-spec-validator
             commitizen
             deno
             nixpkgs-fmt

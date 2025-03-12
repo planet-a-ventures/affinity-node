@@ -11,7 +11,9 @@ describe('error handling', () => {
     let affinity: Affinity
 
     beforeEach(() => {
-        mock = new MockAdapter(axios)
+        // see https://github.com/ctimmerm/axios-mock-adapter/issues/400
+        // deno-lint-ignore no-explicit-any
+        mock = new MockAdapter(axios as any)
         affinity = new Affinity('api_key')
     })
     afterEach(() => {

@@ -11,11 +11,12 @@ import {SecurityAuthentication} from '../auth/auth.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
 import { Company } from '../models/Company.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
+import { Errors } from '../models/Errors.ts';
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts';
+import { InlineObject } from '../models/InlineObject.ts';
 import { ListEntryPaged } from '../models/ListEntryPaged.ts';
 import { ListPaged } from '../models/ListPaged.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
-import { ValidationErrors } from '../models/ValidationErrors.ts';
 
 /**
  * no description
@@ -88,7 +89,7 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -132,7 +133,7 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -190,7 +191,7 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -242,7 +243,7 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -294,7 +295,7 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -323,11 +324,11 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: ValidationErrors = ObjectSerializer.deserialize(
+            const body: InlineObject = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "ValidationErrors", ""
-            ) as ValidationErrors;
-            throw new ApiException<ValidationErrors>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "InlineObject", ""
+            ) as InlineObject;
+            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: AuthorizationErrors = ObjectSerializer.deserialize(
@@ -335,6 +336,13 @@ export class CompaniesApiResponseProcessor {
                 "AuthorizationErrors", ""
             ) as AuthorizationErrors;
             throw new ApiException<AuthorizationErrors>(response.httpStatusCode, "Forbidden", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -366,11 +374,18 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: ValidationErrors = ObjectSerializer.deserialize(
+            const body: InlineObject = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "ValidationErrors", ""
-            ) as ValidationErrors;
-            throw new ApiException<ValidationErrors>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "InlineObject", ""
+            ) as InlineObject;
+            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -402,11 +417,11 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: ValidationErrors = ObjectSerializer.deserialize(
+            const body: InlineObject = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "ValidationErrors", ""
-            ) as ValidationErrors;
-            throw new ApiException<ValidationErrors>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "InlineObject", ""
+            ) as InlineObject;
+            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: AuthorizationErrors = ObjectSerializer.deserialize(
@@ -421,6 +436,13 @@ export class CompaniesApiResponseProcessor {
                 "NotFoundErrors", ""
             ) as NotFoundErrors;
             throw new ApiException<NotFoundErrors>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -452,11 +474,11 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: ValidationErrors = ObjectSerializer.deserialize(
+            const body: InlineObject = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "ValidationErrors", ""
-            ) as ValidationErrors;
-            throw new ApiException<ValidationErrors>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "InlineObject", ""
+            ) as InlineObject;
+            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: AuthorizationErrors = ObjectSerializer.deserialize(
@@ -471,6 +493,13 @@ export class CompaniesApiResponseProcessor {
                 "NotFoundErrors", ""
             ) as NotFoundErrors;
             throw new ApiException<NotFoundErrors>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
@@ -502,11 +531,11 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: ValidationErrors = ObjectSerializer.deserialize(
+            const body: InlineObject = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "ValidationErrors", ""
-            ) as ValidationErrors;
-            throw new ApiException<ValidationErrors>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "InlineObject", ""
+            ) as InlineObject;
+            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundErrors = ObjectSerializer.deserialize(
@@ -514,6 +543,13 @@ export class CompaniesApiResponseProcessor {
                 "NotFoundErrors", ""
             ) as NotFoundErrors;
             throw new ApiException<NotFoundErrors>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml

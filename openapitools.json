@@ -2,10 +2,7 @@
     "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
     "spaces": 2,
     "generator-cli": {
-        "version": "7.10.0",
-        "repository": {
-            "__downloadUrl": "https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/7.10.0-SNAPSHOT/openapi-generator-cli-${versionName}.jar"
-        },
+        "version": "7.12.0",
         "generators": {
             "v2": {
                 "generatorName": "typescript",

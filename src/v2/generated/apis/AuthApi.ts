@@ -8,7 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util.ts';
 import {SecurityAuthentication} from '../auth/auth.ts';
 
 
-import { AuthenticationErrors } from '../models/AuthenticationErrors.ts';
+import { Errors } from '../models/Errors.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
 import { WhoAmI } from '../models/WhoAmI.ts';
 
@@ -39,7 +39,7 @@ export class AuthApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -67,19 +67,19 @@ export class AuthApiResponseProcessor {
             ) as WhoAmI;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
-        if (isCodeInRange("401", response.httpStatusCode)) {
-            const body: AuthenticationErrors = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "AuthenticationErrors", ""
-            ) as AuthenticationErrors;
-            throw new ApiException<AuthenticationErrors>(response.httpStatusCode, "Unauthorized", body, response.headers);
-        }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundErrors = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "NotFoundErrors", ""
             ) as NotFoundErrors;
             throw new ApiException<NotFoundErrors>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
         }
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
