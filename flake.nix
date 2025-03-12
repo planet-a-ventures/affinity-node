@@ -39,6 +39,7 @@
             echo 1>&2 "Welcome to the development shell!"
           '';
           buildInputs = with pkgs; [
+            python312Packages.openapi-spec-validator
             commitizen
             deno
             nixpkgs-fmt

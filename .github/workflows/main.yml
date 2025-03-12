@@ -18,6 +18,8 @@ jobs:
         uses: aldoborrero/direnv-nix-action@v2
         with:
           use_nix_profile: true
+      - name: Validate spec
+        run: openapi-spec-validator openapi/*.json
       - name: Lint
         run: deno task lint
       - name: Yaml lint
