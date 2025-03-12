@@ -1,5 +1,6 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
-import { Configuration} from '../configuration.ts'
+import { Configuration, ConfigurationOptions } from '../configuration.ts'
+import type { Middleware } from '../middleware.ts';
 
 import { Attendee } from '../models/Attendee.ts';
 import { AuthenticationError } from '../models/AuthenticationError.ts';
@@ -94,7 +95,7 @@ export class ObjectAuthApi {
      * Get current user
      * @param param the request object
      */
-    public getV2AuthWhoamiWithHttpInfo(param: AuthApiGetV2AuthWhoamiRequest = {}, options?: Configuration): Promise<HttpInfo<WhoAmI>> {
+    public getV2AuthWhoamiWithHttpInfo(param: AuthApiGetV2AuthWhoamiRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<WhoAmI>> {
         return this.api.getV2AuthWhoamiWithHttpInfo( options).toPromise();
     }
 
@@ -103,7 +104,7 @@ export class ObjectAuthApi {
      * Get current user
      * @param param the request object
      */
-    public getV2AuthWhoami(param: AuthApiGetV2AuthWhoamiRequest = {}, options?: Configuration): Promise<WhoAmI> {
+    public getV2AuthWhoami(param: AuthApiGetV2AuthWhoamiRequest = {}, options?: ConfigurationOptions): Promise<WhoAmI> {
         return this.api.getV2AuthWhoami( options).toPromise();
     }
 
@@ -265,7 +266,7 @@ export class ObjectCompaniesApi {
      * Get all Companies
      * @param param the request object
      */
-    public getV2CompaniesWithHttpInfo(param: CompaniesApiGetV2CompaniesRequest = {}, options?: Configuration): Promise<HttpInfo<CompanyPaged>> {
+    public getV2CompaniesWithHttpInfo(param: CompaniesApiGetV2CompaniesRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<CompanyPaged>> {
         return this.api.getV2CompaniesWithHttpInfo(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -274,7 +275,7 @@ export class ObjectCompaniesApi {
      * Get all Companies
      * @param param the request object
      */
-    public getV2Companies(param: CompaniesApiGetV2CompaniesRequest = {}, options?: Configuration): Promise<CompanyPaged> {
+    public getV2Companies(param: CompaniesApiGetV2CompaniesRequest = {}, options?: ConfigurationOptions): Promise<CompanyPaged> {
         return this.api.getV2Companies(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -283,7 +284,7 @@ export class ObjectCompaniesApi {
      * Get metadata on Company Fields
      * @param param the request object
      */
-    public getV2CompaniesFieldsWithHttpInfo(param: CompaniesApiGetV2CompaniesFieldsRequest = {}, options?: Configuration): Promise<HttpInfo<FieldMetadataPaged>> {
+    public getV2CompaniesFieldsWithHttpInfo(param: CompaniesApiGetV2CompaniesFieldsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
         return this.api.getV2CompaniesFieldsWithHttpInfo(param.cursor, param.limit,  options).toPromise();
     }
 
@@ -292,7 +293,7 @@ export class ObjectCompaniesApi {
      * Get metadata on Company Fields
      * @param param the request object
      */
-    public getV2CompaniesFields(param: CompaniesApiGetV2CompaniesFieldsRequest = {}, options?: Configuration): Promise<FieldMetadataPaged> {
+    public getV2CompaniesFields(param: CompaniesApiGetV2CompaniesFieldsRequest = {}, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
         return this.api.getV2CompaniesFields(param.cursor, param.limit,  options).toPromise();
     }
 
@@ -301,7 +302,7 @@ export class ObjectCompaniesApi {
      * Get a single Company
      * @param param the request object
      */
-    public getV2CompaniesIdWithHttpInfo(param: CompaniesApiGetV2CompaniesIdRequest, options?: Configuration): Promise<HttpInfo<Company>> {
+    public getV2CompaniesIdWithHttpInfo(param: CompaniesApiGetV2CompaniesIdRequest, options?: ConfigurationOptions): Promise<HttpInfo<Company>> {
         return this.api.getV2CompaniesIdWithHttpInfo(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -310,7 +311,7 @@ export class ObjectCompaniesApi {
      * Get a single Company
      * @param param the request object
      */
-    public getV2CompaniesId(param: CompaniesApiGetV2CompaniesIdRequest, options?: Configuration): Promise<Company> {
+    public getV2CompaniesId(param: CompaniesApiGetV2CompaniesIdRequest, options?: ConfigurationOptions): Promise<Company> {
         return this.api.getV2CompaniesId(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -319,7 +320,7 @@ export class ObjectCompaniesApi {
      * Get a Company\'s List Entries
      * @param param the request object
      */
-    public getV2CompaniesIdListEntriesWithHttpInfo(param: CompaniesApiGetV2CompaniesIdListEntriesRequest, options?: Configuration): Promise<HttpInfo<ListEntryPaged>> {
+    public getV2CompaniesIdListEntriesWithHttpInfo(param: CompaniesApiGetV2CompaniesIdListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
         return this.api.getV2CompaniesIdListEntriesWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -328,7 +329,7 @@ export class ObjectCompaniesApi {
      * Get a Company\'s List Entries
      * @param param the request object
      */
-    public getV2CompaniesIdListEntries(param: CompaniesApiGetV2CompaniesIdListEntriesRequest, options?: Configuration): Promise<ListEntryPaged> {
+    public getV2CompaniesIdListEntries(param: CompaniesApiGetV2CompaniesIdListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryPaged> {
         return this.api.getV2CompaniesIdListEntries(param.id, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -337,7 +338,7 @@ export class ObjectCompaniesApi {
      * Get a Company\'s Lists
      * @param param the request object
      */
-    public getV2CompaniesIdListsWithHttpInfo(param: CompaniesApiGetV2CompaniesIdListsRequest, options?: Configuration): Promise<HttpInfo<ListPaged>> {
+    public getV2CompaniesIdListsWithHttpInfo(param: CompaniesApiGetV2CompaniesIdListsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListPaged>> {
         return this.api.getV2CompaniesIdListsWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -346,7 +347,7 @@ export class ObjectCompaniesApi {
      * Get a Company\'s Lists
      * @param param the request object
      */
-    public getV2CompaniesIdLists(param: CompaniesApiGetV2CompaniesIdListsRequest, options?: Configuration): Promise<ListPaged> {
+    public getV2CompaniesIdLists(param: CompaniesApiGetV2CompaniesIdListsRequest, options?: ConfigurationOptions): Promise<ListPaged> {
         return this.api.getV2CompaniesIdLists(param.id, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -554,7 +555,7 @@ export class ObjectListsApi {
      * Get metadata on all Lists
      * @param param the request object
      */
-    public getV2ListsWithHttpInfo(param: ListsApiGetV2ListsRequest = {}, options?: Configuration): Promise<HttpInfo<ListWithTypePaged>> {
+    public getV2ListsWithHttpInfo(param: ListsApiGetV2ListsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<ListWithTypePaged>> {
         return this.api.getV2ListsWithHttpInfo(param.cursor, param.limit,  options).toPromise();
     }
 
@@ -563,7 +564,7 @@ export class ObjectListsApi {
      * Get metadata on all Lists
      * @param param the request object
      */
-    public getV2Lists(param: ListsApiGetV2ListsRequest = {}, options?: Configuration): Promise<ListWithTypePaged> {
+    public getV2Lists(param: ListsApiGetV2ListsRequest = {}, options?: ConfigurationOptions): Promise<ListWithTypePaged> {
         return this.api.getV2Lists(param.cursor, param.limit,  options).toPromise();
     }
 
@@ -572,7 +573,7 @@ export class ObjectListsApi {
      * Get metadata on a single List
      * @param param the request object
      */
-    public getV2ListsListidWithHttpInfo(param: ListsApiGetV2ListsListidRequest, options?: Configuration): Promise<HttpInfo<ListWithType>> {
+    public getV2ListsListidWithHttpInfo(param: ListsApiGetV2ListsListidRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListWithType>> {
         return this.api.getV2ListsListidWithHttpInfo(param.listId,  options).toPromise();
     }
 
@@ -581,7 +582,7 @@ export class ObjectListsApi {
      * Get metadata on a single List
      * @param param the request object
      */
-    public getV2ListsListid(param: ListsApiGetV2ListsListidRequest, options?: Configuration): Promise<ListWithType> {
+    public getV2ListsListid(param: ListsApiGetV2ListsListidRequest, options?: ConfigurationOptions): Promise<ListWithType> {
         return this.api.getV2ListsListid(param.listId,  options).toPromise();
     }
 
@@ -590,7 +591,7 @@ export class ObjectListsApi {
      * Get metadata on a single List\'s Fields
      * @param param the request object
      */
-    public getV2ListsListidFieldsWithHttpInfo(param: ListsApiGetV2ListsListidFieldsRequest, options?: Configuration): Promise<HttpInfo<FieldMetadataPaged>> {
+    public getV2ListsListidFieldsWithHttpInfo(param: ListsApiGetV2ListsListidFieldsRequest, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
         return this.api.getV2ListsListidFieldsWithHttpInfo(param.listId, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -599,7 +600,7 @@ export class ObjectListsApi {
      * Get metadata on a single List\'s Fields
      * @param param the request object
      */
-    public getV2ListsListidFields(param: ListsApiGetV2ListsListidFieldsRequest, options?: Configuration): Promise<FieldMetadataPaged> {
+    public getV2ListsListidFields(param: ListsApiGetV2ListsListidFieldsRequest, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
         return this.api.getV2ListsListidFields(param.listId, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -608,7 +609,7 @@ export class ObjectListsApi {
      * Get all List Entries on a List
      * @param param the request object
      */
-    public getV2ListsListidListEntriesWithHttpInfo(param: ListsApiGetV2ListsListidListEntriesRequest, options?: Configuration): Promise<HttpInfo<ListEntryWithEntityPaged>> {
+    public getV2ListsListidListEntriesWithHttpInfo(param: ListsApiGetV2ListsListidListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
         return this.api.getV2ListsListidListEntriesWithHttpInfo(param.listId, param.cursor, param.limit, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -617,7 +618,7 @@ export class ObjectListsApi {
      * Get all List Entries on a List
      * @param param the request object
      */
-    public getV2ListsListidListEntries(param: ListsApiGetV2ListsListidListEntriesRequest, options?: Configuration): Promise<ListEntryWithEntityPaged> {
+    public getV2ListsListidListEntries(param: ListsApiGetV2ListsListidListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntityPaged> {
         return this.api.getV2ListsListidListEntries(param.listId, param.cursor, param.limit, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -626,7 +627,7 @@ export class ObjectListsApi {
      * Get metadata on Saved Views
      * @param param the request object
      */
-    public getV2ListsListidSavedViewsWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsRequest, options?: Configuration): Promise<HttpInfo<SavedViewPaged>> {
+    public getV2ListsListidSavedViewsWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsRequest, options?: ConfigurationOptions): Promise<HttpInfo<SavedViewPaged>> {
         return this.api.getV2ListsListidSavedViewsWithHttpInfo(param.listId, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -635,7 +636,7 @@ export class ObjectListsApi {
      * Get metadata on Saved Views
      * @param param the request object
      */
-    public getV2ListsListidSavedViews(param: ListsApiGetV2ListsListidSavedViewsRequest, options?: Configuration): Promise<SavedViewPaged> {
+    public getV2ListsListidSavedViews(param: ListsApiGetV2ListsListidSavedViewsRequest, options?: ConfigurationOptions): Promise<SavedViewPaged> {
         return this.api.getV2ListsListidSavedViews(param.listId, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -644,7 +645,7 @@ export class ObjectListsApi {
      * Get metadata on a single Saved View
      * @param param the request object
      */
-    public getV2ListsListidSavedViewsViewidWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsViewidRequest, options?: Configuration): Promise<HttpInfo<SavedView>> {
+    public getV2ListsListidSavedViewsViewidWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsViewidRequest, options?: ConfigurationOptions): Promise<HttpInfo<SavedView>> {
         return this.api.getV2ListsListidSavedViewsViewidWithHttpInfo(param.listId, param.viewId,  options).toPromise();
     }
 
@@ -653,7 +654,7 @@ export class ObjectListsApi {
      * Get metadata on a single Saved View
      * @param param the request object
      */
-    public getV2ListsListidSavedViewsViewid(param: ListsApiGetV2ListsListidSavedViewsViewidRequest, options?: Configuration): Promise<SavedView> {
+    public getV2ListsListidSavedViewsViewid(param: ListsApiGetV2ListsListidSavedViewsViewidRequest, options?: ConfigurationOptions): Promise<SavedView> {
         return this.api.getV2ListsListidSavedViewsViewid(param.listId, param.viewId,  options).toPromise();
     }
 
@@ -662,7 +663,7 @@ export class ObjectListsApi {
      * Get all List Entries on a Saved View
      * @param param the request object
      */
-    public getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest, options?: Configuration): Promise<HttpInfo<ListEntryWithEntityPaged>> {
+    public getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
         return this.api.getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(param.listId, param.viewId, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -671,7 +672,7 @@ export class ObjectListsApi {
      * Get all List Entries on a Saved View
      * @param param the request object
      */
-    public getV2ListsListidSavedViewsViewidListEntries(param: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest, options?: Configuration): Promise<ListEntryWithEntityPaged> {
+    public getV2ListsListidSavedViewsViewidListEntries(param: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntityPaged> {
         return this.api.getV2ListsListidSavedViewsViewidListEntries(param.listId, param.viewId, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -730,7 +731,7 @@ export class ObjectOpportunitiesApi {
      * Get all Opportunities
      * @param param the request object
      */
-    public getV2OpportunitiesWithHttpInfo(param: OpportunitiesApiGetV2OpportunitiesRequest = {}, options?: Configuration): Promise<HttpInfo<OpportunityPaged>> {
+    public getV2OpportunitiesWithHttpInfo(param: OpportunitiesApiGetV2OpportunitiesRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<OpportunityPaged>> {
         return this.api.getV2OpportunitiesWithHttpInfo(param.cursor, param.limit, param.ids,  options).toPromise();
     }
 
@@ -739,7 +740,7 @@ export class ObjectOpportunitiesApi {
      * Get all Opportunities
      * @param param the request object
      */
-    public getV2Opportunities(param: OpportunitiesApiGetV2OpportunitiesRequest = {}, options?: Configuration): Promise<OpportunityPaged> {
+    public getV2Opportunities(param: OpportunitiesApiGetV2OpportunitiesRequest = {}, options?: ConfigurationOptions): Promise<OpportunityPaged> {
         return this.api.getV2Opportunities(param.cursor, param.limit, param.ids,  options).toPromise();
     }
 
@@ -748,7 +749,7 @@ export class ObjectOpportunitiesApi {
      * Get a single Opportunity
      * @param param the request object
      */
-    public getV2OpportunitiesIdWithHttpInfo(param: OpportunitiesApiGetV2OpportunitiesIdRequest, options?: Configuration): Promise<HttpInfo<Opportunity>> {
+    public getV2OpportunitiesIdWithHttpInfo(param: OpportunitiesApiGetV2OpportunitiesIdRequest, options?: ConfigurationOptions): Promise<HttpInfo<Opportunity>> {
         return this.api.getV2OpportunitiesIdWithHttpInfo(param.id,  options).toPromise();
     }
 
@@ -757,7 +758,7 @@ export class ObjectOpportunitiesApi {
      * Get a single Opportunity
      * @param param the request object
      */
-    public getV2OpportunitiesId(param: OpportunitiesApiGetV2OpportunitiesIdRequest, options?: Configuration): Promise<Opportunity> {
+    public getV2OpportunitiesId(param: OpportunitiesApiGetV2OpportunitiesIdRequest, options?: ConfigurationOptions): Promise<Opportunity> {
         return this.api.getV2OpportunitiesId(param.id,  options).toPromise();
     }
 
@@ -919,7 +920,7 @@ export class ObjectPersonsApi {
      * Get all Persons
      * @param param the request object
      */
-    public getV2PersonsWithHttpInfo(param: PersonsApiGetV2PersonsRequest = {}, options?: Configuration): Promise<HttpInfo<PersonPaged>> {
+    public getV2PersonsWithHttpInfo(param: PersonsApiGetV2PersonsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<PersonPaged>> {
         return this.api.getV2PersonsWithHttpInfo(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -928,7 +929,7 @@ export class ObjectPersonsApi {
      * Get all Persons
      * @param param the request object
      */
-    public getV2Persons(param: PersonsApiGetV2PersonsRequest = {}, options?: Configuration): Promise<PersonPaged> {
+    public getV2Persons(param: PersonsApiGetV2PersonsRequest = {}, options?: ConfigurationOptions): Promise<PersonPaged> {
         return this.api.getV2Persons(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -937,7 +938,7 @@ export class ObjectPersonsApi {
      * Get metadata on Person Fields
      * @param param the request object
      */
-    public getV2PersonsFieldsWithHttpInfo(param: PersonsApiGetV2PersonsFieldsRequest = {}, options?: Configuration): Promise<HttpInfo<FieldMetadataPaged>> {
+    public getV2PersonsFieldsWithHttpInfo(param: PersonsApiGetV2PersonsFieldsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
         return this.api.getV2PersonsFieldsWithHttpInfo(param.cursor, param.limit,  options).toPromise();
     }
 
@@ -946,7 +947,7 @@ export class ObjectPersonsApi {
      * Get metadata on Person Fields
      * @param param the request object
      */
-    public getV2PersonsFields(param: PersonsApiGetV2PersonsFieldsRequest = {}, options?: Configuration): Promise<FieldMetadataPaged> {
+    public getV2PersonsFields(param: PersonsApiGetV2PersonsFieldsRequest = {}, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
         return this.api.getV2PersonsFields(param.cursor, param.limit,  options).toPromise();
     }
 
@@ -955,7 +956,7 @@ export class ObjectPersonsApi {
      * Get a single Person
      * @param param the request object
      */
-    public getV2PersonsIdWithHttpInfo(param: PersonsApiGetV2PersonsIdRequest, options?: Configuration): Promise<HttpInfo<Person>> {
+    public getV2PersonsIdWithHttpInfo(param: PersonsApiGetV2PersonsIdRequest, options?: ConfigurationOptions): Promise<HttpInfo<Person>> {
         return this.api.getV2PersonsIdWithHttpInfo(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -964,7 +965,7 @@ export class ObjectPersonsApi {
      * Get a single Person
      * @param param the request object
      */
-    public getV2PersonsId(param: PersonsApiGetV2PersonsIdRequest, options?: Configuration): Promise<Person> {
+    public getV2PersonsId(param: PersonsApiGetV2PersonsIdRequest, options?: ConfigurationOptions): Promise<Person> {
         return this.api.getV2PersonsId(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
@@ -973,7 +974,7 @@ export class ObjectPersonsApi {
      * Get a Person\'s List Entries
      * @param param the request object
      */
-    public getV2PersonsIdListEntriesWithHttpInfo(param: PersonsApiGetV2PersonsIdListEntriesRequest, options?: Configuration): Promise<HttpInfo<ListEntryPaged>> {
+    public getV2PersonsIdListEntriesWithHttpInfo(param: PersonsApiGetV2PersonsIdListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
         return this.api.getV2PersonsIdListEntriesWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -982,7 +983,7 @@ export class ObjectPersonsApi {
      * Get a Person\'s List Entries
      * @param param the request object
      */
-    public getV2PersonsIdListEntries(param: PersonsApiGetV2PersonsIdListEntriesRequest, options?: Configuration): Promise<ListEntryPaged> {
+    public getV2PersonsIdListEntries(param: PersonsApiGetV2PersonsIdListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryPaged> {
         return this.api.getV2PersonsIdListEntries(param.id, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -991,7 +992,7 @@ export class ObjectPersonsApi {
      * Get a Person\'s Lists
      * @param param the request object
      */
-    public getV2PersonsIdListsWithHttpInfo(param: PersonsApiGetV2PersonsIdListsRequest, options?: Configuration): Promise<HttpInfo<ListPaged>> {
+    public getV2PersonsIdListsWithHttpInfo(param: PersonsApiGetV2PersonsIdListsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListPaged>> {
         return this.api.getV2PersonsIdListsWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
     }
 
@@ -1000,7 +1001,7 @@ export class ObjectPersonsApi {
      * Get a Person\'s Lists
      * @param param the request object
      */
-    public getV2PersonsIdLists(param: PersonsApiGetV2PersonsIdListsRequest, options?: Configuration): Promise<ListPaged> {
+    public getV2PersonsIdLists(param: PersonsApiGetV2PersonsIdListsRequest, options?: ConfigurationOptions): Promise<ListPaged> {
         return this.api.getV2PersonsIdLists(param.id, param.cursor, param.limit,  options).toPromise();
     }
 

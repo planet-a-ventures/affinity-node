@@ -1,5 +1,6 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
-import { Configuration} from '../configuration.ts'
+import { Configuration, ConfigurationOptions } from '../configuration.ts'
+import type { Middleware } from '../middleware.ts';
 import { Observable, of, from } from '../rxjsStub.ts';
 import {mergeMap, map} from  '../rxjsStub.ts';
 import { Attendee } from '../models/Attendee.ts';
@@ -97,19 +98,48 @@ export class ObservableAuthApi {
      * Returns metadata about the current user.
      * Get current user
      */
-    public getV2AuthWhoamiWithHttpInfo(_options?: Configuration): Observable<HttpInfo<WhoAmI>> {
-        const requestContextPromise = this.requestFactory.getV2AuthWhoami(_options);
+    public getV2AuthWhoamiWithHttpInfo(_options?: ConfigurationOptions): Observable<HttpInfo<WhoAmI>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2AuthWhoami(_config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2AuthWhoamiWithHttpInfo(rsp)));
@@ -120,7 +150,7 @@ export class ObservableAuthApi {
      * Returns metadata about the current user.
      * Get current user
      */
-    public getV2AuthWhoami(_options?: Configuration): Observable<WhoAmI> {
+    public getV2AuthWhoami(_options?: ConfigurationOptions): Observable<WhoAmI> {
         return this.getV2AuthWhoamiWithHttpInfo(_options).pipe(map((apiResponse: HttpInfo<WhoAmI>) => apiResponse.data));
     }
 
@@ -151,19 +181,48 @@ export class ObservableCompaniesApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2CompaniesWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<HttpInfo<CompanyPaged>> {
-        const requestContextPromise = this.requestFactory.getV2Companies(cursor, limit, ids, fieldIds, fieldTypes, _options);
+    public getV2CompaniesWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<HttpInfo<CompanyPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2Companies(cursor, limit, ids, fieldIds, fieldTypes, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2CompaniesWithHttpInfo(rsp)));
@@ -179,7 +238,7 @@ export class ObservableCompaniesApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2Companies(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<CompanyPaged> {
+    public getV2Companies(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<CompanyPaged> {
         return this.getV2CompaniesWithHttpInfo(cursor, limit, ids, fieldIds, fieldTypes, _options).pipe(map((apiResponse: HttpInfo<CompanyPaged>) => apiResponse.data));
     }
 
@@ -189,19 +248,48 @@ export class ObservableCompaniesApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2CompaniesFieldsWithHttpInfo(cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<FieldMetadataPaged>> {
-        const requestContextPromise = this.requestFactory.getV2CompaniesFields(cursor, limit, _options);
+    public getV2CompaniesFieldsWithHttpInfo(cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<FieldMetadataPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2CompaniesFields(cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2CompaniesFieldsWithHttpInfo(rsp)));
@@ -214,7 +302,7 @@ export class ObservableCompaniesApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2CompaniesFields(cursor?: string, limit?: number, _options?: Configuration): Observable<FieldMetadataPaged> {
+    public getV2CompaniesFields(cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<FieldMetadataPaged> {
         return this.getV2CompaniesFieldsWithHttpInfo(cursor, limit, _options).pipe(map((apiResponse: HttpInfo<FieldMetadataPaged>) => apiResponse.data));
     }
 
@@ -225,19 +313,48 @@ export class ObservableCompaniesApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2CompaniesIdWithHttpInfo(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<HttpInfo<Company>> {
-        const requestContextPromise = this.requestFactory.getV2CompaniesId(id, fieldIds, fieldTypes, _options);
+    public getV2CompaniesIdWithHttpInfo(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<HttpInfo<Company>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2CompaniesId(id, fieldIds, fieldTypes, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2CompaniesIdWithHttpInfo(rsp)));
@@ -251,7 +368,7 @@ export class ObservableCompaniesApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2CompaniesId(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<Company> {
+    public getV2CompaniesId(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<Company> {
         return this.getV2CompaniesIdWithHttpInfo(id, fieldIds, fieldTypes, _options).pipe(map((apiResponse: HttpInfo<Company>) => apiResponse.data));
     }
 
@@ -262,19 +379,48 @@ export class ObservableCompaniesApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2CompaniesIdListEntriesWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<ListEntryPaged>> {
-        const requestContextPromise = this.requestFactory.getV2CompaniesIdListEntries(id, cursor, limit, _options);
+    public getV2CompaniesIdListEntriesWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<ListEntryPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2CompaniesIdListEntries(id, cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2CompaniesIdListEntriesWithHttpInfo(rsp)));
@@ -288,7 +434,7 @@ export class ObservableCompaniesApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2CompaniesIdListEntries(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<ListEntryPaged> {
+    public getV2CompaniesIdListEntries(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<ListEntryPaged> {
         return this.getV2CompaniesIdListEntriesWithHttpInfo(id, cursor, limit, _options).pipe(map((apiResponse: HttpInfo<ListEntryPaged>) => apiResponse.data));
     }
 
@@ -299,19 +445,48 @@ export class ObservableCompaniesApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2CompaniesIdListsWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<ListPaged>> {
-        const requestContextPromise = this.requestFactory.getV2CompaniesIdLists(id, cursor, limit, _options);
+    public getV2CompaniesIdListsWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<ListPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2CompaniesIdLists(id, cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2CompaniesIdListsWithHttpInfo(rsp)));
@@ -325,7 +500,7 @@ export class ObservableCompaniesApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2CompaniesIdLists(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<ListPaged> {
+    public getV2CompaniesIdLists(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<ListPaged> {
         return this.getV2CompaniesIdListsWithHttpInfo(id, cursor, limit, _options).pipe(map((apiResponse: HttpInfo<ListPaged>) => apiResponse.data));
     }
 
@@ -353,19 +528,48 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2ListsWithHttpInfo(cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<ListWithTypePaged>> {
-        const requestContextPromise = this.requestFactory.getV2Lists(cursor, limit, _options);
+    public getV2ListsWithHttpInfo(cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<ListWithTypePaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2Lists(cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2ListsWithHttpInfo(rsp)));
@@ -378,7 +582,7 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2Lists(cursor?: string, limit?: number, _options?: Configuration): Observable<ListWithTypePaged> {
+    public getV2Lists(cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<ListWithTypePaged> {
         return this.getV2ListsWithHttpInfo(cursor, limit, _options).pipe(map((apiResponse: HttpInfo<ListWithTypePaged>) => apiResponse.data));
     }
 
@@ -387,19 +591,48 @@ export class ObservableListsApi {
      * Get metadata on a single List
      * @param listId List ID
      */
-    public getV2ListsListidWithHttpInfo(listId: number, _options?: Configuration): Observable<HttpInfo<ListWithType>> {
-        const requestContextPromise = this.requestFactory.getV2ListsListid(listId, _options);
+    public getV2ListsListidWithHttpInfo(listId: number, _options?: ConfigurationOptions): Observable<HttpInfo<ListWithType>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2ListsListid(listId, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2ListsListidWithHttpInfo(rsp)));
@@ -411,7 +644,7 @@ export class ObservableListsApi {
      * Get metadata on a single List
      * @param listId List ID
      */
-    public getV2ListsListid(listId: number, _options?: Configuration): Observable<ListWithType> {
+    public getV2ListsListid(listId: number, _options?: ConfigurationOptions): Observable<ListWithType> {
         return this.getV2ListsListidWithHttpInfo(listId, _options).pipe(map((apiResponse: HttpInfo<ListWithType>) => apiResponse.data));
     }
 
@@ -422,19 +655,48 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2ListsListidFieldsWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<FieldMetadataPaged>> {
-        const requestContextPromise = this.requestFactory.getV2ListsListidFields(listId, cursor, limit, _options);
+    public getV2ListsListidFieldsWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<FieldMetadataPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2ListsListidFields(listId, cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2ListsListidFieldsWithHttpInfo(rsp)));
@@ -448,7 +710,7 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2ListsListidFields(listId: number, cursor?: string, limit?: number, _options?: Configuration): Observable<FieldMetadataPaged> {
+    public getV2ListsListidFields(listId: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<FieldMetadataPaged> {
         return this.getV2ListsListidFieldsWithHttpInfo(listId, cursor, limit, _options).pipe(map((apiResponse: HttpInfo<FieldMetadataPaged>) => apiResponse.data));
     }
 
@@ -461,19 +723,48 @@ export class ObservableListsApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2ListsListidListEntriesWithHttpInfo(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: Configuration): Observable<HttpInfo<ListEntryWithEntityPaged>> {
-        const requestContextPromise = this.requestFactory.getV2ListsListidListEntries(listId, cursor, limit, fieldIds, fieldTypes, _options);
+    public getV2ListsListidListEntriesWithHttpInfo(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<HttpInfo<ListEntryWithEntityPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2ListsListidListEntries(listId, cursor, limit, fieldIds, fieldTypes, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2ListsListidListEntriesWithHttpInfo(rsp)));
@@ -489,7 +780,7 @@ export class ObservableListsApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2ListsListidListEntries(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: Configuration): Observable<ListEntryWithEntityPaged> {
+    public getV2ListsListidListEntries(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<ListEntryWithEntityPaged> {
         return this.getV2ListsListidListEntriesWithHttpInfo(listId, cursor, limit, fieldIds, fieldTypes, _options).pipe(map((apiResponse: HttpInfo<ListEntryWithEntityPaged>) => apiResponse.data));
     }
 
@@ -500,19 +791,48 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2ListsListidSavedViewsWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<SavedViewPaged>> {
-        const requestContextPromise = this.requestFactory.getV2ListsListidSavedViews(listId, cursor, limit, _options);
+    public getV2ListsListidSavedViewsWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<SavedViewPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2ListsListidSavedViews(listId, cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2ListsListidSavedViewsWithHttpInfo(rsp)));
@@ -526,7 +846,7 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2ListsListidSavedViews(listId: number, cursor?: string, limit?: number, _options?: Configuration): Observable<SavedViewPaged> {
+    public getV2ListsListidSavedViews(listId: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<SavedViewPaged> {
         return this.getV2ListsListidSavedViewsWithHttpInfo(listId, cursor, limit, _options).pipe(map((apiResponse: HttpInfo<SavedViewPaged>) => apiResponse.data));
     }
 
@@ -536,19 +856,48 @@ export class ObservableListsApi {
      * @param listId List ID
      * @param viewId Saved view ID
      */
-    public getV2ListsListidSavedViewsViewidWithHttpInfo(listId: number, viewId: number, _options?: Configuration): Observable<HttpInfo<SavedView>> {
-        const requestContextPromise = this.requestFactory.getV2ListsListidSavedViewsViewid(listId, viewId, _options);
+    public getV2ListsListidSavedViewsViewidWithHttpInfo(listId: number, viewId: number, _options?: ConfigurationOptions): Observable<HttpInfo<SavedView>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2ListsListidSavedViewsViewid(listId, viewId, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2ListsListidSavedViewsViewidWithHttpInfo(rsp)));
@@ -561,7 +910,7 @@ export class ObservableListsApi {
      * @param listId List ID
      * @param viewId Saved view ID
      */
-    public getV2ListsListidSavedViewsViewid(listId: number, viewId: number, _options?: Configuration): Observable<SavedView> {
+    public getV2ListsListidSavedViewsViewid(listId: number, viewId: number, _options?: ConfigurationOptions): Observable<SavedView> {
         return this.getV2ListsListidSavedViewsViewidWithHttpInfo(listId, viewId, _options).pipe(map((apiResponse: HttpInfo<SavedView>) => apiResponse.data));
     }
 
@@ -573,19 +922,48 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(listId: number, viewId: number, cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<ListEntryWithEntityPaged>> {
-        const requestContextPromise = this.requestFactory.getV2ListsListidSavedViewsViewidListEntries(listId, viewId, cursor, limit, _options);
+    public getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(listId: number, viewId: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<ListEntryWithEntityPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2ListsListidSavedViewsViewidListEntries(listId, viewId, cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(rsp)));
@@ -600,7 +978,7 @@ export class ObservableListsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2ListsListidSavedViewsViewidListEntries(listId: number, viewId: number, cursor?: string, limit?: number, _options?: Configuration): Observable<ListEntryWithEntityPaged> {
+    public getV2ListsListidSavedViewsViewidListEntries(listId: number, viewId: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<ListEntryWithEntityPaged> {
         return this.getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(listId, viewId, cursor, limit, _options).pipe(map((apiResponse: HttpInfo<ListEntryWithEntityPaged>) => apiResponse.data));
     }
 
@@ -629,19 +1007,48 @@ export class ObservableOpportunitiesApi {
      * @param [limit] Number of items to include in the page
      * @param [ids] Opportunity IDs
      */
-    public getV2OpportunitiesWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, _options?: Configuration): Observable<HttpInfo<OpportunityPaged>> {
-        const requestContextPromise = this.requestFactory.getV2Opportunities(cursor, limit, ids, _options);
+    public getV2OpportunitiesWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, _options?: ConfigurationOptions): Observable<HttpInfo<OpportunityPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2Opportunities(cursor, limit, ids, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2OpportunitiesWithHttpInfo(rsp)));
@@ -655,7 +1062,7 @@ export class ObservableOpportunitiesApi {
      * @param [limit] Number of items to include in the page
      * @param [ids] Opportunity IDs
      */
-    public getV2Opportunities(cursor?: string, limit?: number, ids?: Array<number>, _options?: Configuration): Observable<OpportunityPaged> {
+    public getV2Opportunities(cursor?: string, limit?: number, ids?: Array<number>, _options?: ConfigurationOptions): Observable<OpportunityPaged> {
         return this.getV2OpportunitiesWithHttpInfo(cursor, limit, ids, _options).pipe(map((apiResponse: HttpInfo<OpportunityPaged>) => apiResponse.data));
     }
 
@@ -664,19 +1071,48 @@ export class ObservableOpportunitiesApi {
      * Get a single Opportunity
      * @param id Opportunity ID
      */
-    public getV2OpportunitiesIdWithHttpInfo(id: number, _options?: Configuration): Observable<HttpInfo<Opportunity>> {
-        const requestContextPromise = this.requestFactory.getV2OpportunitiesId(id, _options);
+    public getV2OpportunitiesIdWithHttpInfo(id: number, _options?: ConfigurationOptions): Observable<HttpInfo<Opportunity>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2OpportunitiesId(id, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2OpportunitiesIdWithHttpInfo(rsp)));
@@ -688,7 +1124,7 @@ export class ObservableOpportunitiesApi {
      * Get a single Opportunity
      * @param id Opportunity ID
      */
-    public getV2OpportunitiesId(id: number, _options?: Configuration): Observable<Opportunity> {
+    public getV2OpportunitiesId(id: number, _options?: ConfigurationOptions): Observable<Opportunity> {
         return this.getV2OpportunitiesIdWithHttpInfo(id, _options).pipe(map((apiResponse: HttpInfo<Opportunity>) => apiResponse.data));
     }
 
@@ -719,19 +1155,48 @@ export class ObservablePersonsApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2PersonsWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<HttpInfo<PersonPaged>> {
-        const requestContextPromise = this.requestFactory.getV2Persons(cursor, limit, ids, fieldIds, fieldTypes, _options);
+    public getV2PersonsWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<HttpInfo<PersonPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2Persons(cursor, limit, ids, fieldIds, fieldTypes, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2PersonsWithHttpInfo(rsp)));
@@ -747,7 +1212,7 @@ export class ObservablePersonsApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2Persons(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<PersonPaged> {
+    public getV2Persons(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<PersonPaged> {
         return this.getV2PersonsWithHttpInfo(cursor, limit, ids, fieldIds, fieldTypes, _options).pipe(map((apiResponse: HttpInfo<PersonPaged>) => apiResponse.data));
     }
 
@@ -757,19 +1222,48 @@ export class ObservablePersonsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2PersonsFieldsWithHttpInfo(cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<FieldMetadataPaged>> {
-        const requestContextPromise = this.requestFactory.getV2PersonsFields(cursor, limit, _options);
+    public getV2PersonsFieldsWithHttpInfo(cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<FieldMetadataPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2PersonsFields(cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2PersonsFieldsWithHttpInfo(rsp)));
@@ -782,7 +1276,7 @@ export class ObservablePersonsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2PersonsFields(cursor?: string, limit?: number, _options?: Configuration): Observable<FieldMetadataPaged> {
+    public getV2PersonsFields(cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<FieldMetadataPaged> {
         return this.getV2PersonsFieldsWithHttpInfo(cursor, limit, _options).pipe(map((apiResponse: HttpInfo<FieldMetadataPaged>) => apiResponse.data));
     }
 
@@ -793,19 +1287,48 @@ export class ObservablePersonsApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2PersonsIdWithHttpInfo(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<HttpInfo<Person>> {
-        const requestContextPromise = this.requestFactory.getV2PersonsId(id, fieldIds, fieldTypes, _options);
+    public getV2PersonsIdWithHttpInfo(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<HttpInfo<Person>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2PersonsId(id, fieldIds, fieldTypes, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2PersonsIdWithHttpInfo(rsp)));
@@ -819,7 +1342,7 @@ export class ObservablePersonsApi {
      * @param [fieldIds] Field IDs for which to return field data
      * @param [fieldTypes] Field Types for which to return field data
      */
-    public getV2PersonsId(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Observable<Person> {
+    public getV2PersonsId(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: ConfigurationOptions): Observable<Person> {
         return this.getV2PersonsIdWithHttpInfo(id, fieldIds, fieldTypes, _options).pipe(map((apiResponse: HttpInfo<Person>) => apiResponse.data));
     }
 
@@ -830,19 +1353,48 @@ export class ObservablePersonsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2PersonsIdListEntriesWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<ListEntryPaged>> {
-        const requestContextPromise = this.requestFactory.getV2PersonsIdListEntries(id, cursor, limit, _options);
+    public getV2PersonsIdListEntriesWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<ListEntryPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2PersonsIdListEntries(id, cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2PersonsIdListEntriesWithHttpInfo(rsp)));
@@ -856,7 +1408,7 @@ export class ObservablePersonsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2PersonsIdListEntries(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<ListEntryPaged> {
+    public getV2PersonsIdListEntries(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<ListEntryPaged> {
         return this.getV2PersonsIdListEntriesWithHttpInfo(id, cursor, limit, _options).pipe(map((apiResponse: HttpInfo<ListEntryPaged>) => apiResponse.data));
     }
 
@@ -867,19 +1419,48 @@ export class ObservablePersonsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2PersonsIdListsWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<HttpInfo<ListPaged>> {
-        const requestContextPromise = this.requestFactory.getV2PersonsIdLists(id, cursor, limit, _options);
+    public getV2PersonsIdListsWithHttpInfo(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<HttpInfo<ListPaged>> {
+    let _config = this.configuration;
+    let allMiddleware: Middleware[] = [];
+    if (_options && _options.middleware){
+      const middlewareMergeStrategy = _options.middlewareMergeStrategy || 'replace' // default to replace behavior
+      // call-time middleware provided
+      const calltimeMiddleware: Middleware[] = _options.middleware;
 
+      switch(middlewareMergeStrategy){
+      case 'append':
+        allMiddleware = this.configuration.middleware.concat(calltimeMiddleware);
+        break;
+      case 'prepend':
+        allMiddleware = calltimeMiddleware.concat(this.configuration.middleware)
+        break;
+      case 'replace':
+        allMiddleware = calltimeMiddleware
+        break;
+      default: 
+        throw new Error(`unrecognized middleware merge strategy '${middlewareMergeStrategy}'`)
+      }
+	}
+	if (_options){
+    _config = {
+      baseServer: _options.baseServer || this.configuration.baseServer,
+      httpApi: _options.httpApi || this.configuration.httpApi,
+      authMethods: _options.authMethods || this.configuration.authMethods,
+      middleware: allMiddleware || this.configuration.middleware
+		};
+	}
+
+        const requestContextPromise = this.requestFactory.getV2PersonsIdLists(id, cursor, limit, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
+        for (const middleware of allMiddleware) {
             middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
         }
 
         return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
             pipe(mergeMap((response: ResponseContext) => {
                 let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
+                for (const middleware of allMiddleware.reverse()) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getV2PersonsIdListsWithHttpInfo(rsp)));
@@ -893,7 +1474,7 @@ export class ObservablePersonsApi {
      * @param [cursor] Cursor for the next or previous page
      * @param [limit] Number of items to include in the page
      */
-    public getV2PersonsIdLists(id: number, cursor?: string, limit?: number, _options?: Configuration): Observable<ListPaged> {
+    public getV2PersonsIdLists(id: number, cursor?: string, limit?: number, _options?: ConfigurationOptions): Observable<ListPaged> {
         return this.getV2PersonsIdListsWithHttpInfo(id, cursor, limit, _options).pipe(map((apiResponse: HttpInfo<ListPaged>) => apiResponse.data));
     }
 
