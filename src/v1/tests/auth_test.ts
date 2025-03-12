@@ -15,7 +15,9 @@ describe('whoami', () => {
 
     beforeEach(() => {
         if (!isLiveRun()) {
-            mock = new MockAdapter(axios)
+            // see https://github.com/ctimmerm/axios-mock-adapter/issues/400
+            // deno-lint-ignore no-explicit-any
+            mock = new MockAdapter(axios as any)
         }
         affinity = new Affinity(apiKey() || 'api_key')
     })

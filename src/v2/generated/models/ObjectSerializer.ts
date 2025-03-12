@@ -1,35 +1,50 @@
 export * from '../models/Attendee.ts';
 export * from '../models/AuthenticationError.ts';
-export * from '../models/AuthenticationErrors.ts';
 export * from '../models/AuthorizationError.ts';
 export * from '../models/AuthorizationErrors.ts';
 export * from '../models/BadRequestError.ts';
 export * from '../models/ChatMessage.ts';
 export * from '../models/CompaniesValue.ts';
+export * from '../models/CompaniesValueUpdate.ts';
 export * from '../models/Company.ts';
 export * from '../models/CompanyData.ts';
 export * from '../models/CompanyListEntry.ts';
 export * from '../models/CompanyPaged.ts';
+export * from '../models/CompanyReference.ts';
 export * from '../models/CompanyValue.ts';
+export * from '../models/CompanyValueUpdate.ts';
 export * from '../models/ConflictError.ts';
 export * from '../models/DateValue.ts';
 export * from '../models/Dropdown.ts';
+export * from '../models/DropdownReference.ts';
 export * from '../models/DropdownValue.ts';
+export * from '../models/DropdownValueUpdate.ts';
 export * from '../models/DropdownsValue.ts';
+export * from '../models/DropdownsValueUpdate.ts';
 export * from '../models/Email.ts';
+export * from '../models/Errors.ts';
 export * from '../models/Field.ts';
 export * from '../models/FieldMetadata.ts';
 export * from '../models/FieldMetadataPaged.ts';
+export * from '../models/FieldPaged.ts';
+export * from '../models/FieldUpdate.ts';
 export * from '../models/FieldValue.ts';
+export * from '../models/FieldValueUpdate.ts';
 export * from '../models/FloatValue.ts';
 export * from '../models/FloatsValue.ts';
 export * from '../models/FormulaNumber.ts';
 export * from '../models/FormulaValue.ts';
 export * from '../models/Grant.ts';
+export * from '../models/InlineObject.ts';
+export * from '../models/InlineObjectErrorsInner.ts';
 export * from '../models/Interaction.ts';
 export * from '../models/InteractionValue.ts';
 export * from '../models/List.ts';
 export * from '../models/ListEntry.ts';
+export * from '../models/ListEntryBatchOperationResponse.ts';
+export * from '../models/ListEntryBatchOperationUpdateFields.ts';
+export * from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
+export * from '../models/ListEntryBatchOperations.ts';
 export * from '../models/ListEntryPaged.ts';
 export * from '../models/ListEntryWithEntity.ts';
 export * from '../models/ListEntryWithEntityPaged.ts';
@@ -41,6 +56,7 @@ export * from '../models/LocationValue.ts';
 export * from '../models/LocationsValue.ts';
 export * from '../models/Meeting.ts';
 export * from '../models/MethodNotAllowedError.ts';
+export * from '../models/ModelError.ts';
 export * from '../models/NotAcceptableError.ts';
 export * from '../models/NotFoundError.ts';
 export * from '../models/NotFoundErrors.ts';
@@ -54,11 +70,16 @@ export * from '../models/Person.ts';
 export * from '../models/PersonData.ts';
 export * from '../models/PersonListEntry.ts';
 export * from '../models/PersonPaged.ts';
+export * from '../models/PersonReference.ts';
 export * from '../models/PersonValue.ts';
+export * from '../models/PersonValueUpdate.ts';
 export * from '../models/PersonsValue.ts';
+export * from '../models/PersonsValueUpdate.ts';
 export * from '../models/PhoneCall.ts';
 export * from '../models/RankedDropdown.ts';
+export * from '../models/RankedDropdownReference.ts';
 export * from '../models/RankedDropdownValue.ts';
+export * from '../models/RankedDropdownValueUpdate.ts';
 export * from '../models/RateLimitError.ts';
 export * from '../models/SavedView.ts';
 export * from '../models/SavedViewPaged.ts';
@@ -70,41 +91,55 @@ export * from '../models/UnprocessableEntityError.ts';
 export * from '../models/UnsupportedMediaTypeError.ts';
 export * from '../models/User.ts';
 export * from '../models/ValidationError.ts';
-export * from '../models/ValidationErrors.ts';
 export * from '../models/WhoAmI.ts';
 
 import { Attendee } from '../models/Attendee.ts';
 import { AuthenticationError, AuthenticationErrorCodeEnum    } from '../models/AuthenticationError.ts';
-import { AuthenticationErrors } from '../models/AuthenticationErrors.ts';
 import { AuthorizationError, AuthorizationErrorCodeEnum    } from '../models/AuthorizationError.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
 import { BadRequestError, BadRequestErrorCodeEnum    } from '../models/BadRequestError.ts';
 import { ChatMessage, ChatMessageTypeEnum   , ChatMessageDirectionEnum      } from '../models/ChatMessage.ts';
 import { CompaniesValue, CompaniesValueTypeEnum    } from '../models/CompaniesValue.ts';
+import { CompaniesValueUpdate, CompaniesValueUpdateTypeEnum    } from '../models/CompaniesValueUpdate.ts';
 import { Company } from '../models/Company.ts';
 import { CompanyData } from '../models/CompanyData.ts';
-import { CompanyListEntry , CompanyListEntryTypeEnum      } from '../models/CompanyListEntry.ts';
+import { CompanyListEntry , CompanyListEntryTypeEnum       } from '../models/CompanyListEntry.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
+import { CompanyReference } from '../models/CompanyReference.ts';
 import { CompanyValue, CompanyValueTypeEnum    } from '../models/CompanyValue.ts';
+import { CompanyValueUpdate, CompanyValueUpdateTypeEnum    } from '../models/CompanyValueUpdate.ts';
 import { ConflictError, ConflictErrorCodeEnum    } from '../models/ConflictError.ts';
 import { DateValue, DateValueTypeEnum    } from '../models/DateValue.ts';
 import { Dropdown } from '../models/Dropdown.ts';
+import { DropdownReference } from '../models/DropdownReference.ts';
 import { DropdownValue, DropdownValueTypeEnum    } from '../models/DropdownValue.ts';
+import { DropdownValueUpdate, DropdownValueUpdateTypeEnum    } from '../models/DropdownValueUpdate.ts';
 import { DropdownsValue, DropdownsValueTypeEnum    } from '../models/DropdownsValue.ts';
+import { DropdownsValueUpdate, DropdownsValueUpdateTypeEnum    } from '../models/DropdownsValueUpdate.ts';
 import { Email, EmailTypeEnum         } from '../models/Email.ts';
+import { Errors } from '../models/Errors.ts';
 import { Field  , FieldTypeEnum  , FieldEnrichmentSourceEnum    } from '../models/Field.ts';
 import { FieldMetadata  , FieldMetadataTypeEnum  , FieldMetadataEnrichmentSourceEnum  , FieldMetadataValueTypeEnum   } from '../models/FieldMetadata.ts';
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts';
+import { FieldPaged } from '../models/FieldPaged.ts';
+import { FieldUpdate } from '../models/FieldUpdate.ts';
 import { FieldValueClass } from '../models/FieldValue.ts';
+import { FieldValueUpdateClass } from '../models/FieldValueUpdate.ts';
 import { FloatValue, FloatValueTypeEnum    } from '../models/FloatValue.ts';
 import { FloatsValue, FloatsValueTypeEnum    } from '../models/FloatsValue.ts';
 import { FormulaNumber } from '../models/FormulaNumber.ts';
 import { FormulaValue, FormulaValueTypeEnum    } from '../models/FormulaValue.ts';
 import { Grant, GrantTypeEnum     } from '../models/Grant.ts';
+import { InlineObject } from '../models/InlineObject.ts';
+import { InlineObjectErrorsInnerClass } from '../models/InlineObjectErrorsInner.ts';
 import { InteractionClass } from '../models/Interaction.ts';
 import { InteractionValue, InteractionValueTypeEnum    } from '../models/InteractionValue.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
+import { ListEntryBatchOperationResponse  } from '../models/ListEntryBatchOperationResponse.ts';
+import { ListEntryBatchOperationUpdateFields, ListEntryBatchOperationUpdateFieldsOperationEnum    } from '../models/ListEntryBatchOperationUpdateFields.ts';
+import { ListEntryBatchOperationUpdateFieldsUpdatesInner } from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
+import { ListEntryBatchOperations } from '../models/ListEntryBatchOperations.ts';
 import { ListEntryPaged } from '../models/ListEntryPaged.ts';
 import { ListEntryWithEntityClass } from '../models/ListEntryWithEntity.ts';
 import { ListEntryWithEntityPaged } from '../models/ListEntryWithEntityPaged.ts';
@@ -114,26 +149,32 @@ import { ListWithTypePaged } from '../models/ListWithTypePaged.ts';
 import { Location } from '../models/Location.ts';
 import { LocationValue, LocationValueTypeEnum    } from '../models/LocationValue.ts';
 import { LocationsValue, LocationsValueTypeEnum    } from '../models/LocationsValue.ts';
-import { Meeting, MeetingTypeEnum         } from '../models/Meeting.ts';
+import { Meeting } from '../models/Meeting.ts';
 import { MethodNotAllowedError, MethodNotAllowedErrorCodeEnum    } from '../models/MethodNotAllowedError.ts';
+import { ModelErrorClass } from '../models/ModelError.ts';
 import { NotAcceptableError, NotAcceptableErrorCodeEnum    } from '../models/NotAcceptableError.ts';
 import { NotFoundError, NotFoundErrorCodeEnum    } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
 import { NotImplementedError, NotImplementedErrorCodeEnum    } from '../models/NotImplementedError.ts';
 import { Opportunity } from '../models/Opportunity.ts';
-import { OpportunityListEntry , OpportunityListEntryTypeEnum      } from '../models/OpportunityListEntry.ts';
+import { OpportunityListEntry , OpportunityListEntryTypeEnum       } from '../models/OpportunityListEntry.ts';
 import { OpportunityPaged } from '../models/OpportunityPaged.ts';
 import { OpportunityWithFields } from '../models/OpportunityWithFields.ts';
 import { Pagination } from '../models/Pagination.ts';
 import { Person     , PersonTypeEnum    } from '../models/Person.ts';
 import { PersonData    , PersonDataTypeEnum   } from '../models/PersonData.ts';
-import { PersonListEntry , PersonListEntryTypeEnum      } from '../models/PersonListEntry.ts';
+import { PersonListEntry , PersonListEntryTypeEnum       } from '../models/PersonListEntry.ts';
 import { PersonPaged } from '../models/PersonPaged.ts';
+import { PersonReference } from '../models/PersonReference.ts';
 import { PersonValue, PersonValueTypeEnum    } from '../models/PersonValue.ts';
+import { PersonValueUpdate, PersonValueUpdateTypeEnum    } from '../models/PersonValueUpdate.ts';
 import { PersonsValue, PersonsValueTypeEnum    } from '../models/PersonsValue.ts';
+import { PersonsValueUpdate, PersonsValueUpdateTypeEnum    } from '../models/PersonsValueUpdate.ts';
 import { PhoneCall, PhoneCallTypeEnum      } from '../models/PhoneCall.ts';
 import { RankedDropdown } from '../models/RankedDropdown.ts';
+import { RankedDropdownReference } from '../models/RankedDropdownReference.ts';
 import { RankedDropdownValue, RankedDropdownValueTypeEnum    } from '../models/RankedDropdownValue.ts';
+import { RankedDropdownValueUpdate, RankedDropdownValueUpdateTypeEnum    } from '../models/RankedDropdownValueUpdate.ts';
 import { RateLimitError, RateLimitErrorCodeEnum    } from '../models/RateLimitError.ts';
 import { SavedView  , SavedViewTypeEnum    } from '../models/SavedView.ts';
 import { SavedViewPaged } from '../models/SavedViewPaged.ts';
@@ -145,7 +186,6 @@ import { UnprocessableEntityError, UnprocessableEntityErrorCodeEnum    } from '.
 import { UnsupportedMediaTypeError, UnsupportedMediaTypeErrorCodeEnum    } from '../models/UnsupportedMediaTypeError.ts';
 import { User } from '../models/User.ts';
 import { ValidationError, ValidationErrorCodeEnum     } from '../models/ValidationError.ts';
-import { ValidationErrors } from '../models/ValidationErrors.ts';
 import { WhoAmI } from '../models/WhoAmI.ts';
 
 /* tslint:disable:no-unused-variable */
@@ -167,12 +207,16 @@ let enumsMap: Set<string> = new Set<string>([
     "ChatMessageTypeEnum",
     "ChatMessageDirectionEnum",
     "CompaniesValueTypeEnum",
+    "CompaniesValueUpdateTypeEnum",
     "CompanyListEntryTypeEnum",
     "CompanyValueTypeEnum",
+    "CompanyValueUpdateTypeEnum",
     "ConflictErrorCodeEnum",
     "DateValueTypeEnum",
     "DropdownValueTypeEnum",
+    "DropdownValueUpdateTypeEnum",
     "DropdownsValueTypeEnum",
+    "DropdownsValueUpdateTypeEnum",
     "EmailTypeEnum",
     "FieldTypeEnum",
     "FieldEnrichmentSourceEnum",
@@ -180,19 +224,22 @@ let enumsMap: Set<string> = new Set<string>([
     "FieldMetadataEnrichmentSourceEnum",
     "FieldMetadataValueTypeEnum",
     "FieldValueTypeEnum",
+    "FieldValueUpdateTypeEnum",
     "FloatValueTypeEnum",
     "FloatsValueTypeEnum",
     "FormulaValueTypeEnum",
     "GrantTypeEnum",
-    "InteractionTypeEnum",
+    "InlineObjectErrorsInnerCodeEnum",
     "InteractionDirectionEnum",
     "InteractionValueTypeEnum",
+    "ListEntryBatchOperationUpdateFieldsOperationEnum",
+    "ListEntryBatchOperations",
     "ListEntryWithEntityTypeEnum",
     "ListWithTypeTypeEnum",
     "LocationValueTypeEnum",
     "LocationsValueTypeEnum",
-    "MeetingTypeEnum",
     "MethodNotAllowedErrorCodeEnum",
+    "ModelErrorCodeEnum",
     "NotAcceptableErrorCodeEnum",
     "NotFoundErrorCodeEnum",
     "NotImplementedErrorCodeEnum",
@@ -201,9 +248,12 @@ let enumsMap: Set<string> = new Set<string>([
     "PersonDataTypeEnum",
     "PersonListEntryTypeEnum",
     "PersonValueTypeEnum",
+    "PersonValueUpdateTypeEnum",
     "PersonsValueTypeEnum",
+    "PersonsValueUpdateTypeEnum",
     "PhoneCallTypeEnum",
     "RankedDropdownValueTypeEnum",
+    "RankedDropdownValueUpdateTypeEnum",
     "RateLimitErrorCodeEnum",
     "SavedViewTypeEnum",
     "ServerErrorCodeEnum",
@@ -217,36 +267,50 @@ let enumsMap: Set<string> = new Set<string>([
 let typeMap: {[index: string]: any} = {
     "Attendee": Attendee,
     "AuthenticationError": AuthenticationError,
-    "AuthenticationErrors": AuthenticationErrors,
     "AuthorizationError": AuthorizationError,
     "AuthorizationErrors": AuthorizationErrors,
     "BadRequestError": BadRequestError,
     "ChatMessage": ChatMessage,
     "CompaniesValue": CompaniesValue,
+    "CompaniesValueUpdate": CompaniesValueUpdate,
     "Company": Company,
     "CompanyData": CompanyData,
     "CompanyListEntry": CompanyListEntry,
     "CompanyPaged": CompanyPaged,
+    "CompanyReference": CompanyReference,
     "CompanyValue": CompanyValue,
+    "CompanyValueUpdate": CompanyValueUpdate,
     "ConflictError": ConflictError,
     "DateValue": DateValue,
     "Dropdown": Dropdown,
+    "DropdownReference": DropdownReference,
     "DropdownValue": DropdownValue,
+    "DropdownValueUpdate": DropdownValueUpdate,
     "DropdownsValue": DropdownsValue,
+    "DropdownsValueUpdate": DropdownsValueUpdate,
     "Email": Email,
+    "Errors": Errors,
     "Field": Field,
     "FieldMetadata": FieldMetadata,
     "FieldMetadataPaged": FieldMetadataPaged,
+    "FieldPaged": FieldPaged,
+    "FieldUpdate": FieldUpdate,
     "FieldValue": FieldValueClass,
+    "FieldValueUpdate": FieldValueUpdateClass,
     "FloatValue": FloatValue,
     "FloatsValue": FloatsValue,
     "FormulaNumber": FormulaNumber,
     "FormulaValue": FormulaValue,
     "Grant": Grant,
+    "InlineObject": InlineObject,
+    "InlineObjectErrorsInner": InlineObjectErrorsInnerClass,
     "Interaction": InteractionClass,
     "InteractionValue": InteractionValue,
     "List": List,
     "ListEntry": ListEntry,
+    "ListEntryBatchOperationResponse": ListEntryBatchOperationResponse,
+    "ListEntryBatchOperationUpdateFields": ListEntryBatchOperationUpdateFields,
+    "ListEntryBatchOperationUpdateFieldsUpdatesInner": ListEntryBatchOperationUpdateFieldsUpdatesInner,
     "ListEntryPaged": ListEntryPaged,
     "ListEntryWithEntity": ListEntryWithEntityClass,
     "ListEntryWithEntityPaged": ListEntryWithEntityPaged,
@@ -258,6 +322,7 @@ let typeMap: {[index: string]: any} = {
     "LocationsValue": LocationsValue,
     "Meeting": Meeting,
     "MethodNotAllowedError": MethodNotAllowedError,
+    "ModelError": ModelErrorClass,
     "NotAcceptableError": NotAcceptableError,
     "NotFoundError": NotFoundError,
     "NotFoundErrors": NotFoundErrors,
@@ -271,11 +336,16 @@ let typeMap: {[index: string]: any} = {
     "PersonData": PersonData,
     "PersonListEntry": PersonListEntry,
     "PersonPaged": PersonPaged,
+    "PersonReference": PersonReference,
     "PersonValue": PersonValue,
+    "PersonValueUpdate": PersonValueUpdate,
     "PersonsValue": PersonsValue,
+    "PersonsValueUpdate": PersonsValueUpdate,
     "PhoneCall": PhoneCall,
     "RankedDropdown": RankedDropdown,
+    "RankedDropdownReference": RankedDropdownReference,
     "RankedDropdownValue": RankedDropdownValue,
+    "RankedDropdownValueUpdate": RankedDropdownValueUpdate,
     "RateLimitError": RateLimitError,
     "SavedView": SavedView,
     "SavedViewPaged": SavedViewPaged,
@@ -287,7 +357,6 @@ let typeMap: {[index: string]: any} = {
     "UnsupportedMediaTypeError": UnsupportedMediaTypeError,
     "User": User,
     "ValidationError": ValidationError,
-    "ValidationErrors": ValidationErrors,
     "WhoAmI": WhoAmI,
 }
 

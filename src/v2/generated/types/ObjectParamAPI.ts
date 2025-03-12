@@ -4,36 +4,51 @@ import type { Middleware } from '../middleware.ts';
 
 import { Attendee } from '../models/Attendee.ts';
 import { AuthenticationError } from '../models/AuthenticationError.ts';
-import { AuthenticationErrors } from '../models/AuthenticationErrors.ts';
 import { AuthorizationError } from '../models/AuthorizationError.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
 import { BadRequestError } from '../models/BadRequestError.ts';
 import { ChatMessage } from '../models/ChatMessage.ts';
 import { CompaniesValue } from '../models/CompaniesValue.ts';
+import { CompaniesValueUpdate } from '../models/CompaniesValueUpdate.ts';
 import { Company } from '../models/Company.ts';
 import { CompanyData } from '../models/CompanyData.ts';
 import { CompanyListEntry } from '../models/CompanyListEntry.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
+import { CompanyReference } from '../models/CompanyReference.ts';
 import { CompanyValue } from '../models/CompanyValue.ts';
+import { CompanyValueUpdate } from '../models/CompanyValueUpdate.ts';
 import { ConflictError } from '../models/ConflictError.ts';
 import { DateValue } from '../models/DateValue.ts';
 import { Dropdown } from '../models/Dropdown.ts';
+import { DropdownReference } from '../models/DropdownReference.ts';
 import { DropdownValue } from '../models/DropdownValue.ts';
+import { DropdownValueUpdate } from '../models/DropdownValueUpdate.ts';
 import { DropdownsValue } from '../models/DropdownsValue.ts';
+import { DropdownsValueUpdate } from '../models/DropdownsValueUpdate.ts';
 import { Email } from '../models/Email.ts';
+import { Errors } from '../models/Errors.ts';
 import { Field } from '../models/Field.ts';
 import { FieldMetadata } from '../models/FieldMetadata.ts';
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts';
+import { FieldPaged } from '../models/FieldPaged.ts';
+import { FieldUpdate } from '../models/FieldUpdate.ts';
 import { FieldValue } from '../models/FieldValue.ts';
+import { FieldValueUpdate } from '../models/FieldValueUpdate.ts';
 import { FloatValue } from '../models/FloatValue.ts';
 import { FloatsValue } from '../models/FloatsValue.ts';
 import { FormulaNumber } from '../models/FormulaNumber.ts';
 import { FormulaValue } from '../models/FormulaValue.ts';
 import { Grant } from '../models/Grant.ts';
+import { InlineObject } from '../models/InlineObject.ts';
+import { InlineObjectErrorsInner } from '../models/InlineObjectErrorsInner.ts';
 import { Interaction } from '../models/Interaction.ts';
 import { InteractionValue } from '../models/InteractionValue.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
+import { ListEntryBatchOperationResponse } from '../models/ListEntryBatchOperationResponse.ts';
+import { ListEntryBatchOperationUpdateFields } from '../models/ListEntryBatchOperationUpdateFields.ts';
+import { ListEntryBatchOperationUpdateFieldsUpdatesInner } from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
+import { ListEntryBatchOperations } from '../models/ListEntryBatchOperations.ts';
 import { ListEntryPaged } from '../models/ListEntryPaged.ts';
 import { ListEntryWithEntity } from '../models/ListEntryWithEntity.ts';
 import { ListEntryWithEntityPaged } from '../models/ListEntryWithEntityPaged.ts';
@@ -45,6 +60,7 @@ import { LocationValue } from '../models/LocationValue.ts';
 import { LocationsValue } from '../models/LocationsValue.ts';
 import { Meeting } from '../models/Meeting.ts';
 import { MethodNotAllowedError } from '../models/MethodNotAllowedError.ts';
+import { ModelError } from '../models/ModelError.ts';
 import { NotAcceptableError } from '../models/NotAcceptableError.ts';
 import { NotFoundError } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
@@ -58,11 +74,16 @@ import { Person } from '../models/Person.ts';
 import { PersonData } from '../models/PersonData.ts';
 import { PersonListEntry } from '../models/PersonListEntry.ts';
 import { PersonPaged } from '../models/PersonPaged.ts';
+import { PersonReference } from '../models/PersonReference.ts';
 import { PersonValue } from '../models/PersonValue.ts';
+import { PersonValueUpdate } from '../models/PersonValueUpdate.ts';
 import { PersonsValue } from '../models/PersonsValue.ts';
+import { PersonsValueUpdate } from '../models/PersonsValueUpdate.ts';
 import { PhoneCall } from '../models/PhoneCall.ts';
 import { RankedDropdown } from '../models/RankedDropdown.ts';
+import { RankedDropdownReference } from '../models/RankedDropdownReference.ts';
 import { RankedDropdownValue } from '../models/RankedDropdownValue.ts';
+import { RankedDropdownValueUpdate } from '../models/RankedDropdownValueUpdate.ts';
 import { RateLimitError } from '../models/RateLimitError.ts';
 import { SavedView } from '../models/SavedView.ts';
 import { SavedViewPaged } from '../models/SavedViewPaged.ts';
@@ -74,7 +95,6 @@ import { UnprocessableEntityError } from '../models/UnprocessableEntityError.ts'
 import { UnsupportedMediaTypeError } from '../models/UnsupportedMediaTypeError.ts';
 import { User } from '../models/User.ts';
 import { ValidationError } from '../models/ValidationError.ts';
-import { ValidationErrors } from '../models/ValidationErrors.ts';
 import { WhoAmI } from '../models/WhoAmI.ts';
 
 import { ObservableAuthApi } from "./ObservableAPI.ts";
@@ -356,107 +376,6 @@ export class ObjectCompaniesApi {
 import { ObservableListsApi } from "./ObservableAPI.ts";
 import { ListsApiRequestFactory, ListsApiResponseProcessor} from "../apis/ListsApi.ts";
 
-export interface ListsApiGetV2ListsRequest {
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof ListsApigetV2Lists
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof ListsApigetV2Lists
-     */
-    limit?: number
-}
-
-export interface ListsApiGetV2ListsListidRequest {
-    /**
-     * List ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListid
-     */
-    listId: number
-}
-
-export interface ListsApiGetV2ListsListidFieldsRequest {
-    /**
-     * List ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListidFields
-     */
-    listId: number
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof ListsApigetV2ListsListidFields
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof ListsApigetV2ListsListidFields
-     */
-    limit?: number
-}
-
-export interface ListsApiGetV2ListsListidListEntriesRequest {
-    /**
-     * List ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListidListEntries
-     */
-    listId: number
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof ListsApigetV2ListsListidListEntries
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof ListsApigetV2ListsListidListEntries
-     */
-    limit?: number
-    /**
-     * Field IDs for which to return field data
-     * Defaults to: undefined
-     * @type Array&lt;string&gt;
-     * @memberof ListsApigetV2ListsListidListEntries
-     */
-    fieldIds?: Array<string>
-    /**
-     * Field Types for which to return field data
-     * Defaults to: undefined
-     * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;list&#39; | &#39;relationship-intelligence&#39;&gt;
-     * @memberof ListsApigetV2ListsListidListEntries
-     */
-    fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>
-}
-
 export interface ListsApiGetV2ListsListidSavedViewsRequest {
     /**
      * List ID
@@ -543,83 +462,287 @@ export interface ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest {
     limit?: number
 }
 
+export interface ListsApiV2ListsGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof ListsApiv2ListsGET
+     */
+    limit?: number
+}
+
+export interface ListsApiV2ListsListIdFieldsGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdFieldsGET
+     */
+    listId: number
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsListIdFieldsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof ListsApiv2ListsListIdFieldsGET
+     */
+    limit?: number
+}
+
+export interface ListsApiV2ListsListIdGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdGET
+     */
+    listId: number
+}
+
+export interface ListsApiV2ListsListIdListEntriesGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesGET
+     */
+    listId: number
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsListIdListEntriesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesGET
+     */
+    limit?: number
+    /**
+     * Field IDs for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;string&gt;
+     * @memberof ListsApiv2ListsListIdListEntriesGET
+     */
+    fieldIds?: Array<string>
+    /**
+     * Field Types for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;list&#39; | &#39;relationship-intelligence&#39;&gt;
+     * @memberof ListsApiv2ListsListIdListEntriesGET
+     */
+    fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>
+}
+
+export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdGET
+     */
+    listId: number
+    /**
+     * List Entry ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdGET
+     */
+    listEntryId: number
+    /**
+     * Field ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdGET
+     */
+    fieldId: string
+}
+
+export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
+     */
+    listId: number
+    /**
+     * List Entry ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
+     */
+    listEntryId: number
+    /**
+     * Field ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
+     */
+    fieldId: string
+    /**
+     * 
+     * @type FieldUpdate
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
+     */
+    fieldUpdate: FieldUpdate
+}
+
+export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
+     */
+    listId: number
+    /**
+     * List Entry ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
+     */
+    listEntryId: number
+    /**
+     * Field IDs for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;string&gt;
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
+     */
+    ids?: Array<string>
+    /**
+     * Field Types for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;list&#39; | &#39;relationship-intelligence&#39;&gt;
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
+     */
+    types?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
+     */
+    limit?: number
+}
+
+export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
+     */
+    listId: number
+    /**
+     * List Entry ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
+     */
+    listEntryId: number
+    /**
+     * 
+     * @type ListEntryBatchOperationUpdateFields
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
+     */
+    body: ListEntryBatchOperationUpdateFields
+}
+
+export interface ListsApiV2ListsListIdListEntriesListEntryIdGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
+     */
+    listId: number
+    /**
+     * List Entry ID
+     * Minimum: 1
+     * Maximum: -9223372036854775616
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
+     */
+    listEntryId: number
+    /**
+     * Field IDs for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;string&gt;
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
+     */
+    fieldIds?: Array<string>
+    /**
+     * Field Types for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;list&#39; | &#39;relationship-intelligence&#39;&gt;
+     * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
+     */
+    fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>
+}
+
 export class ObjectListsApi {
     private api: ObservableListsApi
 
     public constructor(configuration: Configuration, requestFactory?: ListsApiRequestFactory, responseProcessor?: ListsApiResponseProcessor) {
         this.api = new ObservableListsApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * Returns metadata on Lists.
-     * Get metadata on all Lists
-     * @param param the request object
-     */
-    public getV2ListsWithHttpInfo(param: ListsApiGetV2ListsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<ListWithTypePaged>> {
-        return this.api.getV2ListsWithHttpInfo(param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on Lists.
-     * Get metadata on all Lists
-     * @param param the request object
-     */
-    public getV2Lists(param: ListsApiGetV2ListsRequest = {}, options?: ConfigurationOptions): Promise<ListWithTypePaged> {
-        return this.api.getV2Lists(param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on a single List.
-     * Get metadata on a single List
-     * @param param the request object
-     */
-    public getV2ListsListidWithHttpInfo(param: ListsApiGetV2ListsListidRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListWithType>> {
-        return this.api.getV2ListsListidWithHttpInfo(param.listId,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on a single List.
-     * Get metadata on a single List
-     * @param param the request object
-     */
-    public getV2ListsListid(param: ListsApiGetV2ListsListidRequest, options?: ConfigurationOptions): Promise<ListWithType> {
-        return this.api.getV2ListsListid(param.listId,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
-     * Get metadata on a single List\'s Fields
-     * @param param the request object
-     */
-    public getV2ListsListidFieldsWithHttpInfo(param: ListsApiGetV2ListsListidFieldsRequest, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
-        return this.api.getV2ListsListidFieldsWithHttpInfo(param.listId, param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
-     * Get metadata on a single List\'s Fields
-     * @param param the request object
-     */
-    public getV2ListsListidFields(param: ListsApiGetV2ListsListidFieldsRequest, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
-        return this.api.getV2ListsListidFields(param.listId, param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get all List Entries on a List
-     * @param param the request object
-     */
-    public getV2ListsListidListEntriesWithHttpInfo(param: ListsApiGetV2ListsListidListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
-        return this.api.getV2ListsListidListEntriesWithHttpInfo(param.listId, param.cursor, param.limit, param.fieldIds, param.fieldTypes,  options).toPromise();
-    }
-
-    /**
-     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get all List Entries on a List
-     * @param param the request object
-     */
-    public getV2ListsListidListEntries(param: ListsApiGetV2ListsListidListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntityPaged> {
-        return this.api.getV2ListsListidListEntries(param.listId, param.cursor, param.limit, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
     /**
@@ -674,6 +797,168 @@ export class ObjectListsApi {
      */
     public getV2ListsListidSavedViewsViewidListEntries(param: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntityPaged> {
         return this.api.getV2ListsListidSavedViewsViewidListEntries(param.listId, param.viewId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on Lists.
+     * Get metadata on all Lists
+     * @param param the request object
+     */
+    public v2ListsGETWithHttpInfo(param: ListsApiV2ListsGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<ListWithTypePaged>> {
+        return this.api.v2ListsGETWithHttpInfo(param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on Lists.
+     * Get metadata on all Lists
+     * @param param the request object
+     */
+    public v2ListsGET(param: ListsApiV2ListsGETRequest = {}, options?: ConfigurationOptions): Promise<ListWithTypePaged> {
+        return this.api.v2ListsGET(param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
+     * Get metadata on a single List\'s Fields
+     * @param param the request object
+     */
+    public v2ListsListIdFieldsGETWithHttpInfo(param: ListsApiV2ListsListIdFieldsGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
+        return this.api.v2ListsListIdFieldsGETWithHttpInfo(param.listId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
+     * Get metadata on a single List\'s Fields
+     * @param param the request object
+     */
+    public v2ListsListIdFieldsGET(param: ListsApiV2ListsListIdFieldsGETRequest, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
+        return this.api.v2ListsListIdFieldsGET(param.listId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on a single List.
+     * Get metadata on a single List
+     * @param param the request object
+     */
+    public v2ListsListIdGETWithHttpInfo(param: ListsApiV2ListsListIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListWithType>> {
+        return this.api.v2ListsListIdGETWithHttpInfo(param.listId,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on a single List.
+     * Get metadata on a single List
+     * @param param the request object
+     */
+    public v2ListsListIdGET(param: ListsApiV2ListsListIdGETRequest, options?: ConfigurationOptions): Promise<ListWithType> {
+        return this.api.v2ListsListIdGET(param.listId,  options).toPromise();
+    }
+
+    /**
+     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get all List Entries on a List
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesGETWithHttpInfo(param: ListsApiV2ListsListIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
+        return this.api.v2ListsListIdListEntriesGETWithHttpInfo(param.listId, param.cursor, param.limit, param.fieldIds, param.fieldTypes,  options).toPromise();
+    }
+
+    /**
+     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get all List Entries on a List
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesGET(param: ListsApiV2ListsListIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntityPaged> {
+        return this.api.v2ListsListIdListEntriesGET(param.listId, param.cursor, param.limit, param.fieldIds, param.fieldTypes,  options).toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single field value [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGETWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<Field>> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdGETWithHttpInfo(param.listId, param.listEntryId, param.fieldId,  options).toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single field value [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequest, options?: ConfigurationOptions): Promise<Field> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(param.listId, param.listEntryId, param.fieldId,  options).toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Update a single field value on a List Entry [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTRequest, options?: ConfigurationOptions): Promise<HttpInfo<void>> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTWithHttpInfo(param.listId, param.listEntryId, param.fieldId, param.fieldUpdate,  options).toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Update a single field value on a List Entry [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTRequest, options?: ConfigurationOptions): Promise<void> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(param.listId, param.listEntryId, param.fieldId, param.fieldUpdate,  options).toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get field values on a single List Entry [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsGETWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<FieldPaged>> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsGETWithHttpInfo(param.listId, param.listEntryId, param.ids, param.types, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get field values on a single List Entry [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsGET(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest, options?: ConfigurationOptions): Promise<FieldPaged> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsGET(param.listId, param.listEntryId, param.ids, param.types, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Perform batch operations on a list entry\'s fields [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryBatchOperationResponse>> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(param.listId, param.listEntryId, param.body,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Perform batch operations on a list entry\'s fields [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsPATCH(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest, options?: ConfigurationOptions): Promise<ListEntryBatchOperationResponse> {
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCH(param.listId, param.listEntryId, param.body,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single List Entry on a List [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdGETWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntity>> {
+        return this.api.v2ListsListIdListEntriesListEntryIdGETWithHttpInfo(param.listId, param.listEntryId, param.fieldIds, param.fieldTypes,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single List Entry on a List [BETA]
+     * @param param the request object
+     */
+    public v2ListsListIdListEntriesListEntryIdGET(param: ListsApiV2ListsListIdListEntriesListEntryIdGETRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntity> {
+        return this.api.v2ListsListIdListEntriesListEntryIdGET(param.listId, param.listEntryId, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
 }

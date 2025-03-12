@@ -4,36 +4,51 @@ import { PromiseMiddleware, Middleware, PromiseMiddlewareWrapper } from '../midd
 
 import { Attendee } from '../models/Attendee.ts';
 import { AuthenticationError } from '../models/AuthenticationError.ts';
-import { AuthenticationErrors } from '../models/AuthenticationErrors.ts';
 import { AuthorizationError } from '../models/AuthorizationError.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
 import { BadRequestError } from '../models/BadRequestError.ts';
 import { ChatMessage } from '../models/ChatMessage.ts';
 import { CompaniesValue } from '../models/CompaniesValue.ts';
+import { CompaniesValueUpdate } from '../models/CompaniesValueUpdate.ts';
 import { Company } from '../models/Company.ts';
 import { CompanyData } from '../models/CompanyData.ts';
 import { CompanyListEntry } from '../models/CompanyListEntry.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
+import { CompanyReference } from '../models/CompanyReference.ts';
 import { CompanyValue } from '../models/CompanyValue.ts';
+import { CompanyValueUpdate } from '../models/CompanyValueUpdate.ts';
 import { ConflictError } from '../models/ConflictError.ts';
 import { DateValue } from '../models/DateValue.ts';
 import { Dropdown } from '../models/Dropdown.ts';
+import { DropdownReference } from '../models/DropdownReference.ts';
 import { DropdownValue } from '../models/DropdownValue.ts';
+import { DropdownValueUpdate } from '../models/DropdownValueUpdate.ts';
 import { DropdownsValue } from '../models/DropdownsValue.ts';
+import { DropdownsValueUpdate } from '../models/DropdownsValueUpdate.ts';
 import { Email } from '../models/Email.ts';
+import { Errors } from '../models/Errors.ts';
 import { Field } from '../models/Field.ts';
 import { FieldMetadata } from '../models/FieldMetadata.ts';
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts';
+import { FieldPaged } from '../models/FieldPaged.ts';
+import { FieldUpdate } from '../models/FieldUpdate.ts';
 import { FieldValue } from '../models/FieldValue.ts';
+import { FieldValueUpdate } from '../models/FieldValueUpdate.ts';
 import { FloatValue } from '../models/FloatValue.ts';
 import { FloatsValue } from '../models/FloatsValue.ts';
 import { FormulaNumber } from '../models/FormulaNumber.ts';
 import { FormulaValue } from '../models/FormulaValue.ts';
 import { Grant } from '../models/Grant.ts';
+import { InlineObject } from '../models/InlineObject.ts';
+import { InlineObjectErrorsInner } from '../models/InlineObjectErrorsInner.ts';
 import { Interaction } from '../models/Interaction.ts';
 import { InteractionValue } from '../models/InteractionValue.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
+import { ListEntryBatchOperationResponse } from '../models/ListEntryBatchOperationResponse.ts';
+import { ListEntryBatchOperationUpdateFields } from '../models/ListEntryBatchOperationUpdateFields.ts';
+import { ListEntryBatchOperationUpdateFieldsUpdatesInner } from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
+import { ListEntryBatchOperations } from '../models/ListEntryBatchOperations.ts';
 import { ListEntryPaged } from '../models/ListEntryPaged.ts';
 import { ListEntryWithEntity } from '../models/ListEntryWithEntity.ts';
 import { ListEntryWithEntityPaged } from '../models/ListEntryWithEntityPaged.ts';
@@ -45,6 +60,7 @@ import { LocationValue } from '../models/LocationValue.ts';
 import { LocationsValue } from '../models/LocationsValue.ts';
 import { Meeting } from '../models/Meeting.ts';
 import { MethodNotAllowedError } from '../models/MethodNotAllowedError.ts';
+import { ModelError } from '../models/ModelError.ts';
 import { NotAcceptableError } from '../models/NotAcceptableError.ts';
 import { NotFoundError } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
@@ -58,11 +74,16 @@ import { Person } from '../models/Person.ts';
 import { PersonData } from '../models/PersonData.ts';
 import { PersonListEntry } from '../models/PersonListEntry.ts';
 import { PersonPaged } from '../models/PersonPaged.ts';
+import { PersonReference } from '../models/PersonReference.ts';
 import { PersonValue } from '../models/PersonValue.ts';
+import { PersonValueUpdate } from '../models/PersonValueUpdate.ts';
 import { PersonsValue } from '../models/PersonsValue.ts';
+import { PersonsValueUpdate } from '../models/PersonsValueUpdate.ts';
 import { PhoneCall } from '../models/PhoneCall.ts';
 import { RankedDropdown } from '../models/RankedDropdown.ts';
+import { RankedDropdownReference } from '../models/RankedDropdownReference.ts';
 import { RankedDropdownValue } from '../models/RankedDropdownValue.ts';
+import { RankedDropdownValueUpdate } from '../models/RankedDropdownValueUpdate.ts';
 import { RateLimitError } from '../models/RateLimitError.ts';
 import { SavedView } from '../models/SavedView.ts';
 import { SavedViewPaged } from '../models/SavedViewPaged.ts';
@@ -74,7 +95,6 @@ import { UnprocessableEntityError } from '../models/UnprocessableEntityError.ts'
 import { UnsupportedMediaTypeError } from '../models/UnsupportedMediaTypeError.ts';
 import { User } from '../models/User.ts';
 import { ValidationError } from '../models/ValidationError.ts';
-import { ValidationErrors } from '../models/ValidationErrors.ts';
 import { WhoAmI } from '../models/WhoAmI.ts';
 import { ObservableAuthApi } from './ObservableAPI.ts';
 
@@ -413,196 +433,6 @@ export class PromiseListsApi {
     }
 
     /**
-     * Returns metadata on Lists.
-     * Get metadata on all Lists
-     * @param [cursor] Cursor for the next or previous page
-     * @param [limit] Number of items to include in the page
-     */
-    public getV2ListsWithHttpInfo(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListWithTypePaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2ListsWithHttpInfo(cursor, limit, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
-     * Returns metadata on Lists.
-     * Get metadata on all Lists
-     * @param [cursor] Cursor for the next or previous page
-     * @param [limit] Number of items to include in the page
-     */
-    public getV2Lists(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListWithTypePaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2Lists(cursor, limit, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
-     * Returns metadata on a single List.
-     * Get metadata on a single List
-     * @param listId List ID
-     */
-    public getV2ListsListidWithHttpInfo(listId: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListWithType>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2ListsListidWithHttpInfo(listId, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
-     * Returns metadata on a single List.
-     * Get metadata on a single List
-     * @param listId List ID
-     */
-    public getV2ListsListid(listId: number, _options?: PromiseConfigurationOptions): Promise<ListWithType> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2ListsListid(listId, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
-     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
-     * Get metadata on a single List\'s Fields
-     * @param listId List ID
-     * @param [cursor] Cursor for the next or previous page
-     * @param [limit] Number of items to include in the page
-     */
-    public getV2ListsListidFieldsWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2ListsListidFieldsWithHttpInfo(listId, cursor, limit, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
-     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
-     * Get metadata on a single List\'s Fields
-     * @param listId List ID
-     * @param [cursor] Cursor for the next or previous page
-     * @param [limit] Number of items to include in the page
-     */
-    public getV2ListsListidFields(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<FieldMetadataPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2ListsListidFields(listId, cursor, limit, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
-     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get all List Entries on a List
-     * @param listId List ID
-     * @param [cursor] Cursor for the next or previous page
-     * @param [limit] Number of items to include in the page
-     * @param [fieldIds] Field IDs for which to return field data
-     * @param [fieldTypes] Field Types for which to return field data
-     */
-    public getV2ListsListidListEntriesWithHttpInfo(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2ListsListidListEntriesWithHttpInfo(listId, cursor, limit, fieldIds, fieldTypes, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
-     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get all List Entries on a List
-     * @param listId List ID
-     * @param [cursor] Cursor for the next or previous page
-     * @param [limit] Number of items to include in the page
-     * @param [fieldIds] Field IDs for which to return field data
-     * @param [fieldTypes] Field Types for which to return field data
-     */
-    public getV2ListsListidListEntries(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<ListEntryWithEntityPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.getV2ListsListidListEntries(listId, cursor, limit, fieldIds, fieldTypes, observableOptions);
-        return result.toPromise();
-    }
-
-    /**
      * Returns metadata on the Saved Views on a List.
      * Get metadata on Saved Views
      * @param listId List ID
@@ -743,6 +573,446 @@ export class PromiseListsApi {
 	    }
 	}
         const result = this.api.getV2ListsListidSavedViewsViewidListEntries(listId, viewId, cursor, limit, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns metadata on Lists.
+     * Get metadata on all Lists
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     */
+    public v2ListsGETWithHttpInfo(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListWithTypePaged>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsGETWithHttpInfo(cursor, limit, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns metadata on Lists.
+     * Get metadata on all Lists
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     */
+    public v2ListsGET(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListWithTypePaged> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsGET(cursor, limit, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
+     * Get metadata on a single List\'s Fields
+     * @param listId List ID
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     */
+    public v2ListsListIdFieldsGETWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdFieldsGETWithHttpInfo(listId, cursor, limit, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns metadata on the Fields available on a single List.  Use the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint.
+     * Get metadata on a single List\'s Fields
+     * @param listId List ID
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     */
+    public v2ListsListIdFieldsGET(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<FieldMetadataPaged> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdFieldsGET(listId, cursor, limit, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns metadata on a single List.
+     * Get metadata on a single List
+     * @param listId List ID
+     */
+    public v2ListsListIdGETWithHttpInfo(listId: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListWithType>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdGETWithHttpInfo(listId, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns metadata on a single List.
+     * Get metadata on a single List
+     * @param listId List ID
+     */
+    public v2ListsListIdGET(listId: number, _options?: PromiseConfigurationOptions): Promise<ListWithType> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdGET(listId, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get all List Entries on a List
+     * @param listId List ID
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
+     */
+    public v2ListsListIdListEntriesGETWithHttpInfo(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesGETWithHttpInfo(listId, cursor, limit, fieldIds, fieldTypes, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Paginate through the List Entries (AKA rows) on a given List. Returns basic information and field data, including list-specific field data, on each Company, Person, or Opportunity on the List. List Entries also include metadata about their creation, i.e., when they were added to the List and by whom.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, List Entries will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get all List Entries on a List
+     * @param listId List ID
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
+     */
+    public v2ListsListIdListEntriesGET(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<ListEntryWithEntityPaged> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesGET(listId, cursor, limit, fieldIds, fieldTypes, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single field value [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param fieldId Field ID
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGETWithHttpInfo(listId: number, listEntryId: number, fieldId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Field>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdGETWithHttpInfo(listId, listEntryId, fieldId, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single field value [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param fieldId Field ID
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(listId: number, listEntryId: number, fieldId: string, _options?: PromiseConfigurationOptions): Promise<Field> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(listId, listEntryId, fieldId, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Update a single field value on a List Entry [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param fieldId Field ID
+     * @param fieldUpdate
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTWithHttpInfo(listId: number, listEntryId: number, fieldId: string, fieldUpdate: FieldUpdate, _options?: PromiseConfigurationOptions): Promise<HttpInfo<void>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTWithHttpInfo(listId, listEntryId, fieldId, fieldUpdate, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Update a single field value on a List Entry [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param fieldId Field ID
+     * @param fieldUpdate
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(listId: number, listEntryId: number, fieldId: string, fieldUpdate: FieldUpdate, _options?: PromiseConfigurationOptions): Promise<void> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(listId, listEntryId, fieldId, fieldUpdate, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get field values on a single List Entry [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param [ids] Field IDs for which to return field data
+     * @param [types] Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsGETWithHttpInfo(listId: number, listEntryId: number, ids?: Array<string>, types?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<FieldPaged>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsGETWithHttpInfo(listId, listEntryId, ids, types, cursor, limit, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     *  | ⚠️  This endpoint is currently in BETA | |--|  Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get field values on a single List Entry [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param [ids] Field IDs for which to return field data
+     * @param [types] Field Types for which to return field data
+     * @param [cursor] Cursor for the next or previous page
+     * @param [limit] Number of items to include in the page
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsGET(listId: number, listEntryId: number, ids?: Array<string>, types?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<FieldPaged> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsGET(listId, listEntryId, ids, types, cursor, limit, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Perform batch operations on a list entry\'s fields [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param body
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(listId: number, listEntryId: number, body: ListEntryBatchOperationUpdateFields, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryBatchOperationResponse>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(listId, listEntryId, body, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Perform batch operations on a list entry\'s fields [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param body
+     */
+    public v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId: number, listEntryId: number, body: ListEntryBatchOperationUpdateFields, _options?: PromiseConfigurationOptions): Promise<ListEntryBatchOperationResponse> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId, listEntryId, body, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single List Entry on a List [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
+     */
+    public v2ListsListIdListEntriesListEntryIdGETWithHttpInfo(listId: number, listEntryId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryWithEntity>> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdGETWithHttpInfo(listId, listEntryId, fieldIds, fieldTypes, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single List Entry on a List [BETA]
+     * @param listId List ID
+     * @param listEntryId List Entry ID
+     * @param [fieldIds] Field IDs for which to return field data
+     * @param [fieldTypes] Field Types for which to return field data
+     */
+    public v2ListsListIdListEntriesListEntryIdGET(listId: number, listEntryId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<ListEntryWithEntity> {
+        let observableOptions: undefined | ConfigurationOptions
+        if (_options){
+	    observableOptions = {
+                baseServer: _options.baseServer,
+                httpApi: _options.httpApi,
+                middleware: _options.middleware?.map(
+                    m => new PromiseMiddlewareWrapper(m)
+		),
+		middlewareMergeStrategy: _options.middlewareMergeStrategy,
+                authMethods: _options.authMethods
+	    }
+	}
+        const result = this.api.v2ListsListIdListEntriesListEntryIdGET(listId, listEntryId, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
 
