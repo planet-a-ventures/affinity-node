@@ -6067,6 +6067,9 @@
         "oneOf": [
           {
             "$ref": "#/components/schemas/ListEntryBatchOperationUpdateFields"
+          },
+          {
+            "type": "null"
           }
         ],
         "discriminator": {
