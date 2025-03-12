@@ -45,7 +45,11 @@ describe('entityFiles', () => {
 
     beforeEach(() => {
         if (!isLiveRun()) {
-            mock = new MockAdapter(axios, { onNoMatch: 'throwException' })
+            // see https://github.com/ctimmerm/axios-mock-adapter/issues/400
+            // deno-lint-ignore no-explicit-any
+            mock = new MockAdapter(axios as any, {
+                onNoMatch: 'throwException',
+            })
         }
         affinity = new Affinity(apiKey() || 'api_key')
     })
@@ -160,7 +164,7 @@ describe('entityFiles', () => {
         )
 
         const stream = await affinity.entityFiles.download(6534776)
-        const buf: ArrayBuffer = await buffer(stream)
+        const buf = await buffer(stream)
 
         const expected = new Buffer()
         expected.read(pdfContents)
