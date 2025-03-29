@@ -14,19 +14,19 @@ import { HttpFile } from '../http/http.ts';
 
 export class User {
     /**
-    * The user\'s unique identifier
+    * The user's unique identifier
     */
     'id': number;
     /**
-    * The user\'s first name
+    * The user's first name
     */
     'firstName': string;
     /**
-    * The user\'s last name
+    * The user's last name
     */
     'lastName': string | null;
     /**
-    * The user\'s email address
+    * The user's email address
     */
     'emailAddress': string;
 

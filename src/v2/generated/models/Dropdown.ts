@@ -14,7 +14,7 @@ import { HttpFile } from '../http/http.ts';
 
 export class Dropdown {
     /**
-    * Dropdown item\'s unique identifier
+    * Dropdown item's unique identifier
     */
     'dropdownOptionId': number;
     /**
