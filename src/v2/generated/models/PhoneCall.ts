@@ -19,7 +19,7 @@ export class PhoneCall {
     */
     'type': PhoneCallTypeEnum;
     /**
-    * The phon_call\'s unique identifier
+    * The phon_call's unique identifier
     */
     'id': number;
     /**

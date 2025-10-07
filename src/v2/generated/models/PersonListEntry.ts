@@ -15,7 +15,7 @@ import { HttpFile } from '../http/http.ts';
 
 export class PersonListEntry {
     /**
-    * The list entry\'s unique identifier
+    * The list entry's unique identifier
     */
     'id': number;
     /**

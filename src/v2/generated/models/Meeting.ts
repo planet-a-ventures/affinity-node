@@ -19,11 +19,11 @@ export class Meeting {
     */
     'type': string;
     /**
-    * The meeting\'s unique identifier
+    * The meeting's unique identifier
     */
     'id': number;
     /**
-    * The meeting\'s title
+    * The meeting's title
     */
     'title': string;
     /**

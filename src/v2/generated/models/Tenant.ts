@@ -14,7 +14,7 @@ import { HttpFile } from '../http/http.ts';
 
 export class Tenant {
     /**
-    * The tenant\'s unique identifier
+    * The tenant's unique identifier
     */
     'id': number;
     /**
@@ -22,7 +22,7 @@ export class Tenant {
     */
     'name': string;
     /**
-    * The tenant\'s subdomain under affinity.co
+    * The tenant's subdomain under affinity.co
     */
     'subdomain': string;
 
