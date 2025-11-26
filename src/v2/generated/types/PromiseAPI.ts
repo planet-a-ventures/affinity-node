@@ -1,5 +1,5 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http.ts';
-import { Configuration, ConfigurationOptions, PromiseConfigurationOptions } from '../configuration.ts'
+import { Configuration, PromiseConfigurationOptions, wrapOptions } from '../configuration.ts'
 import { PromiseMiddleware, Middleware, PromiseMiddlewareWrapper } from '../middleware.ts';
 
 import { Attendee } from '../models/Attendee.ts';
@@ -51,19 +51,15 @@ import { Grant } from '../models/Grant.ts';
 import { Interaction } from '../models/Interaction.ts';
 import { InteractionValue } from '../models/InteractionValue.ts';
 import { InteractionsCall } from '../models/InteractionsCall.ts';
-import { InteractionsCallCreator } from '../models/InteractionsCallCreator.ts';
 import { InteractionsCallPaged } from '../models/InteractionsCallPaged.ts';
 import { InteractionsChatMessage } from '../models/InteractionsChatMessage.ts';
 import { InteractionsChatMessagePaged } from '../models/InteractionsChatMessagePaged.ts';
 import { InteractionsEmail } from '../models/InteractionsEmail.ts';
 import { InteractionsEmailPaged } from '../models/InteractionsEmailPaged.ts';
 import { InteractionsMeeting } from '../models/InteractionsMeeting.ts';
-import { InteractionsMeetingCreator } from '../models/InteractionsMeetingCreator.ts';
-import { InteractionsMeetingOrganizer } from '../models/InteractionsMeetingOrganizer.ts';
 import { InteractionsMeetingPaged } from '../models/InteractionsMeetingPaged.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
-import { ListEntryBatchOperationRequest } from '../models/ListEntryBatchOperationRequest.ts';
 import { ListEntryBatchOperationResponse } from '../models/ListEntryBatchOperationResponse.ts';
 import { ListEntryBatchOperationUpdateFields } from '../models/ListEntryBatchOperationUpdateFields.ts';
 import { ListEntryBatchOperationUpdateFieldsUpdatesInner } from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
@@ -88,6 +84,7 @@ import { NotesAiNotetakerReplyNote } from '../models/NotesAiNotetakerReplyNote.t
 import { NotesAiNotetakerRootNote } from '../models/NotesAiNotetakerRootNote.ts';
 import { NotesBaseNote } from '../models/NotesBaseNote.ts';
 import { NotesBaseReply } from '../models/NotesBaseReply.ts';
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
 import { NotesBaseRootNote } from '../models/NotesBaseRootNote.ts';
 import { NotesCallInteraction } from '../models/NotesCallInteraction.ts';
 import { NotesChatMessageInteraction } from '../models/NotesChatMessageInteraction.ts';
@@ -98,7 +95,6 @@ import { NotesEntitiesNote } from '../models/NotesEntitiesNote.ts';
 import { NotesInteraction } from '../models/NotesInteraction.ts';
 import { NotesInteractionNote } from '../models/NotesInteractionNote.ts';
 import { NotesMeetingInteraction } from '../models/NotesMeetingInteraction.ts';
-import { NotesMention } from '../models/NotesMention.ts';
 import { NotesNote } from '../models/NotesNote.ts';
 import { NotesNotesPaged } from '../models/NotesNotesPaged.ts';
 import { NotesOpportunitiesPreview } from '../models/NotesOpportunitiesPreview.ts';
@@ -169,18 +165,7 @@ export class PromiseAuthApi {
      * Get current user
      */
     public v2AuthWhoamiGETWithHttpInfo(_options?: PromiseConfigurationOptions): Promise<HttpInfo<WhoAmI>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2AuthWhoamiGETWithHttpInfo(observableOptions);
         return result.toPromise();
     }
@@ -190,18 +175,7 @@ export class PromiseAuthApi {
      * Get current user
      */
     public v2AuthWhoamiGET(_options?: PromiseConfigurationOptions): Promise<WhoAmI> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2AuthWhoamiGET(observableOptions);
         return result.toPromise();
     }
@@ -233,18 +207,7 @@ export class PromiseCallsApi {
      * @param [filter] Filter options
      */
     public v2CallsGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<InteractionsCallPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CallsGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -257,18 +220,7 @@ export class PromiseCallsApi {
      * @param [filter] Filter options
      */
     public v2CallsGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<InteractionsCallPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CallsGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -300,18 +252,7 @@ export class PromiseChatMessagesApi {
      * @param [filter] Filter options
      */
     public v2ChatMessagesGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<InteractionsChatMessagePaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ChatMessagesGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -324,18 +265,7 @@ export class PromiseChatMessagesApi {
      * @param [filter] Filter options
      */
     public v2ChatMessagesGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<InteractionsChatMessagePaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ChatMessagesGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -367,18 +297,7 @@ export class PromiseCompaniesApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2CompaniesCompanyIdGETWithHttpInfo(companyId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Company>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdGETWithHttpInfo(companyId, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -391,18 +310,7 @@ export class PromiseCompaniesApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2CompaniesCompanyIdGET(companyId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<Company> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdGET(companyId, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -415,18 +323,7 @@ export class PromiseCompaniesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2CompaniesCompanyIdListEntriesGETWithHttpInfo(companyId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdListEntriesGETWithHttpInfo(companyId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -439,18 +336,7 @@ export class PromiseCompaniesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2CompaniesCompanyIdListEntriesGET(companyId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListEntryPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdListEntriesGET(companyId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -463,18 +349,7 @@ export class PromiseCompaniesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2CompaniesCompanyIdListsGETWithHttpInfo(companyId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdListsGETWithHttpInfo(companyId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -487,18 +362,7 @@ export class PromiseCompaniesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2CompaniesCompanyIdListsGET(companyId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdListsGET(companyId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -513,18 +377,7 @@ export class PromiseCompaniesApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2CompaniesCompanyIdNotesGETWithHttpInfo(companyId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdNotesGETWithHttpInfo(companyId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }
@@ -539,18 +392,7 @@ export class PromiseCompaniesApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2CompaniesCompanyIdNotesGET(companyId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<NotesNotesPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesCompanyIdNotesGET(companyId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }
@@ -562,18 +404,7 @@ export class PromiseCompaniesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2CompaniesFieldsGETWithHttpInfo(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesFieldsGETWithHttpInfo(cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -585,18 +416,7 @@ export class PromiseCompaniesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2CompaniesFieldsGET(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<FieldMetadataPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesFieldsGET(cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -611,18 +431,7 @@ export class PromiseCompaniesApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2CompaniesGETWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<CompanyPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesGETWithHttpInfo(cursor, limit, ids, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -637,18 +446,7 @@ export class PromiseCompaniesApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2CompaniesGET(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<CompanyPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompaniesGET(cursor, limit, ids, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -680,18 +478,7 @@ export class PromiseCompanyMergesApi {
      * @param [filter] Filter company merges using Affinity Filtering Language
      */
     public v2CompanyMergesGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<CompanyMergeStatePaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompanyMergesGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -704,18 +491,7 @@ export class PromiseCompanyMergesApi {
      * @param [filter] Filter company merges using Affinity Filtering Language
      */
     public v2CompanyMergesGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<CompanyMergeStatePaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompanyMergesGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -726,18 +502,7 @@ export class PromiseCompanyMergesApi {
      * @param mergeId Company merge ID
      */
     public v2CompanyMergesMergeIdGETWithHttpInfo(mergeId: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<CompanyMergeState>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompanyMergesMergeIdGETWithHttpInfo(mergeId, observableOptions);
         return result.toPromise();
     }
@@ -748,18 +513,7 @@ export class PromiseCompanyMergesApi {
      * @param mergeId Company merge ID
      */
     public v2CompanyMergesMergeIdGET(mergeId: number, _options?: PromiseConfigurationOptions): Promise<CompanyMergeState> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompanyMergesMergeIdGET(mergeId, observableOptions);
         return result.toPromise();
     }
@@ -770,18 +524,7 @@ export class PromiseCompanyMergesApi {
      * @param companyMergeRequest
      */
     public v2CompanyMergesPOSTWithHttpInfo(companyMergeRequest: CompanyMergeRequest, _options?: PromiseConfigurationOptions): Promise<HttpInfo<CompanyMergeResponse>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompanyMergesPOSTWithHttpInfo(companyMergeRequest, observableOptions);
         return result.toPromise();
     }
@@ -792,18 +535,7 @@ export class PromiseCompanyMergesApi {
      * @param companyMergeRequest
      */
     public v2CompanyMergesPOST(companyMergeRequest: CompanyMergeRequest, _options?: PromiseConfigurationOptions): Promise<CompanyMergeResponse> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2CompanyMergesPOST(companyMergeRequest, observableOptions);
         return result.toPromise();
     }
@@ -816,18 +548,7 @@ export class PromiseCompanyMergesApi {
      * @param [filter] Filter tasks using Affinity Filtering Language
      */
     public v2TasksCompanyMergesGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<CompanyMergeTaskPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksCompanyMergesGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -840,18 +561,7 @@ export class PromiseCompanyMergesApi {
      * @param [filter] Filter tasks using Affinity Filtering Language
      */
     public v2TasksCompanyMergesGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<CompanyMergeTaskPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksCompanyMergesGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -862,18 +572,7 @@ export class PromiseCompanyMergesApi {
      * @param taskId Company merge task ID
      */
     public v2TasksCompanyMergesTaskIdGETWithHttpInfo(taskId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<CompanyMergeTask>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksCompanyMergesTaskIdGETWithHttpInfo(taskId, observableOptions);
         return result.toPromise();
     }
@@ -884,18 +583,7 @@ export class PromiseCompanyMergesApi {
      * @param taskId Company merge task ID
      */
     public v2TasksCompanyMergesTaskIdGET(taskId: string, _options?: PromiseConfigurationOptions): Promise<CompanyMergeTask> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksCompanyMergesTaskIdGET(taskId, observableOptions);
         return result.toPromise();
     }
@@ -927,18 +615,7 @@ export class PromiseEmailsApi {
      * @param [filter] Filter options
      */
     public v2EmailsGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<InteractionsEmailPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2EmailsGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -951,18 +628,7 @@ export class PromiseEmailsApi {
      * @param [filter] Filter options
      */
     public v2EmailsGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<InteractionsEmailPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2EmailsGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -993,18 +659,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsGETWithHttpInfo(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListWithTypePaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsGETWithHttpInfo(cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1016,18 +671,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsGET(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListWithTypePaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsGET(cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1040,18 +684,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdFieldsGETWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdFieldsGETWithHttpInfo(listId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1064,18 +697,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdFieldsGET(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<FieldMetadataPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdFieldsGET(listId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1086,18 +708,7 @@ export class PromiseListsApi {
      * @param listId List ID
      */
     public v2ListsListIdGETWithHttpInfo(listId: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListWithType>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdGETWithHttpInfo(listId, observableOptions);
         return result.toPromise();
     }
@@ -1108,18 +719,7 @@ export class PromiseListsApi {
      * @param listId List ID
      */
     public v2ListsListIdGET(listId: number, _options?: PromiseConfigurationOptions): Promise<ListWithType> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdGET(listId, observableOptions);
         return result.toPromise();
     }
@@ -1134,18 +734,7 @@ export class PromiseListsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2ListsListIdListEntriesGETWithHttpInfo(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesGETWithHttpInfo(listId, cursor, limit, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -1160,18 +749,7 @@ export class PromiseListsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2ListsListIdListEntriesGET(listId: number, cursor?: string, limit?: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<ListEntryWithEntityPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesGET(listId, cursor, limit, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -1184,18 +762,7 @@ export class PromiseListsApi {
      * @param fieldId Field ID
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGETWithHttpInfo(listId: number, listEntryId: number, fieldId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Field>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdGETWithHttpInfo(listId, listEntryId, fieldId, observableOptions);
         return result.toPromise();
     }
@@ -1208,18 +775,7 @@ export class PromiseListsApi {
      * @param fieldId Field ID
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(listId: number, listEntryId: number, fieldId: string, _options?: PromiseConfigurationOptions): Promise<Field> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(listId, listEntryId, fieldId, observableOptions);
         return result.toPromise();
     }
@@ -1233,18 +789,7 @@ export class PromiseListsApi {
      * @param fieldUpdate
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTWithHttpInfo(listId: number, listEntryId: number, fieldId: string, fieldUpdate: FieldUpdate, _options?: PromiseConfigurationOptions): Promise<HttpInfo<void>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTWithHttpInfo(listId, listEntryId, fieldId, fieldUpdate, observableOptions);
         return result.toPromise();
     }
@@ -1258,18 +803,7 @@ export class PromiseListsApi {
      * @param fieldUpdate
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(listId: number, listEntryId: number, fieldId: string, fieldUpdate: FieldUpdate, _options?: PromiseConfigurationOptions): Promise<void> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(listId, listEntryId, fieldId, fieldUpdate, observableOptions);
         return result.toPromise();
     }
@@ -1285,18 +819,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdListEntriesListEntryIdFieldsGETWithHttpInfo(listId: number, listEntryId: number, ids?: Array<string>, types?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<FieldPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsGETWithHttpInfo(listId, listEntryId, ids, types, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1312,18 +835,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdListEntriesListEntryIdFieldsGET(listId: number, listEntryId: number, ids?: Array<string>, types?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<FieldPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsGET(listId, listEntryId, ids, types, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1333,22 +845,11 @@ export class PromiseListsApi {
      * Perform batch operations on a list entry\'s fields
      * @param listId List ID
      * @param listEntryId List Entry ID
-     * @param listEntryBatchOperationRequest
+     * @param body
      */
-    public v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(listId: number, listEntryId: number, listEntryBatchOperationRequest: ListEntryBatchOperationRequest, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryBatchOperationResponse>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(listId, listEntryId, listEntryBatchOperationRequest, observableOptions);
+    public v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(listId: number, listEntryId: number, body: ListEntryBatchOperationUpdateFields, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryBatchOperationResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(listId, listEntryId, body, observableOptions);
         return result.toPromise();
     }
 
@@ -1357,22 +858,11 @@ export class PromiseListsApi {
      * Perform batch operations on a list entry\'s fields
      * @param listId List ID
      * @param listEntryId List Entry ID
-     * @param listEntryBatchOperationRequest
+     * @param body
      */
-    public v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId: number, listEntryId: number, listEntryBatchOperationRequest: ListEntryBatchOperationRequest, _options?: PromiseConfigurationOptions): Promise<ListEntryBatchOperationResponse> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
-        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId, listEntryId, listEntryBatchOperationRequest, observableOptions);
+    public v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId: number, listEntryId: number, body: ListEntryBatchOperationUpdateFields, _options?: PromiseConfigurationOptions): Promise<ListEntryBatchOperationResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId, listEntryId, body, observableOptions);
         return result.toPromise();
     }
 
@@ -1385,18 +875,7 @@ export class PromiseListsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2ListsListIdListEntriesListEntryIdGETWithHttpInfo(listId: number, listEntryId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryWithEntity>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdGETWithHttpInfo(listId, listEntryId, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -1410,18 +889,7 @@ export class PromiseListsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2ListsListIdListEntriesListEntryIdGET(listId: number, listEntryId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<ListEntryWithEntity> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdListEntriesListEntryIdGET(listId, listEntryId, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -1434,18 +902,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdSavedViewsGETWithHttpInfo(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SavedViewPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdSavedViewsGETWithHttpInfo(listId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1458,18 +915,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdSavedViewsGET(listId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<SavedViewPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdSavedViewsGET(listId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1481,18 +927,7 @@ export class PromiseListsApi {
      * @param viewId Saved view ID
      */
     public v2ListsListIdSavedViewsViewIdGETWithHttpInfo(listId: number, viewId: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SavedView>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdSavedViewsViewIdGETWithHttpInfo(listId, viewId, observableOptions);
         return result.toPromise();
     }
@@ -1504,18 +939,7 @@ export class PromiseListsApi {
      * @param viewId Saved view ID
      */
     public v2ListsListIdSavedViewsViewIdGET(listId: number, viewId: number, _options?: PromiseConfigurationOptions): Promise<SavedView> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdSavedViewsViewIdGET(listId, viewId, observableOptions);
         return result.toPromise();
     }
@@ -1529,18 +953,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdSavedViewsViewIdListEntriesGETWithHttpInfo(listId: number, viewId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdSavedViewsViewIdListEntriesGETWithHttpInfo(listId, viewId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1554,18 +967,7 @@ export class PromiseListsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2ListsListIdSavedViewsViewIdListEntriesGET(listId: number, viewId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListEntryWithEntityPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2ListsListIdSavedViewsViewIdListEntriesGET(listId, viewId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1597,18 +999,7 @@ export class PromiseMeetingsApi {
      * @param [filter] Filter options
      */
     public v2MeetingsGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<InteractionsMeetingPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2MeetingsGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -1621,18 +1012,7 @@ export class PromiseMeetingsApi {
      * @param [filter] Filter options
      */
     public v2MeetingsGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<InteractionsMeetingPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2MeetingsGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -1666,18 +1046,7 @@ export class PromiseNotesApi {
      * @param [includes] Additional properties to include in the response
      */
     public v2NotesGETWithHttpInfo(totalCount?: boolean, cursor?: string, limit?: number, filter?: string, includes?: Set<'companiesPreview' | 'personsPreview' | 'opportunitiesPreview' | 'repliesCount'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesGETWithHttpInfo(totalCount, cursor, limit, filter, includes, observableOptions);
         return result.toPromise();
     }
@@ -1692,18 +1061,7 @@ export class PromiseNotesApi {
      * @param [includes] Additional properties to include in the response
      */
     public v2NotesGET(totalCount?: boolean, cursor?: string, limit?: number, filter?: string, includes?: Set<'companiesPreview' | 'personsPreview' | 'opportunitiesPreview' | 'repliesCount'>, _options?: PromiseConfigurationOptions): Promise<NotesNotesPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesGET(totalCount, cursor, limit, filter, includes, observableOptions);
         return result.toPromise();
     }
@@ -1717,18 +1075,7 @@ export class PromiseNotesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2NotesNoteIdAttachedCompaniesGETWithHttpInfo(noteId: number, totalCount?: boolean, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<CompanyDataPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdAttachedCompaniesGETWithHttpInfo(noteId, totalCount, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1742,18 +1089,7 @@ export class PromiseNotesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2NotesNoteIdAttachedCompaniesGET(noteId: number, totalCount?: boolean, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<CompanyDataPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdAttachedCompaniesGET(noteId, totalCount, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1767,18 +1103,7 @@ export class PromiseNotesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2NotesNoteIdAttachedOpportunitiesGETWithHttpInfo(noteId: number, totalCount?: boolean, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<OpportunityPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdAttachedOpportunitiesGETWithHttpInfo(noteId, totalCount, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1792,18 +1117,7 @@ export class PromiseNotesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2NotesNoteIdAttachedOpportunitiesGET(noteId: number, totalCount?: boolean, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<OpportunityPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdAttachedOpportunitiesGET(noteId, totalCount, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1817,18 +1131,7 @@ export class PromiseNotesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2NotesNoteIdAttachedPersonsGETWithHttpInfo(noteId: number, totalCount?: boolean, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<PersonDataPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdAttachedPersonsGETWithHttpInfo(noteId, totalCount, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1842,18 +1145,7 @@ export class PromiseNotesApi {
      * @param [limit] Number of items to include in the page
      */
     public v2NotesNoteIdAttachedPersonsGET(noteId: number, totalCount?: boolean, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<PersonDataPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdAttachedPersonsGET(noteId, totalCount, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -1865,18 +1157,7 @@ export class PromiseNotesApi {
      * @param [includes] Additional properties to include in the response
      */
     public v2NotesNoteIdGETWithHttpInfo(noteId: number, includes?: Set<'companiesPreview' | 'personsPreview' | 'opportunitiesPreview' | 'repliesCount'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<NotesNote>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdGETWithHttpInfo(noteId, includes, observableOptions);
         return result.toPromise();
     }
@@ -1888,18 +1169,7 @@ export class PromiseNotesApi {
      * @param [includes] Additional properties to include in the response
      */
     public v2NotesNoteIdGET(noteId: number, includes?: Set<'companiesPreview' | 'personsPreview' | 'opportunitiesPreview' | 'repliesCount'>, _options?: PromiseConfigurationOptions): Promise<NotesNote> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdGET(noteId, includes, observableOptions);
         return result.toPromise();
     }
@@ -1914,18 +1184,7 @@ export class PromiseNotesApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2NotesNoteIdRepliesGETWithHttpInfo(noteId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<HttpInfo<NotesRepliesPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdRepliesGETWithHttpInfo(noteId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }
@@ -1940,18 +1199,7 @@ export class PromiseNotesApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2NotesNoteIdRepliesGET(noteId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<NotesRepliesPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2NotesNoteIdRepliesGET(noteId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }
@@ -1983,18 +1231,7 @@ export class PromiseOpportunitiesApi {
      * @param [ids] Opportunity IDs
      */
     public v2OpportunitiesGETWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<OpportunityPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2OpportunitiesGETWithHttpInfo(cursor, limit, ids, observableOptions);
         return result.toPromise();
     }
@@ -2007,18 +1244,7 @@ export class PromiseOpportunitiesApi {
      * @param [ids] Opportunity IDs
      */
     public v2OpportunitiesGET(cursor?: string, limit?: number, ids?: Array<number>, _options?: PromiseConfigurationOptions): Promise<OpportunityPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2OpportunitiesGET(cursor, limit, ids, observableOptions);
         return result.toPromise();
     }
@@ -2029,18 +1255,7 @@ export class PromiseOpportunitiesApi {
      * @param opportunityId Opportunity ID
      */
     public v2OpportunitiesOpportunityIdGETWithHttpInfo(opportunityId: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Opportunity>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2OpportunitiesOpportunityIdGETWithHttpInfo(opportunityId, observableOptions);
         return result.toPromise();
     }
@@ -2051,18 +1266,7 @@ export class PromiseOpportunitiesApi {
      * @param opportunityId Opportunity ID
      */
     public v2OpportunitiesOpportunityIdGET(opportunityId: number, _options?: PromiseConfigurationOptions): Promise<Opportunity> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2OpportunitiesOpportunityIdGET(opportunityId, observableOptions);
         return result.toPromise();
     }
@@ -2077,18 +1281,7 @@ export class PromiseOpportunitiesApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2OpportunitiesOpportunityIdNotesGETWithHttpInfo(opportunityId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2OpportunitiesOpportunityIdNotesGETWithHttpInfo(opportunityId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }
@@ -2103,18 +1296,7 @@ export class PromiseOpportunitiesApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2OpportunitiesOpportunityIdNotesGET(opportunityId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<NotesNotesPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2OpportunitiesOpportunityIdNotesGET(opportunityId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }
@@ -2146,18 +1328,7 @@ export class PromisePersonMergesApi {
      * @param [filter] Filter person merges using Affinity Filtering Language
      */
     public v2PersonMergesGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<PersonMergeStatePaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonMergesGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -2170,18 +1341,7 @@ export class PromisePersonMergesApi {
      * @param [filter] Filter person merges using Affinity Filtering Language
      */
     public v2PersonMergesGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<PersonMergeStatePaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonMergesGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -2192,18 +1352,7 @@ export class PromisePersonMergesApi {
      * @param mergeId Person merge ID
      */
     public v2PersonMergesMergeIdGETWithHttpInfo(mergeId: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<PersonMergeState>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonMergesMergeIdGETWithHttpInfo(mergeId, observableOptions);
         return result.toPromise();
     }
@@ -2214,18 +1363,7 @@ export class PromisePersonMergesApi {
      * @param mergeId Person merge ID
      */
     public v2PersonMergesMergeIdGET(mergeId: number, _options?: PromiseConfigurationOptions): Promise<PersonMergeState> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonMergesMergeIdGET(mergeId, observableOptions);
         return result.toPromise();
     }
@@ -2236,18 +1374,7 @@ export class PromisePersonMergesApi {
      * @param personMergeRequest
      */
     public v2PersonMergesPOSTWithHttpInfo(personMergeRequest: PersonMergeRequest, _options?: PromiseConfigurationOptions): Promise<HttpInfo<PersonMergeResponse>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonMergesPOSTWithHttpInfo(personMergeRequest, observableOptions);
         return result.toPromise();
     }
@@ -2258,18 +1385,7 @@ export class PromisePersonMergesApi {
      * @param personMergeRequest
      */
     public v2PersonMergesPOST(personMergeRequest: PersonMergeRequest, _options?: PromiseConfigurationOptions): Promise<PersonMergeResponse> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonMergesPOST(personMergeRequest, observableOptions);
         return result.toPromise();
     }
@@ -2282,18 +1398,7 @@ export class PromisePersonMergesApi {
      * @param [filter] Filter tasks using Affinity Filtering Language
      */
     public v2TasksPersonMergesGETWithHttpInfo(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<PersonMergeTaskPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksPersonMergesGETWithHttpInfo(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -2306,18 +1411,7 @@ export class PromisePersonMergesApi {
      * @param [filter] Filter tasks using Affinity Filtering Language
      */
     public v2TasksPersonMergesGET(cursor?: string, limit?: number, filter?: string, _options?: PromiseConfigurationOptions): Promise<PersonMergeTaskPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksPersonMergesGET(cursor, limit, filter, observableOptions);
         return result.toPromise();
     }
@@ -2328,18 +1422,7 @@ export class PromisePersonMergesApi {
      * @param taskId Person merge task ID
      */
     public v2TasksPersonMergesTaskIdGETWithHttpInfo(taskId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<PersonMergeTask>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksPersonMergesTaskIdGETWithHttpInfo(taskId, observableOptions);
         return result.toPromise();
     }
@@ -2350,18 +1433,7 @@ export class PromisePersonMergesApi {
      * @param taskId Person merge task ID
      */
     public v2TasksPersonMergesTaskIdGET(taskId: string, _options?: PromiseConfigurationOptions): Promise<PersonMergeTask> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2TasksPersonMergesTaskIdGET(taskId, observableOptions);
         return result.toPromise();
     }
@@ -2392,18 +1464,7 @@ export class PromisePersonsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2PersonsFieldsGETWithHttpInfo(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsFieldsGETWithHttpInfo(cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -2415,18 +1476,7 @@ export class PromisePersonsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2PersonsFieldsGET(cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<FieldMetadataPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsFieldsGET(cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -2441,18 +1491,7 @@ export class PromisePersonsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2PersonsGETWithHttpInfo(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<PersonPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsGETWithHttpInfo(cursor, limit, ids, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -2467,18 +1506,7 @@ export class PromisePersonsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2PersonsGET(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<PersonPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsGET(cursor, limit, ids, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -2491,18 +1519,7 @@ export class PromisePersonsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2PersonsPersonIdGETWithHttpInfo(personId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Person>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdGETWithHttpInfo(personId, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -2515,18 +1532,7 @@ export class PromisePersonsApi {
      * @param [fieldTypes] Field Types for which to return field data
      */
     public v2PersonsPersonIdGET(personId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: PromiseConfigurationOptions): Promise<Person> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdGET(personId, fieldIds, fieldTypes, observableOptions);
         return result.toPromise();
     }
@@ -2539,18 +1545,7 @@ export class PromisePersonsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2PersonsPersonIdListEntriesGETWithHttpInfo(personId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdListEntriesGETWithHttpInfo(personId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -2563,18 +1558,7 @@ export class PromisePersonsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2PersonsPersonIdListEntriesGET(personId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListEntryPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdListEntriesGET(personId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -2587,18 +1571,7 @@ export class PromisePersonsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2PersonsPersonIdListsGETWithHttpInfo(personId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdListsGETWithHttpInfo(personId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -2611,18 +1584,7 @@ export class PromisePersonsApi {
      * @param [limit] Number of items to include in the page
      */
     public v2PersonsPersonIdListsGET(personId: number, cursor?: string, limit?: number, _options?: PromiseConfigurationOptions): Promise<ListPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdListsGET(personId, cursor, limit, observableOptions);
         return result.toPromise();
     }
@@ -2637,18 +1599,7 @@ export class PromisePersonsApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2PersonsPersonIdNotesGETWithHttpInfo(personId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdNotesGETWithHttpInfo(personId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }
@@ -2663,18 +1614,7 @@ export class PromisePersonsApi {
      * @param [totalCount] Include total count of the collection in the pagination response
      */
     public v2PersonsPersonIdNotesGET(personId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: PromiseConfigurationOptions): Promise<NotesNotesPaged> {
-        let observableOptions: undefined | ConfigurationOptions
-        if (_options){
-	    observableOptions = {
-                baseServer: _options.baseServer,
-                httpApi: _options.httpApi,
-                middleware: _options.middleware?.map(
-                    m => new PromiseMiddlewareWrapper(m)
-		),
-		middlewareMergeStrategy: _options.middlewareMergeStrategy,
-                authMethods: _options.authMethods
-	    }
-	}
+        const observableOptions = wrapOptions(_options);
         const result = this.api.v2PersonsPersonIdNotesGET(personId, filter, cursor, limit, totalCount, observableOptions);
         return result.toPromise();
     }

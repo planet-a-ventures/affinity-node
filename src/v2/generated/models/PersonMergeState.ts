@@ -43,11 +43,11 @@ export class PersonMergeState {
     /**
     * Timestamp when the merge completed (success or failure)
     */
-    'completedAt': Date;
+    'completedAt': Date | null;
     /**
     * Error message if the merge failed
     */
-    'errorMessage': string;
+    'errorMessage': string | null;
 
     static readonly discriminator: string | undefined = undefined;
 

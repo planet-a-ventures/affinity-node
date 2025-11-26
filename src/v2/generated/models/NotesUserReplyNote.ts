@@ -10,20 +10,13 @@
  * Do not edit the class manually.
  */
 
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
 import { NotesContent } from '../models/NotesContent.ts';
-import { NotesMention } from '../models/NotesMention.ts';
+import { NotesPersonMention } from '../models/NotesPersonMention.ts';
 import { PersonData } from '../models/PersonData.ts';
 import { HttpFile } from '../http/http.ts';
 
-/**
-* A reply to a note created by a user
-*/
 export class NotesUserReplyNote {
-    /**
-    * The type of the note
-    */
-    'type': string;
-    'parent': any;
     /**
     * The id of the note
     */
@@ -33,7 +26,7 @@ export class NotesUserReplyNote {
     /**
     * The mentions in the note
     */
-    'mentions': Array<NotesMention>;
+    'mentions': Array<NotesPersonMention>;
     /**
     * The date and time the note was created
     */
@@ -42,24 +35,17 @@ export class NotesUserReplyNote {
     * The date and time the note was last updated
     */
     'updatedAt': Date;
+    'parent': NotesBaseReplyParent;
+    /**
+    * The type of the note
+    */
+    'type': NotesUserReplyNoteTypeEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "parent",
-            "baseName": "parent",
-            "type": "any",
-            "format": ""
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -81,7 +67,7 @@ export class NotesUserReplyNote {
         {
             "name": "mentions",
             "baseName": "mentions",
-            "type": "Array<NotesMention>",
+            "type": "Array<NotesPersonMention>",
             "format": ""
         },
         {
@@ -95,6 +81,18 @@ export class NotesUserReplyNote {
             "baseName": "updatedAt",
             "type": "Date",
             "format": "date-time"
+        },
+        {
+            "name": "parent",
+            "baseName": "parent",
+            "type": "NotesBaseReplyParent",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "NotesUserReplyNoteTypeEnum",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
@@ -104,3 +102,8 @@ export class NotesUserReplyNote {
     public constructor() {
     }
 }
+
+export enum NotesUserReplyNoteTypeEnum {
+    UserReply = 'user-reply'
+}
+

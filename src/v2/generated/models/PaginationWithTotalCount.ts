@@ -14,10 +14,6 @@ import { HttpFile } from '../http/http.ts';
 
 export class PaginationWithTotalCount {
     /**
-    * The total count of the collection. Only included if requested via the totalCount query string parameter.
-    */
-    'totalCount'?: number;
-    /**
     * URL for the previous page
     */
     'prevUrl'?: string;
@@ -25,18 +21,16 @@ export class PaginationWithTotalCount {
     * URL for the next page
     */
     'nextUrl'?: string;
+    /**
+    * The total count of the collection. Only included if requested via the totalCount query string parameter.
+    */
+    'totalCount'?: number;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "totalCount",
-            "baseName": "totalCount",
-            "type": "number",
-            "format": "int64"
-        },
         {
             "name": "prevUrl",
             "baseName": "prevUrl",
@@ -48,6 +42,12 @@ export class PaginationWithTotalCount {
             "baseName": "nextUrl",
             "type": "string",
             "format": "uri"
+        },
+        {
+            "name": "totalCount",
+            "baseName": "totalCount",
+            "type": "number",
+            "format": "int64"
         }    ];
 
     static getAttributeTypeMap() {

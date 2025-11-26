@@ -10,9 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { Attendee } from '../models/Attendee.ts';
 import { AttendeesPreview } from '../models/AttendeesPreview.ts';
-import { InteractionsMeetingCreator } from '../models/InteractionsMeetingCreator.ts';
-import { InteractionsMeetingOrganizer } from '../models/InteractionsMeetingOrganizer.ts';
 import { HttpFile } from '../http/http.ts';
 
 export class InteractionsMeeting {
@@ -27,7 +26,7 @@ export class InteractionsMeeting {
     /**
     * The meeting\'s title
     */
-    'title': string;
+    'title': string | null;
     /**
     * The timestamp of when the meeting starts
     */
@@ -35,13 +34,13 @@ export class InteractionsMeeting {
     /**
     * The timestamp of when the meeting ends
     */
-    'endTime': Date;
+    'endTime': Date | null;
     /**
     * Whether the meeting is all day
     */
     'allDay': boolean;
-    'creator': InteractionsMeetingCreator;
-    'organizer': InteractionsMeetingOrganizer;
+    'creator': Attendee | null;
+    'organizer': Attendee | null;
     /**
     * The timestamp of when the meeting was created
     */
@@ -49,7 +48,7 @@ export class InteractionsMeeting {
     /**
     * The timestamp of when the meeting was updated
     */
-    'updatedAt': Date;
+    'updatedAt': Date | null;
     /**
     * A preview of the attendees in the meeting
     */
@@ -99,13 +98,13 @@ export class InteractionsMeeting {
         {
             "name": "creator",
             "baseName": "creator",
-            "type": "InteractionsMeetingCreator",
+            "type": "Attendee",
             "format": ""
         },
         {
             "name": "organizer",
             "baseName": "organizer",
-            "type": "InteractionsMeetingOrganizer",
+            "type": "Attendee",
             "format": ""
         },
         {

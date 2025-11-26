@@ -51,19 +51,15 @@ import { Grant } from '../models/Grant.ts';
 import { Interaction } from '../models/Interaction.ts';
 import { InteractionValue } from '../models/InteractionValue.ts';
 import { InteractionsCall } from '../models/InteractionsCall.ts';
-import { InteractionsCallCreator } from '../models/InteractionsCallCreator.ts';
 import { InteractionsCallPaged } from '../models/InteractionsCallPaged.ts';
 import { InteractionsChatMessage } from '../models/InteractionsChatMessage.ts';
 import { InteractionsChatMessagePaged } from '../models/InteractionsChatMessagePaged.ts';
 import { InteractionsEmail } from '../models/InteractionsEmail.ts';
 import { InteractionsEmailPaged } from '../models/InteractionsEmailPaged.ts';
 import { InteractionsMeeting } from '../models/InteractionsMeeting.ts';
-import { InteractionsMeetingCreator } from '../models/InteractionsMeetingCreator.ts';
-import { InteractionsMeetingOrganizer } from '../models/InteractionsMeetingOrganizer.ts';
 import { InteractionsMeetingPaged } from '../models/InteractionsMeetingPaged.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
-import { ListEntryBatchOperationRequest } from '../models/ListEntryBatchOperationRequest.ts';
 import { ListEntryBatchOperationResponse } from '../models/ListEntryBatchOperationResponse.ts';
 import { ListEntryBatchOperationUpdateFields } from '../models/ListEntryBatchOperationUpdateFields.ts';
 import { ListEntryBatchOperationUpdateFieldsUpdatesInner } from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
@@ -88,6 +84,7 @@ import { NotesAiNotetakerReplyNote } from '../models/NotesAiNotetakerReplyNote.t
 import { NotesAiNotetakerRootNote } from '../models/NotesAiNotetakerRootNote.ts';
 import { NotesBaseNote } from '../models/NotesBaseNote.ts';
 import { NotesBaseReply } from '../models/NotesBaseReply.ts';
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
 import { NotesBaseRootNote } from '../models/NotesBaseRootNote.ts';
 import { NotesCallInteraction } from '../models/NotesCallInteraction.ts';
 import { NotesChatMessageInteraction } from '../models/NotesChatMessageInteraction.ts';
@@ -98,7 +95,6 @@ import { NotesEntitiesNote } from '../models/NotesEntitiesNote.ts';
 import { NotesInteraction } from '../models/NotesInteraction.ts';
 import { NotesInteractionNote } from '../models/NotesInteractionNote.ts';
 import { NotesMeetingInteraction } from '../models/NotesMeetingInteraction.ts';
-import { NotesMention } from '../models/NotesMention.ts';
 import { NotesNote } from '../models/NotesNote.ts';
 import { NotesNotesPaged } from '../models/NotesNotesPaged.ts';
 import { NotesOpportunitiesPreview } from '../models/NotesOpportunitiesPreview.ts';
@@ -303,7 +299,7 @@ export interface CompaniesApiV2CompaniesCompanyIdGETRequest {
     /**
      * Company ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof CompaniesApiv2CompaniesCompanyIdGET
@@ -329,7 +325,7 @@ export interface CompaniesApiV2CompaniesCompanyIdListEntriesGETRequest {
     /**
      * Company ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof CompaniesApiv2CompaniesCompanyIdListEntriesGET
@@ -357,7 +353,7 @@ export interface CompaniesApiV2CompaniesCompanyIdListsGETRequest {
     /**
      * Company ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof CompaniesApiv2CompaniesCompanyIdListsGET
@@ -385,7 +381,7 @@ export interface CompaniesApiV2CompaniesCompanyIdNotesGETRequest {
     /**
      * Company\&#39;s ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof CompaniesApiv2CompaniesCompanyIdNotesGET
@@ -866,7 +862,7 @@ export interface ListsApiV2ListsListIdFieldsGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdFieldsGET
@@ -894,7 +890,7 @@ export interface ListsApiV2ListsListIdGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdGET
@@ -906,7 +902,7 @@ export interface ListsApiV2ListsListIdListEntriesGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesGET
@@ -948,7 +944,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequ
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdGET
@@ -957,7 +953,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequ
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdGET
@@ -976,7 +972,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTReq
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
@@ -985,7 +981,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTReq
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
@@ -1010,7 +1006,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
@@ -1019,7 +1015,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest {
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
@@ -1061,7 +1057,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
@@ -1070,7 +1066,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest {
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
@@ -1078,17 +1074,17 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest {
     listEntryId: number
     /**
      * 
-     * @type ListEntryBatchOperationRequest
+     * @type ListEntryBatchOperationUpdateFields
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
      */
-    listEntryBatchOperationRequest: ListEntryBatchOperationRequest
+    body: ListEntryBatchOperationUpdateFields
 }
 
 export interface ListsApiV2ListsListIdListEntriesListEntryIdGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
@@ -1097,7 +1093,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdGETRequest {
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
@@ -1123,7 +1119,7 @@ export interface ListsApiV2ListsListIdSavedViewsGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdSavedViewsGET
@@ -1151,7 +1147,7 @@ export interface ListsApiV2ListsListIdSavedViewsViewIdGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdSavedViewsViewIdGET
@@ -1160,7 +1156,7 @@ export interface ListsApiV2ListsListIdSavedViewsViewIdGETRequest {
     /**
      * Saved view ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdSavedViewsViewIdGET
@@ -1172,7 +1168,7 @@ export interface ListsApiV2ListsListIdSavedViewsViewIdListEntriesGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdSavedViewsViewIdListEntriesGET
@@ -1181,7 +1177,7 @@ export interface ListsApiV2ListsListIdSavedViewsViewIdListEntriesGETRequest {
     /**
      * Saved view ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdSavedViewsViewIdListEntriesGET
@@ -1344,7 +1340,7 @@ export class ObjectListsApi {
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryBatchOperationResponse>> {
-        return this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(param.listId, param.listEntryId, param.listEntryBatchOperationRequest,  options).toPromise();
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(param.listId, param.listEntryId, param.body,  options).toPromise();
     }
 
     /**
@@ -1353,7 +1349,7 @@ export class ObjectListsApi {
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsPATCH(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest, options?: ConfigurationOptions): Promise<ListEntryBatchOperationResponse> {
-        return this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCH(param.listId, param.listEntryId, param.listEntryBatchOperationRequest,  options).toPromise();
+        return this.api.v2ListsListIdListEntriesListEntryIdFieldsPATCH(param.listId, param.listEntryId, param.body,  options).toPromise();
     }
 
     /**
@@ -1845,7 +1841,7 @@ export interface OpportunitiesApiV2OpportunitiesOpportunityIdGETRequest {
     /**
      * Opportunity ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdGET
@@ -1857,7 +1853,7 @@ export interface OpportunitiesApiV2OpportunitiesOpportunityIdNotesGETRequest {
     /**
      * Opportunity ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdNotesGET
@@ -2209,7 +2205,7 @@ export interface PersonsApiV2PersonsPersonIdGETRequest {
     /**
      * Person ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof PersonsApiv2PersonsPersonIdGET
@@ -2235,7 +2231,7 @@ export interface PersonsApiV2PersonsPersonIdListEntriesGETRequest {
     /**
      * Persons ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof PersonsApiv2PersonsPersonIdListEntriesGET
@@ -2263,7 +2259,7 @@ export interface PersonsApiV2PersonsPersonIdListsGETRequest {
     /**
      * Persons ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof PersonsApiv2PersonsPersonIdListsGET
@@ -2291,7 +2287,7 @@ export interface PersonsApiV2PersonsPersonIdNotesGETRequest {
     /**
      * Persons ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof PersonsApiv2PersonsPersonIdNotesGET

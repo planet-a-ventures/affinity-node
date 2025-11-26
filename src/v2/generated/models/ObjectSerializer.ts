@@ -47,19 +47,15 @@ export * from '../models/Grant.ts';
 export * from '../models/Interaction.ts';
 export * from '../models/InteractionValue.ts';
 export * from '../models/InteractionsCall.ts';
-export * from '../models/InteractionsCallCreator.ts';
 export * from '../models/InteractionsCallPaged.ts';
 export * from '../models/InteractionsChatMessage.ts';
 export * from '../models/InteractionsChatMessagePaged.ts';
 export * from '../models/InteractionsEmail.ts';
 export * from '../models/InteractionsEmailPaged.ts';
 export * from '../models/InteractionsMeeting.ts';
-export * from '../models/InteractionsMeetingCreator.ts';
-export * from '../models/InteractionsMeetingOrganizer.ts';
 export * from '../models/InteractionsMeetingPaged.ts';
 export * from '../models/List.ts';
 export * from '../models/ListEntry.ts';
-export * from '../models/ListEntryBatchOperationRequest.ts';
 export * from '../models/ListEntryBatchOperationResponse.ts';
 export * from '../models/ListEntryBatchOperationUpdateFields.ts';
 export * from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
@@ -84,6 +80,7 @@ export * from '../models/NotesAiNotetakerReplyNote.ts';
 export * from '../models/NotesAiNotetakerRootNote.ts';
 export * from '../models/NotesBaseNote.ts';
 export * from '../models/NotesBaseReply.ts';
+export * from '../models/NotesBaseReplyParent.ts';
 export * from '../models/NotesBaseRootNote.ts';
 export * from '../models/NotesCallInteraction.ts';
 export * from '../models/NotesChatMessageInteraction.ts';
@@ -94,7 +91,6 @@ export * from '../models/NotesEntitiesNote.ts';
 export * from '../models/NotesInteraction.ts';
 export * from '../models/NotesInteractionNote.ts';
 export * from '../models/NotesMeetingInteraction.ts';
-export * from '../models/NotesMention.ts';
 export * from '../models/NotesNote.ts';
 export * from '../models/NotesNotesPaged.ts';
 export * from '../models/NotesOpportunitiesPreview.ts';
@@ -195,20 +191,16 @@ import { FormulaValue, FormulaValueTypeEnum    } from '../models/FormulaValue.ts
 import { Grant, GrantTypeEnum     } from '../models/Grant.ts';
 import { InteractionClass } from '../models/Interaction.ts';
 import { InteractionValue, InteractionValueTypeEnum    } from '../models/InteractionValue.ts';
-import { InteractionsCall } from '../models/InteractionsCall.ts';
-import { InteractionsCallCreatorClass } from '../models/InteractionsCallCreator.ts';
+import { InteractionsCall , InteractionsCallLoggingTypeEnum           } from '../models/InteractionsCall.ts';
 import { InteractionsCallPaged } from '../models/InteractionsCallPaged.ts';
 import { InteractionsChatMessage  , InteractionsChatMessageLoggingTypeEnum  , InteractionsChatMessageDirectionEnum       } from '../models/InteractionsChatMessage.ts';
 import { InteractionsChatMessagePaged } from '../models/InteractionsChatMessagePaged.ts';
 import { InteractionsEmail  , InteractionsEmailLoggingTypeEnum  , InteractionsEmailDirectionEnum         } from '../models/InteractionsEmail.ts';
 import { InteractionsEmailPaged } from '../models/InteractionsEmailPaged.ts';
 import { InteractionsMeeting , InteractionsMeetingLoggingTypeEnum            } from '../models/InteractionsMeeting.ts';
-import { InteractionsMeetingCreatorClass } from '../models/InteractionsMeetingCreator.ts';
-import { InteractionsMeetingOrganizerClass } from '../models/InteractionsMeetingOrganizer.ts';
 import { InteractionsMeetingPaged } from '../models/InteractionsMeetingPaged.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
-import { ListEntryBatchOperationRequestClass } from '../models/ListEntryBatchOperationRequest.ts';
 import { ListEntryBatchOperationResponse  } from '../models/ListEntryBatchOperationResponse.ts';
 import { ListEntryBatchOperationUpdateFields, ListEntryBatchOperationUpdateFieldsOperationEnum    } from '../models/ListEntryBatchOperationUpdateFields.ts';
 import { ListEntryBatchOperationUpdateFieldsUpdatesInner } from '../models/ListEntryBatchOperationUpdateFieldsUpdatesInner.ts';
@@ -222,28 +214,28 @@ import { ListWithTypePaged } from '../models/ListWithTypePaged.ts';
 import { Location } from '../models/Location.ts';
 import { LocationValue, LocationValueTypeEnum    } from '../models/LocationValue.ts';
 import { LocationsValue, LocationsValueTypeEnum    } from '../models/LocationsValue.ts';
-import { Meeting } from '../models/Meeting.ts';
+import { Meeting, MeetingTypeEnum         } from '../models/Meeting.ts';
 import { MethodNotAllowedError, MethodNotAllowedErrorCodeEnum    } from '../models/MethodNotAllowedError.ts';
 import { ModelErrorClass } from '../models/ModelError.ts';
 import { NotAcceptableError, NotAcceptableErrorCodeEnum    } from '../models/NotAcceptableError.ts';
 import { NotFoundError, NotFoundErrorCodeEnum    } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
 import { NotImplementedError, NotImplementedErrorCodeEnum    } from '../models/NotImplementedError.ts';
-import { NotesAiNotetakerReplyNote } from '../models/NotesAiNotetakerReplyNote.ts';
-import { NotesAiNotetakerRootNote } from '../models/NotesAiNotetakerRootNote.ts';
+import { NotesAiNotetakerReplyNote       , NotesAiNotetakerReplyNoteTypeEnum    } from '../models/NotesAiNotetakerReplyNote.ts';
+import { NotesAiNotetakerRootNote           , NotesAiNotetakerRootNoteTypeEnum    } from '../models/NotesAiNotetakerRootNote.ts';
 import { NotesBaseNote } from '../models/NotesBaseNote.ts';
 import { NotesBaseReply } from '../models/NotesBaseReply.ts';
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
 import { NotesBaseRootNote } from '../models/NotesBaseRootNote.ts';
 import { NotesCallInteraction , NotesCallInteractionTypeEnum   } from '../models/NotesCallInteraction.ts';
 import { NotesChatMessageInteraction , NotesChatMessageInteractionTypeEnum   } from '../models/NotesChatMessageInteraction.ts';
 import { NotesCompaniesPreview } from '../models/NotesCompaniesPreview.ts';
 import { NotesContent } from '../models/NotesContent.ts';
 import { NotesEmailInteraction , NotesEmailInteractionTypeEnum   } from '../models/NotesEmailInteraction.ts';
-import { NotesEntitiesNote } from '../models/NotesEntitiesNote.ts';
+import { NotesEntitiesNote           , NotesEntitiesNoteTypeEnum   } from '../models/NotesEntitiesNote.ts';
 import { NotesInteractionClass } from '../models/NotesInteraction.ts';
-import { NotesInteractionNote } from '../models/NotesInteractionNote.ts';
+import { NotesInteractionNote           , NotesInteractionNoteTypeEnum    } from '../models/NotesInteractionNote.ts';
 import { NotesMeetingInteraction , NotesMeetingInteractionTypeEnum   } from '../models/NotesMeetingInteraction.ts';
-import { NotesMentionClass } from '../models/NotesMention.ts';
 import { NotesNoteClass } from '../models/NotesNote.ts';
 import { NotesNotesPaged } from '../models/NotesNotesPaged.ts';
 import { NotesOpportunitiesPreview } from '../models/NotesOpportunitiesPreview.ts';
@@ -252,7 +244,7 @@ import { NotesPersonMention , NotesPersonMentionTypeEnum    } from '../models/No
 import { NotesPersonsPreview } from '../models/NotesPersonsPreview.ts';
 import { NotesRepliesPaged } from '../models/NotesRepliesPaged.ts';
 import { NotesReplyClass } from '../models/NotesReply.ts';
-import { NotesUserReplyNote } from '../models/NotesUserReplyNote.ts';
+import { NotesUserReplyNote       , NotesUserReplyNoteTypeEnum   } from '../models/NotesUserReplyNote.ts';
 import { Opportunity } from '../models/Opportunity.ts';
 import { OpportunityListEntry , OpportunityListEntryTypeEnum       } from '../models/OpportunityListEntry.ts';
 import { OpportunityPaged } from '../models/OpportunityPaged.ts';
@@ -339,33 +331,41 @@ let enumsMap: Set<string> = new Set<string>([
     "FloatsValueTypeEnum",
     "FormulaValueTypeEnum",
     "GrantTypeEnum",
+    "InteractionTypeEnum",
     "InteractionDirectionEnum",
     "InteractionValueTypeEnum",
+    "InteractionsCallLoggingTypeEnum",
     "InteractionsChatMessageLoggingTypeEnum",
     "InteractionsChatMessageDirectionEnum",
     "InteractionsEmailLoggingTypeEnum",
     "InteractionsEmailDirectionEnum",
     "InteractionsMeetingLoggingTypeEnum",
-    "ListEntryBatchOperationRequestOperationEnum",
     "ListEntryBatchOperationUpdateFieldsOperationEnum",
     "ListEntryBatchOperations",
     "ListEntryWithEntityTypeEnum",
     "ListWithTypeTypeEnum",
     "LocationValueTypeEnum",
     "LocationsValueTypeEnum",
+    "MeetingTypeEnum",
     "MethodNotAllowedErrorCodeEnum",
     "ModelErrorCodeEnum",
     "NotAcceptableErrorCodeEnum",
     "NotFoundErrorCodeEnum",
     "NotImplementedErrorCodeEnum",
+    "NotesAiNotetakerReplyNoteTypeEnum",
+    "NotesAiNotetakerRootNoteTypeEnum",
     "NotesCallInteractionTypeEnum",
     "NotesChatMessageInteractionTypeEnum",
     "NotesEmailInteractionTypeEnum",
+    "NotesEntitiesNoteTypeEnum",
     "NotesInteractionTypeEnum",
+    "NotesInteractionNoteTypeEnum",
     "NotesMeetingInteractionTypeEnum",
-    "NotesMentionTypeEnum",
+    "NotesNoteTypeEnum",
     "NotesPermissionSettingsSharingTypeEnum",
     "NotesPersonMentionTypeEnum",
+    "NotesReplyTypeEnum",
+    "NotesUserReplyNoteTypeEnum",
     "OpportunityListEntryTypeEnum",
     "PersonTypeEnum",
     "PersonDataTypeEnum",
@@ -440,19 +440,15 @@ let typeMap: {[index: string]: any} = {
     "Interaction": InteractionClass,
     "InteractionValue": InteractionValue,
     "InteractionsCall": InteractionsCall,
-    "InteractionsCallCreator": InteractionsCallCreatorClass,
     "InteractionsCallPaged": InteractionsCallPaged,
     "InteractionsChatMessage": InteractionsChatMessage,
     "InteractionsChatMessagePaged": InteractionsChatMessagePaged,
     "InteractionsEmail": InteractionsEmail,
     "InteractionsEmailPaged": InteractionsEmailPaged,
     "InteractionsMeeting": InteractionsMeeting,
-    "InteractionsMeetingCreator": InteractionsMeetingCreatorClass,
-    "InteractionsMeetingOrganizer": InteractionsMeetingOrganizerClass,
     "InteractionsMeetingPaged": InteractionsMeetingPaged,
     "List": List,
     "ListEntry": ListEntry,
-    "ListEntryBatchOperationRequest": ListEntryBatchOperationRequestClass,
     "ListEntryBatchOperationResponse": ListEntryBatchOperationResponse,
     "ListEntryBatchOperationUpdateFields": ListEntryBatchOperationUpdateFields,
     "ListEntryBatchOperationUpdateFieldsUpdatesInner": ListEntryBatchOperationUpdateFieldsUpdatesInner,
@@ -476,6 +472,7 @@ let typeMap: {[index: string]: any} = {
     "NotesAiNotetakerRootNote": NotesAiNotetakerRootNote,
     "NotesBaseNote": NotesBaseNote,
     "NotesBaseReply": NotesBaseReply,
+    "NotesBaseReplyParent": NotesBaseReplyParent,
     "NotesBaseRootNote": NotesBaseRootNote,
     "NotesCallInteraction": NotesCallInteraction,
     "NotesChatMessageInteraction": NotesChatMessageInteraction,
@@ -486,7 +483,6 @@ let typeMap: {[index: string]: any} = {
     "NotesInteraction": NotesInteractionClass,
     "NotesInteractionNote": NotesInteractionNote,
     "NotesMeetingInteraction": NotesMeetingInteraction,
-    "NotesMention": NotesMentionClass,
     "NotesNote": NotesNoteClass,
     "NotesNotesPaged": NotesNotesPaged,
     "NotesOpportunitiesPreview": NotesOpportunitiesPreview,
@@ -668,13 +664,16 @@ export class ObjectSerializer {
             }
             return transformedData;
         } else if (type === "Date") {
+            if (!(data instanceof Date)) {
+                return data;
+            }
             if (format == "date") {
                 let month = data.getMonth()+1
-                month = month < 10 ? "0" + month.toString() : month.toString()
+                let monthStr = month < 10 ? "0" + month.toString() : month.toString()
                 let day = data.getDate();
-                day = day < 10 ? "0" + day.toString() : day.toString();
+                let dayStr = day < 10 ? "0" + day.toString() : day.toString();
 
-                return data.getFullYear() + "-" + month + "-" + day;
+                return data.getFullYear() + "-" + monthStr + "-" + dayStr;
             } else {
                 return data.toISOString();
             }

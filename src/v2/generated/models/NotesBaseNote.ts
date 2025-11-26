@@ -11,7 +11,7 @@
  */
 
 import { NotesContent } from '../models/NotesContent.ts';
-import { NotesMention } from '../models/NotesMention.ts';
+import { NotesPersonMention } from '../models/NotesPersonMention.ts';
 import { PersonData } from '../models/PersonData.ts';
 import { HttpFile } from '../http/http.ts';
 
@@ -28,7 +28,7 @@ export class NotesBaseNote {
     /**
     * The mentions in the note
     */
-    'mentions': Array<NotesMention>;
+    'mentions': Array<NotesPersonMention>;
     /**
     * The date and time the note was created
     */
@@ -64,7 +64,7 @@ export class NotesBaseNote {
         {
             "name": "mentions",
             "baseName": "mentions",
-            "type": "Array<NotesMention>",
+            "type": "Array<NotesPersonMention>",
             "format": ""
         },
         {

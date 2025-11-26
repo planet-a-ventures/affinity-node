@@ -10,28 +10,30 @@
  * Do not edit the class manually.
  */
 
-import { NotesPersonMention } from '../models/NotesPersonMention.ts';
 import { HttpFile } from '../http/http.ts';
 
-/**
-* A mention in a note.
-*/
-/**
- * @type NotesMention
- * Type
- * @export
- */
-export type NotesMention = NotesPersonMention;
+export class NotesBaseReplyParent {
+    /**
+    * The id of the parent note
+    */
+    'id': number;
 
-/**
-* @type NotesMentionClass
-    * A mention in a note.
-* @export
-*/
-export class NotesMentionClass {
-    static readonly discriminator: string | undefined = "type";
+    static readonly discriminator: string | undefined = undefined;
 
-    static readonly mapping: {[index: string]: string} | undefined = {
-        "person": "NotesPersonMention",
-    };
+    static readonly mapping: {[index: string]: string} | undefined = undefined;
+
+    static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "id",
+            "baseName": "id",
+            "type": "number",
+            "format": "int32"
+        }    ];
+
+    static getAttributeTypeMap() {
+        return NotesBaseReplyParent.attributeTypeMap;
+    }
+
+    public constructor() {
+    }
 }

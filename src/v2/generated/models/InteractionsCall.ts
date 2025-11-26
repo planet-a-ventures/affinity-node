@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
+import { Attendee } from '../models/Attendee.ts';
 import { AttendeesPreview } from '../models/AttendeesPreview.ts';
-import { InteractionsCallCreator } from '../models/InteractionsCallCreator.ts';
 import { HttpFile } from '../http/http.ts';
 
 export class InteractionsCall {
@@ -22,11 +22,11 @@ export class InteractionsCall {
     /**
     * Indicates how the interaction was added to Affinity: either manually by a user (\'manual\') or automatically through Affinity\'s capture process (\'automated\'). Currently, calls can only be logged as \'manual\'.
     */
-    'loggingType': string;
+    'loggingType': InteractionsCallLoggingTypeEnum;
     /**
     * The call\'s title
     */
-    'title': string;
+    'title': string | null;
     /**
     * The timestamp of when the call starts
     */
@@ -34,12 +34,12 @@ export class InteractionsCall {
     /**
     * The timestamp of when the call ends
     */
-    'endTime': Date;
+    'endTime': Date | null;
     /**
     * Whether the call is all day
     */
     'allDay': boolean;
-    'creator': InteractionsCallCreator;
+    'creator': Attendee | null;
     /**
     * The timestamp of when the call was created
     */
@@ -47,7 +47,7 @@ export class InteractionsCall {
     /**
     * The timestamp of when the call was updated
     */
-    'updatedAt': Date;
+    'updatedAt': Date | null;
     /**
     * A preview of the attendees in the call
     */
@@ -67,7 +67,7 @@ export class InteractionsCall {
         {
             "name": "loggingType",
             "baseName": "loggingType",
-            "type": "string",
+            "type": "InteractionsCallLoggingTypeEnum",
             "format": ""
         },
         {
@@ -97,7 +97,7 @@ export class InteractionsCall {
         {
             "name": "creator",
             "baseName": "creator",
-            "type": "InteractionsCallCreator",
+            "type": "Attendee",
             "format": ""
         },
         {
@@ -126,3 +126,8 @@ export class InteractionsCall {
     public constructor() {
     }
 }
+
+export enum InteractionsCallLoggingTypeEnum {
+    Manual = 'manual'
+}
+

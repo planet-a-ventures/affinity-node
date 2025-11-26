@@ -10,16 +10,13 @@
  * Do not edit the class manually.
  */
 
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
 import { NotesContent } from '../models/NotesContent.ts';
-import { NotesMention } from '../models/NotesMention.ts';
+import { NotesPersonMention } from '../models/NotesPersonMention.ts';
 import { PersonData } from '../models/PersonData.ts';
 import { HttpFile } from '../http/http.ts';
 
-/**
-* An abstract base class for note replies, either of a UserNoteReply or AiNotetakerNoteReply
-*/
 export class NotesBaseReply {
-    'parent': any;
     /**
     * The id of the note
     */
@@ -29,7 +26,7 @@ export class NotesBaseReply {
     /**
     * The mentions in the note
     */
-    'mentions': Array<NotesMention>;
+    'mentions': Array<NotesPersonMention>;
     /**
     * The date and time the note was created
     */
@@ -38,18 +35,13 @@ export class NotesBaseReply {
     * The date and time the note was last updated
     */
     'updatedAt': Date;
+    'parent': NotesBaseReplyParent;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "parent",
-            "baseName": "parent",
-            "type": "any",
-            "format": ""
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -71,7 +63,7 @@ export class NotesBaseReply {
         {
             "name": "mentions",
             "baseName": "mentions",
-            "type": "Array<NotesMention>",
+            "type": "Array<NotesPersonMention>",
             "format": ""
         },
         {
@@ -85,6 +77,12 @@ export class NotesBaseReply {
             "baseName": "updatedAt",
             "type": "Date",
             "format": "date-time"
+        },
+        {
+            "name": "parent",
+            "baseName": "parent",
+            "type": "NotesBaseReplyParent",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {

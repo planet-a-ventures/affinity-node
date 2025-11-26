@@ -17,7 +17,7 @@ export class Meeting {
     /**
     * The type of interaction
     */
-    'type': string;
+    'type': MeetingTypeEnum;
     /**
     * The meeting\'s unique identifier
     */
@@ -25,7 +25,7 @@ export class Meeting {
     /**
     * The meeting\'s title
     */
-    'title': string;
+    'title': string | null;
     /**
     * Whether the meeting is an all-day event
     */
@@ -37,7 +37,7 @@ export class Meeting {
     /**
     * The meeting end time
     */
-    'endTime': Date;
+    'endTime': Date | null;
     /**
     * People attending the meeting
     */
@@ -51,7 +51,7 @@ export class Meeting {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "MeetingTypeEnum",
             "format": ""
         },
         {
@@ -98,3 +98,8 @@ export class Meeting {
     public constructor() {
     }
 }
+
+export enum MeetingTypeEnum {
+    Meeting = 'meeting'
+}
+

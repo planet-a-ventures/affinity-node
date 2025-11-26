@@ -12,29 +12,14 @@
 
 import { NotesCompaniesPreview } from '../models/NotesCompaniesPreview.ts';
 import { NotesContent } from '../models/NotesContent.ts';
-import { NotesMention } from '../models/NotesMention.ts';
 import { NotesOpportunitiesPreview } from '../models/NotesOpportunitiesPreview.ts';
 import { NotesPermissionSettings } from '../models/NotesPermissionSettings.ts';
+import { NotesPersonMention } from '../models/NotesPersonMention.ts';
 import { NotesPersonsPreview } from '../models/NotesPersonsPreview.ts';
 import { PersonData } from '../models/PersonData.ts';
 import { HttpFile } from '../http/http.ts';
 
-/**
-* A Note object attached to an entity (Person, Company, Opportunity)
-*/
 export class NotesEntitiesNote {
-    /**
-    * The type of the note
-    */
-    'type': string;
-    /**
-    * The number of replies to this note. This is only included if the `repliesCount` parameter is passed in the `includes` in the request and the note is not a reply itself.
-    */
-    'repliesCount'?: number;
-    'permissions'?: NotesPermissionSettings;
-    'opportunitiesPreview'?: NotesOpportunitiesPreview;
-    'personsPreview'?: NotesPersonsPreview;
-    'companiesPreview'?: NotesCompaniesPreview;
     /**
     * The id of the note
     */
@@ -44,7 +29,7 @@ export class NotesEntitiesNote {
     /**
     * The mentions in the note
     */
-    'mentions': Array<NotesMention>;
+    'mentions': Array<NotesPersonMention>;
     /**
     * The date and time the note was created
     */
@@ -53,6 +38,18 @@ export class NotesEntitiesNote {
     * The date and time the note was last updated
     */
     'updatedAt': Date;
+    /**
+    * The number of replies to this note. This is only included if the `repliesCount` parameter is passed in the `includes` in the request and the note is not a reply itself.
+    */
+    'repliesCount'?: number;
+    'permissions'?: NotesPermissionSettings;
+    'opportunitiesPreview'?: NotesOpportunitiesPreview;
+    'personsPreview'?: NotesPersonsPreview;
+    'companiesPreview'?: NotesCompaniesPreview;
+    /**
+    * The type of the note
+    */
+    'type': NotesEntitiesNoteTypeEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -60,10 +57,40 @@ export class NotesEntitiesNote {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "type",
-            "baseName": "type",
-            "type": "string",
+            "name": "id",
+            "baseName": "id",
+            "type": "number",
+            "format": "int32"
+        },
+        {
+            "name": "content",
+            "baseName": "content",
+            "type": "NotesContent",
             "format": ""
+        },
+        {
+            "name": "creator",
+            "baseName": "creator",
+            "type": "PersonData",
+            "format": ""
+        },
+        {
+            "name": "mentions",
+            "baseName": "mentions",
+            "type": "Array<NotesPersonMention>",
+            "format": ""
+        },
+        {
+            "name": "createdAt",
+            "baseName": "createdAt",
+            "type": "Date",
+            "format": "date-time"
+        },
+        {
+            "name": "updatedAt",
+            "baseName": "updatedAt",
+            "type": "Date",
+            "format": "date-time"
         },
         {
             "name": "repliesCount",
@@ -96,40 +123,10 @@ export class NotesEntitiesNote {
             "format": ""
         },
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "number",
-            "format": "int32"
-        },
-        {
-            "name": "content",
-            "baseName": "content",
-            "type": "NotesContent",
+            "name": "type",
+            "baseName": "type",
+            "type": "NotesEntitiesNoteTypeEnum",
             "format": ""
-        },
-        {
-            "name": "creator",
-            "baseName": "creator",
-            "type": "PersonData",
-            "format": ""
-        },
-        {
-            "name": "mentions",
-            "baseName": "mentions",
-            "type": "Array<NotesMention>",
-            "format": ""
-        },
-        {
-            "name": "createdAt",
-            "baseName": "createdAt",
-            "type": "Date",
-            "format": "date-time"
-        },
-        {
-            "name": "updatedAt",
-            "baseName": "updatedAt",
-            "type": "Date",
-            "format": "date-time"
         }    ];
 
     static getAttributeTypeMap() {
@@ -139,3 +136,8 @@ export class NotesEntitiesNote {
     public constructor() {
     }
 }
+
+export enum NotesEntitiesNoteTypeEnum {
+    Entities = 'entities'
+}
+

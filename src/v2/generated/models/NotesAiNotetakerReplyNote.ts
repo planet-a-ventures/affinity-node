@@ -10,25 +10,14 @@
  * Do not edit the class manually.
  */
 
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
 import { NotesContent } from '../models/NotesContent.ts';
 import { NotesMeetingInteraction } from '../models/NotesMeetingInteraction.ts';
-import { NotesMention } from '../models/NotesMention.ts';
+import { NotesPersonMention } from '../models/NotesPersonMention.ts';
 import { PersonData } from '../models/PersonData.ts';
 import { HttpFile } from '../http/http.ts';
 
-/**
-* A reply to a Note, created by an AI Notetaker
-*/
 export class NotesAiNotetakerReplyNote {
-    /**
-    * The type of the note
-    */
-    'type': string;
-    /**
-    * The meeting this AI Notetaker was invited to.
-    */
-    'interaction'?: NotesMeetingInteraction;
-    'parent': any;
     /**
     * The id of the note
     */
@@ -38,7 +27,7 @@ export class NotesAiNotetakerReplyNote {
     /**
     * The mentions in the note
     */
-    'mentions': Array<NotesMention>;
+    'mentions': Array<NotesPersonMention>;
     /**
     * The date and time the note was created
     */
@@ -47,30 +36,21 @@ export class NotesAiNotetakerReplyNote {
     * The date and time the note was last updated
     */
     'updatedAt': Date;
+    'parent': NotesBaseReplyParent;
+    /**
+    * The type of the note
+    */
+    'type': NotesAiNotetakerReplyNoteTypeEnum;
+    /**
+    * The meeting this AI Notetaker was invited to.
+    */
+    'interaction'?: NotesMeetingInteraction;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "type",
-            "baseName": "type",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "interaction",
-            "baseName": "interaction",
-            "type": "NotesMeetingInteraction",
-            "format": ""
-        },
-        {
-            "name": "parent",
-            "baseName": "parent",
-            "type": "any",
-            "format": ""
-        },
         {
             "name": "id",
             "baseName": "id",
@@ -92,7 +72,7 @@ export class NotesAiNotetakerReplyNote {
         {
             "name": "mentions",
             "baseName": "mentions",
-            "type": "Array<NotesMention>",
+            "type": "Array<NotesPersonMention>",
             "format": ""
         },
         {
@@ -106,6 +86,24 @@ export class NotesAiNotetakerReplyNote {
             "baseName": "updatedAt",
             "type": "Date",
             "format": "date-time"
+        },
+        {
+            "name": "parent",
+            "baseName": "parent",
+            "type": "NotesBaseReplyParent",
+            "format": ""
+        },
+        {
+            "name": "type",
+            "baseName": "type",
+            "type": "NotesAiNotetakerReplyNoteTypeEnum",
+            "format": ""
+        },
+        {
+            "name": "interaction",
+            "baseName": "interaction",
+            "type": "NotesMeetingInteraction",
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
@@ -115,3 +113,8 @@ export class NotesAiNotetakerReplyNote {
     public constructor() {
     }
 }
+
+export enum NotesAiNotetakerReplyNoteTypeEnum {
+    AiNotetakerReply = 'ai-notetaker-reply'
+}
+

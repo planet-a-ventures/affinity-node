@@ -14,8 +14,8 @@ import { Field } from '../models/Field.ts';
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts';
 import { FieldPaged } from '../models/FieldPaged.ts';
 import { FieldUpdate } from '../models/FieldUpdate.ts';
-import { ListEntryBatchOperationRequest } from '../models/ListEntryBatchOperationRequest.ts';
 import { ListEntryBatchOperationResponse } from '../models/ListEntryBatchOperationResponse.ts';
+import { ListEntryBatchOperationUpdateFields } from '../models/ListEntryBatchOperationUpdateFields.ts';
 import { ListEntryWithEntity } from '../models/ListEntryWithEntity.ts';
 import { ListEntryWithEntityPaged } from '../models/ListEntryWithEntityPaged.ts';
 import { ListWithType } from '../models/ListWithType.ts';
@@ -447,9 +447,9 @@ export class ListsApiRequestFactory extends BaseAPIRequestFactory {
      * Perform batch operations on a list entry\'s fields
      * @param listId List ID
      * @param listEntryId List Entry ID
-     * @param listEntryBatchOperationRequest 
+     * @param body 
      */
-    public async v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId: number, listEntryId: number, listEntryBatchOperationRequest: ListEntryBatchOperationRequest, _options?: Configuration): Promise<RequestContext> {
+    public async v2ListsListIdListEntriesListEntryIdFieldsPATCH(listId: number, listEntryId: number, body: ListEntryBatchOperationUpdateFields, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'listId' is not null or undefined
@@ -464,9 +464,9 @@ export class ListsApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'listEntryBatchOperationRequest' is not null or undefined
-        if (listEntryBatchOperationRequest === null || listEntryBatchOperationRequest === undefined) {
-            throw new RequiredError("ListsApi", "v2ListsListIdListEntriesListEntryIdFieldsPATCH", "listEntryBatchOperationRequest");
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("ListsApi", "v2ListsListIdListEntriesListEntryIdFieldsPATCH", "body");
         }
 
 
@@ -486,7 +486,7 @@ export class ListsApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(listEntryBatchOperationRequest, "ListEntryBatchOperationRequest", ""),
+            ObjectSerializer.serialize(body, "ListEntryBatchOperationUpdateFields", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
