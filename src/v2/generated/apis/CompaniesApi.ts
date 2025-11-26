@@ -13,10 +13,11 @@ import { Company } from '../models/Company.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
 import { Errors } from '../models/Errors.ts';
 import { FieldMetadataPaged } from '../models/FieldMetadataPaged.ts';
-import { InlineObject } from '../models/InlineObject.ts';
 import { ListEntryPaged } from '../models/ListEntryPaged.ts';
 import { ListPaged } from '../models/ListPaged.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
+import { NotesNotesPaged } from '../models/NotesNotesPaged.ts';
+import { Responses400 } from '../models/Responses400.ts';
 
 /**
  * no description
@@ -24,24 +25,84 @@ import { NotFoundErrors } from '../models/NotFoundErrors.ts';
 export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
-     * Get all Companies
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     * @param ids Company IDs
+     * Returns basic information and non-list-specific field data on the requested Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
+     * Get a single Company
+     * @param companyId Company ID
      * @param fieldIds Field IDs for which to return field data
      * @param fieldTypes Field Types for which to return field data
      */
-    public async getV2Companies(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<RequestContext> {
+    public async v2CompaniesCompanyIdGET(companyId: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-
+        // verify required parameter 'companyId' is not null or undefined
+        if (companyId === null || companyId === undefined) {
+            throw new RequiredError("CompaniesApi", "v2CompaniesCompanyIdGET", "companyId");
+        }
 
 
 
 
         // Path Params
-        const localVarPath = '/v2/companies';
+        const localVarPath = '/v2/companies/{companyId}'
+            .replace('{' + 'companyId' + '}', encodeURIComponent(String(companyId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (fieldIds !== undefined) {
+            const serializedParams = ObjectSerializer.serialize(fieldIds, "Array<string>", "");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldIds", serializedParam);
+            }
+        }
+
+        // Query Params
+        if (fieldTypes !== undefined) {
+            const serializedParams = ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("fieldTypes", serializedParam);
+            }
+        }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Paginate through the List Entries (AKA rows) for the given Company across all Lists. Each List Entry includes field data for the Company, including list-specific field data. Each List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a Company\'s List Entries
+     * @param companyId Company ID
+     * @param cursor Cursor for the next or previous page
+     * @param limit Number of items to include in the page
+     */
+    public async v2CompaniesCompanyIdListEntriesGET(companyId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'companyId' is not null or undefined
+        if (companyId === null || companyId === undefined) {
+            throw new RequiredError("CompaniesApi", "v2CompaniesCompanyIdListEntriesGET", "companyId");
+        }
+
+
+
+
+        // Path Params
+        const localVarPath = '/v2/companies/{companyId}/list-entries'
+            .replace('{' + 'companyId' + '}', encodeURIComponent(String(companyId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -57,28 +118,122 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
             requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
         }
 
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Paginate through all Lists where the given Company appears as an entry and that you have access to view. Returns basic List information for each List that contains this Company.
+     * Get a Company\'s Lists
+     * @param companyId Company ID
+     * @param cursor Cursor for the next or previous page
+     * @param limit Number of items to include in the page
+     */
+    public async v2CompaniesCompanyIdListsGET(companyId: number, cursor?: string, limit?: number, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'companyId' is not null or undefined
+        if (companyId === null || companyId === undefined) {
+            throw new RequiredError("CompaniesApi", "v2CompaniesCompanyIdListsGET", "companyId");
+        }
+
+
+
+
+        // Path Params
+        const localVarPath = '/v2/companies/{companyId}/lists'
+            .replace('{' + 'companyId' + '}', encodeURIComponent(String(companyId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
         // Query Params
-        if (ids !== undefined) {
-            const serializedParams = ObjectSerializer.serialize(ids, "Array<number>", "int64");
-            for (const serializedParam of serializedParams) {
-                requestContext.appendQueryParam("ids", serializedParam);
-            }
+        if (cursor !== undefined) {
+            requestContext.setQueryParam("cursor", ObjectSerializer.serialize(cursor, "string", ""));
         }
 
         // Query Params
-        if (fieldIds !== undefined) {
-            const serializedParams = ObjectSerializer.serialize(fieldIds, "Array<string>", "string");
-            for (const serializedParam of serializedParams) {
-                requestContext.appendQueryParam("fieldIds", serializedParam);
-            }
+        if (limit !== undefined) {
+            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
+        }
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns relevant notes for a given company which includes directly attached notes and notes attached to persons on this company.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for a Company
+     * @param companyId Company\&#39;s ID
+     * @param filter Filter options
+     * @param cursor Cursor for the next or previous page
+     * @param limit Number of items to include in the page
+     * @param totalCount Include total count of the collection in the pagination response
+     */
+    public async v2CompaniesCompanyIdNotesGET(companyId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'companyId' is not null or undefined
+        if (companyId === null || companyId === undefined) {
+            throw new RequiredError("CompaniesApi", "v2CompaniesCompanyIdNotesGET", "companyId");
+        }
+
+
+
+
+
+
+        // Path Params
+        const localVarPath = '/v2/companies/{companyId}/notes'
+            .replace('{' + 'companyId' + '}', encodeURIComponent(String(companyId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (filter !== undefined) {
+            requestContext.setQueryParam("filter", ObjectSerializer.serialize(filter, "string", ""));
         }
 
         // Query Params
-        if (fieldTypes !== undefined) {
-            const serializedParams = ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "string");
-            for (const serializedParam of serializedParams) {
-                requestContext.appendQueryParam("fieldTypes", serializedParam);
-            }
+        if (cursor !== undefined) {
+            requestContext.setQueryParam("cursor", ObjectSerializer.serialize(cursor, "string", ""));
+        }
+
+        // Query Params
+        if (limit !== undefined) {
+            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
+        }
+
+        // Query Params
+        if (totalCount !== undefined) {
+            requestContext.setQueryParam("totalCount", ObjectSerializer.serialize(totalCount, "boolean", ""));
         }
 
 
@@ -103,7 +258,7 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
      * @param cursor Cursor for the next or previous page
      * @param limit Number of items to include in the page
      */
-    public async getV2CompaniesFields(cursor?: string, limit?: number, _options?: Configuration): Promise<RequestContext> {
+    public async v2CompaniesFieldsGET(cursor?: string, limit?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
 
@@ -142,34 +297,50 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Returns basic information and non-list-specific field data on the requested Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
-     * Get a single Company
-     * @param id Company ID
+     * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
+     * Get all Companies
+     * @param cursor Cursor for the next or previous page
+     * @param limit Number of items to include in the page
+     * @param ids Company IDs
      * @param fieldIds Field IDs for which to return field data
      * @param fieldTypes Field Types for which to return field data
      */
-    public async getV2CompaniesId(id: number, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<RequestContext> {
+    public async v2CompaniesGET(cursor?: string, limit?: number, ids?: Array<number>, fieldIds?: Array<string>, fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new RequiredError("CompaniesApi", "getV2CompaniesId", "id");
-        }
+
 
 
 
 
         // Path Params
-        const localVarPath = '/v2/companies/{id}'
-            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
+        const localVarPath = '/v2/companies';
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
         // Query Params
+        if (cursor !== undefined) {
+            requestContext.setQueryParam("cursor", ObjectSerializer.serialize(cursor, "string", ""));
+        }
+
+        // Query Params
+        if (limit !== undefined) {
+            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
+        }
+
+        // Query Params
+        if (ids !== undefined) {
+            const serializedParams = ObjectSerializer.serialize(ids, "Array<number>", "int64");
+            for (const serializedParam of serializedParams) {
+                requestContext.appendQueryParam("ids", serializedParam);
+            }
+        }
+
+        // Query Params
         if (fieldIds !== undefined) {
-            const serializedParams = ObjectSerializer.serialize(fieldIds, "Array<string>", "string");
+            const serializedParams = ObjectSerializer.serialize(fieldIds, "Array<string>", "");
             for (const serializedParam of serializedParams) {
                 requestContext.appendQueryParam("fieldIds", serializedParam);
             }
@@ -177,114 +348,10 @@ export class CompaniesApiRequestFactory extends BaseAPIRequestFactory {
 
         // Query Params
         if (fieldTypes !== undefined) {
-            const serializedParams = ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "string");
+            const serializedParams = ObjectSerializer.serialize(fieldTypes, "Array<'enriched' | 'global' | 'relationship-intelligence'>", "");
             for (const serializedParam of serializedParams) {
                 requestContext.appendQueryParam("fieldTypes", serializedParam);
             }
-        }
-
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["bearerAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Paginate through the List Entries (AKA rows) for the given Company across all Lists. Each List Entry includes field data for the Company, including list-specific field data. Each List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get a Company\'s List Entries
-     * @param id Company ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     */
-    public async getV2CompaniesIdListEntries(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new RequiredError("CompaniesApi", "getV2CompaniesIdListEntries", "id");
-        }
-
-
-
-
-        // Path Params
-        const localVarPath = '/v2/companies/{id}/list-entries'
-            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-        // Query Params
-        if (cursor !== undefined) {
-            requestContext.setQueryParam("cursor", ObjectSerializer.serialize(cursor, "string", ""));
-        }
-
-        // Query Params
-        if (limit !== undefined) {
-            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
-        }
-
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["bearerAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Returns metadata for all the Lists on which the given Company appears.
-     * Get a Company\'s Lists
-     * @param id Company ID
-     * @param cursor Cursor for the next or previous page
-     * @param limit Number of items to include in the page
-     */
-    public async getV2CompaniesIdLists(id: number, cursor?: string, limit?: number, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new RequiredError("CompaniesApi", "getV2CompaniesIdLists", "id");
-        }
-
-
-
-
-        // Path Params
-        const localVarPath = '/v2/companies/{id}/lists'
-            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-        // Query Params
-        if (cursor !== undefined) {
-            requestContext.setQueryParam("cursor", ObjectSerializer.serialize(cursor, "string", ""));
-        }
-
-        // Query Params
-        if (limit !== undefined) {
-            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
         }
 
 
@@ -311,103 +378,10 @@ export class CompaniesApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getV2Companies
+     * @params response Response returned by the server for a request to v2CompaniesCompanyIdGET
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getV2CompaniesWithHttpInfo(response: ResponseContext): Promise<HttpInfo<CompanyPaged >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: CompanyPaged = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "CompanyPaged", ""
-            ) as CompanyPaged;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: InlineObject = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "InlineObject", ""
-            ) as InlineObject;
-            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
-        }
-        if (isCodeInRange("403", response.httpStatusCode)) {
-            const body: AuthorizationErrors = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "AuthorizationErrors", ""
-            ) as AuthorizationErrors;
-            throw new ApiException<AuthorizationErrors>(response.httpStatusCode, "Forbidden", body, response.headers);
-        }
-        if (isCodeInRange("0", response.httpStatusCode)) {
-            const body: Errors = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "Errors", ""
-            ) as Errors;
-            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: CompanyPaged = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "CompanyPaged", ""
-            ) as CompanyPaged;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to getV2CompaniesFields
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async getV2CompaniesFieldsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<FieldMetadataPaged >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: FieldMetadataPaged = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "FieldMetadataPaged", ""
-            ) as FieldMetadataPaged;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: InlineObject = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "InlineObject", ""
-            ) as InlineObject;
-            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
-        }
-        if (isCodeInRange("0", response.httpStatusCode)) {
-            const body: Errors = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "Errors", ""
-            ) as Errors;
-            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: FieldMetadataPaged = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "FieldMetadataPaged", ""
-            ) as FieldMetadataPaged;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to getV2CompaniesId
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async getV2CompaniesIdWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Company >> {
+     public async v2CompaniesCompanyIdGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Company >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Company = ObjectSerializer.deserialize(
@@ -417,11 +391,11 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: InlineObject = ObjectSerializer.deserialize(
+            const body: Responses400 = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "InlineObject", ""
-            ) as InlineObject;
-            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: AuthorizationErrors = ObjectSerializer.deserialize(
@@ -461,10 +435,10 @@ export class CompaniesApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getV2CompaniesIdListEntries
+     * @params response Response returned by the server for a request to v2CompaniesCompanyIdListEntriesGET
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getV2CompaniesIdListEntriesWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListEntryPaged >> {
+     public async v2CompaniesCompanyIdListEntriesGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListEntryPaged >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ListEntryPaged = ObjectSerializer.deserialize(
@@ -474,11 +448,11 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: InlineObject = ObjectSerializer.deserialize(
+            const body: Responses400 = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "InlineObject", ""
-            ) as InlineObject;
-            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: AuthorizationErrors = ObjectSerializer.deserialize(
@@ -518,10 +492,10 @@ export class CompaniesApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getV2CompaniesIdLists
+     * @params response Response returned by the server for a request to v2CompaniesCompanyIdListsGET
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getV2CompaniesIdListsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListPaged >> {
+     public async v2CompaniesCompanyIdListsGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<ListPaged >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: ListPaged = ObjectSerializer.deserialize(
@@ -531,11 +505,11 @@ export class CompaniesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: InlineObject = ObjectSerializer.deserialize(
+            const body: Responses400 = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "InlineObject", ""
-            ) as InlineObject;
-            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("404", response.httpStatusCode)) {
             const body: NotFoundErrors = ObjectSerializer.deserialize(
@@ -558,6 +532,149 @@ export class CompaniesApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "ListPaged", ""
             ) as ListPaged;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to v2CompaniesCompanyIdNotesGET
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v2CompaniesCompanyIdNotesGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<NotesNotesPaged >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: NotesNotesPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotesNotesPaged", ""
+            ) as NotesNotesPaged;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: Responses400 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: NotFoundErrors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotFoundErrors", ""
+            ) as NotFoundErrors;
+            throw new ApiException<NotFoundErrors>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: NotesNotesPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotesNotesPaged", ""
+            ) as NotesNotesPaged;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to v2CompaniesFieldsGET
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v2CompaniesFieldsGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<FieldMetadataPaged >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: FieldMetadataPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "FieldMetadataPaged", ""
+            ) as FieldMetadataPaged;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: Responses400 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: FieldMetadataPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "FieldMetadataPaged", ""
+            ) as FieldMetadataPaged;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to v2CompaniesGET
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v2CompaniesGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<CompanyPaged >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: CompanyPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "CompanyPaged", ""
+            ) as CompanyPaged;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: Responses400 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: AuthorizationErrors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AuthorizationErrors", ""
+            ) as AuthorizationErrors;
+            throw new ApiException<AuthorizationErrors>(response.httpStatusCode, "Forbidden", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: CompanyPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "CompanyPaged", ""
+            ) as CompanyPaged;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

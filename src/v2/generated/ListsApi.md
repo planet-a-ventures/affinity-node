@@ -4,211 +4,24 @@ All URIs are relative to *https://api.affinity.co*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getV2ListsListidSavedViews**](ListsApi.md#getV2ListsListidSavedViews) | **GET** /v2/lists/{listId}/saved-views | Get metadata on Saved Views
-[**getV2ListsListidSavedViewsViewid**](ListsApi.md#getV2ListsListidSavedViewsViewid) | **GET** /v2/lists/{listId}/saved-views/{viewId} | Get metadata on a single Saved View
-[**getV2ListsListidSavedViewsViewidListEntries**](ListsApi.md#getV2ListsListidSavedViewsViewidListEntries) | **GET** /v2/lists/{listId}/saved-views/{viewId}/list-entries | Get all List Entries on a Saved View
 [**v2ListsGET**](ListsApi.md#v2ListsGET) | **GET** /v2/lists | Get metadata on all Lists
 [**v2ListsListIdFieldsGET**](ListsApi.md#v2ListsListIdFieldsGET) | **GET** /v2/lists/{listId}/fields | Get metadata on a single List\&#39;s Fields
 [**v2ListsListIdGET**](ListsApi.md#v2ListsListIdGET) | **GET** /v2/lists/{listId} | Get metadata on a single List
 [**v2ListsListIdListEntriesGET**](ListsApi.md#v2ListsListIdListEntriesGET) | **GET** /v2/lists/{listId}/list-entries | Get all List Entries on a List
-[**v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET) | **GET** /v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId} | Get a single field value [BETA]
-[**v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST) | **POST** /v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId} | Update a single field value on a List Entry [BETA]
-[**v2ListsListIdListEntriesListEntryIdFieldsGET**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsGET) | **GET** /v2/lists/{listId}/list-entries/{listEntryId}/fields | Get field values on a single List Entry [BETA]
-[**v2ListsListIdListEntriesListEntryIdFieldsPATCH**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsPATCH) | **PATCH** /v2/lists/{listId}/list-entries/{listEntryId}/fields | Perform batch operations on a list entry\&#39;s fields [BETA]
-[**v2ListsListIdListEntriesListEntryIdGET**](ListsApi.md#v2ListsListIdListEntriesListEntryIdGET) | **GET** /v2/lists/{listId}/list-entries/{listEntryId} | Get a single List Entry on a List [BETA]
+[**v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET) | **GET** /v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId} | Get a single field value
+[**v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST) | **POST** /v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId} | Update a single field value on a List Entry
+[**v2ListsListIdListEntriesListEntryIdFieldsGET**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsGET) | **GET** /v2/lists/{listId}/list-entries/{listEntryId}/fields | Get field values on a single List Entry
+[**v2ListsListIdListEntriesListEntryIdFieldsPATCH**](ListsApi.md#v2ListsListIdListEntriesListEntryIdFieldsPATCH) | **PATCH** /v2/lists/{listId}/list-entries/{listEntryId}/fields | Perform batch operations on a list entry\&#39;s fields
+[**v2ListsListIdListEntriesListEntryIdGET**](ListsApi.md#v2ListsListIdListEntriesListEntryIdGET) | **GET** /v2/lists/{listId}/list-entries/{listEntryId} | Get a single List Entry on a List
+[**v2ListsListIdSavedViewsGET**](ListsApi.md#v2ListsListIdSavedViewsGET) | **GET** /v2/lists/{listId}/saved-views | Get metadata on Saved Views
+[**v2ListsListIdSavedViewsViewIdGET**](ListsApi.md#v2ListsListIdSavedViewsViewIdGET) | **GET** /v2/lists/{listId}/saved-views/{viewId} | Get metadata on a single Saved View
+[**v2ListsListIdSavedViewsViewIdListEntriesGET**](ListsApi.md#v2ListsListIdSavedViewsViewIdListEntriesGET) | **GET** /v2/lists/{listId}/saved-views/{viewId}/list-entries | Get all List Entries on a Saved View
 
-
-# **getV2ListsListidSavedViews**
-> SavedViewPaged getV2ListsListidSavedViews()
-
-Returns metadata on the Saved Views on a List.
-
-### Example
-
-
-```typescript
-import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
-import type { ListsApiGetV2ListsListidSavedViewsRequest } from '@planet-a/affinity-node/v2';
-
-const configuration = createConfiguration();
-const apiInstance = new ListsApi(configuration);
-
-const request: ListsApiGetV2ListsListidSavedViewsRequest = {
-    // List ID
-  listId: 1,
-    // Cursor for the next or previous page (optional)
-  cursor: "cursor_example",
-    // Number of items to include in the page (optional)
-  limit: 100,
-};
-
-const data = await apiInstance.getV2ListsListidSavedViews(request);
-console.log('API called successfully. Returned data:', data);
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **listId** | [**number**] | List ID | defaults to undefined
- **cursor** | [**string**] | Cursor for the next or previous page | (optional) defaults to undefined
- **limit** | [**number**] | Number of items to include in the page | (optional) defaults to 100
-
-
-### Return type
-
-**SavedViewPaged**
-
-### Authorization
-
-[bearerAuth](README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Get metadata on Saved Views |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **getV2ListsListidSavedViewsViewid**
-> SavedView getV2ListsListidSavedViewsViewid()
-
-Returns metadata on a single Saved View.
-
-### Example
-
-
-```typescript
-import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
-import type { ListsApiGetV2ListsListidSavedViewsViewidRequest } from '@planet-a/affinity-node/v2';
-
-const configuration = createConfiguration();
-const apiInstance = new ListsApi(configuration);
-
-const request: ListsApiGetV2ListsListidSavedViewsViewidRequest = {
-    // List ID
-  listId: 1,
-    // Saved view ID
-  viewId: 1,
-};
-
-const data = await apiInstance.getV2ListsListidSavedViewsViewid(request);
-console.log('API called successfully. Returned data:', data);
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **listId** | [**number**] | List ID | defaults to undefined
- **viewId** | [**number**] | Saved view ID | defaults to undefined
-
-
-### Return type
-
-**SavedView**
-
-### Authorization
-
-[bearerAuth](README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Get metadata on a single Saved View |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
-
-# **getV2ListsListidSavedViewsViewidListEntries**
-> ListEntryWithEntityPaged getV2ListsListidSavedViewsViewidListEntries()
-
-Paginate through the List Entries (AKA rows) on a given Saved View. Use this endpoint when you need to filter entities or only want **some** field data to be returned: This endpoint respects the filters set on a Saved View via web app, and only returns field data corresponding to the columns that have been pulled into the Saved View via web app.  Though this endpoint respects the Saved View\'s filters and column/Field selection, it does not yet preserve sort order. This endpoint also only supports **sheet-type Saved Views**, and not board- or dashboard-type Saved Views.  See the [Data Model](#section/Data-Model) section for more information about Saved Views.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-
-### Example
-
-
-```typescript
-import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
-import type { ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest } from '@planet-a/affinity-node/v2';
-
-const configuration = createConfiguration();
-const apiInstance = new ListsApi(configuration);
-
-const request: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest = {
-    // List ID
-  listId: 1,
-    // Saved view ID
-  viewId: 1,
-    // Cursor for the next or previous page (optional)
-  cursor: "cursor_example",
-    // Number of items to include in the page (optional)
-  limit: 100,
-};
-
-const data = await apiInstance.getV2ListsListidSavedViewsViewidListEntries(request);
-console.log('API called successfully. Returned data:', data);
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **listId** | [**number**] | List ID | defaults to undefined
- **viewId** | [**number**] | Saved view ID | defaults to undefined
- **cursor** | [**string**] | Cursor for the next or previous page | (optional) defaults to undefined
- **limit** | [**number**] | Number of items to include in the page | (optional) defaults to 100
-
-
-### Return type
-
-**ListEntryWithEntityPaged**
-
-### Authorization
-
-[bearerAuth](README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Get all List Entries on a Saved View |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**403** | Forbidden |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-**0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **v2ListsGET**
 > ListWithTypePaged v2ListsGET()
 
-Returns metadata on Lists.
+Paginate through all Lists in your organization that you have access to view. Returns basic information about each List, including name, owner, and privacy settings.
 
 ### Example
 
@@ -222,7 +35,7 @@ const apiInstance = new ListsApi(configuration);
 
 const request: ListsApiV2ListsGETRequest = {
     // Cursor for the next or previous page (optional)
-  cursor: "cursor_example",
+  cursor: "ICAgICAgYmVmb3JlOjo6Nw",
     // Number of items to include in the page (optional)
   limit: 100,
 };
@@ -257,7 +70,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get metadata on all Lists |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 
@@ -282,7 +95,7 @@ const request: ListsApiV2ListsListIdFieldsGETRequest = {
     // List ID
   listId: 1,
     // Cursor for the next or previous page (optional)
-  cursor: "cursor_example",
+  cursor: "ICAgICAgYmVmb3JlOjo6Nw",
     // Number of items to include in the page (optional)
   limit: 100,
 };
@@ -318,7 +131,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get metadata on a single List\&#39;s Fields |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
@@ -328,7 +141,7 @@ Name | Type | Description  | Notes
 # **v2ListsListIdGET**
 > ListWithType v2ListsListIdGET()
 
-Returns metadata on a single List.
+Retrieve detailed information about a specific List you have access to view. Returns List configuration including name, owner, privacy settings, and creation details.
 
 ### Example
 
@@ -374,7 +187,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get metadata on a single List |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
@@ -400,17 +213,13 @@ const request: ListsApiV2ListsListIdListEntriesGETRequest = {
     // List ID
   listId: 1,
     // Cursor for the next or previous page (optional)
-  cursor: "cursor_example",
+  cursor: "ICAgICAgYmVmb3JlOjo6Nw",
     // Number of items to include in the page (optional)
   limit: 100,
     // Field IDs for which to return field data (optional)
-  fieldIds: [
-    "fieldIds_example",
-  ],
+  fieldIds: [field-1, field-2],
     // Field Types for which to return field data (optional)
-  fieldTypes: [
-    "enriched",
-  ],
+  fieldTypes: ["enriched","global"],
 };
 
 const data = await apiInstance.v2ListsListIdListEntriesGET(request);
@@ -446,7 +255,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get all List Entries on a List |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **403** | Forbidden |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
@@ -457,7 +266,7 @@ Name | Type | Description  | Notes
 # **v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET**
 > Field v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET()
 
- | ⚠️  This endpoint is currently in BETA | |--|  Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
 
 ### Example
 
@@ -475,7 +284,7 @@ const request: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETReques
     // List Entry ID
   listEntryId: 1,
     // Field ID
-  fieldId: "fieldId_example",
+  fieldId: "field-1234",
 };
 
 const data = await apiInstance.v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(request);
@@ -509,7 +318,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The field value |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **403** | Forbidden |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
@@ -520,7 +329,7 @@ Name | Type | Description  | Notes
 # **v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST**
 > void v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(fieldUpdate)
 
- | ⚠️  This endpoint is currently in BETA | |--|  Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
 
 ### Example
 
@@ -588,7 +397,7 @@ Name | Type | Description  | Notes
 # **v2ListsListIdListEntriesListEntryIdFieldsGET**
 > FieldPaged v2ListsListIdListEntriesListEntryIdFieldsGET()
 
- | ⚠️  This endpoint is currently in BETA | |--|  Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
 
 ### Example
 
@@ -606,15 +415,11 @@ const request: ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest = {
     // List Entry ID
   listEntryId: 1,
     // Field IDs for which to return field data (optional)
-  ids: [
-    "ids_example",
-  ],
+  ids: ["field-1","field-2"],
     // Field Types for which to return field data (optional)
-  types: [
-    "enriched",
-  ],
+  types: ["enriched","global"],
     // Cursor for the next or previous page (optional)
-  cursor: "cursor_example",
+  cursor: "ICAgICAgYmVmb3JlOjo6Nw",
     // Number of items to include in the page (optional)
   limit: 20,
 };
@@ -653,7 +458,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Paginated fields |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **403** | Forbidden |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
@@ -662,9 +467,9 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **v2ListsListIdListEntriesListEntryIdFieldsPATCH**
-> ListEntryBatchOperationResponse v2ListsListIdListEntriesListEntryIdFieldsPATCH(body)
+> ListEntryBatchOperationResponse v2ListsListIdListEntriesListEntryIdFieldsPATCH(listEntryBatchOperationRequest)
 
-| ⚠️  This endpoint is currently in BETA | |--|  Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
 
 ### Example
 
@@ -682,15 +487,7 @@ const request: ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest = {
     // List Entry ID
   listEntryId: 1,
   
-  body: {
-    operation: "update-fields",
-    updates: [
-      {
-        id: "id_example",
-        value: null,
-      },
-    ],
-  },
+  listEntryBatchOperationRequest: null,
 };
 
 const data = await apiInstance.v2ListsListIdListEntriesListEntryIdFieldsPATCH(request);
@@ -702,7 +499,7 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **ListEntryBatchOperationUpdateFields**|  |
+ **listEntryBatchOperationRequest** | **ListEntryBatchOperationRequest**|  |
  **listId** | [**number**] | List ID | defaults to undefined
  **listEntryId** | [**number**] | List Entry ID | defaults to undefined
 
@@ -724,7 +521,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Operation Result |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **403** | Forbidden |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
@@ -735,7 +532,7 @@ Name | Type | Description  | Notes
 # **v2ListsListIdListEntriesListEntryIdGET**
 > ListEntryWithEntity v2ListsListIdListEntriesListEntryIdGET()
 
-| ⚠️  This endpoint is currently in BETA | |--|  Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
 
 ### Example
 
@@ -753,13 +550,9 @@ const request: ListsApiV2ListsListIdListEntriesListEntryIdGETRequest = {
     // List Entry ID
   listEntryId: 1,
     // Field IDs for which to return field data (optional)
-  fieldIds: [
-    "fieldIds_example",
-  ],
+  fieldIds: [field-1, field-2],
     // Field Types for which to return field data (optional)
-  fieldTypes: [
-    "enriched",
-  ],
+  fieldTypes: [enriched, global],
 };
 
 const data = await apiInstance.v2ListsListIdListEntriesListEntryIdGET(request);
@@ -794,7 +587,194 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | The list entry |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**403** | Forbidden |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v2ListsListIdSavedViewsGET**
+> SavedViewPaged v2ListsListIdSavedViewsGET()
+
+Paginate through all Saved Views you have access to view for a specific List. Returns Saved View configurations including name, column settings, and owner information.
+
+### Example
+
+
+```typescript
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiV2ListsListIdSavedViewsGETRequest } from '@planet-a/affinity-node/v2';
+
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
+
+const request: ListsApiV2ListsListIdSavedViewsGETRequest = {
+    // List ID
+  listId: 1,
+    // Cursor for the next or previous page (optional)
+  cursor: "ICAgICAgYmVmb3JlOjo6Nw",
+    // Number of items to include in the page (optional)
+  limit: 100,
+};
+
+const data = await apiInstance.v2ListsListIdSavedViewsGET(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **listId** | [**number**] | List ID | defaults to undefined
+ **cursor** | [**string**] | Cursor for the next or previous page | (optional) defaults to undefined
+ **limit** | [**number**] | Number of items to include in the page | (optional) defaults to 100
+
+
+### Return type
+
+**SavedViewPaged**
+
+### Authorization
+
+[bearerAuth](README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v2ListsListIdSavedViewsViewIdGET**
+> SavedView v2ListsListIdSavedViewsViewIdGET()
+
+Retrieve detailed information about a specific Saved View you have access to view. Returns complete Saved View configuration including name, sorting, and column visibility settings.
+
+### Example
+
+
+```typescript
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiV2ListsListIdSavedViewsViewIdGETRequest } from '@planet-a/affinity-node/v2';
+
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
+
+const request: ListsApiV2ListsListIdSavedViewsViewIdGETRequest = {
+    // List ID
+  listId: 1,
+    // Saved view ID
+  viewId: 1,
+};
+
+const data = await apiInstance.v2ListsListIdSavedViewsViewIdGET(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **listId** | [**number**] | List ID | defaults to undefined
+ **viewId** | [**number**] | Saved view ID | defaults to undefined
+
+
+### Return type
+
+**SavedView**
+
+### Authorization
+
+[bearerAuth](README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v2ListsListIdSavedViewsViewIdListEntriesGET**
+> ListEntryWithEntityPaged v2ListsListIdSavedViewsViewIdListEntriesGET()
+
+Paginate through the List Entries (AKA rows) on a given Saved View. Use this endpoint when you need to filter entities or only want **some** field data to be returned: This endpoint respects the filters set on a Saved View via web app, and only returns field data corresponding to the columns that have been pulled into the Saved View via web app.  Though this endpoint respects the Saved View\'s filters and column/Field selection, it does not yet preserve sort order. This endpoint also only supports **sheet-type Saved Views**, and not board- or dashboard-type Saved Views.  See the [Data Model](#section/Data-Model) section for more information about Saved Views.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+
+### Example
+
+
+```typescript
+import { createConfiguration, ListsApi } from '@planet-a/affinity-node/v2';
+import type { ListsApiV2ListsListIdSavedViewsViewIdListEntriesGETRequest } from '@planet-a/affinity-node/v2';
+
+const configuration = createConfiguration();
+const apiInstance = new ListsApi(configuration);
+
+const request: ListsApiV2ListsListIdSavedViewsViewIdListEntriesGETRequest = {
+    // List ID
+  listId: 1,
+    // Saved view ID
+  viewId: 1,
+    // Cursor for the next or previous page (optional)
+  cursor: "ICAgICAgYmVmb3JlOjo6Nw",
+    // Number of items to include in the page (optional)
+  limit: 100,
+};
+
+const data = await apiInstance.v2ListsListIdSavedViewsViewIdListEntriesGET(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **listId** | [**number**] | List ID | defaults to undefined
+ **viewId** | [**number**] | Saved view ID | defaults to undefined
+ **cursor** | [**string**] | Cursor for the next or previous page | (optional) defaults to undefined
+ **limit** | [**number**] | Number of items to include in the page | (optional) defaults to 100
+
+
+### Return type
+
+**ListEntryWithEntityPaged**
+
+### Authorization
+
+[bearerAuth](README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **400** | Bad Request |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **403** | Forbidden |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |

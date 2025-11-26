@@ -4,13 +4,13 @@ All URIs are relative to *https://api.affinity.co*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getV2AuthWhoami**](AuthApi.md#getV2AuthWhoami) | **GET** /v2/auth/whoami | Get current user
+[**v2AuthWhoamiGET**](AuthApi.md#v2AuthWhoamiGET) | **GET** /v2/auth/whoami | Get current user
 
 
-# **getV2AuthWhoami**
-> WhoAmI getV2AuthWhoami()
+# **v2AuthWhoamiGET**
+> WhoAmI v2AuthWhoamiGET()
 
-Returns metadata about the current user.
+Returns information about the authenticated user, their current organization, and API key permissions. Use this endpoint to verify your authentication and understand your available API access levels.
 
 ### Example
 
@@ -23,7 +23,7 @@ const apiInstance = new AuthApi(configuration);
 
 const request = {};
 
-const data = await apiInstance.getV2AuthWhoami(request);
+const data = await apiInstance.v2AuthWhoamiGET(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -49,7 +49,7 @@ This endpoint does not need any parameter.
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Get current user |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
+**200** | OK |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **404** | Not Found |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 **0** | Errors |  * X-Ratelimit-Limit-User -  <br>  * X-Ratelimit-Limit-User-Remaining -  <br>  * X-Ratelimit-Limit-User-Reset -  <br>  * X-Ratelimit-Limit-Org -  <br>  * X-Ratelimit-Limit-Org-Remaining -  <br>  * X-Ratelimit-Limit-Org-Reset -  <br>  |
 
