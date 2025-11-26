@@ -91,7 +91,7 @@ const companiesApi = new CompaniesApi(config)
 
 for await (
     const page of paginated(
-        companiesApi.v2CompaniesCompanyIdGET.bind(companiesApi),
+        companiesApi.v2CompaniesGET.bind(companiesApi),
     )({
         limit: 10,
     })
