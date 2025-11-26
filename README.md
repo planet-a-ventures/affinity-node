@@ -70,7 +70,7 @@ const config = createConfiguration({
     },
 })
 const authApi = new ObjectAuthApi(config)
-const { tenant } = await authApi.getV2AuthWhoami()
+const { tenant } = await authApi.v2AuthWhoamiGET()
 console.log(tenant.name)
 ```
 
