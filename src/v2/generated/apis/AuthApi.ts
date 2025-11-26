@@ -18,10 +18,10 @@ import { WhoAmI } from '../models/WhoAmI.ts';
 export class AuthApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
-     * Returns metadata about the current user.
+     * Returns information about the authenticated user, their current organization, and API key permissions. Use this endpoint to verify your authentication and understand your available API access levels.
      * Get current user
      */
-    public async getV2AuthWhoami(_options?: Configuration): Promise<RequestContext> {
+    public async v2AuthWhoamiGET(_options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // Path Params
@@ -55,10 +55,10 @@ export class AuthApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getV2AuthWhoami
+     * @params response Response returned by the server for a request to v2AuthWhoamiGET
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getV2AuthWhoamiWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WhoAmI >> {
+     public async v2AuthWhoamiGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WhoAmI >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: WhoAmI = ObjectSerializer.deserialize(

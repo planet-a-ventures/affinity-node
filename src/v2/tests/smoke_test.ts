@@ -52,7 +52,7 @@ describe('V2', () => {
         }
         const authApi = new AuthApi(config)
 
-        const auth = await authApi.getV2AuthWhoami()
+        const auth = await authApi.v2AuthWhoamiGET()
         await assertSnapshot(t, auth)
     })
 
@@ -99,7 +99,7 @@ describe('V2', () => {
 
         for await (
             const page of paginated(
-                companiesApi.getV2Companies.bind(companiesApi),
+                companiesApi.v2CompaniesGET.bind(companiesApi),
             )({
                 limit: 1,
             })

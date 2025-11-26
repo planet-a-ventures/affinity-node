@@ -10,10 +10,11 @@ import {SecurityAuthentication} from '../auth/auth.ts';
 
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
 import { Errors } from '../models/Errors.ts';
-import { InlineObject } from '../models/InlineObject.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
+import { NotesNotesPaged } from '../models/NotesNotesPaged.ts';
 import { Opportunity } from '../models/Opportunity.ts';
 import { OpportunityPaged } from '../models/OpportunityPaged.ts';
+import { Responses400 } from '../models/Responses400.ts';
 
 /**
  * no description
@@ -27,7 +28,7 @@ export class OpportunitiesApiRequestFactory extends BaseAPIRequestFactory {
      * @param limit Number of items to include in the page
      * @param ids Opportunity IDs
      */
-    public async getV2Opportunities(cursor?: string, limit?: number, ids?: Array<number>, _options?: Configuration): Promise<RequestContext> {
+    public async v2OpportunitiesGET(cursor?: string, limit?: number, ids?: Array<number>, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
 
@@ -77,24 +78,90 @@ export class OpportunitiesApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Returns basic information but **not** field data on the requested Opportunity.  To access field data on Opportunities, use the `/lists/{list_id}/list-entries` or the `/v2/lists/{list_id}/saved-views/{view_id}/list-entries` GET endpoint.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
      * Get a single Opportunity
-     * @param id Opportunity ID
+     * @param opportunityId Opportunity ID
      */
-    public async getV2OpportunitiesId(id: number, _options?: Configuration): Promise<RequestContext> {
+    public async v2OpportunitiesOpportunityIdGET(opportunityId: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
-        // verify required parameter 'id' is not null or undefined
-        if (id === null || id === undefined) {
-            throw new RequiredError("OpportunitiesApi", "getV2OpportunitiesId", "id");
+        // verify required parameter 'opportunityId' is not null or undefined
+        if (opportunityId === null || opportunityId === undefined) {
+            throw new RequiredError("OpportunitiesApi", "v2OpportunitiesOpportunityIdGET", "opportunityId");
         }
 
 
         // Path Params
-        const localVarPath = '/v2/opportunities/{id}'
-            .replace('{' + 'id' + '}', encodeURIComponent(String(id)));
+        const localVarPath = '/v2/opportunities/{opportunityId}'
+            .replace('{' + 'opportunityId' + '}', encodeURIComponent(String(opportunityId)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns Notes for a given Opportunity which includes directly attached notes and those attached to persons on this Opportunity.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for an Opportunity
+     * @param opportunityId Opportunity ID
+     * @param filter Filter options
+     * @param cursor Cursor for the next or previous page
+     * @param limit Number of items to include in the page
+     * @param totalCount Include total count of the collection in the pagination response
+     */
+    public async v2OpportunitiesOpportunityIdNotesGET(opportunityId: number, filter?: string, cursor?: string, limit?: number, totalCount?: boolean, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'opportunityId' is not null or undefined
+        if (opportunityId === null || opportunityId === undefined) {
+            throw new RequiredError("OpportunitiesApi", "v2OpportunitiesOpportunityIdNotesGET", "opportunityId");
+        }
+
+
+
+
+
+
+        // Path Params
+        const localVarPath = '/v2/opportunities/{opportunityId}/notes'
+            .replace('{' + 'opportunityId' + '}', encodeURIComponent(String(opportunityId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (filter !== undefined) {
+            requestContext.setQueryParam("filter", ObjectSerializer.serialize(filter, "string", ""));
+        }
+
+        // Query Params
+        if (cursor !== undefined) {
+            requestContext.setQueryParam("cursor", ObjectSerializer.serialize(cursor, "string", ""));
+        }
+
+        // Query Params
+        if (limit !== undefined) {
+            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", "int32"));
+        }
+
+        // Query Params
+        if (totalCount !== undefined) {
+            requestContext.setQueryParam("totalCount", ObjectSerializer.serialize(totalCount, "boolean", ""));
+        }
 
 
         let authMethod: SecurityAuthentication | undefined;
@@ -120,10 +187,10 @@ export class OpportunitiesApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getV2Opportunities
+     * @params response Response returned by the server for a request to v2OpportunitiesGET
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getV2OpportunitiesWithHttpInfo(response: ResponseContext): Promise<HttpInfo<OpportunityPaged >> {
+     public async v2OpportunitiesGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<OpportunityPaged >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: OpportunityPaged = ObjectSerializer.deserialize(
@@ -133,11 +200,11 @@ export class OpportunitiesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: InlineObject = ObjectSerializer.deserialize(
+            const body: Responses400 = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "InlineObject", ""
-            ) as InlineObject;
-            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: AuthorizationErrors = ObjectSerializer.deserialize(
@@ -177,10 +244,10 @@ export class OpportunitiesApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getV2OpportunitiesId
+     * @params response Response returned by the server for a request to v2OpportunitiesOpportunityIdGET
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getV2OpportunitiesIdWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Opportunity >> {
+     public async v2OpportunitiesOpportunityIdGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Opportunity >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Opportunity = ObjectSerializer.deserialize(
@@ -190,11 +257,11 @@ export class OpportunitiesApiResponseProcessor {
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: InlineObject = ObjectSerializer.deserialize(
+            const body: Responses400 = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "InlineObject", ""
-            ) as InlineObject;
-            throw new ApiException<InlineObject>(response.httpStatusCode, "Bad Request", body, response.headers);
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: AuthorizationErrors = ObjectSerializer.deserialize(
@@ -224,6 +291,56 @@ export class OpportunitiesApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "Opportunity", ""
             ) as Opportunity;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to v2OpportunitiesOpportunityIdNotesGET
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v2OpportunitiesOpportunityIdNotesGETWithHttpInfo(response: ResponseContext): Promise<HttpInfo<NotesNotesPaged >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: NotesNotesPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotesNotesPaged", ""
+            ) as NotesNotesPaged;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: Responses400 = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Responses400", ""
+            ) as Responses400;
+            throw new ApiException<Responses400>(response.httpStatusCode, "Bad Request", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: NotFoundErrors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotFoundErrors", ""
+            ) as NotFoundErrors;
+            throw new ApiException<NotFoundErrors>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+        if (isCodeInRange("0", response.httpStatusCode)) {
+            const body: Errors = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Errors", ""
+            ) as Errors;
+            throw new ApiException<Errors>(response.httpStatusCode, "Errors", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: NotesNotesPaged = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "NotesNotesPaged", ""
+            ) as NotesNotesPaged;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

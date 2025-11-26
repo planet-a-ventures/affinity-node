@@ -3,6 +3,7 @@ import { Configuration, ConfigurationOptions } from '../configuration.ts'
 import type { Middleware } from '../middleware.ts';
 
 import { Attendee } from '../models/Attendee.ts';
+import { AttendeesPreview } from '../models/AttendeesPreview.ts';
 import { AuthenticationError } from '../models/AuthenticationError.ts';
 import { AuthorizationError } from '../models/AuthorizationError.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
@@ -12,7 +13,15 @@ import { CompaniesValue } from '../models/CompaniesValue.ts';
 import { CompaniesValueUpdate } from '../models/CompaniesValueUpdate.ts';
 import { Company } from '../models/Company.ts';
 import { CompanyData } from '../models/CompanyData.ts';
+import { CompanyDataPaged } from '../models/CompanyDataPaged.ts';
 import { CompanyListEntry } from '../models/CompanyListEntry.ts';
+import { CompanyMergeRequest } from '../models/CompanyMergeRequest.ts';
+import { CompanyMergeResponse } from '../models/CompanyMergeResponse.ts';
+import { CompanyMergeState } from '../models/CompanyMergeState.ts';
+import { CompanyMergeStatePaged } from '../models/CompanyMergeStatePaged.ts';
+import { CompanyMergeTask } from '../models/CompanyMergeTask.ts';
+import { CompanyMergeTaskPaged } from '../models/CompanyMergeTaskPaged.ts';
+import { CompanyMergeTaskResultsSummary } from '../models/CompanyMergeTaskResultsSummary.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
 import { CompanyReference } from '../models/CompanyReference.ts';
 import { CompanyValue } from '../models/CompanyValue.ts';
@@ -39,10 +48,16 @@ import { FloatsValue } from '../models/FloatsValue.ts';
 import { FormulaNumber } from '../models/FormulaNumber.ts';
 import { FormulaValue } from '../models/FormulaValue.ts';
 import { Grant } from '../models/Grant.ts';
-import { InlineObject } from '../models/InlineObject.ts';
-import { InlineObjectErrorsInner } from '../models/InlineObjectErrorsInner.ts';
 import { Interaction } from '../models/Interaction.ts';
 import { InteractionValue } from '../models/InteractionValue.ts';
+import { InteractionsCall } from '../models/InteractionsCall.ts';
+import { InteractionsCallPaged } from '../models/InteractionsCallPaged.ts';
+import { InteractionsChatMessage } from '../models/InteractionsChatMessage.ts';
+import { InteractionsChatMessagePaged } from '../models/InteractionsChatMessagePaged.ts';
+import { InteractionsEmail } from '../models/InteractionsEmail.ts';
+import { InteractionsEmailPaged } from '../models/InteractionsEmailPaged.ts';
+import { InteractionsMeeting } from '../models/InteractionsMeeting.ts';
+import { InteractionsMeetingPaged } from '../models/InteractionsMeetingPaged.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
 import { ListEntryBatchOperationResponse } from '../models/ListEntryBatchOperationResponse.ts';
@@ -65,14 +80,47 @@ import { NotAcceptableError } from '../models/NotAcceptableError.ts';
 import { NotFoundError } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
 import { NotImplementedError } from '../models/NotImplementedError.ts';
+import { NotesAiNotetakerReplyNote } from '../models/NotesAiNotetakerReplyNote.ts';
+import { NotesAiNotetakerRootNote } from '../models/NotesAiNotetakerRootNote.ts';
+import { NotesBaseNote } from '../models/NotesBaseNote.ts';
+import { NotesBaseReply } from '../models/NotesBaseReply.ts';
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
+import { NotesBaseRootNote } from '../models/NotesBaseRootNote.ts';
+import { NotesCallInteraction } from '../models/NotesCallInteraction.ts';
+import { NotesChatMessageInteraction } from '../models/NotesChatMessageInteraction.ts';
+import { NotesCompaniesPreview } from '../models/NotesCompaniesPreview.ts';
+import { NotesContent } from '../models/NotesContent.ts';
+import { NotesEmailInteraction } from '../models/NotesEmailInteraction.ts';
+import { NotesEntitiesNote } from '../models/NotesEntitiesNote.ts';
+import { NotesInteraction } from '../models/NotesInteraction.ts';
+import { NotesInteractionNote } from '../models/NotesInteractionNote.ts';
+import { NotesMeetingInteraction } from '../models/NotesMeetingInteraction.ts';
+import { NotesNote } from '../models/NotesNote.ts';
+import { NotesNotesPaged } from '../models/NotesNotesPaged.ts';
+import { NotesOpportunitiesPreview } from '../models/NotesOpportunitiesPreview.ts';
+import { NotesPermissionSettings } from '../models/NotesPermissionSettings.ts';
+import { NotesPersonMention } from '../models/NotesPersonMention.ts';
+import { NotesPersonsPreview } from '../models/NotesPersonsPreview.ts';
+import { NotesRepliesPaged } from '../models/NotesRepliesPaged.ts';
+import { NotesReply } from '../models/NotesReply.ts';
+import { NotesUserReplyNote } from '../models/NotesUserReplyNote.ts';
 import { Opportunity } from '../models/Opportunity.ts';
 import { OpportunityListEntry } from '../models/OpportunityListEntry.ts';
 import { OpportunityPaged } from '../models/OpportunityPaged.ts';
 import { OpportunityWithFields } from '../models/OpportunityWithFields.ts';
 import { Pagination } from '../models/Pagination.ts';
+import { PaginationWithTotalCount } from '../models/PaginationWithTotalCount.ts';
 import { Person } from '../models/Person.ts';
 import { PersonData } from '../models/PersonData.ts';
+import { PersonDataPaged } from '../models/PersonDataPaged.ts';
+import { PersonDataPreview } from '../models/PersonDataPreview.ts';
 import { PersonListEntry } from '../models/PersonListEntry.ts';
+import { PersonMergeRequest } from '../models/PersonMergeRequest.ts';
+import { PersonMergeResponse } from '../models/PersonMergeResponse.ts';
+import { PersonMergeState } from '../models/PersonMergeState.ts';
+import { PersonMergeStatePaged } from '../models/PersonMergeStatePaged.ts';
+import { PersonMergeTask } from '../models/PersonMergeTask.ts';
+import { PersonMergeTaskPaged } from '../models/PersonMergeTaskPaged.ts';
 import { PersonPaged } from '../models/PersonPaged.ts';
 import { PersonReference } from '../models/PersonReference.ts';
 import { PersonValue } from '../models/PersonValue.ts';
@@ -85,6 +133,8 @@ import { RankedDropdownReference } from '../models/RankedDropdownReference.ts';
 import { RankedDropdownValue } from '../models/RankedDropdownValue.ts';
 import { RankedDropdownValueUpdate } from '../models/RankedDropdownValueUpdate.ts';
 import { RateLimitError } from '../models/RateLimitError.ts';
+import { Responses400 } from '../models/Responses400.ts';
+import { Responses400ErrorsInner } from '../models/Responses400ErrorsInner.ts';
 import { SavedView } from '../models/SavedView.ts';
 import { SavedViewPaged } from '../models/SavedViewPaged.ts';
 import { ServerError } from '../models/ServerError.ts';
@@ -100,7 +150,7 @@ import { WhoAmI } from '../models/WhoAmI.ts';
 import { ObservableAuthApi } from "./ObservableAPI.ts";
 import { AuthApiRequestFactory, AuthApiResponseProcessor} from "../apis/AuthApi.ts";
 
-export interface AuthApiGetV2AuthWhoamiRequest {
+export interface AuthApiV2AuthWhoamiGETRequest {
 }
 
 export class ObjectAuthApi {
@@ -111,21 +161,133 @@ export class ObjectAuthApi {
     }
 
     /**
-     * Returns metadata about the current user.
+     * Returns information about the authenticated user, their current organization, and API key permissions. Use this endpoint to verify your authentication and understand your available API access levels.
      * Get current user
      * @param param the request object
      */
-    public getV2AuthWhoamiWithHttpInfo(param: AuthApiGetV2AuthWhoamiRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<WhoAmI>> {
-        return this.api.getV2AuthWhoamiWithHttpInfo( options).toPromise();
+    public v2AuthWhoamiGETWithHttpInfo(param: AuthApiV2AuthWhoamiGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<WhoAmI>> {
+        return this.api.v2AuthWhoamiGETWithHttpInfo( options).toPromise();
     }
 
     /**
-     * Returns metadata about the current user.
+     * Returns information about the authenticated user, their current organization, and API key permissions. Use this endpoint to verify your authentication and understand your available API access levels.
      * Get current user
      * @param param the request object
      */
-    public getV2AuthWhoami(param: AuthApiGetV2AuthWhoamiRequest = {}, options?: ConfigurationOptions): Promise<WhoAmI> {
-        return this.api.getV2AuthWhoami( options).toPromise();
+    public v2AuthWhoamiGET(param: AuthApiV2AuthWhoamiGETRequest = {}, options?: ConfigurationOptions): Promise<WhoAmI> {
+        return this.api.v2AuthWhoamiGET( options).toPromise();
+    }
+
+}
+
+import { ObservableCallsApi } from "./ObservableAPI.ts";
+import { CallsApiRequestFactory, CallsApiResponseProcessor} from "../apis/CallsApi.ts";
+
+export interface CallsApiV2CallsGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof CallsApiv2CallsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof CallsApiv2CallsGET
+     */
+    limit?: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof CallsApiv2CallsGET
+     */
+    filter?: string
+}
+
+export class ObjectCallsApi {
+    private api: ObservableCallsApi
+
+    public constructor(configuration: Configuration, requestFactory?: CallsApiRequestFactory, responseProcessor?: CallsApiResponseProcessor) {
+        this.api = new ObservableCallsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Paginate through all calls in Affinity. Returns basic information about the call interaction and its participants. Will only return calls that the current authenticated user has  permission to see.  You can filter calls using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Calls                                     | `int64`    | `=`                                  | `id=1`                           | | `startTime`                 | Start time of when the Call was held                            | `datetime` | `>`, `<`, `>=`, `<=`                 | `sentAt>2025-01-01T01:00:00Z`    | | `createdAt`                 | When the Call was created in Affinity                           | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Call was updated in Affinity                           | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Calls
+     * @param param the request object
+     */
+    public v2CallsGETWithHttpInfo(param: CallsApiV2CallsGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<InteractionsCallPaged>> {
+        return this.api.v2CallsGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Paginate through all calls in Affinity. Returns basic information about the call interaction and its participants. Will only return calls that the current authenticated user has  permission to see.  You can filter calls using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Calls                                     | `int64`    | `=`                                  | `id=1`                           | | `startTime`                 | Start time of when the Call was held                            | `datetime` | `>`, `<`, `>=`, `<=`                 | `sentAt>2025-01-01T01:00:00Z`    | | `createdAt`                 | When the Call was created in Affinity                           | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Call was updated in Affinity                           | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Calls
+     * @param param the request object
+     */
+    public v2CallsGET(param: CallsApiV2CallsGETRequest = {}, options?: ConfigurationOptions): Promise<InteractionsCallPaged> {
+        return this.api.v2CallsGET(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+}
+
+import { ObservableChatMessagesApi } from "./ObservableAPI.ts";
+import { ChatMessagesApiRequestFactory, ChatMessagesApiResponseProcessor} from "../apis/ChatMessagesApi.ts";
+
+export interface ChatMessagesApiV2ChatMessagesGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof ChatMessagesApiv2ChatMessagesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof ChatMessagesApiv2ChatMessagesGET
+     */
+    limit?: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof ChatMessagesApiv2ChatMessagesGET
+     */
+    filter?: string
+}
+
+export class ObjectChatMessagesApi {
+    private api: ObservableChatMessagesApi
+
+    public constructor(configuration: Configuration, requestFactory?: ChatMessagesApiRequestFactory, responseProcessor?: ChatMessagesApiResponseProcessor) {
+        this.api = new ObservableChatMessagesApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Paginate through all chat messages in Affinity. Returns basic information about the chat message interaction and its participants. Will only return chat messages that the current authenticated user has permission to see.  You can filter chat messages using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Chat Messages                             | `int64`    | `=`                                  | `id=1`                           | | `sentAt`                    | When the Chat Message was sent at                               | `datetime` | `>`, `<`, `>=`, `<=`                 | `sentAt>2025-01-01T01:00:00Z`    | | `createdAt`                 | When the Chat Message was created in Affinity                   | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Chat Message was updated in Affinity                   | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Chat Messages
+     * @param param the request object
+     */
+    public v2ChatMessagesGETWithHttpInfo(param: ChatMessagesApiV2ChatMessagesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<InteractionsChatMessagePaged>> {
+        return this.api.v2ChatMessagesGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Paginate through all chat messages in Affinity. Returns basic information about the chat message interaction and its participants. Will only return chat messages that the current authenticated user has permission to see.  You can filter chat messages using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Chat Messages                             | `int64`    | `=`                                  | `id=1`                           | | `sentAt`                    | When the Chat Message was sent at                               | `datetime` | `>`, `<`, `>=`, `<=`                 | `sentAt>2025-01-01T01:00:00Z`    | | `createdAt`                 | When the Chat Message was created in Affinity                   | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Chat Message was updated in Affinity                   | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Chat Messages
+     * @param param the request object
+     */
+    public v2ChatMessagesGET(param: ChatMessagesApiV2ChatMessagesGETRequest = {}, options?: ConfigurationOptions): Promise<InteractionsChatMessagePaged> {
+        return this.api.v2ChatMessagesGET(param.cursor, param.limit, param.filter,  options).toPromise();
     }
 
 }
@@ -133,12 +295,47 @@ export class ObjectAuthApi {
 import { ObservableCompaniesApi } from "./ObservableAPI.ts";
 import { CompaniesApiRequestFactory, CompaniesApiResponseProcessor} from "../apis/CompaniesApi.ts";
 
-export interface CompaniesApiGetV2CompaniesRequest {
+export interface CompaniesApiV2CompaniesCompanyIdGETRequest {
+    /**
+     * Company ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof CompaniesApiv2CompaniesCompanyIdGET
+     */
+    companyId: number
+    /**
+     * Field IDs for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;string&gt;
+     * @memberof CompaniesApiv2CompaniesCompanyIdGET
+     */
+    fieldIds?: Array<string>
+    /**
+     * Field Types for which to return field data
+     * Defaults to: undefined
+     * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
+     * @memberof CompaniesApiv2CompaniesCompanyIdGET
+     */
+    fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>
+}
+
+export interface CompaniesApiV2CompaniesCompanyIdListEntriesGETRequest {
+    /**
+     * Company ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof CompaniesApiv2CompaniesCompanyIdListEntriesGET
+     */
+    companyId: number
     /**
      * Cursor for the next or previous page
      * Defaults to: undefined
      * @type string
-     * @memberof CompaniesApigetV2Companies
+     * @memberof CompaniesApiv2CompaniesCompanyIdListEntriesGET
      */
     cursor?: string
     /**
@@ -147,131 +344,138 @@ export interface CompaniesApiGetV2CompaniesRequest {
      * Maximum: 100
      * Defaults to: 100
      * @type number
-     * @memberof CompaniesApigetV2Companies
+     * @memberof CompaniesApiv2CompaniesCompanyIdListEntriesGET
+     */
+    limit?: number
+}
+
+export interface CompaniesApiV2CompaniesCompanyIdListsGETRequest {
+    /**
+     * Company ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof CompaniesApiv2CompaniesCompanyIdListsGET
+     */
+    companyId: number
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompaniesApiv2CompaniesCompanyIdListsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof CompaniesApiv2CompaniesCompanyIdListsGET
+     */
+    limit?: number
+}
+
+export interface CompaniesApiV2CompaniesCompanyIdNotesGETRequest {
+    /**
+     * Company\&#39;s ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof CompaniesApiv2CompaniesCompanyIdNotesGET
+     */
+    companyId: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompaniesApiv2CompaniesCompanyIdNotesGET
+     */
+    filter?: string
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompaniesApiv2CompaniesCompanyIdNotesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof CompaniesApiv2CompaniesCompanyIdNotesGET
+     */
+    limit?: number
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof CompaniesApiv2CompaniesCompanyIdNotesGET
+     */
+    totalCount?: boolean
+}
+
+export interface CompaniesApiV2CompaniesFieldsGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompaniesApiv2CompaniesFieldsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof CompaniesApiv2CompaniesFieldsGET
+     */
+    limit?: number
+}
+
+export interface CompaniesApiV2CompaniesGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompaniesApiv2CompaniesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof CompaniesApiv2CompaniesGET
      */
     limit?: number
     /**
      * Company IDs
      * Defaults to: undefined
      * @type Array&lt;number&gt;
-     * @memberof CompaniesApigetV2Companies
+     * @memberof CompaniesApiv2CompaniesGET
      */
     ids?: Array<number>
     /**
      * Field IDs for which to return field data
      * Defaults to: undefined
      * @type Array&lt;string&gt;
-     * @memberof CompaniesApigetV2Companies
+     * @memberof CompaniesApiv2CompaniesGET
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
      * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
-     * @memberof CompaniesApigetV2Companies
+     * @memberof CompaniesApiv2CompaniesGET
      */
     fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>
-}
-
-export interface CompaniesApiGetV2CompaniesFieldsRequest {
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof CompaniesApigetV2CompaniesFields
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof CompaniesApigetV2CompaniesFields
-     */
-    limit?: number
-}
-
-export interface CompaniesApiGetV2CompaniesIdRequest {
-    /**
-     * Company ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof CompaniesApigetV2CompaniesId
-     */
-    id: number
-    /**
-     * Field IDs for which to return field data
-     * Defaults to: undefined
-     * @type Array&lt;string&gt;
-     * @memberof CompaniesApigetV2CompaniesId
-     */
-    fieldIds?: Array<string>
-    /**
-     * Field Types for which to return field data
-     * Defaults to: undefined
-     * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
-     * @memberof CompaniesApigetV2CompaniesId
-     */
-    fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>
-}
-
-export interface CompaniesApiGetV2CompaniesIdListEntriesRequest {
-    /**
-     * Company ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof CompaniesApigetV2CompaniesIdListEntries
-     */
-    id: number
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof CompaniesApigetV2CompaniesIdListEntries
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof CompaniesApigetV2CompaniesIdListEntries
-     */
-    limit?: number
-}
-
-export interface CompaniesApiGetV2CompaniesIdListsRequest {
-    /**
-     * Company ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof CompaniesApigetV2CompaniesIdLists
-     */
-    id: number
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof CompaniesApigetV2CompaniesIdLists
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof CompaniesApigetV2CompaniesIdLists
-     */
-    limit?: number
 }
 
 export class ObjectCompaniesApi {
@@ -282,39 +486,12 @@ export class ObjectCompaniesApi {
     }
 
     /**
-     * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
-     * Get all Companies
+     * Returns basic information and non-list-specific field data on the requested Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
+     * Get a single Company
      * @param param the request object
      */
-    public getV2CompaniesWithHttpInfo(param: CompaniesApiGetV2CompaniesRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<CompanyPaged>> {
-        return this.api.getV2CompaniesWithHttpInfo(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
-    }
-
-    /**
-     * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
-     * Get all Companies
-     * @param param the request object
-     */
-    public getV2Companies(param: CompaniesApiGetV2CompaniesRequest = {}, options?: ConfigurationOptions): Promise<CompanyPaged> {
-        return this.api.getV2Companies(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on non-list-specific Company Fields.  Use the returned Field IDs to request field data from the GET `/v2/companies` and GET `/v2/companies/{id}` endpoints.
-     * Get metadata on Company Fields
-     * @param param the request object
-     */
-    public getV2CompaniesFieldsWithHttpInfo(param: CompaniesApiGetV2CompaniesFieldsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
-        return this.api.getV2CompaniesFieldsWithHttpInfo(param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on non-list-specific Company Fields.  Use the returned Field IDs to request field data from the GET `/v2/companies` and GET `/v2/companies/{id}` endpoints.
-     * Get metadata on Company Fields
-     * @param param the request object
-     */
-    public getV2CompaniesFields(param: CompaniesApiGetV2CompaniesFieldsRequest = {}, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
-        return this.api.getV2CompaniesFields(param.cursor, param.limit,  options).toPromise();
+    public v2CompaniesCompanyIdGETWithHttpInfo(param: CompaniesApiV2CompaniesCompanyIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<Company>> {
+        return this.api.v2CompaniesCompanyIdGETWithHttpInfo(param.companyId, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
     /**
@@ -322,17 +499,8 @@ export class ObjectCompaniesApi {
      * Get a single Company
      * @param param the request object
      */
-    public getV2CompaniesIdWithHttpInfo(param: CompaniesApiGetV2CompaniesIdRequest, options?: ConfigurationOptions): Promise<HttpInfo<Company>> {
-        return this.api.getV2CompaniesIdWithHttpInfo(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
-    }
-
-    /**
-     * Returns basic information and non-list-specific field data on the requested Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
-     * Get a single Company
-     * @param param the request object
-     */
-    public getV2CompaniesId(param: CompaniesApiGetV2CompaniesIdRequest, options?: ConfigurationOptions): Promise<Company> {
-        return this.api.getV2CompaniesId(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
+    public v2CompaniesCompanyIdGET(param: CompaniesApiV2CompaniesCompanyIdGETRequest, options?: ConfigurationOptions): Promise<Company> {
+        return this.api.v2CompaniesCompanyIdGET(param.companyId, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
     /**
@@ -340,8 +508,8 @@ export class ObjectCompaniesApi {
      * Get a Company\'s List Entries
      * @param param the request object
      */
-    public getV2CompaniesIdListEntriesWithHttpInfo(param: CompaniesApiGetV2CompaniesIdListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
-        return this.api.getV2CompaniesIdListEntriesWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2CompaniesCompanyIdListEntriesGETWithHttpInfo(param: CompaniesApiV2CompaniesCompanyIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
+        return this.api.v2CompaniesCompanyIdListEntriesGETWithHttpInfo(param.companyId, param.cursor, param.limit,  options).toPromise();
     }
 
     /**
@@ -349,118 +517,327 @@ export class ObjectCompaniesApi {
      * Get a Company\'s List Entries
      * @param param the request object
      */
-    public getV2CompaniesIdListEntries(param: CompaniesApiGetV2CompaniesIdListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryPaged> {
-        return this.api.getV2CompaniesIdListEntries(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2CompaniesCompanyIdListEntriesGET(param: CompaniesApiV2CompaniesCompanyIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<ListEntryPaged> {
+        return this.api.v2CompaniesCompanyIdListEntriesGET(param.companyId, param.cursor, param.limit,  options).toPromise();
     }
 
     /**
-     * Returns metadata for all the Lists on which the given Company appears.
+     * Paginate through all Lists where the given Company appears as an entry and that you have access to view. Returns basic List information for each List that contains this Company.
      * Get a Company\'s Lists
      * @param param the request object
      */
-    public getV2CompaniesIdListsWithHttpInfo(param: CompaniesApiGetV2CompaniesIdListsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListPaged>> {
-        return this.api.getV2CompaniesIdListsWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2CompaniesCompanyIdListsGETWithHttpInfo(param: CompaniesApiV2CompaniesCompanyIdListsGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListPaged>> {
+        return this.api.v2CompaniesCompanyIdListsGETWithHttpInfo(param.companyId, param.cursor, param.limit,  options).toPromise();
     }
 
     /**
-     * Returns metadata for all the Lists on which the given Company appears.
+     * Paginate through all Lists where the given Company appears as an entry and that you have access to view. Returns basic List information for each List that contains this Company.
      * Get a Company\'s Lists
      * @param param the request object
      */
-    public getV2CompaniesIdLists(param: CompaniesApiGetV2CompaniesIdListsRequest, options?: ConfigurationOptions): Promise<ListPaged> {
-        return this.api.getV2CompaniesIdLists(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2CompaniesCompanyIdListsGET(param: CompaniesApiV2CompaniesCompanyIdListsGETRequest, options?: ConfigurationOptions): Promise<ListPaged> {
+        return this.api.v2CompaniesCompanyIdListsGET(param.companyId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns relevant notes for a given company which includes directly attached notes and notes attached to persons on this company.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for a Company
+     * @param param the request object
+     */
+    public v2CompaniesCompanyIdNotesGETWithHttpInfo(param: CompaniesApiV2CompaniesCompanyIdNotesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
+        return this.api.v2CompaniesCompanyIdNotesGETWithHttpInfo(param.companyId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns relevant notes for a given company which includes directly attached notes and notes attached to persons on this company.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for a Company
+     * @param param the request object
+     */
+    public v2CompaniesCompanyIdNotesGET(param: CompaniesApiV2CompaniesCompanyIdNotesGETRequest, options?: ConfigurationOptions): Promise<NotesNotesPaged> {
+        return this.api.v2CompaniesCompanyIdNotesGET(param.companyId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on non-list-specific Company Fields.  Use the returned Field IDs to request field data from the GET `/v2/companies` and GET `/v2/companies/{id}` endpoints.
+     * Get metadata on Company Fields
+     * @param param the request object
+     */
+    public v2CompaniesFieldsGETWithHttpInfo(param: CompaniesApiV2CompaniesFieldsGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
+        return this.api.v2CompaniesFieldsGETWithHttpInfo(param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Returns metadata on non-list-specific Company Fields.  Use the returned Field IDs to request field data from the GET `/v2/companies` and GET `/v2/companies/{id}` endpoints.
+     * Get metadata on Company Fields
+     * @param param the request object
+     */
+    public v2CompaniesFieldsGET(param: CompaniesApiV2CompaniesFieldsGETRequest = {}, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
+        return this.api.v2CompaniesFieldsGET(param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
+     * Get all Companies
+     * @param param the request object
+     */
+    public v2CompaniesGETWithHttpInfo(param: CompaniesApiV2CompaniesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<CompanyPaged>> {
+        return this.api.v2CompaniesGETWithHttpInfo(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
+    }
+
+    /**
+     * Paginate through Companies in Affinity. Returns basic information and non-list-specific field data on each Company.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).
+     * Get all Companies
+     * @param param the request object
+     */
+    public v2CompaniesGET(param: CompaniesApiV2CompaniesGETRequest = {}, options?: ConfigurationOptions): Promise<CompanyPaged> {
+        return this.api.v2CompaniesGET(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
+    }
+
+}
+
+import { ObservableCompanyMergesApi } from "./ObservableAPI.ts";
+import { CompanyMergesApiRequestFactory, CompanyMergesApiResponseProcessor} from "../apis/CompanyMergesApi.ts";
+
+export interface CompanyMergesApiV2CompanyMergesGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompanyMergesApiv2CompanyMergesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof CompanyMergesApiv2CompanyMergesGET
+     */
+    limit?: number
+    /**
+     * Filter company merges using Affinity Filtering Language
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompanyMergesApiv2CompanyMergesGET
+     */
+    filter?: string
+}
+
+export interface CompanyMergesApiV2CompanyMergesMergeIdGETRequest {
+    /**
+     * Company merge ID
+     * Minimum: 1
+     * Maximum: 9007199254740991
+     * Defaults to: undefined
+     * @type number
+     * @memberof CompanyMergesApiv2CompanyMergesMergeIdGET
+     */
+    mergeId: number
+}
+
+export interface CompanyMergesApiV2CompanyMergesPOSTRequest {
+    /**
+     * 
+     * @type CompanyMergeRequest
+     * @memberof CompanyMergesApiv2CompanyMergesPOST
+     */
+    companyMergeRequest: CompanyMergeRequest
+}
+
+export interface CompanyMergesApiV2TasksCompanyMergesGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompanyMergesApiv2TasksCompanyMergesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof CompanyMergesApiv2TasksCompanyMergesGET
+     */
+    limit?: number
+    /**
+     * Filter tasks using Affinity Filtering Language
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompanyMergesApiv2TasksCompanyMergesGET
+     */
+    filter?: string
+}
+
+export interface CompanyMergesApiV2TasksCompanyMergesTaskIdGETRequest {
+    /**
+     * Company merge task ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof CompanyMergesApiv2TasksCompanyMergesTaskIdGET
+     */
+    taskId: string
+}
+
+export class ObjectCompanyMergesApi {
+    private api: ObservableCompanyMergesApi
+
+    public constructor(configuration: Configuration, requestFactory?: CompanyMergesApiRequestFactory, responseProcessor?: CompanyMergesApiResponseProcessor) {
+        this.api = new ObservableCompanyMergesApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Retrieve paginated company merges for the organization.   Returns all company merges initiated by users in your organization, including their current status, the companies involved, and merge details. You can filter company merges using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:   | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` | | `taskId` | `string` | `=` | | `taskId=789e0123-e45b-67c8-d901-234567890123` |   Company merges are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Company Merges
+     * @param param the request object
+     */
+    public v2CompanyMergesGETWithHttpInfo(param: CompanyMergesApiV2CompanyMergesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<CompanyMergeStatePaged>> {
+        return this.api.v2CompanyMergesGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve paginated company merges for the organization.   Returns all company merges initiated by users in your organization, including their current status, the companies involved, and merge details. You can filter company merges using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:   | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` | | `taskId` | `string` | `=` | | `taskId=789e0123-e45b-67c8-d901-234567890123` |   Company merges are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Company Merges
+     * @param param the request object
+     */
+    public v2CompanyMergesGET(param: CompanyMergesApiV2CompanyMergesGETRequest = {}, options?: ConfigurationOptions): Promise<CompanyMergeStatePaged> {
+        return this.api.v2CompanyMergesGET(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific company merge.  Returns information about the company merge including its current status, the companies involved, timestamps, and any error information if the merge failed.  The `mergeId` can be obtained from the response of the [Get All Company Merges](#tag/companyMerges/operation/v2_company-merges__GET) endpoint, or by filtering company merges by task ID using `/v2/company-merges?filter=taskId={taskId}` after initiating a merge.  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Get Company Merge
+     * @param param the request object
+     */
+    public v2CompanyMergesMergeIdGETWithHttpInfo(param: CompanyMergesApiV2CompanyMergesMergeIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<CompanyMergeState>> {
+        return this.api.v2CompanyMergesMergeIdGETWithHttpInfo(param.mergeId,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific company merge.  Returns information about the company merge including its current status, the companies involved, timestamps, and any error information if the merge failed.  The `mergeId` can be obtained from the response of the [Get All Company Merges](#tag/companyMerges/operation/v2_company-merges__GET) endpoint, or by filtering company merges by task ID using `/v2/company-merges?filter=taskId={taskId}` after initiating a merge.  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Get Company Merge
+     * @param param the request object
+     */
+    public v2CompanyMergesMergeIdGET(param: CompanyMergesApiV2CompanyMergesMergeIdGETRequest, options?: ConfigurationOptions): Promise<CompanyMergeState> {
+        return this.api.v2CompanyMergesMergeIdGET(param.mergeId,  options).toPromise();
+    }
+
+    /**
+     * Initiate a company merge to combine a duplicate company profile into a primary company profile.  This is an asynchronous process that will merge all data from the duplicate company into the primary company. Once the merge is initiated, you can track its progress using the returned [task URL](#tag/companyMerges/operation/v2_tasks_company-merges_taskId__GET).  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Initiate Company Merge
+     * @param param the request object
+     */
+    public v2CompanyMergesPOSTWithHttpInfo(param: CompanyMergesApiV2CompanyMergesPOSTRequest, options?: ConfigurationOptions): Promise<HttpInfo<CompanyMergeResponse>> {
+        return this.api.v2CompanyMergesPOSTWithHttpInfo(param.companyMergeRequest,  options).toPromise();
+    }
+
+    /**
+     * Initiate a company merge to combine a duplicate company profile into a primary company profile.  This is an asynchronous process that will merge all data from the duplicate company into the primary company. Once the merge is initiated, you can track its progress using the returned [task URL](#tag/companyMerges/operation/v2_tasks_company-merges_taskId__GET).  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Initiate Company Merge
+     * @param param the request object
+     */
+    public v2CompanyMergesPOST(param: CompanyMergesApiV2CompanyMergesPOSTRequest, options?: ConfigurationOptions): Promise<CompanyMergeResponse> {
+        return this.api.v2CompanyMergesPOST(param.companyMergeRequest,  options).toPromise();
+    }
+
+    /**
+     * Retrieve paginated company merge tasks for the organization.   Returns all merge tasks initiated by users in your organization, including their current status, the companies involved, and task details.   You can filter tasks using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:  | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` |   Tasks are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Company Merge Tasks
+     * @param param the request object
+     */
+    public v2TasksCompanyMergesGETWithHttpInfo(param: CompanyMergesApiV2TasksCompanyMergesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<CompanyMergeTaskPaged>> {
+        return this.api.v2TasksCompanyMergesGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve paginated company merge tasks for the organization.   Returns all merge tasks initiated by users in your organization, including their current status, the companies involved, and task details.   You can filter tasks using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:  | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` |   Tasks are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Company Merge Tasks
+     * @param param the request object
+     */
+    public v2TasksCompanyMergesGET(param: CompanyMergesApiV2TasksCompanyMergesGETRequest = {}, options?: ConfigurationOptions): Promise<CompanyMergeTaskPaged> {
+        return this.api.v2TasksCompanyMergesGET(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific task for company merges.   Returns information about the company merges for a specific task including its overall status, number of merges in-progress, completed, and failed.   Detailed information about individual merges for this task can be found by querying: `/v2/company-merges?filter=taskId={taskId}` See [Company Merges](#tag/companyMerges/operation/v2_company-merges__GET) for more details.   Task statuses:  - `in-progress`: The merge task is currently being processed. - `success`: The merge task completed successfully. - `failed`: The merge task failed.   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get Company Merge Task
+     * @param param the request object
+     */
+    public v2TasksCompanyMergesTaskIdGETWithHttpInfo(param: CompanyMergesApiV2TasksCompanyMergesTaskIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<CompanyMergeTask>> {
+        return this.api.v2TasksCompanyMergesTaskIdGETWithHttpInfo(param.taskId,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific task for company merges.   Returns information about the company merges for a specific task including its overall status, number of merges in-progress, completed, and failed.   Detailed information about individual merges for this task can be found by querying: `/v2/company-merges?filter=taskId={taskId}` See [Company Merges](#tag/companyMerges/operation/v2_company-merges__GET) for more details.   Task statuses:  - `in-progress`: The merge task is currently being processed. - `success`: The merge task completed successfully. - `failed`: The merge task failed.   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get Company Merge Task
+     * @param param the request object
+     */
+    public v2TasksCompanyMergesTaskIdGET(param: CompanyMergesApiV2TasksCompanyMergesTaskIdGETRequest, options?: ConfigurationOptions): Promise<CompanyMergeTask> {
+        return this.api.v2TasksCompanyMergesTaskIdGET(param.taskId,  options).toPromise();
+    }
+
+}
+
+import { ObservableEmailsApi } from "./ObservableAPI.ts";
+import { EmailsApiRequestFactory, EmailsApiResponseProcessor} from "../apis/EmailsApi.ts";
+
+export interface EmailsApiV2EmailsGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof EmailsApiv2EmailsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof EmailsApiv2EmailsGET
+     */
+    limit?: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof EmailsApiv2EmailsGET
+     */
+    filter?: string
+}
+
+export class ObjectEmailsApi {
+    private api: ObservableEmailsApi
+
+    public constructor(configuration: Configuration, requestFactory?: EmailsApiRequestFactory, responseProcessor?: EmailsApiResponseProcessor) {
+        this.api = new ObservableEmailsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Paginate through all emails in Affinity. Returns basic information about the email interaction and its participants. Will only return emails or subject lines that the current authenticated user has permission to see.  You can filter emails using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Emails                                    | `int64`    | `=`                                  | `id=1`                           | | `sentAt`                    | When the Email was sent at                                      | `datetime` | `>`, `<`, `>=`, `<=`                 | `sentAt>2025-01-01T01:00:00Z` | | `createdAt`                 | When the Email was created in Affinity                          | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Email was updated in Affinity                          | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Emails
+     * @param param the request object
+     */
+    public v2EmailsGETWithHttpInfo(param: EmailsApiV2EmailsGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<InteractionsEmailPaged>> {
+        return this.api.v2EmailsGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Paginate through all emails in Affinity. Returns basic information about the email interaction and its participants. Will only return emails or subject lines that the current authenticated user has permission to see.  You can filter emails using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Emails                                    | `int64`    | `=`                                  | `id=1`                           | | `sentAt`                    | When the Email was sent at                                      | `datetime` | `>`, `<`, `>=`, `<=`                 | `sentAt>2025-01-01T01:00:00Z` | | `createdAt`                 | When the Email was created in Affinity                          | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Email was updated in Affinity                          | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Emails
+     * @param param the request object
+     */
+    public v2EmailsGET(param: EmailsApiV2EmailsGETRequest = {}, options?: ConfigurationOptions): Promise<InteractionsEmailPaged> {
+        return this.api.v2EmailsGET(param.cursor, param.limit, param.filter,  options).toPromise();
     }
 
 }
 
 import { ObservableListsApi } from "./ObservableAPI.ts";
 import { ListsApiRequestFactory, ListsApiResponseProcessor} from "../apis/ListsApi.ts";
-
-export interface ListsApiGetV2ListsListidSavedViewsRequest {
-    /**
-     * List ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListidSavedViews
-     */
-    listId: number
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof ListsApigetV2ListsListidSavedViews
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof ListsApigetV2ListsListidSavedViews
-     */
-    limit?: number
-}
-
-export interface ListsApiGetV2ListsListidSavedViewsViewidRequest {
-    /**
-     * List ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListidSavedViewsViewid
-     */
-    listId: number
-    /**
-     * Saved view ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListidSavedViewsViewid
-     */
-    viewId: number
-}
-
-export interface ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest {
-    /**
-     * List ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
-     */
-    listId: number
-    /**
-     * Saved view ID
-     * Minimum: 1
-     * Maximum: -9223372036854775616
-     * Defaults to: undefined
-     * @type number
-     * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
-     */
-    viewId: number
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof ListsApigetV2ListsListidSavedViewsViewidListEntries
-     */
-    limit?: number
-}
 
 export interface ListsApiV2ListsGETRequest {
     /**
@@ -485,7 +862,7 @@ export interface ListsApiV2ListsListIdFieldsGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdFieldsGET
@@ -513,7 +890,7 @@ export interface ListsApiV2ListsListIdGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdGET
@@ -525,7 +902,7 @@ export interface ListsApiV2ListsListIdListEntriesGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesGET
@@ -567,7 +944,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequ
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdGET
@@ -576,7 +953,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequ
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdGET
@@ -595,7 +972,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTReq
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
@@ -604,7 +981,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTReq
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST
@@ -629,7 +1006,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
@@ -638,7 +1015,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest {
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsGET
@@ -680,7 +1057,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
@@ -689,7 +1066,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest {
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdFieldsPATCH
@@ -707,7 +1084,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdGETRequest {
     /**
      * List ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
@@ -716,7 +1093,7 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdGETRequest {
     /**
      * List Entry ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
      * @memberof ListsApiv2ListsListIdListEntriesListEntryIdGET
@@ -738,6 +1115,92 @@ export interface ListsApiV2ListsListIdListEntriesListEntryIdGETRequest {
     fieldTypes?: Array<'enriched' | 'global' | 'list' | 'relationship-intelligence'>
 }
 
+export interface ListsApiV2ListsListIdSavedViewsGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdSavedViewsGET
+     */
+    listId: number
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsListIdSavedViewsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof ListsApiv2ListsListIdSavedViewsGET
+     */
+    limit?: number
+}
+
+export interface ListsApiV2ListsListIdSavedViewsViewIdGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdSavedViewsViewIdGET
+     */
+    listId: number
+    /**
+     * Saved view ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdSavedViewsViewIdGET
+     */
+    viewId: number
+}
+
+export interface ListsApiV2ListsListIdSavedViewsViewIdListEntriesGETRequest {
+    /**
+     * List ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdSavedViewsViewIdListEntriesGET
+     */
+    listId: number
+    /**
+     * Saved view ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof ListsApiv2ListsListIdSavedViewsViewIdListEntriesGET
+     */
+    viewId: number
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof ListsApiv2ListsListIdSavedViewsViewIdListEntriesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof ListsApiv2ListsListIdSavedViewsViewIdListEntriesGET
+     */
+    limit?: number
+}
+
 export class ObjectListsApi {
     private api: ObservableListsApi
 
@@ -746,61 +1209,7 @@ export class ObjectListsApi {
     }
 
     /**
-     * Returns metadata on the Saved Views on a List.
-     * Get metadata on Saved Views
-     * @param param the request object
-     */
-    public getV2ListsListidSavedViewsWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsRequest, options?: ConfigurationOptions): Promise<HttpInfo<SavedViewPaged>> {
-        return this.api.getV2ListsListidSavedViewsWithHttpInfo(param.listId, param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on the Saved Views on a List.
-     * Get metadata on Saved Views
-     * @param param the request object
-     */
-    public getV2ListsListidSavedViews(param: ListsApiGetV2ListsListidSavedViewsRequest, options?: ConfigurationOptions): Promise<SavedViewPaged> {
-        return this.api.getV2ListsListidSavedViews(param.listId, param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on a single Saved View.
-     * Get metadata on a single Saved View
-     * @param param the request object
-     */
-    public getV2ListsListidSavedViewsViewidWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsViewidRequest, options?: ConfigurationOptions): Promise<HttpInfo<SavedView>> {
-        return this.api.getV2ListsListidSavedViewsViewidWithHttpInfo(param.listId, param.viewId,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on a single Saved View.
-     * Get metadata on a single Saved View
-     * @param param the request object
-     */
-    public getV2ListsListidSavedViewsViewid(param: ListsApiGetV2ListsListidSavedViewsViewidRequest, options?: ConfigurationOptions): Promise<SavedView> {
-        return this.api.getV2ListsListidSavedViewsViewid(param.listId, param.viewId,  options).toPromise();
-    }
-
-    /**
-     * Paginate through the List Entries (AKA rows) on a given Saved View. Use this endpoint when you need to filter entities or only want **some** field data to be returned: This endpoint respects the filters set on a Saved View via web app, and only returns field data corresponding to the columns that have been pulled into the Saved View via web app.  Though this endpoint respects the Saved View\'s filters and column/Field selection, it does not yet preserve sort order. This endpoint also only supports **sheet-type Saved Views**, and not board- or dashboard-type Saved Views.  See the [Data Model](#section/Data-Model) section for more information about Saved Views.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get all List Entries on a Saved View
-     * @param param the request object
-     */
-    public getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(param: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
-        return this.api.getV2ListsListidSavedViewsViewidListEntriesWithHttpInfo(param.listId, param.viewId, param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Paginate through the List Entries (AKA rows) on a given Saved View. Use this endpoint when you need to filter entities or only want **some** field data to be returned: This endpoint respects the filters set on a Saved View via web app, and only returns field data corresponding to the columns that have been pulled into the Saved View via web app.  Though this endpoint respects the Saved View\'s filters and column/Field selection, it does not yet preserve sort order. This endpoint also only supports **sheet-type Saved Views**, and not board- or dashboard-type Saved Views.  See the [Data Model](#section/Data-Model) section for more information about Saved Views.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get all List Entries on a Saved View
-     * @param param the request object
-     */
-    public getV2ListsListidSavedViewsViewidListEntries(param: ListsApiGetV2ListsListidSavedViewsViewidListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntityPaged> {
-        return this.api.getV2ListsListidSavedViewsViewidListEntries(param.listId, param.viewId, param.cursor, param.limit,  options).toPromise();
-    }
-
-    /**
-     * Returns metadata on Lists.
+     * Paginate through all Lists in your organization that you have access to view. Returns basic information about each List, including name, owner, and privacy settings.
      * Get metadata on all Lists
      * @param param the request object
      */
@@ -809,7 +1218,7 @@ export class ObjectListsApi {
     }
 
     /**
-     * Returns metadata on Lists.
+     * Paginate through all Lists in your organization that you have access to view. Returns basic information about each List, including name, owner, and privacy settings.
      * Get metadata on all Lists
      * @param param the request object
      */
@@ -836,7 +1245,7 @@ export class ObjectListsApi {
     }
 
     /**
-     * Returns metadata on a single List.
+     * Retrieve detailed information about a specific List you have access to view. Returns List configuration including name, owner, privacy settings, and creation details.
      * Get metadata on a single List
      * @param param the request object
      */
@@ -845,7 +1254,7 @@ export class ObjectListsApi {
     }
 
     /**
-     * Returns metadata on a single List.
+     * Retrieve detailed information about a specific List you have access to view. Returns List configuration including name, owner, privacy settings, and creation details.
      * Get metadata on a single List
      * @param param the request object
      */
@@ -872,8 +1281,8 @@ export class ObjectListsApi {
     }
 
     /**
-     *  | ⚠️  This endpoint is currently in BETA | |--|  Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get a single field value [BETA]
+     * Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single field value
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGETWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<Field>> {
@@ -881,8 +1290,8 @@ export class ObjectListsApi {
     }
 
     /**
-     *  | ⚠️  This endpoint is currently in BETA | |--|  Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get a single field value [BETA]
+     * Returns a single field value on a list entry.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single field value
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdGET(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdGETRequest, options?: ConfigurationOptions): Promise<Field> {
@@ -890,8 +1299,8 @@ export class ObjectListsApi {
     }
 
     /**
-     *  | ⚠️  This endpoint is currently in BETA | |--|  Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Update a single field value on a List Entry [BETA]
+     * Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Update a single field value on a List Entry
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTRequest, options?: ConfigurationOptions): Promise<HttpInfo<void>> {
@@ -899,8 +1308,8 @@ export class ObjectListsApi {
     }
 
     /**
-     *  | ⚠️  This endpoint is currently in BETA | |--|  Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Update a single field value on a List Entry [BETA]
+     * Update a single field value.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Update a single field value on a List Entry
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsFieldIdPOST(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsFieldIdPOSTRequest, options?: ConfigurationOptions): Promise<void> {
@@ -908,8 +1317,8 @@ export class ObjectListsApi {
     }
 
     /**
-     *  | ⚠️  This endpoint is currently in BETA | |--|  Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get field values on a single List Entry [BETA]
+     * Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get field values on a single List Entry
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsGETWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<FieldPaged>> {
@@ -917,8 +1326,8 @@ export class ObjectListsApi {
     }
 
     /**
-     *  | ⚠️  This endpoint is currently in BETA | |--|  Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get field values on a single List Entry [BETA]
+     * Paginate through all field values on a single list entry.  All fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get field values on a single List Entry
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsGET(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsGETRequest, options?: ConfigurationOptions): Promise<FieldPaged> {
@@ -926,8 +1335,8 @@ export class ObjectListsApi {
     }
 
     /**
-     * | ⚠️  This endpoint is currently in BETA | |--|  Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Perform batch operations on a list entry\'s fields [BETA]
+     * Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Perform batch operations on a list entry\'s fields
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsPATCHWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryBatchOperationResponse>> {
@@ -935,8 +1344,8 @@ export class ObjectListsApi {
     }
 
     /**
-     * | ⚠️  This endpoint is currently in BETA | |--|  Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Perform batch operations on a list entry\'s fields [BETA]
+     * Perform batch operations on a list entry\'s fields.  Currently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.      Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Perform batch operations on a list entry\'s fields
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdFieldsPATCH(param: ListsApiV2ListsListIdListEntriesListEntryIdFieldsPATCHRequest, options?: ConfigurationOptions): Promise<ListEntryBatchOperationResponse> {
@@ -944,8 +1353,8 @@ export class ObjectListsApi {
     }
 
     /**
-     * | ⚠️  This endpoint is currently in BETA | |--|  Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get a single List Entry on a List [BETA]
+     * Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single List Entry on a List
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdGETWithHttpInfo(param: ListsApiV2ListsListIdListEntriesListEntryIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntity>> {
@@ -953,25 +1362,79 @@ export class ObjectListsApi {
     }
 
     /**
-     * | ⚠️  This endpoint is currently in BETA | |--|  Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
-     * Get a single List Entry on a List [BETA]
+     * Retrieve a single list entry. Returns basic information and field data, including list-specific field data.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get a single List Entry on a List
      * @param param the request object
      */
     public v2ListsListIdListEntriesListEntryIdGET(param: ListsApiV2ListsListIdListEntriesListEntryIdGETRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntity> {
         return this.api.v2ListsListIdListEntriesListEntryIdGET(param.listId, param.listEntryId, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
+    /**
+     * Paginate through all Saved Views you have access to view for a specific List. Returns Saved View configurations including name, column settings, and owner information.
+     * Get metadata on Saved Views
+     * @param param the request object
+     */
+    public v2ListsListIdSavedViewsGETWithHttpInfo(param: ListsApiV2ListsListIdSavedViewsGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<SavedViewPaged>> {
+        return this.api.v2ListsListIdSavedViewsGETWithHttpInfo(param.listId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Paginate through all Saved Views you have access to view for a specific List. Returns Saved View configurations including name, column settings, and owner information.
+     * Get metadata on Saved Views
+     * @param param the request object
+     */
+    public v2ListsListIdSavedViewsGET(param: ListsApiV2ListsListIdSavedViewsGETRequest, options?: ConfigurationOptions): Promise<SavedViewPaged> {
+        return this.api.v2ListsListIdSavedViewsGET(param.listId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Retrieve detailed information about a specific Saved View you have access to view. Returns complete Saved View configuration including name, sorting, and column visibility settings.
+     * Get metadata on a single Saved View
+     * @param param the request object
+     */
+    public v2ListsListIdSavedViewsViewIdGETWithHttpInfo(param: ListsApiV2ListsListIdSavedViewsViewIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<SavedView>> {
+        return this.api.v2ListsListIdSavedViewsViewIdGETWithHttpInfo(param.listId, param.viewId,  options).toPromise();
+    }
+
+    /**
+     * Retrieve detailed information about a specific Saved View you have access to view. Returns complete Saved View configuration including name, sorting, and column visibility settings.
+     * Get metadata on a single Saved View
+     * @param param the request object
+     */
+    public v2ListsListIdSavedViewsViewIdGET(param: ListsApiV2ListsListIdSavedViewsViewIdGETRequest, options?: ConfigurationOptions): Promise<SavedView> {
+        return this.api.v2ListsListIdSavedViewsViewIdGET(param.listId, param.viewId,  options).toPromise();
+    }
+
+    /**
+     * Paginate through the List Entries (AKA rows) on a given Saved View. Use this endpoint when you need to filter entities or only want **some** field data to be returned: This endpoint respects the filters set on a Saved View via web app, and only returns field data corresponding to the columns that have been pulled into the Saved View via web app.  Though this endpoint respects the Saved View\'s filters and column/Field selection, it does not yet preserve sort order. This endpoint also only supports **sheet-type Saved Views**, and not board- or dashboard-type Saved Views.  See the [Data Model](#section/Data-Model) section for more information about Saved Views.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get all List Entries on a Saved View
+     * @param param the request object
+     */
+    public v2ListsListIdSavedViewsViewIdListEntriesGETWithHttpInfo(param: ListsApiV2ListsListIdSavedViewsViewIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryWithEntityPaged>> {
+        return this.api.v2ListsListIdSavedViewsViewIdListEntriesGETWithHttpInfo(param.listId, param.viewId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * Paginate through the List Entries (AKA rows) on a given Saved View. Use this endpoint when you need to filter entities or only want **some** field data to be returned: This endpoint respects the filters set on a Saved View via web app, and only returns field data corresponding to the columns that have been pulled into the Saved View via web app.  Though this endpoint respects the Saved View\'s filters and column/Field selection, it does not yet preserve sort order. This endpoint also only supports **sheet-type Saved Views**, and not board- or dashboard-type Saved Views.  See the [Data Model](#section/Data-Model) section for more information about Saved Views.  Requires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).
+     * Get all List Entries on a Saved View
+     * @param param the request object
+     */
+    public v2ListsListIdSavedViewsViewIdListEntriesGET(param: ListsApiV2ListsListIdSavedViewsViewIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<ListEntryWithEntityPaged> {
+        return this.api.v2ListsListIdSavedViewsViewIdListEntriesGET(param.listId, param.viewId, param.cursor, param.limit,  options).toPromise();
+    }
+
 }
 
-import { ObservableOpportunitiesApi } from "./ObservableAPI.ts";
-import { OpportunitiesApiRequestFactory, OpportunitiesApiResponseProcessor} from "../apis/OpportunitiesApi.ts";
+import { ObservableMeetingsApi } from "./ObservableAPI.ts";
+import { MeetingsApiRequestFactory, MeetingsApiResponseProcessor} from "../apis/MeetingsApi.ts";
 
-export interface OpportunitiesApiGetV2OpportunitiesRequest {
+export interface MeetingsApiV2MeetingsGETRequest {
     /**
      * Cursor for the next or previous page
      * Defaults to: undefined
      * @type string
-     * @memberof OpportunitiesApigetV2Opportunities
+     * @memberof MeetingsApiv2MeetingsGET
      */
     cursor?: string
     /**
@@ -980,28 +1443,452 @@ export interface OpportunitiesApiGetV2OpportunitiesRequest {
      * Maximum: 100
      * Defaults to: 100
      * @type number
-     * @memberof OpportunitiesApigetV2Opportunities
+     * @memberof MeetingsApiv2MeetingsGET
+     */
+    limit?: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof MeetingsApiv2MeetingsGET
+     */
+    filter?: string
+}
+
+export class ObjectMeetingsApi {
+    private api: ObservableMeetingsApi
+
+    public constructor(configuration: Configuration, requestFactory?: MeetingsApiRequestFactory, responseProcessor?: MeetingsApiResponseProcessor) {
+        this.api = new ObservableMeetingsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Paginate through all Meetings in Affinity. Returns basic information about past and future meeting interactions and its attendees.  You can filter meetings using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Meetings                                  | `int64`    | `=`                                  | `id=1`                           | | `startTime`                 | Start time of when Meeting was scheduled                        | `datetime` | `>`, `<`, `>=`, `<=`                 | `startTime>2025-01-01T01:00:00Z` | | `createdAt`                 | When the Meeting was created in Affinity                        | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Meeting was updated in Affinity                        | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Meetings
+     * @param param the request object
+     */
+    public v2MeetingsGETWithHttpInfo(param: MeetingsApiV2MeetingsGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<InteractionsMeetingPaged>> {
+        return this.api.v2MeetingsGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Paginate through all Meetings in Affinity. Returns basic information about past and future meeting interactions and its attendees.  You can filter meetings using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                     | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|----------------------------------| | `id`                        | Unique identifier for Meetings                                  | `int64`    | `=`                                  | `id=1`                           | | `startTime`                 | Start time of when Meeting was scheduled                        | `datetime` | `>`, `<`, `>=`, `<=`                 | `startTime>2025-01-01T01:00:00Z` | | `createdAt`                 | When the Meeting was created in Affinity                        | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-01-01T01:00:00Z` | | `updatedAt`                 | When the Meeting was updated in Affinity                        | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-01-01T01:00:00Z`| 
+     * Get metadata on all Meetings
+     * @param param the request object
+     */
+    public v2MeetingsGET(param: MeetingsApiV2MeetingsGETRequest = {}, options?: ConfigurationOptions): Promise<InteractionsMeetingPaged> {
+        return this.api.v2MeetingsGET(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+}
+
+import { ObservableNotesApi } from "./ObservableAPI.ts";
+import { NotesApiRequestFactory, NotesApiResponseProcessor} from "../apis/NotesApi.ts";
+
+export interface NotesApiV2NotesGETRequest {
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof NotesApiv2NotesGET
+     */
+    totalCount?: boolean
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotesApiv2NotesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof NotesApiv2NotesGET
+     */
+    limit?: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotesApiv2NotesGET
+     */
+    filter?: string
+    /**
+     * Additional properties to include in the response
+     * Defaults to: undefined
+     * @type Set&lt;&#39;companiesPreview&#39; | &#39;personsPreview&#39; | &#39;opportunitiesPreview&#39; | &#39;repliesCount&#39;&gt;
+     * @memberof NotesApiv2NotesGET
+     */
+    includes?: Set<'companiesPreview' | 'personsPreview' | 'opportunitiesPreview' | 'repliesCount'>
+}
+
+export interface NotesApiV2NotesNoteIdAttachedCompaniesGETRequest {
+    /**
+     * The id of the Note to get attached Companies
+     * Minimum: 1
+     * Maximum: 2147483647
+     * Defaults to: undefined
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdAttachedCompaniesGET
+     */
+    noteId: number
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof NotesApiv2NotesNoteIdAttachedCompaniesGET
+     */
+    totalCount?: boolean
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotesApiv2NotesNoteIdAttachedCompaniesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdAttachedCompaniesGET
+     */
+    limit?: number
+}
+
+export interface NotesApiV2NotesNoteIdAttachedOpportunitiesGETRequest {
+    /**
+     * The id of the Note to get attached Opportunities
+     * Minimum: 1
+     * Maximum: 2147483647
+     * Defaults to: undefined
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdAttachedOpportunitiesGET
+     */
+    noteId: number
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof NotesApiv2NotesNoteIdAttachedOpportunitiesGET
+     */
+    totalCount?: boolean
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotesApiv2NotesNoteIdAttachedOpportunitiesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdAttachedOpportunitiesGET
+     */
+    limit?: number
+}
+
+export interface NotesApiV2NotesNoteIdAttachedPersonsGETRequest {
+    /**
+     * The id of the Note to get attached Persons
+     * Minimum: 1
+     * Maximum: 2147483647
+     * Defaults to: undefined
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdAttachedPersonsGET
+     */
+    noteId: number
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof NotesApiv2NotesNoteIdAttachedPersonsGET
+     */
+    totalCount?: boolean
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotesApiv2NotesNoteIdAttachedPersonsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdAttachedPersonsGET
+     */
+    limit?: number
+}
+
+export interface NotesApiV2NotesNoteIdGETRequest {
+    /**
+     * The id of the Note
+     * Minimum: 1
+     * Maximum: 2147483647
+     * Defaults to: undefined
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdGET
+     */
+    noteId: number
+    /**
+     * Additional properties to include in the response
+     * Defaults to: undefined
+     * @type Set&lt;&#39;companiesPreview&#39; | &#39;personsPreview&#39; | &#39;opportunitiesPreview&#39; | &#39;repliesCount&#39;&gt;
+     * @memberof NotesApiv2NotesNoteIdGET
+     */
+    includes?: Set<'companiesPreview' | 'personsPreview' | 'opportunitiesPreview' | 'repliesCount'>
+}
+
+export interface NotesApiV2NotesNoteIdRepliesGETRequest {
+    /**
+     * Note ID
+     * Minimum: 1
+     * Maximum: 2147483647
+     * Defaults to: undefined
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdRepliesGET
+     */
+    noteId: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotesApiv2NotesNoteIdRepliesGET
+     */
+    filter?: string
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotesApiv2NotesNoteIdRepliesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof NotesApiv2NotesNoteIdRepliesGET
+     */
+    limit?: number
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof NotesApiv2NotesNoteIdRepliesGET
+     */
+    totalCount?: boolean
+}
+
+export class ObjectNotesApi {
+    private api: ObservableNotesApi
+
+    public constructor(configuration: Configuration, requestFactory?: NotesApiRequestFactory, responseProcessor?: NotesApiResponseProcessor) {
+        this.api = new ObservableNotesApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns all notes, with the exception of replies. You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `id`                        | Filter notes by id                                              | `int32`    | `=`                                  | `id=1`                          | | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get all Notes
+     * @param param the request object
+     */
+    public v2NotesGETWithHttpInfo(param: NotesApiV2NotesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
+        return this.api.v2NotesGETWithHttpInfo(param.totalCount, param.cursor, param.limit, param.filter, param.includes,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns all notes, with the exception of replies. You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `id`                        | Filter notes by id                                              | `int32`    | `=`                                  | `id=1`                          | | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get all Notes
+     * @param param the request object
+     */
+    public v2NotesGET(param: NotesApiV2NotesGETRequest = {}, options?: ConfigurationOptions): Promise<NotesNotesPaged> {
+        return this.api.v2NotesGET(param.totalCount, param.cursor, param.limit, param.filter, param.includes,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns directly attached companies for a given Note. 
+     * Get Companies attached to a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdAttachedCompaniesGETWithHttpInfo(param: NotesApiV2NotesNoteIdAttachedCompaniesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<CompanyDataPaged>> {
+        return this.api.v2NotesNoteIdAttachedCompaniesGETWithHttpInfo(param.noteId, param.totalCount, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns directly attached companies for a given Note. 
+     * Get Companies attached to a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdAttachedCompaniesGET(param: NotesApiV2NotesNoteIdAttachedCompaniesGETRequest, options?: ConfigurationOptions): Promise<CompanyDataPaged> {
+        return this.api.v2NotesNoteIdAttachedCompaniesGET(param.noteId, param.totalCount, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns directly attached opportunities for a given Note. 
+     * Get Opportunities attached to a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdAttachedOpportunitiesGETWithHttpInfo(param: NotesApiV2NotesNoteIdAttachedOpportunitiesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<OpportunityPaged>> {
+        return this.api.v2NotesNoteIdAttachedOpportunitiesGETWithHttpInfo(param.noteId, param.totalCount, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns directly attached opportunities for a given Note. 
+     * Get Opportunities attached to a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdAttachedOpportunitiesGET(param: NotesApiV2NotesNoteIdAttachedOpportunitiesGETRequest, options?: ConfigurationOptions): Promise<OpportunityPaged> {
+        return this.api.v2NotesNoteIdAttachedOpportunitiesGET(param.noteId, param.totalCount, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns directly attached persons for a given Note. 
+     * Get Persons attached to a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdAttachedPersonsGETWithHttpInfo(param: NotesApiV2NotesNoteIdAttachedPersonsGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<PersonDataPaged>> {
+        return this.api.v2NotesNoteIdAttachedPersonsGETWithHttpInfo(param.noteId, param.totalCount, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns directly attached persons for a given Note. 
+     * Get Persons attached to a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdAttachedPersonsGET(param: NotesApiV2NotesNoteIdAttachedPersonsGETRequest, options?: ConfigurationOptions): Promise<PersonDataPaged> {
+        return this.api.v2NotesNoteIdAttachedPersonsGET(param.noteId, param.totalCount, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Get a Note with a given id 
+     * Get a single Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdGETWithHttpInfo(param: NotesApiV2NotesNoteIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<NotesNote>> {
+        return this.api.v2NotesNoteIdGETWithHttpInfo(param.noteId, param.includes,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Get a Note with a given id 
+     * Get a single Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdGET(param: NotesApiV2NotesNoteIdGETRequest, options?: ConfigurationOptions): Promise<NotesNote> {
+        return this.api.v2NotesNoteIdGET(param.noteId, param.includes,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  This endpoint returns reply notes for a given note id. You can filter replies using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get replies for a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdRepliesGETWithHttpInfo(param: NotesApiV2NotesNoteIdRepliesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<NotesRepliesPaged>> {
+        return this.api.v2NotesNoteIdRepliesGETWithHttpInfo(param.noteId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  This endpoint returns reply notes for a given note id. You can filter replies using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get replies for a Note
+     * @param param the request object
+     */
+    public v2NotesNoteIdRepliesGET(param: NotesApiV2NotesNoteIdRepliesGETRequest, options?: ConfigurationOptions): Promise<NotesRepliesPaged> {
+        return this.api.v2NotesNoteIdRepliesGET(param.noteId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
+    }
+
+}
+
+import { ObservableOpportunitiesApi } from "./ObservableAPI.ts";
+import { OpportunitiesApiRequestFactory, OpportunitiesApiResponseProcessor} from "../apis/OpportunitiesApi.ts";
+
+export interface OpportunitiesApiV2OpportunitiesGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof OpportunitiesApiv2OpportunitiesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof OpportunitiesApiv2OpportunitiesGET
      */
     limit?: number
     /**
      * Opportunity IDs
      * Defaults to: undefined
      * @type Array&lt;number&gt;
-     * @memberof OpportunitiesApigetV2Opportunities
+     * @memberof OpportunitiesApiv2OpportunitiesGET
      */
     ids?: Array<number>
 }
 
-export interface OpportunitiesApiGetV2OpportunitiesIdRequest {
+export interface OpportunitiesApiV2OpportunitiesOpportunityIdGETRequest {
     /**
      * Opportunity ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
-     * @memberof OpportunitiesApigetV2OpportunitiesId
+     * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdGET
      */
-    id: number
+    opportunityId: number
+}
+
+export interface OpportunitiesApiV2OpportunitiesOpportunityIdNotesGETRequest {
+    /**
+     * Opportunity ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdNotesGET
+     */
+    opportunityId: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdNotesGET
+     */
+    filter?: string
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdNotesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdNotesGET
+     */
+    limit?: number
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof OpportunitiesApiv2OpportunitiesOpportunityIdNotesGET
+     */
+    totalCount?: boolean
 }
 
 export class ObjectOpportunitiesApi {
@@ -1016,8 +1903,8 @@ export class ObjectOpportunitiesApi {
      * Get all Opportunities
      * @param param the request object
      */
-    public getV2OpportunitiesWithHttpInfo(param: OpportunitiesApiGetV2OpportunitiesRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<OpportunityPaged>> {
-        return this.api.getV2OpportunitiesWithHttpInfo(param.cursor, param.limit, param.ids,  options).toPromise();
+    public v2OpportunitiesGETWithHttpInfo(param: OpportunitiesApiV2OpportunitiesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<OpportunityPaged>> {
+        return this.api.v2OpportunitiesGETWithHttpInfo(param.cursor, param.limit, param.ids,  options).toPromise();
     }
 
     /**
@@ -1025,8 +1912,8 @@ export class ObjectOpportunitiesApi {
      * Get all Opportunities
      * @param param the request object
      */
-    public getV2Opportunities(param: OpportunitiesApiGetV2OpportunitiesRequest = {}, options?: ConfigurationOptions): Promise<OpportunityPaged> {
-        return this.api.getV2Opportunities(param.cursor, param.limit, param.ids,  options).toPromise();
+    public v2OpportunitiesGET(param: OpportunitiesApiV2OpportunitiesGETRequest = {}, options?: ConfigurationOptions): Promise<OpportunityPaged> {
+        return this.api.v2OpportunitiesGET(param.cursor, param.limit, param.ids,  options).toPromise();
     }
 
     /**
@@ -1034,8 +1921,8 @@ export class ObjectOpportunitiesApi {
      * Get a single Opportunity
      * @param param the request object
      */
-    public getV2OpportunitiesIdWithHttpInfo(param: OpportunitiesApiGetV2OpportunitiesIdRequest, options?: ConfigurationOptions): Promise<HttpInfo<Opportunity>> {
-        return this.api.getV2OpportunitiesIdWithHttpInfo(param.id,  options).toPromise();
+    public v2OpportunitiesOpportunityIdGETWithHttpInfo(param: OpportunitiesApiV2OpportunitiesOpportunityIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<Opportunity>> {
+        return this.api.v2OpportunitiesOpportunityIdGETWithHttpInfo(param.opportunityId,  options).toPromise();
     }
 
     /**
@@ -1043,8 +1930,211 @@ export class ObjectOpportunitiesApi {
      * Get a single Opportunity
      * @param param the request object
      */
-    public getV2OpportunitiesId(param: OpportunitiesApiGetV2OpportunitiesIdRequest, options?: ConfigurationOptions): Promise<Opportunity> {
-        return this.api.getV2OpportunitiesId(param.id,  options).toPromise();
+    public v2OpportunitiesOpportunityIdGET(param: OpportunitiesApiV2OpportunitiesOpportunityIdGETRequest, options?: ConfigurationOptions): Promise<Opportunity> {
+        return this.api.v2OpportunitiesOpportunityIdGET(param.opportunityId,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns Notes for a given Opportunity which includes directly attached notes and those attached to persons on this Opportunity.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for an Opportunity
+     * @param param the request object
+     */
+    public v2OpportunitiesOpportunityIdNotesGETWithHttpInfo(param: OpportunitiesApiV2OpportunitiesOpportunityIdNotesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
+        return this.api.v2OpportunitiesOpportunityIdNotesGETWithHttpInfo(param.opportunityId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns Notes for a given Opportunity which includes directly attached notes and those attached to persons on this Opportunity.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for an Opportunity
+     * @param param the request object
+     */
+    public v2OpportunitiesOpportunityIdNotesGET(param: OpportunitiesApiV2OpportunitiesOpportunityIdNotesGETRequest, options?: ConfigurationOptions): Promise<NotesNotesPaged> {
+        return this.api.v2OpportunitiesOpportunityIdNotesGET(param.opportunityId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
+    }
+
+}
+
+import { ObservablePersonMergesApi } from "./ObservableAPI.ts";
+import { PersonMergesApiRequestFactory, PersonMergesApiResponseProcessor} from "../apis/PersonMergesApi.ts";
+
+export interface PersonMergesApiV2PersonMergesGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonMergesApiv2PersonMergesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 25
+     * @type number
+     * @memberof PersonMergesApiv2PersonMergesGET
+     */
+    limit?: number
+    /**
+     * Filter person merges using Affinity Filtering Language
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonMergesApiv2PersonMergesGET
+     */
+    filter?: string
+}
+
+export interface PersonMergesApiV2PersonMergesMergeIdGETRequest {
+    /**
+     * Person merge ID
+     * Minimum: 1
+     * Maximum: 9007199254740991
+     * Defaults to: undefined
+     * @type number
+     * @memberof PersonMergesApiv2PersonMergesMergeIdGET
+     */
+    mergeId: number
+}
+
+export interface PersonMergesApiV2PersonMergesPOSTRequest {
+    /**
+     * 
+     * @type PersonMergeRequest
+     * @memberof PersonMergesApiv2PersonMergesPOST
+     */
+    personMergeRequest: PersonMergeRequest
+}
+
+export interface PersonMergesApiV2TasksPersonMergesGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonMergesApiv2TasksPersonMergesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 25
+     * @type number
+     * @memberof PersonMergesApiv2TasksPersonMergesGET
+     */
+    limit?: number
+    /**
+     * Filter tasks using Affinity Filtering Language
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonMergesApiv2TasksPersonMergesGET
+     */
+    filter?: string
+}
+
+export interface PersonMergesApiV2TasksPersonMergesTaskIdGETRequest {
+    /**
+     * Person merge task ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonMergesApiv2TasksPersonMergesTaskIdGET
+     */
+    taskId: string
+}
+
+export class ObjectPersonMergesApi {
+    private api: ObservablePersonMergesApi
+
+    public constructor(configuration: Configuration, requestFactory?: PersonMergesApiRequestFactory, responseProcessor?: PersonMergesApiResponseProcessor) {
+        this.api = new ObservablePersonMergesApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Retrieve paginated person merges for the organization.   Returns all person merges initiated by users in your organization, including their current status, the persons involved, and merge details. You can filter person merges using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:   | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` | | `taskId` | `string` | `=` | | `taskId=789e0123-e45b-67c8-d901-234567890123` |   Person merges are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Person Merges
+     * @param param the request object
+     */
+    public v2PersonMergesGETWithHttpInfo(param: PersonMergesApiV2PersonMergesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<PersonMergeStatePaged>> {
+        return this.api.v2PersonMergesGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve paginated person merges for the organization.   Returns all person merges initiated by users in your organization, including their current status, the persons involved, and merge details. You can filter person merges using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:   | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` | | `taskId` | `string` | `=` | | `taskId=789e0123-e45b-67c8-d901-234567890123` |   Person merges are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Person Merges
+     * @param param the request object
+     */
+    public v2PersonMergesGET(param: PersonMergesApiV2PersonMergesGETRequest = {}, options?: ConfigurationOptions): Promise<PersonMergeStatePaged> {
+        return this.api.v2PersonMergesGET(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific person merge.  Returns information about the person merge including its current status, the persons involved, timestamps, and any error information if the merge failed.  The `mergeId` can be obtained from the response of the [Get All Person Merges](#tag/personMerges/operation/v2_person-merges__GET) endpoint, or by filtering person merges by task ID using `/v2/person-merges?filter=taskId={taskId}` after initiating a merge.  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Get Person Merge
+     * @param param the request object
+     */
+    public v2PersonMergesMergeIdGETWithHttpInfo(param: PersonMergesApiV2PersonMergesMergeIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<PersonMergeState>> {
+        return this.api.v2PersonMergesMergeIdGETWithHttpInfo(param.mergeId,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific person merge.  Returns information about the person merge including its current status, the persons involved, timestamps, and any error information if the merge failed.  The `mergeId` can be obtained from the response of the [Get All Person Merges](#tag/personMerges/operation/v2_person-merges__GET) endpoint, or by filtering person merges by task ID using `/v2/person-merges?filter=taskId={taskId}` after initiating a merge.  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Get Person Merge
+     * @param param the request object
+     */
+    public v2PersonMergesMergeIdGET(param: PersonMergesApiV2PersonMergesMergeIdGETRequest, options?: ConfigurationOptions): Promise<PersonMergeState> {
+        return this.api.v2PersonMergesMergeIdGET(param.mergeId,  options).toPromise();
+    }
+
+    /**
+     * Initiate a person merge to combine a duplicate person profile into a primary person profile.  This is an asynchronous process that will merge all data from the duplicate person into the primary person. Once the merge is initiated, you can track its progress using the returned [task URL](#tag/personMerges/operation/v2_tasks_person-merges_taskId__GET).  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Initiate Person Merge
+     * @param param the request object
+     */
+    public v2PersonMergesPOSTWithHttpInfo(param: PersonMergesApiV2PersonMergesPOSTRequest, options?: ConfigurationOptions): Promise<HttpInfo<PersonMergeResponse>> {
+        return this.api.v2PersonMergesPOSTWithHttpInfo(param.personMergeRequest,  options).toPromise();
+    }
+
+    /**
+     * Initiate a person merge to combine a duplicate person profile into a primary person profile.  This is an asynchronous process that will merge all data from the duplicate person into the primary person. Once the merge is initiated, you can track its progress using the returned [task URL](#tag/personMerges/operation/v2_tasks_person-merges_taskId__GET).  Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role.
+     * Initiate Person Merge
+     * @param param the request object
+     */
+    public v2PersonMergesPOST(param: PersonMergesApiV2PersonMergesPOSTRequest, options?: ConfigurationOptions): Promise<PersonMergeResponse> {
+        return this.api.v2PersonMergesPOST(param.personMergeRequest,  options).toPromise();
+    }
+
+    /**
+     * Retrieve paginated person merge tasks for the organization.   Returns all merge tasks initiated by users in your organization, including their current status, the persons involved, and task details.   You can filter tasks using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:  | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` |   Tasks are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Person Merge Tasks
+     * @param param the request object
+     */
+    public v2TasksPersonMergesGETWithHttpInfo(param: PersonMergesApiV2TasksPersonMergesGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<PersonMergeTaskPaged>> {
+        return this.api.v2TasksPersonMergesGETWithHttpInfo(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve paginated person merge tasks for the organization.   Returns all merge tasks initiated by users in your organization, including their current status, the persons involved, and task details.   You can filter tasks using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:  | Property | Type | Operators | Values | Examples | |----------|------|-----------|--------|----------| | `status` | `enum` | `=` | `in-progress`, `success`, `failed` | `status=failed` |   Tasks are returned in reverse chronological order (most recent first).   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get All Person Merge Tasks
+     * @param param the request object
+     */
+    public v2TasksPersonMergesGET(param: PersonMergesApiV2TasksPersonMergesGETRequest = {}, options?: ConfigurationOptions): Promise<PersonMergeTaskPaged> {
+        return this.api.v2TasksPersonMergesGET(param.cursor, param.limit, param.filter,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific task for person merges.   Returns information about the person merges for a specific task including its overall status, number of merges in-progress, completed, and failed.   Detailed information about individual merges for this task can be found by querying: `/v2/person-merges?filter=taskId={taskId}` See [Person Merges](#tag/personMerges/operation/v2_person-merges__GET) for more details.   Task statuses:  - `in-progress`: The merge task is currently being processed. - `success`: The merge task completed successfully. - `failed`: The merge task failed.   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get Person Merge Task
+     * @param param the request object
+     */
+    public v2TasksPersonMergesTaskIdGETWithHttpInfo(param: PersonMergesApiV2TasksPersonMergesTaskIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<PersonMergeTask>> {
+        return this.api.v2TasksPersonMergesTaskIdGETWithHttpInfo(param.taskId,  options).toPromise();
+    }
+
+    /**
+     * Retrieve the status and details of a specific task for person merges.   Returns information about the person merges for a specific task including its overall status, number of merges in-progress, completed, and failed.   Detailed information about individual merges for this task can be found by querying: `/v2/person-merges?filter=taskId={taskId}` See [Person Merges](#tag/personMerges/operation/v2_person-merges__GET) for more details.   Task statuses:  - `in-progress`: The merge task is currently being processed. - `success`: The merge task completed successfully. - `failed`: The merge task failed.   Requires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organization admin role. 
+     * Get Person Merge Task
+     * @param param the request object
+     */
+    public v2TasksPersonMergesTaskIdGET(param: PersonMergesApiV2TasksPersonMergesTaskIdGETRequest, options?: ConfigurationOptions): Promise<PersonMergeTask> {
+        return this.api.v2TasksPersonMergesTaskIdGET(param.taskId,  options).toPromise();
     }
 
 }
@@ -1052,12 +2142,12 @@ export class ObjectOpportunitiesApi {
 import { ObservablePersonsApi } from "./ObservableAPI.ts";
 import { PersonsApiRequestFactory, PersonsApiResponseProcessor} from "../apis/PersonsApi.ts";
 
-export interface PersonsApiGetV2PersonsRequest {
+export interface PersonsApiV2PersonsFieldsGETRequest {
     /**
      * Cursor for the next or previous page
      * Defaults to: undefined
      * @type string
-     * @memberof PersonsApigetV2Persons
+     * @memberof PersonsApiv2PersonsFieldsGET
      */
     cursor?: string
     /**
@@ -1066,92 +2156,92 @@ export interface PersonsApiGetV2PersonsRequest {
      * Maximum: 100
      * Defaults to: 100
      * @type number
-     * @memberof PersonsApigetV2Persons
+     * @memberof PersonsApiv2PersonsFieldsGET
+     */
+    limit?: number
+}
+
+export interface PersonsApiV2PersonsGETRequest {
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonsApiv2PersonsGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 1
+     * Maximum: 100
+     * Defaults to: 100
+     * @type number
+     * @memberof PersonsApiv2PersonsGET
      */
     limit?: number
     /**
      * People IDs
      * Defaults to: undefined
      * @type Array&lt;number&gt;
-     * @memberof PersonsApigetV2Persons
+     * @memberof PersonsApiv2PersonsGET
      */
     ids?: Array<number>
     /**
      * Field IDs for which to return field data
      * Defaults to: undefined
      * @type Array&lt;string&gt;
-     * @memberof PersonsApigetV2Persons
+     * @memberof PersonsApiv2PersonsGET
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
      * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
-     * @memberof PersonsApigetV2Persons
+     * @memberof PersonsApiv2PersonsGET
      */
     fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>
 }
 
-export interface PersonsApiGetV2PersonsFieldsRequest {
-    /**
-     * Cursor for the next or previous page
-     * Defaults to: undefined
-     * @type string
-     * @memberof PersonsApigetV2PersonsFields
-     */
-    cursor?: string
-    /**
-     * Number of items to include in the page
-     * Minimum: 1
-     * Maximum: 100
-     * Defaults to: 100
-     * @type number
-     * @memberof PersonsApigetV2PersonsFields
-     */
-    limit?: number
-}
-
-export interface PersonsApiGetV2PersonsIdRequest {
+export interface PersonsApiV2PersonsPersonIdGETRequest {
     /**
      * Person ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
-     * @memberof PersonsApigetV2PersonsId
+     * @memberof PersonsApiv2PersonsPersonIdGET
      */
-    id: number
+    personId: number
     /**
      * Field IDs for which to return field data
      * Defaults to: undefined
      * @type Array&lt;string&gt;
-     * @memberof PersonsApigetV2PersonsId
+     * @memberof PersonsApiv2PersonsPersonIdGET
      */
     fieldIds?: Array<string>
     /**
      * Field Types for which to return field data
      * Defaults to: undefined
      * @type Array&lt;&#39;enriched&#39; | &#39;global&#39; | &#39;relationship-intelligence&#39;&gt;
-     * @memberof PersonsApigetV2PersonsId
+     * @memberof PersonsApiv2PersonsPersonIdGET
      */
     fieldTypes?: Array<'enriched' | 'global' | 'relationship-intelligence'>
 }
 
-export interface PersonsApiGetV2PersonsIdListEntriesRequest {
+export interface PersonsApiV2PersonsPersonIdListEntriesGETRequest {
     /**
      * Persons ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
-     * @memberof PersonsApigetV2PersonsIdListEntries
+     * @memberof PersonsApiv2PersonsPersonIdListEntriesGET
      */
-    id: number
+    personId: number
     /**
      * Cursor for the next or previous page
      * Defaults to: undefined
      * @type string
-     * @memberof PersonsApigetV2PersonsIdListEntries
+     * @memberof PersonsApiv2PersonsPersonIdListEntriesGET
      */
     cursor?: string
     /**
@@ -1160,26 +2250,26 @@ export interface PersonsApiGetV2PersonsIdListEntriesRequest {
      * Maximum: 100
      * Defaults to: 100
      * @type number
-     * @memberof PersonsApigetV2PersonsIdListEntries
+     * @memberof PersonsApiv2PersonsPersonIdListEntriesGET
      */
     limit?: number
 }
 
-export interface PersonsApiGetV2PersonsIdListsRequest {
+export interface PersonsApiV2PersonsPersonIdListsGETRequest {
     /**
      * Persons ID
      * Minimum: 1
-     * Maximum: -9223372036854775616
+     * Maximum: 9223372036854776000
      * Defaults to: undefined
      * @type number
-     * @memberof PersonsApigetV2PersonsIdLists
+     * @memberof PersonsApiv2PersonsPersonIdListsGET
      */
-    id: number
+    personId: number
     /**
      * Cursor for the next or previous page
      * Defaults to: undefined
      * @type string
-     * @memberof PersonsApigetV2PersonsIdLists
+     * @memberof PersonsApiv2PersonsPersonIdListsGET
      */
     cursor?: string
     /**
@@ -1188,9 +2278,51 @@ export interface PersonsApiGetV2PersonsIdListsRequest {
      * Maximum: 100
      * Defaults to: 100
      * @type number
-     * @memberof PersonsApigetV2PersonsIdLists
+     * @memberof PersonsApiv2PersonsPersonIdListsGET
      */
     limit?: number
+}
+
+export interface PersonsApiV2PersonsPersonIdNotesGETRequest {
+    /**
+     * Persons ID
+     * Minimum: 1
+     * Maximum: 9223372036854776000
+     * Defaults to: undefined
+     * @type number
+     * @memberof PersonsApiv2PersonsPersonIdNotesGET
+     */
+    personId: number
+    /**
+     * Filter options
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonsApiv2PersonsPersonIdNotesGET
+     */
+    filter?: string
+    /**
+     * Cursor for the next or previous page
+     * Defaults to: undefined
+     * @type string
+     * @memberof PersonsApiv2PersonsPersonIdNotesGET
+     */
+    cursor?: string
+    /**
+     * Number of items to include in the page
+     * Minimum: 0
+     * Maximum: 100
+     * Defaults to: 20
+     * @type number
+     * @memberof PersonsApiv2PersonsPersonIdNotesGET
+     */
+    limit?: number
+    /**
+     * Include total count of the collection in the pagination response
+     * Defaults to: false
+     * @type boolean
+     * @memberof PersonsApiv2PersonsPersonIdNotesGET
+     */
+    totalCount?: boolean
 }
 
 export class ObjectPersonsApi {
@@ -1201,21 +2333,12 @@ export class ObjectPersonsApi {
     }
 
     /**
-     * Paginate through Persons in Affinity. Returns basic information and non-list-specific field data on each Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
-     * Get all Persons
+     * Returns metadata on non-list-specific Person Fields.  Use the returned Field IDs to request field data from the GET `/v2/persons` and GET `/v2/persons/{id}` endpoints.
+     * Get metadata on Person Fields
      * @param param the request object
      */
-    public getV2PersonsWithHttpInfo(param: PersonsApiGetV2PersonsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<PersonPaged>> {
-        return this.api.getV2PersonsWithHttpInfo(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
-    }
-
-    /**
-     * Paginate through Persons in Affinity. Returns basic information and non-list-specific field data on each Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
-     * Get all Persons
-     * @param param the request object
-     */
-    public getV2Persons(param: PersonsApiGetV2PersonsRequest = {}, options?: ConfigurationOptions): Promise<PersonPaged> {
-        return this.api.getV2Persons(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
+    public v2PersonsFieldsGETWithHttpInfo(param: PersonsApiV2PersonsFieldsGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
+        return this.api.v2PersonsFieldsGETWithHttpInfo(param.cursor, param.limit,  options).toPromise();
     }
 
     /**
@@ -1223,17 +2346,26 @@ export class ObjectPersonsApi {
      * Get metadata on Person Fields
      * @param param the request object
      */
-    public getV2PersonsFieldsWithHttpInfo(param: PersonsApiGetV2PersonsFieldsRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<FieldMetadataPaged>> {
-        return this.api.getV2PersonsFieldsWithHttpInfo(param.cursor, param.limit,  options).toPromise();
+    public v2PersonsFieldsGET(param: PersonsApiV2PersonsFieldsGETRequest = {}, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
+        return this.api.v2PersonsFieldsGET(param.cursor, param.limit,  options).toPromise();
     }
 
     /**
-     * Returns metadata on non-list-specific Person Fields.  Use the returned Field IDs to request field data from the GET `/v2/persons` and GET `/v2/persons/{id}` endpoints.
-     * Get metadata on Person Fields
+     * Paginate through Persons in Affinity. Returns basic information and non-list-specific field data on each Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
+     * Get all Persons
      * @param param the request object
      */
-    public getV2PersonsFields(param: PersonsApiGetV2PersonsFieldsRequest = {}, options?: ConfigurationOptions): Promise<FieldMetadataPaged> {
-        return this.api.getV2PersonsFields(param.cursor, param.limit,  options).toPromise();
+    public v2PersonsGETWithHttpInfo(param: PersonsApiV2PersonsGETRequest = {}, options?: ConfigurationOptions): Promise<HttpInfo<PersonPaged>> {
+        return this.api.v2PersonsGETWithHttpInfo(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
+    }
+
+    /**
+     * Paginate through Persons in Affinity. Returns basic information and non-list-specific field data on each Person.  To retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter to specify the Fields for which you want data returned. These Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint. When no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached. To supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this: `?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.  Requires the \"Export All People directory\" [permission](#section/Getting-Started/Permissions).
+     * Get all Persons
+     * @param param the request object
+     */
+    public v2PersonsGET(param: PersonsApiV2PersonsGETRequest = {}, options?: ConfigurationOptions): Promise<PersonPaged> {
+        return this.api.v2PersonsGET(param.cursor, param.limit, param.ids, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
     /**
@@ -1241,8 +2373,8 @@ export class ObjectPersonsApi {
      * Get a single Person
      * @param param the request object
      */
-    public getV2PersonsIdWithHttpInfo(param: PersonsApiGetV2PersonsIdRequest, options?: ConfigurationOptions): Promise<HttpInfo<Person>> {
-        return this.api.getV2PersonsIdWithHttpInfo(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
+    public v2PersonsPersonIdGETWithHttpInfo(param: PersonsApiV2PersonsPersonIdGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<Person>> {
+        return this.api.v2PersonsPersonIdGETWithHttpInfo(param.personId, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
     /**
@@ -1250,8 +2382,8 @@ export class ObjectPersonsApi {
      * Get a single Person
      * @param param the request object
      */
-    public getV2PersonsId(param: PersonsApiGetV2PersonsIdRequest, options?: ConfigurationOptions): Promise<Person> {
-        return this.api.getV2PersonsId(param.id, param.fieldIds, param.fieldTypes,  options).toPromise();
+    public v2PersonsPersonIdGET(param: PersonsApiV2PersonsPersonIdGETRequest, options?: ConfigurationOptions): Promise<Person> {
+        return this.api.v2PersonsPersonIdGET(param.personId, param.fieldIds, param.fieldTypes,  options).toPromise();
     }
 
     /**
@@ -1259,8 +2391,8 @@ export class ObjectPersonsApi {
      * Get a Person\'s List Entries
      * @param param the request object
      */
-    public getV2PersonsIdListEntriesWithHttpInfo(param: PersonsApiGetV2PersonsIdListEntriesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
-        return this.api.getV2PersonsIdListEntriesWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2PersonsPersonIdListEntriesGETWithHttpInfo(param: PersonsApiV2PersonsPersonIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListEntryPaged>> {
+        return this.api.v2PersonsPersonIdListEntriesGETWithHttpInfo(param.personId, param.cursor, param.limit,  options).toPromise();
     }
 
     /**
@@ -1268,26 +2400,44 @@ export class ObjectPersonsApi {
      * Get a Person\'s List Entries
      * @param param the request object
      */
-    public getV2PersonsIdListEntries(param: PersonsApiGetV2PersonsIdListEntriesRequest, options?: ConfigurationOptions): Promise<ListEntryPaged> {
-        return this.api.getV2PersonsIdListEntries(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2PersonsPersonIdListEntriesGET(param: PersonsApiV2PersonsPersonIdListEntriesGETRequest, options?: ConfigurationOptions): Promise<ListEntryPaged> {
+        return this.api.v2PersonsPersonIdListEntriesGET(param.personId, param.cursor, param.limit,  options).toPromise();
     }
 
     /**
-     * Returns metadata for all the Lists on which the given Person appears.
+     * Paginate through all Lists where the given Person appears as an entry and that you have access to view. Returns basic List information for each List that contains this Person.
      * Get a Person\'s Lists
      * @param param the request object
      */
-    public getV2PersonsIdListsWithHttpInfo(param: PersonsApiGetV2PersonsIdListsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListPaged>> {
-        return this.api.getV2PersonsIdListsWithHttpInfo(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2PersonsPersonIdListsGETWithHttpInfo(param: PersonsApiV2PersonsPersonIdListsGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListPaged>> {
+        return this.api.v2PersonsPersonIdListsGETWithHttpInfo(param.personId, param.cursor, param.limit,  options).toPromise();
     }
 
     /**
-     * Returns metadata for all the Lists on which the given Person appears.
+     * Paginate through all Lists where the given Person appears as an entry and that you have access to view. Returns basic List information for each List that contains this Person.
      * Get a Person\'s Lists
      * @param param the request object
      */
-    public getV2PersonsIdLists(param: PersonsApiGetV2PersonsIdListsRequest, options?: ConfigurationOptions): Promise<ListPaged> {
-        return this.api.getV2PersonsIdLists(param.id, param.cursor, param.limit,  options).toPromise();
+    public v2PersonsPersonIdListsGET(param: PersonsApiV2PersonsPersonIdListsGETRequest, options?: ConfigurationOptions): Promise<ListPaged> {
+        return this.api.v2PersonsPersonIdListsGET(param.personId, param.cursor, param.limit,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns notes for a given person id which includes directly attached notes, notes on meetings this person attended, and notes where this person is mentioned.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for a Person
+     * @param param the request object
+     */
+    public v2PersonsPersonIdNotesGETWithHttpInfo(param: PersonsApiV2PersonsPersonIdNotesGETRequest, options?: ConfigurationOptions): Promise<HttpInfo<NotesNotesPaged>> {
+        return this.api.v2PersonsPersonIdNotesGETWithHttpInfo(param.personId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
+    }
+
+    /**
+     * | ⚠️  This endpoint is currently in BETA | |--|  Returns notes for a given person id which includes directly attached notes, notes on meetings this person attended, and notes where this person is mentioned.  You can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties. | **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    | |-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------| | `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  | | `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` | | `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`| 
+     * Get Notes for a Person
+     * @param param the request object
+     */
+    public v2PersonsPersonIdNotesGET(param: PersonsApiV2PersonsPersonIdNotesGETRequest, options?: ConfigurationOptions): Promise<NotesNotesPaged> {
+        return this.api.v2PersonsPersonIdNotesGET(param.personId, param.filter, param.cursor, param.limit, param.totalCount,  options).toPromise();
     }
 
 }

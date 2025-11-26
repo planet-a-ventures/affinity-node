@@ -70,7 +70,7 @@ const config = createConfiguration({
     },
 })
 const authApi = new ObjectAuthApi(config)
-const { tenant } = await authApi.getV2AuthWhoami()
+const { tenant } = await authApi.v2AuthWhoamiGET()
 console.log(tenant.name)
 ```
 
@@ -91,7 +91,7 @@ const companiesApi = new CompaniesApi(config)
 
 for await (
     const page of paginated(
-        companiesApi.getV2Companies.bind(companiesApi),
+        companiesApi.v2CompaniesGET.bind(companiesApi),
     )({
         limit: 10,
     })

@@ -1,4 +1,5 @@
 export * from '../models/Attendee.ts';
+export * from '../models/AttendeesPreview.ts';
 export * from '../models/AuthenticationError.ts';
 export * from '../models/AuthorizationError.ts';
 export * from '../models/AuthorizationErrors.ts';
@@ -8,7 +9,15 @@ export * from '../models/CompaniesValue.ts';
 export * from '../models/CompaniesValueUpdate.ts';
 export * from '../models/Company.ts';
 export * from '../models/CompanyData.ts';
+export * from '../models/CompanyDataPaged.ts';
 export * from '../models/CompanyListEntry.ts';
+export * from '../models/CompanyMergeRequest.ts';
+export * from '../models/CompanyMergeResponse.ts';
+export * from '../models/CompanyMergeState.ts';
+export * from '../models/CompanyMergeStatePaged.ts';
+export * from '../models/CompanyMergeTask.ts';
+export * from '../models/CompanyMergeTaskPaged.ts';
+export * from '../models/CompanyMergeTaskResultsSummary.ts';
 export * from '../models/CompanyPaged.ts';
 export * from '../models/CompanyReference.ts';
 export * from '../models/CompanyValue.ts';
@@ -35,10 +44,16 @@ export * from '../models/FloatsValue.ts';
 export * from '../models/FormulaNumber.ts';
 export * from '../models/FormulaValue.ts';
 export * from '../models/Grant.ts';
-export * from '../models/InlineObject.ts';
-export * from '../models/InlineObjectErrorsInner.ts';
 export * from '../models/Interaction.ts';
 export * from '../models/InteractionValue.ts';
+export * from '../models/InteractionsCall.ts';
+export * from '../models/InteractionsCallPaged.ts';
+export * from '../models/InteractionsChatMessage.ts';
+export * from '../models/InteractionsChatMessagePaged.ts';
+export * from '../models/InteractionsEmail.ts';
+export * from '../models/InteractionsEmailPaged.ts';
+export * from '../models/InteractionsMeeting.ts';
+export * from '../models/InteractionsMeetingPaged.ts';
 export * from '../models/List.ts';
 export * from '../models/ListEntry.ts';
 export * from '../models/ListEntryBatchOperationResponse.ts';
@@ -61,14 +76,47 @@ export * from '../models/NotAcceptableError.ts';
 export * from '../models/NotFoundError.ts';
 export * from '../models/NotFoundErrors.ts';
 export * from '../models/NotImplementedError.ts';
+export * from '../models/NotesAiNotetakerReplyNote.ts';
+export * from '../models/NotesAiNotetakerRootNote.ts';
+export * from '../models/NotesBaseNote.ts';
+export * from '../models/NotesBaseReply.ts';
+export * from '../models/NotesBaseReplyParent.ts';
+export * from '../models/NotesBaseRootNote.ts';
+export * from '../models/NotesCallInteraction.ts';
+export * from '../models/NotesChatMessageInteraction.ts';
+export * from '../models/NotesCompaniesPreview.ts';
+export * from '../models/NotesContent.ts';
+export * from '../models/NotesEmailInteraction.ts';
+export * from '../models/NotesEntitiesNote.ts';
+export * from '../models/NotesInteraction.ts';
+export * from '../models/NotesInteractionNote.ts';
+export * from '../models/NotesMeetingInteraction.ts';
+export * from '../models/NotesNote.ts';
+export * from '../models/NotesNotesPaged.ts';
+export * from '../models/NotesOpportunitiesPreview.ts';
+export * from '../models/NotesPermissionSettings.ts';
+export * from '../models/NotesPersonMention.ts';
+export * from '../models/NotesPersonsPreview.ts';
+export * from '../models/NotesRepliesPaged.ts';
+export * from '../models/NotesReply.ts';
+export * from '../models/NotesUserReplyNote.ts';
 export * from '../models/Opportunity.ts';
 export * from '../models/OpportunityListEntry.ts';
 export * from '../models/OpportunityPaged.ts';
 export * from '../models/OpportunityWithFields.ts';
 export * from '../models/Pagination.ts';
+export * from '../models/PaginationWithTotalCount.ts';
 export * from '../models/Person.ts';
 export * from '../models/PersonData.ts';
+export * from '../models/PersonDataPaged.ts';
+export * from '../models/PersonDataPreview.ts';
 export * from '../models/PersonListEntry.ts';
+export * from '../models/PersonMergeRequest.ts';
+export * from '../models/PersonMergeResponse.ts';
+export * from '../models/PersonMergeState.ts';
+export * from '../models/PersonMergeStatePaged.ts';
+export * from '../models/PersonMergeTask.ts';
+export * from '../models/PersonMergeTaskPaged.ts';
 export * from '../models/PersonPaged.ts';
 export * from '../models/PersonReference.ts';
 export * from '../models/PersonValue.ts';
@@ -81,6 +129,8 @@ export * from '../models/RankedDropdownReference.ts';
 export * from '../models/RankedDropdownValue.ts';
 export * from '../models/RankedDropdownValueUpdate.ts';
 export * from '../models/RateLimitError.ts';
+export * from '../models/Responses400.ts';
+export * from '../models/Responses400ErrorsInner.ts';
 export * from '../models/SavedView.ts';
 export * from '../models/SavedViewPaged.ts';
 export * from '../models/ServerError.ts';
@@ -94,6 +144,7 @@ export * from '../models/ValidationError.ts';
 export * from '../models/WhoAmI.ts';
 
 import { Attendee } from '../models/Attendee.ts';
+import { AttendeesPreview } from '../models/AttendeesPreview.ts';
 import { AuthenticationError, AuthenticationErrorCodeEnum    } from '../models/AuthenticationError.ts';
 import { AuthorizationError, AuthorizationErrorCodeEnum    } from '../models/AuthorizationError.ts';
 import { AuthorizationErrors } from '../models/AuthorizationErrors.ts';
@@ -103,7 +154,15 @@ import { CompaniesValue, CompaniesValueTypeEnum    } from '../models/CompaniesVa
 import { CompaniesValueUpdate, CompaniesValueUpdateTypeEnum    } from '../models/CompaniesValueUpdate.ts';
 import { Company } from '../models/Company.ts';
 import { CompanyData } from '../models/CompanyData.ts';
+import { CompanyDataPaged } from '../models/CompanyDataPaged.ts';
 import { CompanyListEntry , CompanyListEntryTypeEnum       } from '../models/CompanyListEntry.ts';
+import { CompanyMergeRequest } from '../models/CompanyMergeRequest.ts';
+import { CompanyMergeResponse } from '../models/CompanyMergeResponse.ts';
+import { CompanyMergeState , CompanyMergeStateStatusEnum         } from '../models/CompanyMergeState.ts';
+import { CompanyMergeStatePaged } from '../models/CompanyMergeStatePaged.ts';
+import { CompanyMergeTask , CompanyMergeTaskStatusEnum    } from '../models/CompanyMergeTask.ts';
+import { CompanyMergeTaskPaged } from '../models/CompanyMergeTaskPaged.ts';
+import { CompanyMergeTaskResultsSummary } from '../models/CompanyMergeTaskResultsSummary.ts';
 import { CompanyPaged } from '../models/CompanyPaged.ts';
 import { CompanyReference } from '../models/CompanyReference.ts';
 import { CompanyValue, CompanyValueTypeEnum    } from '../models/CompanyValue.ts';
@@ -130,10 +189,16 @@ import { FloatsValue, FloatsValueTypeEnum    } from '../models/FloatsValue.ts';
 import { FormulaNumber } from '../models/FormulaNumber.ts';
 import { FormulaValue, FormulaValueTypeEnum    } from '../models/FormulaValue.ts';
 import { Grant, GrantTypeEnum     } from '../models/Grant.ts';
-import { InlineObject } from '../models/InlineObject.ts';
-import { InlineObjectErrorsInnerClass } from '../models/InlineObjectErrorsInner.ts';
 import { InteractionClass } from '../models/Interaction.ts';
 import { InteractionValue, InteractionValueTypeEnum    } from '../models/InteractionValue.ts';
+import { InteractionsCall , InteractionsCallLoggingTypeEnum           } from '../models/InteractionsCall.ts';
+import { InteractionsCallPaged } from '../models/InteractionsCallPaged.ts';
+import { InteractionsChatMessage  , InteractionsChatMessageLoggingTypeEnum  , InteractionsChatMessageDirectionEnum       } from '../models/InteractionsChatMessage.ts';
+import { InteractionsChatMessagePaged } from '../models/InteractionsChatMessagePaged.ts';
+import { InteractionsEmail  , InteractionsEmailLoggingTypeEnum  , InteractionsEmailDirectionEnum         } from '../models/InteractionsEmail.ts';
+import { InteractionsEmailPaged } from '../models/InteractionsEmailPaged.ts';
+import { InteractionsMeeting , InteractionsMeetingLoggingTypeEnum            } from '../models/InteractionsMeeting.ts';
+import { InteractionsMeetingPaged } from '../models/InteractionsMeetingPaged.ts';
 import { List } from '../models/List.ts';
 import { ListEntry } from '../models/ListEntry.ts';
 import { ListEntryBatchOperationResponse  } from '../models/ListEntryBatchOperationResponse.ts';
@@ -149,21 +214,54 @@ import { ListWithTypePaged } from '../models/ListWithTypePaged.ts';
 import { Location } from '../models/Location.ts';
 import { LocationValue, LocationValueTypeEnum    } from '../models/LocationValue.ts';
 import { LocationsValue, LocationsValueTypeEnum    } from '../models/LocationsValue.ts';
-import { Meeting } from '../models/Meeting.ts';
+import { Meeting, MeetingTypeEnum         } from '../models/Meeting.ts';
 import { MethodNotAllowedError, MethodNotAllowedErrorCodeEnum    } from '../models/MethodNotAllowedError.ts';
 import { ModelErrorClass } from '../models/ModelError.ts';
 import { NotAcceptableError, NotAcceptableErrorCodeEnum    } from '../models/NotAcceptableError.ts';
 import { NotFoundError, NotFoundErrorCodeEnum    } from '../models/NotFoundError.ts';
 import { NotFoundErrors } from '../models/NotFoundErrors.ts';
 import { NotImplementedError, NotImplementedErrorCodeEnum    } from '../models/NotImplementedError.ts';
+import { NotesAiNotetakerReplyNote       , NotesAiNotetakerReplyNoteTypeEnum    } from '../models/NotesAiNotetakerReplyNote.ts';
+import { NotesAiNotetakerRootNote           , NotesAiNotetakerRootNoteTypeEnum    } from '../models/NotesAiNotetakerRootNote.ts';
+import { NotesBaseNote } from '../models/NotesBaseNote.ts';
+import { NotesBaseReply } from '../models/NotesBaseReply.ts';
+import { NotesBaseReplyParent } from '../models/NotesBaseReplyParent.ts';
+import { NotesBaseRootNote } from '../models/NotesBaseRootNote.ts';
+import { NotesCallInteraction , NotesCallInteractionTypeEnum   } from '../models/NotesCallInteraction.ts';
+import { NotesChatMessageInteraction , NotesChatMessageInteractionTypeEnum   } from '../models/NotesChatMessageInteraction.ts';
+import { NotesCompaniesPreview } from '../models/NotesCompaniesPreview.ts';
+import { NotesContent } from '../models/NotesContent.ts';
+import { NotesEmailInteraction , NotesEmailInteractionTypeEnum   } from '../models/NotesEmailInteraction.ts';
+import { NotesEntitiesNote           , NotesEntitiesNoteTypeEnum   } from '../models/NotesEntitiesNote.ts';
+import { NotesInteractionClass } from '../models/NotesInteraction.ts';
+import { NotesInteractionNote           , NotesInteractionNoteTypeEnum    } from '../models/NotesInteractionNote.ts';
+import { NotesMeetingInteraction , NotesMeetingInteractionTypeEnum   } from '../models/NotesMeetingInteraction.ts';
+import { NotesNoteClass } from '../models/NotesNote.ts';
+import { NotesNotesPaged } from '../models/NotesNotesPaged.ts';
+import { NotesOpportunitiesPreview } from '../models/NotesOpportunitiesPreview.ts';
+import { NotesPermissionSettings, NotesPermissionSettingsSharingTypeEnum    } from '../models/NotesPermissionSettings.ts';
+import { NotesPersonMention , NotesPersonMentionTypeEnum    } from '../models/NotesPersonMention.ts';
+import { NotesPersonsPreview } from '../models/NotesPersonsPreview.ts';
+import { NotesRepliesPaged } from '../models/NotesRepliesPaged.ts';
+import { NotesReplyClass } from '../models/NotesReply.ts';
+import { NotesUserReplyNote       , NotesUserReplyNoteTypeEnum   } from '../models/NotesUserReplyNote.ts';
 import { Opportunity } from '../models/Opportunity.ts';
 import { OpportunityListEntry , OpportunityListEntryTypeEnum       } from '../models/OpportunityListEntry.ts';
 import { OpportunityPaged } from '../models/OpportunityPaged.ts';
 import { OpportunityWithFields } from '../models/OpportunityWithFields.ts';
 import { Pagination } from '../models/Pagination.ts';
+import { PaginationWithTotalCount } from '../models/PaginationWithTotalCount.ts';
 import { Person     , PersonTypeEnum    } from '../models/Person.ts';
 import { PersonData    , PersonDataTypeEnum   } from '../models/PersonData.ts';
+import { PersonDataPaged } from '../models/PersonDataPaged.ts';
+import { PersonDataPreview } from '../models/PersonDataPreview.ts';
 import { PersonListEntry , PersonListEntryTypeEnum       } from '../models/PersonListEntry.ts';
+import { PersonMergeRequest } from '../models/PersonMergeRequest.ts';
+import { PersonMergeResponse } from '../models/PersonMergeResponse.ts';
+import { PersonMergeState , PersonMergeStateStatusEnum         } from '../models/PersonMergeState.ts';
+import { PersonMergeStatePaged } from '../models/PersonMergeStatePaged.ts';
+import { PersonMergeTask , PersonMergeTaskStatusEnum    } from '../models/PersonMergeTask.ts';
+import { PersonMergeTaskPaged } from '../models/PersonMergeTaskPaged.ts';
 import { PersonPaged } from '../models/PersonPaged.ts';
 import { PersonReference } from '../models/PersonReference.ts';
 import { PersonValue, PersonValueTypeEnum    } from '../models/PersonValue.ts';
@@ -176,6 +274,8 @@ import { RankedDropdownReference } from '../models/RankedDropdownReference.ts';
 import { RankedDropdownValue, RankedDropdownValueTypeEnum    } from '../models/RankedDropdownValue.ts';
 import { RankedDropdownValueUpdate, RankedDropdownValueUpdateTypeEnum    } from '../models/RankedDropdownValueUpdate.ts';
 import { RateLimitError, RateLimitErrorCodeEnum    } from '../models/RateLimitError.ts';
+import { Responses400 } from '../models/Responses400.ts';
+import { Responses400ErrorsInnerClass } from '../models/Responses400ErrorsInner.ts';
 import { SavedView  , SavedViewTypeEnum    } from '../models/SavedView.ts';
 import { SavedViewPaged } from '../models/SavedViewPaged.ts';
 import { ServerError, ServerErrorCodeEnum    } from '../models/ServerError.ts';
@@ -209,6 +309,8 @@ let enumsMap: Set<string> = new Set<string>([
     "CompaniesValueTypeEnum",
     "CompaniesValueUpdateTypeEnum",
     "CompanyListEntryTypeEnum",
+    "CompanyMergeStateStatusEnum",
+    "CompanyMergeTaskStatusEnum",
     "CompanyValueTypeEnum",
     "CompanyValueUpdateTypeEnum",
     "ConflictErrorCodeEnum",
@@ -229,24 +331,47 @@ let enumsMap: Set<string> = new Set<string>([
     "FloatsValueTypeEnum",
     "FormulaValueTypeEnum",
     "GrantTypeEnum",
-    "InlineObjectErrorsInnerCodeEnum",
+    "InteractionTypeEnum",
     "InteractionDirectionEnum",
     "InteractionValueTypeEnum",
+    "InteractionsCallLoggingTypeEnum",
+    "InteractionsChatMessageLoggingTypeEnum",
+    "InteractionsChatMessageDirectionEnum",
+    "InteractionsEmailLoggingTypeEnum",
+    "InteractionsEmailDirectionEnum",
+    "InteractionsMeetingLoggingTypeEnum",
     "ListEntryBatchOperationUpdateFieldsOperationEnum",
     "ListEntryBatchOperations",
     "ListEntryWithEntityTypeEnum",
     "ListWithTypeTypeEnum",
     "LocationValueTypeEnum",
     "LocationsValueTypeEnum",
+    "MeetingTypeEnum",
     "MethodNotAllowedErrorCodeEnum",
     "ModelErrorCodeEnum",
     "NotAcceptableErrorCodeEnum",
     "NotFoundErrorCodeEnum",
     "NotImplementedErrorCodeEnum",
+    "NotesAiNotetakerReplyNoteTypeEnum",
+    "NotesAiNotetakerRootNoteTypeEnum",
+    "NotesCallInteractionTypeEnum",
+    "NotesChatMessageInteractionTypeEnum",
+    "NotesEmailInteractionTypeEnum",
+    "NotesEntitiesNoteTypeEnum",
+    "NotesInteractionTypeEnum",
+    "NotesInteractionNoteTypeEnum",
+    "NotesMeetingInteractionTypeEnum",
+    "NotesNoteTypeEnum",
+    "NotesPermissionSettingsSharingTypeEnum",
+    "NotesPersonMentionTypeEnum",
+    "NotesReplyTypeEnum",
+    "NotesUserReplyNoteTypeEnum",
     "OpportunityListEntryTypeEnum",
     "PersonTypeEnum",
     "PersonDataTypeEnum",
     "PersonListEntryTypeEnum",
+    "PersonMergeStateStatusEnum",
+    "PersonMergeTaskStatusEnum",
     "PersonValueTypeEnum",
     "PersonValueUpdateTypeEnum",
     "PersonsValueTypeEnum",
@@ -255,6 +380,7 @@ let enumsMap: Set<string> = new Set<string>([
     "RankedDropdownValueTypeEnum",
     "RankedDropdownValueUpdateTypeEnum",
     "RateLimitErrorCodeEnum",
+    "Responses400ErrorsInnerCodeEnum",
     "SavedViewTypeEnum",
     "ServerErrorCodeEnum",
     "TextValueTypeEnum",
@@ -266,6 +392,7 @@ let enumsMap: Set<string> = new Set<string>([
 
 let typeMap: {[index: string]: any} = {
     "Attendee": Attendee,
+    "AttendeesPreview": AttendeesPreview,
     "AuthenticationError": AuthenticationError,
     "AuthorizationError": AuthorizationError,
     "AuthorizationErrors": AuthorizationErrors,
@@ -275,7 +402,15 @@ let typeMap: {[index: string]: any} = {
     "CompaniesValueUpdate": CompaniesValueUpdate,
     "Company": Company,
     "CompanyData": CompanyData,
+    "CompanyDataPaged": CompanyDataPaged,
     "CompanyListEntry": CompanyListEntry,
+    "CompanyMergeRequest": CompanyMergeRequest,
+    "CompanyMergeResponse": CompanyMergeResponse,
+    "CompanyMergeState": CompanyMergeState,
+    "CompanyMergeStatePaged": CompanyMergeStatePaged,
+    "CompanyMergeTask": CompanyMergeTask,
+    "CompanyMergeTaskPaged": CompanyMergeTaskPaged,
+    "CompanyMergeTaskResultsSummary": CompanyMergeTaskResultsSummary,
     "CompanyPaged": CompanyPaged,
     "CompanyReference": CompanyReference,
     "CompanyValue": CompanyValue,
@@ -302,10 +437,16 @@ let typeMap: {[index: string]: any} = {
     "FormulaNumber": FormulaNumber,
     "FormulaValue": FormulaValue,
     "Grant": Grant,
-    "InlineObject": InlineObject,
-    "InlineObjectErrorsInner": InlineObjectErrorsInnerClass,
     "Interaction": InteractionClass,
     "InteractionValue": InteractionValue,
+    "InteractionsCall": InteractionsCall,
+    "InteractionsCallPaged": InteractionsCallPaged,
+    "InteractionsChatMessage": InteractionsChatMessage,
+    "InteractionsChatMessagePaged": InteractionsChatMessagePaged,
+    "InteractionsEmail": InteractionsEmail,
+    "InteractionsEmailPaged": InteractionsEmailPaged,
+    "InteractionsMeeting": InteractionsMeeting,
+    "InteractionsMeetingPaged": InteractionsMeetingPaged,
     "List": List,
     "ListEntry": ListEntry,
     "ListEntryBatchOperationResponse": ListEntryBatchOperationResponse,
@@ -327,14 +468,47 @@ let typeMap: {[index: string]: any} = {
     "NotFoundError": NotFoundError,
     "NotFoundErrors": NotFoundErrors,
     "NotImplementedError": NotImplementedError,
+    "NotesAiNotetakerReplyNote": NotesAiNotetakerReplyNote,
+    "NotesAiNotetakerRootNote": NotesAiNotetakerRootNote,
+    "NotesBaseNote": NotesBaseNote,
+    "NotesBaseReply": NotesBaseReply,
+    "NotesBaseReplyParent": NotesBaseReplyParent,
+    "NotesBaseRootNote": NotesBaseRootNote,
+    "NotesCallInteraction": NotesCallInteraction,
+    "NotesChatMessageInteraction": NotesChatMessageInteraction,
+    "NotesCompaniesPreview": NotesCompaniesPreview,
+    "NotesContent": NotesContent,
+    "NotesEmailInteraction": NotesEmailInteraction,
+    "NotesEntitiesNote": NotesEntitiesNote,
+    "NotesInteraction": NotesInteractionClass,
+    "NotesInteractionNote": NotesInteractionNote,
+    "NotesMeetingInteraction": NotesMeetingInteraction,
+    "NotesNote": NotesNoteClass,
+    "NotesNotesPaged": NotesNotesPaged,
+    "NotesOpportunitiesPreview": NotesOpportunitiesPreview,
+    "NotesPermissionSettings": NotesPermissionSettings,
+    "NotesPersonMention": NotesPersonMention,
+    "NotesPersonsPreview": NotesPersonsPreview,
+    "NotesRepliesPaged": NotesRepliesPaged,
+    "NotesReply": NotesReplyClass,
+    "NotesUserReplyNote": NotesUserReplyNote,
     "Opportunity": Opportunity,
     "OpportunityListEntry": OpportunityListEntry,
     "OpportunityPaged": OpportunityPaged,
     "OpportunityWithFields": OpportunityWithFields,
     "Pagination": Pagination,
+    "PaginationWithTotalCount": PaginationWithTotalCount,
     "Person": Person,
     "PersonData": PersonData,
+    "PersonDataPaged": PersonDataPaged,
+    "PersonDataPreview": PersonDataPreview,
     "PersonListEntry": PersonListEntry,
+    "PersonMergeRequest": PersonMergeRequest,
+    "PersonMergeResponse": PersonMergeResponse,
+    "PersonMergeState": PersonMergeState,
+    "PersonMergeStatePaged": PersonMergeStatePaged,
+    "PersonMergeTask": PersonMergeTask,
+    "PersonMergeTaskPaged": PersonMergeTaskPaged,
     "PersonPaged": PersonPaged,
     "PersonReference": PersonReference,
     "PersonValue": PersonValue,
@@ -347,6 +521,8 @@ let typeMap: {[index: string]: any} = {
     "RankedDropdownValue": RankedDropdownValue,
     "RankedDropdownValueUpdate": RankedDropdownValueUpdate,
     "RateLimitError": RateLimitError,
+    "Responses400": Responses400,
+    "Responses400ErrorsInner": Responses400ErrorsInnerClass,
     "SavedView": SavedView,
     "SavedViewPaged": SavedViewPaged,
     "ServerError": ServerError,
@@ -488,13 +664,16 @@ export class ObjectSerializer {
             }
             return transformedData;
         } else if (type === "Date") {
+            if (!(data instanceof Date)) {
+                return data;
+            }
             if (format == "date") {
                 let month = data.getMonth()+1
-                month = month < 10 ? "0" + month.toString() : month.toString()
+                let monthStr = month < 10 ? "0" + month.toString() : month.toString()
                 let day = data.getDate();
-                day = day < 10 ? "0" + day.toString() : day.toString();
+                let dayStr = day < 10 ? "0" + day.toString() : day.toString();
 
-                return data.getFullYear() + "-" + month + "-" + day;
+                return data.getFullYear() + "-" + monthStr + "-" + dayStr;
             } else {
                 return data.toISOString();
             }
